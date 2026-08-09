@@ -168,7 +168,7 @@ final class Pricing_Table extends Widget_Base {
 				<ul class="decent-grid">
 					<?php foreach ( $plans as $plan ) : ?>
 						<?php
-						$features = array_values( array_filter( array_map( 'trim', preg_split( '/\R/', (string) ( $plan['features'] ?? '' ) ) ?: array() ) ) );
+						$features = array_values( array_filter( array_map( 'trim', (array) preg_split( '/\R/', (string) ( $plan['features'] ?? '' ) ) ) ) );
 						$link     = (array) ( $plan['button_url'] ?? array() );
 						$url      = (string) ( $link['url'] ?? '' );
 						$featured = 'yes' === ( $plan['featured'] ?? '' );

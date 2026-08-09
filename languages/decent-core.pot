@@ -1,0 +1,1551 @@
+# Copyright (C) 2026 Decent Themes
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Decent Core 1.0.0-alpha\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/decent-core\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-09T06:25:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: decent-core\n"
+
+#. Plugin Name of the plugin
+#: decent-core.php
+#: includes/Admin/Admin_Page.php:56
+msgid "Decent Core"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: decent-core.php
+msgid "https://decentthemes.com/decent-core"
+msgstr ""
+
+#. Description of the plugin
+#: decent-core.php
+msgid "Elementor widgets, header and footer builder, and Easy Digital Downloads extensions for the Decent Themes marketplace."
+msgstr ""
+
+#. Author of the plugin
+#: decent-core.php
+msgid "Decent Themes"
+msgstr ""
+
+#. Author URI of the plugin
+#: decent-core.php
+msgid "https://decentthemes.com/"
+msgstr ""
+
+#: config/settings.php:26
+msgid "Breadcrumbs"
+msgstr ""
+
+#: config/settings.php:27
+msgid "Show the breadcrumb trail on archives and single products."
+msgstr ""
+
+#: config/settings.php:34
+msgid "Back to top button"
+msgstr ""
+
+#: config/settings.php:35
+msgid "Appears after the visitor scrolls past one viewport."
+msgstr ""
+
+#: config/settings.php:44
+msgid "Header & Footer Builder"
+msgstr ""
+
+#: config/settings.php:45
+msgid "Build headers and footers in Elementor and assign them by condition."
+msgstr ""
+
+#: config/settings.php:52
+msgid "Mega Menu"
+msgstr ""
+
+#: config/settings.php:53
+msgid "Adds an Elementor content panel to any menu item."
+msgstr ""
+
+#: config/settings.php:60
+msgid "Product widgets"
+msgstr ""
+
+#: config/settings.php:61
+msgid "Elementor widgets that read Easy Digital Downloads products. Requires EDD."
+msgstr ""
+
+#: config/settings.php:70
+msgid "Combine widget assets"
+msgstr ""
+
+#: config/settings.php:71
+msgid "Writes one CSS and one JS file per widget combination to the uploads folder, instead of one request per widget. Falls back automatically if uploads is not writable."
+msgstr ""
+
+#: config/settings.php:78
+msgid "Minify bundled assets"
+msgstr ""
+
+#: config/settings.php:79
+msgid "Strips comments and whitespace. No renaming or restructuring."
+msgstr ""
+
+#: config/settings.php:86
+msgid "Skip Elementor icon fonts on the front end"
+msgstr ""
+
+#: config/settings.php:87
+msgid "The theme uses inline SVG. Turn this on only if no widget on the site uses an Elementor icon."
+msgstr ""
+
+#: config/settings.php:94
+msgid "Match Elementor breakpoints to the theme"
+msgstr ""
+
+#: config/settings.php:95
+msgid "Sets Elementor to 1180 / 1024 / 900 / 768 / 560 so editor previews agree with the stylesheet. Without this, widget overrides and the theme CSS disagree about what \"tablet\" means."
+msgstr ""
+
+#: config/settings.php:106
+msgid "Products per page"
+msgstr ""
+
+#: config/settings.php:107
+msgid "Applies to the catalogue and to product category archives."
+msgstr ""
+
+#: config/settings.php:116
+msgid "Best seller threshold"
+msgstr ""
+
+#: config/settings.php:117
+msgid "Sales at or above this number earn the BEST SELLER badge."
+msgstr ""
+
+#: config/settings.php:126
+msgid "New badge window (days)"
+msgstr ""
+
+#: config/settings.php:127
+msgid "Products published within this many days show the NEW badge, which takes precedence over BEST SELLER."
+msgstr ""
+
+#: config/settings.php:135
+msgid "Default catalogue sort"
+msgstr ""
+
+#: config/settings.php:136
+msgid "The order used when the visitor has not chosen one."
+msgstr ""
+
+#: config/widgets.php:28
+msgid "Hero Search"
+msgstr ""
+
+#: config/widgets.php:41
+msgid "Category Grid"
+msgstr ""
+
+#: config/widgets.php:54
+msgid "Feature Grid"
+msgstr ""
+
+#: config/widgets.php:67
+msgid "Benefit Grid"
+msgstr ""
+
+#: config/widgets.php:80
+msgid "Guarantee Grid"
+msgstr ""
+
+#: config/widgets.php:93
+msgid "Statistics Counter"
+msgstr ""
+
+#: config/widgets.php:106
+msgid "FAQ Accordion"
+msgstr ""
+
+#: config/widgets.php:119
+msgid "CTA"
+msgstr ""
+
+#: config/widgets.php:132
+msgid "Promo Card"
+msgstr ""
+
+#: config/widgets.php:145
+#: includes/Elementor/Widgets/Breadcrumb.php:39
+msgid "Breadcrumb"
+msgstr ""
+
+#: config/widgets.php:158
+msgid "Product Grid"
+msgstr ""
+
+#: config/widgets.php:171
+msgid "Product Rank List"
+msgstr ""
+
+#: config/widgets.php:184
+msgid "Hero Split"
+msgstr ""
+
+#: config/widgets.php:197
+msgid "Trust Band"
+msgstr ""
+
+#: config/widgets.php:210
+msgid "Showcase"
+msgstr ""
+
+#: config/widgets.php:223
+msgid "Newsletter"
+msgstr ""
+
+#: config/widgets.php:236
+msgid "Plugin List"
+msgstr ""
+
+#: config/widgets.php:249
+msgid "Product Slider"
+msgstr ""
+
+#: config/widgets.php:262
+msgid "Product Archive"
+msgstr ""
+
+#: config/widgets.php:275
+msgid "Product Hero"
+msgstr ""
+
+#: config/widgets.php:288
+msgid "Product Tabs"
+msgstr ""
+
+#: config/widgets.php:301
+msgid "Product Buy Box"
+msgstr ""
+
+#: config/widgets.php:314
+msgid "Related Products"
+msgstr ""
+
+#: config/widgets.php:327
+msgid "Blog Grid"
+msgstr ""
+
+#: config/widgets.php:340
+msgid "Testimonial Grid"
+msgstr ""
+
+#: config/widgets.php:353
+msgid "Pricing Table"
+msgstr ""
+
+#: config/widgets.php:366
+msgid "Site Logo"
+msgstr ""
+
+#: config/widgets.php:379
+msgid "Nav Menu"
+msgstr ""
+
+#: config/widgets.php:392
+#: includes/Elementor/Widgets/Copyright.php:35
+msgid "Copyright"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:57
+msgid "Decent"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:120
+msgid "Decent Core: the admin bundle is missing. Run \"npm install && npm run build\" in the plugin directory."
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:224
+msgid "Plugin"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:225
+msgid "PHP"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:226
+msgid "WordPress"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:227
+msgid "Elementor"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:227
+#: includes/Admin/Admin_Page.php:228
+msgid "not active"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:228
+msgid "EDD"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:229
+msgid "Theme"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:230
+msgid "Object cache"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:230
+msgid "persistent"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:230
+#: includes/Admin/Admin_Page.php:232
+msgid "none"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:231
+msgid "Uploads writable"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:231
+msgid "yes"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:231
+msgid "no"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:232
+msgid "Elementor kit"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:233
+msgid "Widgets active"
+msgstr ""
+
+#: includes/Admin/Admin_Page.php:254
+msgid "This screen needs JavaScript. The same settings can be changed with WP-CLI or the decent/v1/settings REST route."
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:47
+msgid "Type and display conditions"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:68
+#: includes/Builder/Admin/Conditions_Box.php:193
+msgid "Type"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:79
+msgid "Show on"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:81
+msgid "A template with no rules applies nowhere, so a half-finished header cannot take over the site the moment it is published."
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:111
+msgid "Entire site"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:112
+msgid "Front page"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:113
+msgid "Blog index"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:114
+msgid "Search results"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:115
+msgid "404 page"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:116
+msgid "All archives"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:117
+msgid "All single posts and pages"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:118
+msgid "All taxonomy archives"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:119
+msgid "All term archives"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:120
+msgid "Author archives"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:121
+msgid "All singular views"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:122
+msgid "Products and the catalogue"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:123
+msgid "Checkout"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:124
+msgid "Account pages"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:194
+msgid "Shown on"
+msgstr ""
+
+#: includes/Builder/Admin/Conditions_Box.php:223
+msgid "Nowhere yet"
+msgstr ""
+
+#: includes/Builder/Elementor_Support.php:39
+#: includes/Builder/Post_Type.php:45
+msgid "Templates"
+msgstr ""
+
+#: includes/Builder/Post_Type.php:46
+msgid "Template"
+msgstr ""
+
+#: includes/Builder/Post_Type.php:47
+msgid "Add template"
+msgstr ""
+
+#: includes/Builder/Post_Type.php:48
+msgid "Edit template"
+msgstr ""
+
+#: includes/Builder/Post_Type.php:49
+msgid "Search templates"
+msgstr ""
+
+#: includes/Builder/Post_Type.php:50
+msgid "No templates yet."
+msgstr ""
+
+#: includes/Builder/Template_Type.php:44
+msgid "Header"
+msgstr ""
+
+#: includes/Builder/Template_Type.php:45
+msgid "Footer"
+msgstr ""
+
+#: includes/Builder/Template_Type.php:46
+msgid "Block"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Grid_Controls.php:33
+msgid "Columns"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Grid_Controls.php:53
+msgid "Gap"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:35
+#: includes/Elementor/Widgets/Blog_Grid.php:64
+msgid "Category"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:46
+msgid "Order by"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:50
+msgid "Most popular"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:51
+msgid "Newest first"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:52
+msgid "Price: low to high"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:53
+msgid "Price: high to low"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:54
+msgid "Highest rated"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:55
+msgid "Name: A to Z"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Query_Controls.php:63
+#: includes/Elementor/Widgets/Hero_Split.php:169
+#: includes/Elementor/Widgets/Plugin_List.php:50
+#: includes/Elementor/Widgets/Product_Grid.php:56
+#: includes/Elementor/Widgets/Product_Rank_List.php:46
+#: includes/Elementor/Widgets/Product_Slider.php:56
+#: includes/Elementor/Widgets/Product_Slider.php:114
+msgid "Products"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Section_Head.php:33
+#: includes/Elementor/Widgets/Trust_Band.php:45
+msgid "Eyebrow"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Section_Head.php:43
+#: includes/Elementor/Widgets/Benefit_Grid.php:62
+#: includes/Elementor/Widgets/Benefit_Grid.php:64
+#: includes/Elementor/Widgets/Cta.php:40
+#: includes/Elementor/Widgets/Feature_Grid.php:64
+#: includes/Elementor/Widgets/Guarantee_Grid.php:62
+#: includes/Elementor/Widgets/Guarantee_Grid.php:64
+#: includes/Elementor/Widgets/Promo_Card.php:50
+#: includes/Elementor/Widgets/Showcase.php:67
+#: includes/Elementor/Widgets/Stats_Counter.php:52
+#: includes/Elementor/Widgets/Stats_Counter.php:54
+msgid "Title"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Section_Head.php:54
+#: includes/Elementor/Widgets/Cta.php:51
+msgid "Title tag"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Section_Head.php:62
+#: includes/Elementor/Widgets/Cta.php:57
+#: includes/Elementor/Widgets/Hero_Search.php:81
+#: includes/Elementor/Widgets/Hero_Split.php:72
+msgid "Paragraph"
+msgstr ""
+
+#: includes/Elementor/Base/Traits/Has_Section_Head.php:70
+msgid "Intro"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Badge.php:32
+msgid "Product badge"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Demo_Url.php:41
+msgid "Product demo URL"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Price.php:32
+msgid "Product price"
+msgstr ""
+
+#. translators: 1: lowest price, 2: highest price.
+#: includes/Elementor/Dynamic_Tags/Download_Price.php:57
+#, php-format
+msgid "%1$s – %2$s"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Rating.php:32
+msgid "Product rating"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Reviews.php:32
+msgid "Product review count"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Sales.php:32
+msgid "Product sales"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Updated.php:32
+msgid "Product last updated"
+msgstr ""
+
+#: includes/Elementor/Dynamic_Tags/Download_Version.php:32
+msgid "Product version"
+msgstr ""
+
+#: includes/Elementor/Manager.php:56
+msgid "Decent — Layout"
+msgstr ""
+
+#: includes/Elementor/Manager.php:57
+msgid "Decent — Products"
+msgstr ""
+
+#: includes/Elementor/Manager.php:58
+msgid "Decent — Header & Footer"
+msgstr ""
+
+#: includes/Elementor/Manager.php:59
+msgid "Decent — Content"
+msgstr ""
+
+#: includes/Elementor/Manager.php:109
+msgid "Decent — Product"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:41
+#: includes/Elementor/Widgets/Blog_Grid.php:41
+#: includes/Elementor/Widgets/Category_Grid.php:43
+#: includes/Elementor/Widgets/Faq_Accordion.php:43
+#: includes/Elementor/Widgets/Feature_Grid.php:41
+#: includes/Elementor/Widgets/Guarantee_Grid.php:41
+#: includes/Elementor/Widgets/Plugin_List.php:43
+#: includes/Elementor/Widgets/Pricing_Table.php:41
+#: includes/Elementor/Widgets/Product_Grid.php:49
+#: includes/Elementor/Widgets/Product_Rank_List.php:39
+#: includes/Elementor/Widgets/Product_Slider.php:49
+#: includes/Elementor/Widgets/Showcase.php:43
+#: includes/Elementor/Widgets/Stats_Counter.php:41
+#: includes/Elementor/Widgets/Testimonial_Grid.php:41
+msgid "Section head"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:42
+msgid "Buy once. Ship with confidence."
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:42
+msgid "Why choose us"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:45
+msgid "Benefits"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:52
+#: includes/Elementor/Widgets/Feature_Grid.php:52
+#: includes/Elementor/Widgets/Guarantee_Grid.php:52
+#: includes/Elementor/Widgets/Promo_Card.php:40
+msgid "Icon"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:72
+#: includes/Elementor/Widgets/Copyright.php:40
+#: includes/Elementor/Widgets/Cta.php:65
+#: includes/Elementor/Widgets/Feature_Grid.php:74
+#: includes/Elementor/Widgets/Guarantee_Grid.php:72
+#: includes/Elementor/Widgets/Promo_Card.php:60
+#: includes/Elementor/Widgets/Stats_Counter.php:62
+msgid "Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:88
+#: includes/Elementor/Widgets/Feature_Grid.php:95
+msgid "Lifetime updates"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:89
+msgid "Every product you buy keeps updating, with version history and changelogs in your dashboard."
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:93
+msgid "Quality assurance"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:94
+msgid "Reviewed in-house for code standards, accessibility and performance before it ships."
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:98
+msgid "Secure payments"
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:99
+msgid "Stripe and PayPal checkout, PCI compliant, with invoices and VAT handling."
+msgstr ""
+
+#: includes/Elementor/Widgets/Benefit_Grid.php:110
+#: includes/Elementor/Widgets/Blog_Grid.php:77
+#: includes/Elementor/Widgets/Category_Grid.php:81
+#: includes/Elementor/Widgets/Feature_Grid.php:112
+#: includes/Elementor/Widgets/Guarantee_Grid.php:110
+#: includes/Elementor/Widgets/Pricing_Table.php:144
+#: includes/Elementor/Widgets/Product_Grid.php:86
+#: includes/Elementor/Widgets/Product_Slider.php:63
+#: includes/Elementor/Widgets/Stats_Counter.php:101
+#: includes/Elementor/Widgets/Testimonial_Grid.php:119
+msgid "Layout"
+msgstr ""
+
+#: includes/Elementor/Widgets/Blog_Grid.php:43
+msgid "From the journal"
+msgstr ""
+
+#: includes/Elementor/Widgets/Blog_Grid.php:44
+msgid "Writing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Blog_Grid.php:48
+msgid "Posts"
+msgstr ""
+
+#: includes/Elementor/Widgets/Blog_Grid.php:53
+#: includes/Elementor/Widgets/Category_Grid.php:55
+msgid "How many"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:44
+msgid "Include structured data"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:47
+msgid "Turn off if another plugin already outputs BreadcrumbList markup — two copies on one page is worse than none."
+msgstr ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:45
+msgid "Find the right stack, fast"
+msgstr ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:46
+#: includes/Elementor/Widgets/Category_Grid.php:50
+msgid "Categories"
+msgstr ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:66
+#: includes/Elementor/Widgets/Hero_Search.php:121
+msgid "Style"
+msgstr ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:70
+msgid "Cards"
+msgstr ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:71
+msgid "Compact strip"
+msgstr ""
+
+#. translators: %s: product count.
+#: includes/Elementor/Widgets/Category_Grid.php:144
+#, php-format
+msgid "%s PRODUCT"
+msgid_plural "%s PRODUCTS"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: product count.
+#: includes/Elementor/Widgets/Category_Grid.php:168
+#, php-format
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Elementor/Widgets/Category_Grid.php:174
+msgid "Browse"
+msgstr ""
+
+#: includes/Elementor/Widgets/Copyright.php:42
+msgid "&copy; {year} {site}. All rights reserved."
+msgstr ""
+
+#: includes/Elementor/Widgets/Copyright.php:43
+msgid "{year} and {site} are replaced when the page renders, so a hard-coded year cannot go stale in January."
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:35
+#: includes/Elementor/Widgets/Hero_Search.php:44
+#: includes/Elementor/Widgets/Hero_Split.php:40
+#: includes/Elementor/Widgets/Newsletter.php:39
+#: includes/Elementor/Widgets/Promo_Card.php:35
+#: includes/Elementor/Widgets/Trust_Band.php:40
+msgid "Content"
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:43
+msgid "Start with a product your team can ship this week"
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:75
+#: includes/Elementor/Widgets/Hero_Search.php:110
+#: includes/Elementor/Widgets/Newsletter.php:74
+#: includes/Elementor/Widgets/Promo_Card.php:70
+msgid "Button label"
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:77
+#: includes/Elementor/Widgets/Hero_Split.php:93
+msgid "Browse products"
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:84
+#: includes/Elementor/Widgets/Promo_Card.php:79
+msgid "Button link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Cta.php:93
+#: includes/Elementor/Widgets/Newsletter.php:83
+msgid "Small print"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:45
+msgid "Licensing, updates and support"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:46
+msgid "FAQ"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:50
+msgid "Questions"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:57
+msgid "Question"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:59
+msgid "What does the licence cover?"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:67
+msgid "Answer"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:82
+msgid "What does a regular licence cover?"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:83
+msgid "One end product that you do not charge users to access. Extended licences cover a paid end product and client resale."
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:86
+msgid "How long do updates last?"
+msgstr ""
+
+#: includes/Elementor/Widgets/Faq_Accordion.php:87
+msgid "For the life of the product. Version history and changelogs are in your dashboard so you can review a release before pushing it."
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:42
+msgid "Built for the way you work"
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:42
+#: includes/Elementor/Widgets/Feature_Grid.php:45
+msgid "Features"
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:66
+msgid "Feature"
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:90
+msgid "Reviewed in-house"
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:91
+msgid "Every release is checked for code standards, accessibility and performance before it ships."
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:96
+msgid "Version history and changelogs live in your dashboard, so you can review changes before pushing them."
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:100
+msgid "Documented"
+msgstr ""
+
+#: includes/Elementor/Widgets/Feature_Grid.php:101
+msgid "Setup guides, hook references and a PDF walkthrough with every product."
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:45
+msgid "Guarantees"
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:88
+msgid "14-day refund window"
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:89
+msgid "If a product does not work as described, we refund it."
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:93
+msgid "Documentation included"
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:94
+msgid "Setup guide, hook reference and a walkthrough with every release."
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:98
+msgid "Six months of support"
+msgstr ""
+
+#: includes/Elementor/Widgets/Guarantee_Grid.php:99
+msgid "Extendable to twelve, answered by the people who wrote the code."
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:50
+#: includes/Elementor/Widgets/Hero_Split.php:45
+msgid "Eyebrow pill"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:52
+msgid "Trusted by 25,400+ developers, agencies and startups"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:60
+#: includes/Elementor/Widgets/Hero_Split.php:55
+msgid "Heading"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:63
+msgid "We build professional themes, plugins and templates"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:71
+#: includes/Elementor/Widgets/Hero_Split.php:66
+msgid "Heading tag"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:89
+#: includes/Elementor/Widgets/Hero_Split.php:80
+msgid "Supporting text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:92
+#: includes/Elementor/Widgets/Hero_Split.php:83
+msgid "One-time price, lifetime updates, and documentation with every release."
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:100
+msgid "Search placeholder"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:102
+msgid "Search products…"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:112
+#: includes/Elementor/Widgets/Hero_Search.php:182
+msgid "Search"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:129
+msgid "Alignment"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:134
+msgid "Left"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:138
+msgid "Center"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:151
+msgid "Heading colour"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Search.php:181
+msgid "Search…"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:47
+msgid "1,200+ products · 14 new releases this month"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:58
+msgid "Professional themes, plugins and templates"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:91
+msgid "Primary button"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:100
+msgid "Primary link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:109
+msgid "Secondary button"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:117
+msgid "Secondary link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:126
+msgid "Visual"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:133
+#: includes/Elementor/Widgets/Stats_Counter.php:45
+msgid "Statistics"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:140
+#: includes/Elementor/Widgets/Trust_Band.php:86
+msgid "Figure"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:149
+#: includes/Elementor/Widgets/Newsletter.php:64
+#: includes/Elementor/Widgets/Trust_Band.php:95
+msgid "Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:151
+#: includes/Elementor/Widgets/Hero_Split.php:165
+#: includes/Elementor/Widgets/Trust_Band.php:97
+msgid "Customers"
+msgstr ""
+
+#: includes/Elementor/Widgets/Hero_Split.php:173
+#: includes/Elementor/Widgets/Stats_Counter.php:86
+#: includes/Elementor/Widgets/Trust_Band.php:120
+msgid "Positive reviews"
+msgstr ""
+
+#: includes/Elementor/Widgets/Nav_Menu.php:40
+#: includes/Elementor/Widgets/Nav_Menu.php:57
+msgid "Menu"
+msgstr ""
+
+#: includes/Elementor/Widgets/Nav_Menu.php:49
+msgid "No menus exist yet. Create one under Appearance → Menus."
+msgstr ""
+
+#: includes/Elementor/Widgets/Nav_Menu.php:68
+msgid "Accessible name"
+msgstr ""
+
+#: includes/Elementor/Widgets/Nav_Menu.php:70
+#: includes/Elementor/Widgets/Nav_Menu.php:111
+msgid "Primary"
+msgstr ""
+
+#: includes/Elementor/Widgets/Nav_Menu.php:71
+msgid "Distinguishes this navigation landmark from others on the page."
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:44
+msgid "Form action URL"
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:47
+msgid "Your provider's form endpoint. Without it the widget renders nothing rather than a form that throws addresses away."
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:54
+msgid "Email field name"
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:57
+msgid "Mailchimp uses EMAIL; other providers differ."
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:66
+msgid "Product updates, twice a month"
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:76
+#: includes/Elementor/Widgets/Newsletter.php:128
+msgid "Subscribe"
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:85
+msgid "New releases and changelogs only. Unsubscribe anytime."
+msgstr ""
+
+#: includes/Elementor/Widgets/Newsletter.php:125
+msgid "you@company.com"
+msgstr ""
+
+#: includes/Elementor/Widgets/Plugin_List.php:45
+msgid "The plugins we maintain in-house"
+msgstr ""
+
+#: includes/Elementor/Widgets/Plugin_List.php:46
+msgid "Our plugins"
+msgstr ""
+
+#. translators: %s: review count.
+#: includes/Elementor/Widgets/Plugin_List.php:132
+#, php-format
+msgid "(%s review)"
+msgid_plural "(%s reviews)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Elementor/Widgets/Plugin_List.php:144
+msgid "From"
+msgstr ""
+
+#: includes/Elementor/Widgets/Plugin_List.php:150
+msgid "View product"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:43
+msgid "One-time price, lifetime updates"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:44
+msgid "Pricing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:48
+msgid "Plans"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:55
+#: includes/Elementor/Widgets/Testimonial_Grid.php:65
+#: includes/Elementor/Widgets/Trust_Band.php:57
+msgid "Name"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:57
+#: includes/Elementor/Widgets/Pricing_Table.php:123
+msgid "Regular licence"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:64
+msgid "Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:73
+msgid "Note"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:82
+msgid "Included"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:85
+#: includes/Elementor/Widgets/Showcase.php:90
+msgid "One per line."
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:93
+msgid "Button"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:95
+#: includes/Elementor/Widgets/Pricing_Table.php:207
+msgid "Choose"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:102
+msgid "Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:110
+msgid "Highlight this plan"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:125
+msgid "One end product you do not charge for"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:126
+msgid ""
+"Lifetime updates\n"
+"6 months support\n"
+"Documentation and demo content"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:129
+msgid "Extended licence"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:131
+msgid "One paid end product, plus client resale"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:132
+msgid ""
+"Everything in Regular\n"
+"Resale rights\n"
+"12 months support"
+msgstr ""
+
+#: includes/Elementor/Widgets/Pricing_Table.php:180
+msgid "POPULAR"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:40
+#: includes/Settings/Schema.php:34
+msgid "Catalogue"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:45
+msgid "Filter sidebar"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:54
+msgid "Toolbar"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:64
+msgid "Reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template."
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:121
+msgid "No products match those filters"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Archive.php:122
+msgid "Try widening the price range, or clear the filters to see the whole catalogue."
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Buy_Box.php:41
+msgid "Buy box"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Buy_Box.php:47
+#: includes/Elementor/Widgets/Product_Hero.php:47
+#: includes/Elementor/Widgets/Product_Related.php:47
+#: includes/Elementor/Widgets/Product_Tabs.php:47
+msgid "Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end."
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:51
+msgid "The products our customers ship most"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:52
+msgid "Handpicked resources"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:62
+msgid "Card size"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:66
+msgid "Compact"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:67
+msgid "Standard"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:75
+msgid "Show buttons"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Grid.php:155
+msgid "Product Grid needs the Decent Themes theme, which owns the product card markup."
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Hero.php:41
+msgid "Product hero"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Rank_List.php:41
+msgid "What teams bought most this quarter"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Rank_List.php:42
+msgid "Best sellers"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Rank_List.php:107
+msgid "sales"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Rank_List.php:122
+msgid "View"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Related.php:41
+msgid "Related products"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Slider.php:51
+msgid "Recently released"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Slider.php:52
+msgid "New in the catalogue"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Slider.php:71
+msgid "Slide width"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Slider.php:145
+msgid "Previous products"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Slider.php:149
+msgid "Next products"
+msgstr ""
+
+#: includes/Elementor/Widgets/Product_Tabs.php:41
+msgid "Product tabs"
+msgstr ""
+
+#: includes/Elementor/Widgets/Promo_Card.php:52
+msgid "Bundle and save 40%"
+msgstr ""
+
+#: includes/Elementor/Widgets/Promo_Card.php:72
+msgid "See the bundle"
+msgstr ""
+
+#: includes/Elementor/Widgets/Promo_Card.php:88
+msgid "Variant"
+msgstr ""
+
+#: includes/Elementor/Widgets/Promo_Card.php:92
+msgid "Light"
+msgstr ""
+
+#: includes/Elementor/Widgets/Promo_Card.php:93
+msgid "Dark"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:45
+msgid "Built for the stack you work in"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:46
+msgid "Product showcase"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:50
+msgid "Rows"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:57
+msgid "Count label"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:59
+#: includes/Elementor/Widgets/Showcase.php:111
+msgid "418 PRODUCTS"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:69
+#: includes/Elementor/Widgets/Showcase.php:112
+msgid "Themes that survive a real content team"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:77
+msgid "Body"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:87
+msgid "Tick list"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:98
+#: includes/Elementor/Widgets/Site_Logo.php:54
+msgid "Image"
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:113
+msgid "Block-native themes built on current WordPress standards: full site editing, patterns, WP-CLI friendly builds and no page-builder lock-in."
+msgstr ""
+
+#: includes/Elementor/Widgets/Showcase.php:114
+msgid ""
+"Block patterns and theme.json variations included\n"
+"Child theme and demo content in every download\n"
+"Tested against the current and previous major release"
+msgstr ""
+
+#: includes/Elementor/Widgets/Site_Logo.php:35
+msgid "Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Site_Logo.php:40
+msgid "Source"
+msgstr ""
+
+#: includes/Elementor/Widgets/Site_Logo.php:44
+msgid "Site logo (Customizer)"
+msgstr ""
+
+#: includes/Elementor/Widgets/Site_Logo.php:45
+msgid "Custom image"
+msgstr ""
+
+#: includes/Elementor/Widgets/Site_Logo.php:46
+msgid "Text mark"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:77
+msgid "25,400+"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:78
+#: includes/Elementor/Widgets/Trust_Band.php:112
+msgid "Customers in 80+ countries"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:81
+msgid "1,240"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:82
+#: includes/Elementor/Widgets/Trust_Band.php:116
+msgid "Reviewed products"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:85
+msgid "98%"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:89
+msgid "< 4 hrs"
+msgstr ""
+
+#: includes/Elementor/Widgets/Stats_Counter.php:90
+#: includes/Elementor/Widgets/Trust_Band.php:124
+msgid "Median support reply"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:43
+msgid "24,000 purchases, 98% positive"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:44
+msgid "Customer reviews"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:48
+msgid "Reviews"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:55
+msgid "Quote"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:67
+msgid "Customer"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:74
+msgid "Role"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:83
+msgid "Rating"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:99
+msgid "The documentation alone saved us a week. Every hook we needed was already there and named sensibly."
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:101
+msgid "Lead developer, Northwind Studio"
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:105
+msgid "We shipped a client site on the theme in four days. The update path has not broken anything since."
+msgstr ""
+
+#: includes/Elementor/Widgets/Testimonial_Grid.php:107
+msgid "Founder, Baseline Agency"
+msgstr ""
+
+#. translators: %d: star rating out of five.
+#: includes/Elementor/Widgets/Testimonial_Grid.php:152
+#, php-format
+msgid "%d out of 5"
+msgstr ""
+
+#: includes/Elementor/Widgets/Trust_Band.php:47
+msgid "Trusted by agencies, startups and product teams"
+msgstr ""
+
+#: includes/Elementor/Widgets/Trust_Band.php:59
+msgid "Client"
+msgstr ""
+
+#: includes/Elementor/Widgets/Trust_Band.php:67
+msgid "Clients"
+msgstr ""
+
+#: includes/Elementor/Widgets/Trust_Band.php:105
+msgid "Metrics"
+msgstr ""
+
+#. translators: 1: required PHP version, 2: current PHP version.
+#: includes/Requirements.php:57
+#, php-format
+msgid "PHP %1$s or later (running %2$s)"
+msgstr ""
+
+#. translators: %s: required WordPress version.
+#: includes/Requirements.php:62
+#, php-format
+msgid "WordPress %s or later"
+msgstr ""
+
+#: includes/Requirements.php:66
+msgid "Elementor, active"
+msgstr ""
+
+#. translators: %s: required Elementor version.
+#: includes/Requirements.php:69
+#, php-format
+msgid "Elementor %s or later"
+msgstr ""
+
+#: includes/Requirements.php:100
+msgid "Decent Core is inactive."
+msgstr ""
+
+#: includes/Requirements.php:102
+msgid "It needs:"
+msgstr ""
+
+#. translators: %d: number of files.
+#: includes/Rest/Tools_Controller.php:82
+#, php-format
+msgid "%d bundle removed. They rebuild on the next page view."
+msgid_plural "%d bundles removed. They rebuild on the next page view."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of locations.
+#: includes/Rest/Tools_Controller.php:95
+#, php-format
+msgid "Conditions recompiled for %d location."
+msgid_plural "Conditions recompiled for %d locations."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Rest/Tools_Controller.php:116
+msgid "Caches cleared."
+msgstr ""
+
+#: includes/Settings/Schema.php:31
+msgid "General"
+msgstr ""
+
+#: includes/Settings/Schema.php:32
+msgid "Widgets"
+msgstr ""
+
+#: includes/Settings/Schema.php:33
+msgid "Extensions"
+msgstr ""
+
+#: includes/Settings/Schema.php:35
+msgid "Performance"
+msgstr ""
+
+#: includes/Settings/Schema.php:36
+msgid "Tools"
+msgstr ""

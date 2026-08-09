@@ -15,8 +15,8 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-$decent_settings = get_option( 'decent_core_settings', array() );
-$decent_purge    = is_array( $decent_settings ) && ! empty( $decent_settings['remove_data_on_uninstall'] );
+$decent_core_settings = get_option( 'decent_core_settings', array() );
+$decent_core_purge    = is_array( $decent_core_settings ) && ! empty( $decent_core_settings['remove_data_on_uninstall'] );
 
 // Options are always removed: they are configuration, and reinstalling
 // restores the defaults.
@@ -28,33 +28,33 @@ foreach (
 		'decent_core_conditions_map',
 		'decent_core_kit_seeded',
 		'decent_core_breakpoints_synced',
-	) as $decent_option
+	) as $decent_core_option
 ) {
-	delete_option( $decent_option );
+	delete_option( $decent_core_option );
 }
 
 wp_clear_scheduled_hook( 'decent_core_sweep_assets' );
 
 // Generated bundles are derived files; nothing is lost by removing them.
-$decent_uploads = wp_upload_dir();
-$decent_dir     = trailingslashit( (string) ( $decent_uploads['basedir'] ?? '' ) ) . 'decent-core';
+$decent_core_uploads = wp_upload_dir();
+$decent_core_dir     = trailingslashit( (string) ( $decent_core_uploads['basedir'] ?? '' ) ) . 'decent-core';
 
-if ( '' !== $decent_uploads['basedir'] && is_dir( $decent_dir ) ) {
-	foreach ( array( 'css', 'js' ) as $decent_ext ) {
-		$decent_files = glob( $decent_dir . '/' . $decent_ext . '/*' );
+if ( '' !== $decent_core_uploads['basedir'] && is_dir( $decent_core_dir ) ) {
+	foreach ( array( 'css', 'js' ) as $decent_core_ext ) {
+		$decent_core_files = glob( $decent_core_dir . '/' . $decent_core_ext . '/*' );
 
-		foreach ( is_array( $decent_files ) ? $decent_files : array() as $decent_file ) {
-			wp_delete_file( $decent_file );
+		foreach ( is_array( $decent_core_files ) ? $decent_core_files : array() as $decent_core_file ) {
+			wp_delete_file( $decent_core_file );
 		}
 	}
 }
 
 // Content only when explicitly asked for.
-if ( ! $decent_purge ) {
+if ( ! $decent_core_purge ) {
 	return;
 }
 
-$decent_templates = get_posts(
+$decent_core_templates = get_posts(
 	array(
 		'post_type'      => 'decent_template',
 		'post_status'    => 'any',
@@ -64,6 +64,6 @@ $decent_templates = get_posts(
 	)
 );
 
-foreach ( $decent_templates as $decent_template ) {
-	wp_delete_post( (int) $decent_template, true );
+foreach ( $decent_core_templates as $decent_core_template ) {
+	wp_delete_post( (int) $decent_core_template, true );
 }

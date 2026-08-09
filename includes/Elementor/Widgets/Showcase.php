@@ -141,7 +141,7 @@ final class Showcase extends Widget_Base {
 					// Rows alternate on their own; asking an editor to flip
 					// every second one is a rule they will eventually forget.
 					$reverse = 1 === $index % 2;
-					$points  = array_values( array_filter( array_map( 'trim', preg_split( '/\R/', (string) ( $row['points'] ?? '' ) ) ?: array() ) ) );
+					$points  = array_values( array_filter( array_map( 'trim', (array) preg_split( '/\R/', (string) ( $row['points'] ?? '' ) ) ) ) );
 					$image   = (array) ( $row['image'] ?? array() );
 					?>
 					<div class="showcase<?php echo $reverse ? ' showcase--reverse' : ''; ?>">
