@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Dev tooling — never shipped. composer.lock IS committed so CI installs the
+# exact versions this project was linted against.
+/vendor/
+/node_modules/
+phpcs.xml
+phpstan.neon
+.phpunit.result.cache
+
+# Build output
+/dist/
+*.zip

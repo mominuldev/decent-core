@@ -1,0 +1,17 @@
+parameters:
+	level: 5
+	paths:
+		- includes
+		- decent-core.php
+	excludePaths:
+		- vendor
+	scanDirectories:
+		- config
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php
+	# WP-CLI has maintained stubs, so its API is genuinely type-checked rather
+	# than waved through.
+	scanFiles:
+		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+		- tests/stubs/elementor.php
+	treatPhpDocTypesAsCertain: false
