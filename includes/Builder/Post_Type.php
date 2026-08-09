@@ -49,14 +49,26 @@ final class Post_Type {
 					'search_items'  => __( 'Search templates', 'decent-core' ),
 					'not_found'     => __( 'No templates yet.', 'decent-core' ),
 				),
-				'public'              => false,
+				// Public, but only just. Elementor's editor loads the post's
+				// own permalink in a preview iframe; with publicly_queryable
+				// false that URL 404s and the editor sits on "Loading"
+				// forever. Elementor registers its own library CPT the same
+				// way, for the same reason.
+				//
+				// Everything that would make a template feel like a page is
+				// switched off instead: no pretty permalink, out of search,
+				// out of nav menus, out of the sitemap, no archive, and
+				// noindex on the preview. It is reachable only at
+				// ?post_type=…&p=ID, on the theme's bare canvas.
+				'public'              => true,
+				'publicly_queryable'  => true,
 				'show_ui'             => true,
 				'show_in_menu'        => 'decent-core',
 				'show_in_rest'        => true,
 				'rewrite'             => false,
 				'query_var'           => false,
 				'exclude_from_search' => true,
-				'publicly_queryable'  => false,
+				'show_in_nav_menus'   => false,
 				'has_archive'         => false,
 				'hierarchical'        => false,
 				'supports'            => array( 'title', 'editor', 'revisions', 'author', 'elementor' ),

@@ -27,6 +27,11 @@ final class Elementor_Support {
 		add_filter( 'elementor/pro/utils/get_public_post_types', array( $this, 'allow_post_type' ) );
 		add_filter( 'template_include', array( $this, 'use_canvas' ), 999 );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
+
+		// Publicly queryable so the editor's preview resolves, but it is not
+		// content: keep it out of sitemaps and out of search engines.
+		add_filter( 'wp_sitemaps_post_types', array( $this, 'hide_from_sitemap' ) );
+		add_filter( 'wp_robots', array( $this, 'no_index' ) );
 	}
 
 	/**
@@ -55,6 +60,33 @@ final class Elementor_Support {
 		$canvas = locate_template( 'page-templates/canvas.php' );
 
 		return $canvas ? $canvas : $template;
+	}
+
+	/**
+	 * Removes templates from the sitemap.
+	 *
+	 * @param array<string, mixed> $post_types Post types.
+	 * @return array<string, mixed>
+	 */
+	public function hide_from_sitemap( array $post_types ): array {
+		unset( $post_types[ Post_Type::NAME ] );
+
+		return $post_types;
+	}
+
+	/**
+	 * Tells robots not to index a template preview.
+	 *
+	 * @param array<string, mixed> $robots Robots directives.
+	 * @return array<string, mixed>
+	 */
+	public function no_index( array $robots ): array {
+		if ( is_singular( Post_Type::NAME ) ) {
+			$robots['noindex']  = true;
+			$robots['nofollow'] = true;
+		}
+
+		return $robots;
 	}
 
 	/**
