@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { api, config } from './api';
 import Field from './components/Field';
 import WidgetCard from './components/WidgetCard';
-import SystemInfo from './components/SystemInfo';
+import Tools from './components/Tools';
 
 const TAB_ORDER = Object.keys(config.tabs);
 
@@ -130,7 +130,7 @@ export default function App() {
           {tab === 'widgets' ? (
             <WidgetsPanel settings={settings} set={set} />
           ) : tab === 'tools' ? (
-            <SystemInfo />
+            <Tools />
           ) : (
             <section className="dc:rounded-md dc:border dc:border-line dc:bg-surface dc:px-5 dc:py-1">
               {fieldsFor(tab).length === 0 ? (

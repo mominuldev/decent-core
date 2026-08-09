@@ -16,6 +16,7 @@ export const config = {
   system: boot.system || {},
   settings: boot.settings || {},
   docsUrl: boot.docsUrl || '',
+  toolsUrl: boot.toolsUrl || '',
 };
 
 /**
@@ -50,4 +51,29 @@ async function request(method, body) {
 export const api = {
   load: () => request('GET'),
   save: (settings) => request('POST', settings),
+
+  /**
+   * Runs a maintenance action.
+   *
+   * POST, not GET: these change site state, and a maintenance action behind a
+   * GET is one prefetch away from firing itself.
+   *
+   * @param {string} action Action slug.
+   * @returns {Promise<Object>} Response with a message.
+   */
+  async tool(action) {
+    const response = await fetch(`${config.toolsUrl}/${action}`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': config.nonce },
+    });
+
+    const payload = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(payload.message || `Request failed (${response.status})`);
+    }
+
+    return payload;
+  },
 };

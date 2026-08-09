@@ -347,3 +347,46 @@ class Frontend {
 	 */
 	public function get_builder_content_for_display( $content_id, $with_css = false ) {}
 }
+
+namespace Elementor\Core\DynamicTags;
+
+/**
+ * Dynamic tag base.
+ */
+abstract class Tag {
+
+	/**
+	 * Tag name.
+	 *
+	 * @return string
+	 */
+	abstract public function get_name();
+
+	/**
+	 * Picker label.
+	 *
+	 * @return string
+	 */
+	abstract public function get_title();
+
+	/**
+	 * Tag group.
+	 *
+	 * @return string
+	 */
+	public function get_group() {}
+
+	/**
+	 * Control categories this tag can fill.
+	 *
+	 * @return string[]
+	 */
+	public function get_categories() {}
+
+	/**
+	 * Outputs the tag's value.
+	 *
+	 * @return void
+	 */
+	public function render() {}
+}

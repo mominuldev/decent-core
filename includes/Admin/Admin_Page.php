@@ -129,6 +129,7 @@ final class Admin_Page {
 	private function boot_data(): array {
 		return array(
 			'restUrl'  => esc_url_raw( rest_url( 'decent/v1/settings' ) ),
+			'toolsUrl' => esc_url_raw( rest_url( 'decent/v1/tools' ) ),
 			// Proves the request came from this session. The capability check
 			// itself happens server-side in Rest_Controller.
 			'nonce'    => wp_create_nonce( 'wp_rest' ),

@@ -38,6 +38,7 @@ final class Manager implements Module {
 		add_action( 'elementor/elements/categories_registered', array( $this, 'register_categories' ) );
 		add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
 		add_action( 'elementor/frontend/after_register_styles', array( $this, 'register_assets' ) );
+		add_action( 'elementor/dynamic_tags/register', array( $this, 'register_tags' ) );
 		add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_editor_assets' ) );
 
 		( new Breakpoints() )->register();
@@ -84,6 +85,44 @@ final class Manager implements Module {
 			}
 
 			$widgets->register( new $class_name() );
+		}
+	}
+
+	/**
+	 * Registers the product dynamic tags.
+	 *
+	 * Gated on EDD, because every one of them reads a download. Registering
+	 * them without it would put eight tags in the picker that can only ever
+	 * resolve to an empty string.
+	 *
+	 * @param object $tags Elementor's dynamic tags manager.
+	 * @return void
+	 */
+	public function register_tags( $tags ): void {
+		if ( ! defined( 'EDD_VERSION' ) || ! method_exists( $tags, 'register' ) ) {
+			return;
+		}
+
+		if ( method_exists( $tags, 'register_group' ) ) {
+			$tags->register_group(
+				'decent-product',
+				array( 'title' => __( 'Decent — Product', 'decent-core' ) )
+			);
+		}
+
+		$classes = array(
+			Dynamic_Tags\Download_Price::class,
+			Dynamic_Tags\Download_Rating::class,
+			Dynamic_Tags\Download_Reviews::class,
+			Dynamic_Tags\Download_Sales::class,
+			Dynamic_Tags\Download_Version::class,
+			Dynamic_Tags\Download_Updated::class,
+			Dynamic_Tags\Download_Badge::class,
+			Dynamic_Tags\Download_Demo_Url::class,
+		);
+
+		foreach ( $classes as $class_name ) {
+			$tags->register( new $class_name() );
 		}
 	}
 

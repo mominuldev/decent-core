@@ -16,6 +16,7 @@ use DecentCore\Builder\Pro_Bridge;
 use DecentCore\Assets\Garbage_Collector;
 use DecentCore\Assets\Usage_Index;
 use DecentCore\Elementor\Manager;
+use DecentCore\Rest\Tools_Controller;
 use DecentCore\Settings\Rest_Controller;
 use DecentCore\Settings\Settings;
 
@@ -81,6 +82,7 @@ final class Plugin {
 		// is missing still needs somewhere to read why the plugin is idle.
 		$this->container->get( Admin_Page::class )->register();
 		$this->container->get( Rest_Controller::class )->register();
+		$this->container->get( Tools_Controller::class )->register();
 
 		if ( ! $requirements->met() ) {
 			$requirements->notice();
