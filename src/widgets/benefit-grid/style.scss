@@ -1,0 +1,18 @@
+// Benefit Grid — widget-owned layout glue only.
+//
+// The components inside (.benefit-card, .section--dark) all come from the theme. What lives
+// here is the grid the column and gap controls target, which exists only
+// because this widget exposes those controls.
+
+.elementor-widget-decent-benefit-grid {
+  .decent-grid {
+    display: grid;
+  }
+
+  // The design's benefit grid is an asymmetric span layout; when an editor
+  // sets an explicit column count the spans have to stand down or the two
+  // rules fight.
+  .benefit-card {
+    grid-column: auto;
+  }
+}

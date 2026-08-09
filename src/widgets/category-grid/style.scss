@@ -1,0 +1,11 @@
+// Category Grid — widget-owned layout glue only.
+//
+// The components inside (.category-card, .cat-strip__item) all come from the theme. What lives
+// here is the grid the column and gap controls target, which exists only
+// because this widget exposes those controls.
+
+.elementor-widget-decent-category-grid {
+  .decent-grid {
+    display: grid;
+  }
+}

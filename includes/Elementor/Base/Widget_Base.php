@@ -132,6 +132,53 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	}
 
 	/**
+	 * Renders an icon from the theme's SVG map.
+	 *
+	 * Widgets never embed SVG of their own. The theme owns the icon set, its
+	 * stroke conventions and the wp_kses allow-list it is printed through, so
+	 * a widget cannot introduce an off-system icon, an icon font or a sprite
+	 * request. Under a third-party theme this renders nothing rather than
+	 * inventing a substitute.
+	 *
+	 * @param string $slug   Icon slug.
+	 * @param int    $size   Pixel size.
+	 * @param float  $stroke Stroke width.
+	 * @return void
+	 */
+	protected function icon( string $slug, int $size = 22, float $stroke = 1.6 ): void {
+		if ( ! function_exists( 'decent_icon' ) ) {
+			return;
+		}
+
+		decent_icon(
+			$slug,
+			array(
+				'size'   => $size,
+				'stroke' => $stroke,
+			)
+		);
+	}
+
+	/**
+	 * The icon slugs available to a picker.
+	 *
+	 * @return array<string, string>
+	 */
+	protected static function icon_options(): array {
+		$slugs = class_exists( '\\DecentThemes\\Frontend\\Icons' )
+			? \DecentThemes\Frontend\Icons::slugs()
+			: array( 'check', 'star', 'shield', 'refresh', 'file-text', 'bolt', 'tag', 'cart' );
+
+		$options = array();
+
+		foreach ( $slugs as $slug ) {
+			$options[ $slug ] = ucwords( str_replace( '-', ' ', $slug ) );
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Renders a heading at a caller-chosen level, from an allow-list.
 	 *
 	 * @param string $text  Heading text.

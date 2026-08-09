@@ -11,6 +11,9 @@
 	<!-- Static-analysis scaffolding: defines ABSPATH so PHPStan can resolve
 	     it, which is exactly what the prefix sniff exists to prevent elsewhere. -->
 	<exclude-pattern>/tests/phpstan-bootstrap.php</exclude-pattern>
+	<!-- Stubs mirror a third party's API for static analysis. Their names,
+	     namespace and signatures are Elementor's, not ours to standardise. -->
+	<exclude-pattern>/tests/stubs/*</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
 	<arg name="colors"/>

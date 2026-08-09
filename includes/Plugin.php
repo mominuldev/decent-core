@@ -10,6 +10,9 @@ namespace DecentCore;
 defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Admin\Admin_Page;
+use DecentCore\Assets\Bundler;
+use DecentCore\Assets\Garbage_Collector;
+use DecentCore\Assets\Usage_Index;
 use DecentCore\Elementor\Manager;
 use DecentCore\Settings\Rest_Controller;
 
@@ -82,6 +85,13 @@ final class Plugin {
 		}
 
 		$this->container->get( Manager::class )->register();
+
+		// Asset pipeline. Usage_Index records what a document uses at save
+		// time; Bundler collapses that set on the front end and steps aside
+		// when it cannot.
+		$this->container->get( Usage_Index::class )->register();
+		$this->container->get( Bundler::class )->register();
+		$this->container->get( Garbage_Collector::class )->register();
 
 		/**
 		 * Fires once the plugin has booted.

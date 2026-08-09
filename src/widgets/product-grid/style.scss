@@ -1,0 +1,17 @@
+// Product Grid — widget-owned layout glue only.
+//
+// The components inside (.product-card, .section-head) all come from the theme. What lives
+// here is the grid the column and gap controls target, which exists only
+// because this widget exposes those controls.
+
+.elementor-widget-decent-product-grid {
+  .decent-grid {
+    display: grid;
+  }
+
+  // The theme's product grid is auto-fill; an explicit column count from the
+  // panel has to win over it.
+  .product-grid {
+    grid-template-columns: inherit;
+  }
+}

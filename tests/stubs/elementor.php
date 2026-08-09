@@ -150,6 +150,33 @@ class Controls_Manager {
 	const REPEATER    = 'repeater';
 	const TAB_STYLE   = 'style';
 	const TAB_CONTENT = 'content';
+	const SELECT2     = 'select2';
+	const URL         = 'url';
+	const MEDIA       = 'media';
+	const ICONS       = 'icons';
+}
+
+/**
+ * Repeater control builder.
+ */
+class Repeater {
+
+	/**
+	 * Adds a field to the repeater row.
+	 *
+	 * @param string              $id      Control id.
+	 * @param array<string,mixed> $args    Control arguments.
+	 * @param array<string,mixed> $options Control options.
+	 * @return void
+	 */
+	public function add_control( $id, array $args = array(), array $options = array() ) {}
+
+	/**
+	 * Returns the repeater's field definitions.
+	 *
+	 * @return array<string,mixed>
+	 */
+	public function get_controls() {}
 }
 
 /**
@@ -249,9 +276,49 @@ class Plugin {
 	public $elements_manager;
 
 	/**
+	 * Editor.
+	 *
+	 * @var Editor|null
+	 */
+	public $editor;
+
+	/**
+	 * Preview.
+	 *
+	 * @var Preview|null
+	 */
+	public $preview;
+
+	/**
 	 * Returns the singleton.
 	 *
 	 * @return Plugin
 	 */
 	public static function instance() {}
+}
+
+/**
+ * Editor mode.
+ */
+class Editor {
+
+	/**
+	 * Whether the request is the editor itself.
+	 *
+	 * @return bool
+	 */
+	public function is_edit_mode() {}
+}
+
+/**
+ * Preview frame.
+ */
+class Preview {
+
+	/**
+	 * Whether the request is the editor's preview frame.
+	 *
+	 * @return bool
+	 */
+	public function is_preview_mode() {}
 }
