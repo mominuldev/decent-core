@@ -154,6 +154,9 @@ class Controls_Manager {
 	const URL         = 'url';
 	const MEDIA       = 'media';
 	const ICONS       = 'icons';
+	const RAW_HTML    = 'raw_html';
+	const HEADING     = 'heading';
+	const DIVIDER     = 'divider';
 }
 
 /**
