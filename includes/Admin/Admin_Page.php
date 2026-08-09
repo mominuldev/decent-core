@@ -61,6 +61,23 @@ final class Admin_Page {
 			'dashicons-screenoptions',
 			58
 		);
+
+		// add_menu_page() does not give the top-level page a submenu entry of
+		// its own. The builder's template post type is registered with
+		// show_in_menu => SLUG, so core adds "Templates" beneath us, and once
+		// a submenu exists WordPress points the parent link at its first item
+		// — leaving this screen with nothing linking to it. Claiming position
+		// zero keeps the settings screen first and the parent link correct,
+		// whichever order the two submenus are added in.
+		add_submenu_page(
+			self::SLUG,
+			__( 'Decent Core', 'decent-core' ),
+			__( 'Settings', 'decent-core' ),
+			'manage_options',
+			self::SLUG,
+			array( $this, 'render' ),
+			0
+		);
 	}
 
 	/**
