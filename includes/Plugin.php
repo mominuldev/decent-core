@@ -62,6 +62,13 @@ final class Plugin {
 
 		Cli\Commands::register();
 
+		// Widget toggles are ordinary schema fields; see extend_schema().
+		// Registered before anything reads the schema.
+		add_filter(
+			'decent_core/settings/schema',
+			array( Elementor\Widget_Registry::class, 'extend_schema' )
+		);
+
 		$requirements = new Requirements();
 
 		// The settings screen boots regardless. A site owner whose Elementor

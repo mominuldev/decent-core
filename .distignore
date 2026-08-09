@@ -1,0 +1,18 @@
+# Excluded when packaging the plugin for distribution.
+.git
+.github
+.gitignore
+.distignore
+.editorconfig
+.DS_Store
+node_modules
+src
+tests
+vendor
+composer.json
+composer.lock
+package.json
+package-lock.json
+gulpfile.js
+phpcs.xml.dist
+phpstan.neon.dist

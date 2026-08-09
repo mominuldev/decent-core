@@ -2,11 +2,18 @@
 /**
  * Settings screen.
  *
- * Every field is generated from config/settings.php. There is no second list
- * of fields to keep in step with the schema, which is why a setting cannot be
- * added without its type, default and sanitiser.
+ * The screen itself is a React application; this class does three things and
+ * nothing else: register the menu, print a mount point, and hand the app the
+ * data it needs.
  *
- * The Widgets tab is generated from config/widgets.php the same way.
+ * No @wordpress/* packages are involved. Everything WordPress has to tell the
+ * app — REST root, nonce, schema, current values — is printed as one JSON
+ * object, and the app talks back over the plugin's own REST route, which is
+ * capability-checked server-side.
+ *
+ * The schema is passed through rather than duplicated in JavaScript, so the
+ * control a user sees and the rule the server enforces come from the same
+ * array in config/settings.php.
  *
  * @package DecentCore
  */
@@ -20,7 +27,7 @@ use DecentCore\Settings\Schema;
 use DecentCore\Settings\Settings;
 
 /**
- * Renders and saves the settings screen.
+ * Registers and boots the settings application.
  */
 final class Admin_Page {
 
@@ -30,18 +37,13 @@ final class Admin_Page {
 	public const SLUG = 'decent-core';
 
 	/**
-	 * Nonce action.
-	 */
-	private const NONCE = 'decent_core_settings';
-
-	/**
 	 * Attaches hooks.
 	 *
 	 * @return void
 	 */
 	public function register(): void {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
-		add_action( 'admin_post_decent_core_save', array( $this, 'handle_save' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
@@ -62,20 +64,177 @@ final class Admin_Page {
 	}
 
 	/**
-	 * Returns the tab being viewed.
+	 * Loads the application, and only on its own screen.
 	 *
-	 * @return string
+	 * The bundle carries React, so letting it load across wp-admin would put
+	 * ~200 KB on every page for one screen that uses it.
+	 *
+	 * @param string $hook Current admin page hook.
+	 * @return void
 	 */
-	private function current_tab(): string {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab selection.
-		$tab  = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
-		$tabs = Schema::tabs();
+	public function enqueue( string $hook ): void {
+		if ( 'toplevel_page_' . self::SLUG !== $hook ) {
+			return;
+		}
 
-		return isset( $tabs[ $tab ] ) ? $tab : 'general';
+		$script = 'assets/admin/app.js';
+		$style  = 'assets/admin/app.css';
+
+		// Built files, not sources. If they are missing the plugin was
+		// installed from a checkout without running the build, and saying so
+		// is far better than a blank screen.
+		if ( ! file_exists( DECENT_CORE_DIR . $script ) ) {
+			add_action( 'admin_notices', array( $this, 'missing_build_notice' ) );
+			return;
+		}
+
+		wp_enqueue_style(
+			'decent-core-admin',
+			DECENT_CORE_URL . $style,
+			array(),
+			(string) filemtime( DECENT_CORE_DIR . $style )
+		);
+
+		wp_enqueue_script(
+			'decent-core-admin',
+			DECENT_CORE_URL . $script,
+			array(),
+			(string) filemtime( DECENT_CORE_DIR . $script ),
+			true
+		);
+
+		wp_add_inline_script(
+			'decent-core-admin',
+			'window.decentCore = ' . wp_json_encode( $this->boot_data() ) . ';',
+			'before'
+		);
 	}
 
 	/**
-	 * Renders the screen.
+	 * Warns that the build output is missing.
+	 *
+	 * @return void
+	 */
+	public function missing_build_notice(): void {
+		echo '<div class="notice notice-error"><p>';
+		esc_html_e( 'Decent Core: the admin bundle is missing. Run "npm install && npm run build" in the plugin directory.', 'decent-core' );
+		echo '</p></div>';
+	}
+
+	/**
+	 * Everything the application needs to start.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function boot_data(): array {
+		return array(
+			'restUrl'  => esc_url_raw( rest_url( 'decent/v1/settings' ) ),
+			// Proves the request came from this session. The capability check
+			// itself happens server-side in Rest_Controller.
+			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'tabs'     => Schema::tabs(),
+			'schema'   => $this->schema_for_js(),
+			'settings' => $this->settings_for_js(),
+			'widgets'  => $this->widgets_for_js(),
+			'system'   => $this->system_info(),
+		);
+	}
+
+	/**
+	 * The schema, minus anything the app has no use for.
+	 *
+	 * @return array<string, array<string, mixed>>
+	 */
+	private function schema_for_js(): array {
+		$out = array();
+
+		foreach ( Schema::fields() as $key => $field ) {
+			$out[ $key ] = array(
+				'tab'     => $field['tab'],
+				'type'    => $field['type'],
+				'label'   => $field['label'],
+				'help'    => $field['help'] ?? '',
+				'min'     => $field['min'] ?? null,
+				'max'     => $field['max'] ?? null,
+				'allowed' => $field['allowed'] ?? null,
+			);
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Current values, including the widget toggles the schema does not cover.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function settings_for_js(): array {
+		$values = Settings::all();
+
+		foreach ( Widget_Registry::map() as $slug => $widget ) {
+			$values[ Widget_Registry::toggle_key( $slug ) ] = Widget_Registry::is_enabled( $slug, $widget );
+		}
+
+		return $values;
+	}
+
+	/**
+	 * The widget list, with any unmet dependencies resolved for display.
+	 *
+	 * @return array<string, array<string, mixed>>
+	 */
+	private function widgets_for_js(): array {
+		$out = array();
+
+		foreach ( Widget_Registry::map() as $slug => $widget ) {
+			$missing = array();
+
+			foreach ( (array) ( $widget['requires'] ?? array() ) as $dependency ) {
+				if ( 'edd' === $dependency && ! defined( 'EDD_VERSION' ) ) {
+					$missing[] = 'Easy Digital Downloads';
+				}
+
+				if ( 'theme' === $dependency && ! function_exists( 'decent_icon' ) ) {
+					$missing[] = 'the Decent Themes theme';
+				}
+			}
+
+			$out[ $slug ] = array(
+				'key'      => Widget_Registry::toggle_key( $slug ),
+				'title'    => $widget['title'],
+				'group'    => $widget['group'] ?? '',
+				'keywords' => array_values( (array) ( $widget['keywords'] ?? array() ) ),
+				'missing'  => $missing,
+			);
+		}
+
+		return $out;
+	}
+
+	/**
+	 * The read-out support asks for first.
+	 *
+	 * @return array<string, string>
+	 */
+	private function system_info(): array {
+		$uploads = wp_upload_dir();
+
+		return array(
+			__( 'Plugin', 'decent-core' )           => DECENT_CORE_VERSION,
+			__( 'PHP', 'decent-core' )              => PHP_VERSION,
+			__( 'WordPress', 'decent-core' )        => (string) get_bloginfo( 'version' ),
+			__( 'Elementor', 'decent-core' )        => defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : __( 'not active', 'decent-core' ),
+			__( 'EDD', 'decent-core' )              => defined( 'EDD_VERSION' ) ? EDD_VERSION : __( 'not active', 'decent-core' ),
+			__( 'Theme', 'decent-core' )            => (string) wp_get_theme()->get( 'Name' ),
+			__( 'Object cache', 'decent-core' )     => wp_using_ext_object_cache() ? __( 'persistent', 'decent-core' ) : __( 'none', 'decent-core' ),
+			__( 'Uploads writable', 'decent-core' ) => wp_is_writable( (string) ( $uploads['basedir'] ?? '' ) ) ? __( 'yes', 'decent-core' ) : __( 'no', 'decent-core' ),
+			__( 'Elementor kit', 'decent-core' )    => (string) ( get_option( 'elementor_active_kit' ) ?: __( 'none', 'decent-core' ) ),
+			__( 'Widgets active', 'decent-core' )   => count( Widget_Registry::active() ) . ' / ' . count( Widget_Registry::map() ),
+		);
+	}
+
+	/**
+	 * Prints the mount point.
 	 *
 	 * @return void
 	 */
@@ -84,253 +243,17 @@ final class Admin_Page {
 			return;
 		}
 
-		$tabs = Schema::tabs();
-		$tab  = $this->current_tab();
+		// A noscript fallback rather than an empty page: the settings are all
+		// reachable over REST or WP-CLI, and saying so beats a blank screen.
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html__( 'Decent Core', 'decent-core' ); ?></h1>
-
-			<?php
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display-only flag set by our own redirect.
-			if ( isset( $_GET['updated'] ) ) :
-				?>
-				<div class="notice notice-success is-dismissible">
-					<p><?php esc_html_e( 'Settings saved.', 'decent-core' ); ?></p>
+			<div id="decent-core-app"></div>
+			<noscript>
+				<div class="notice notice-warning">
+					<p><?php esc_html_e( 'This screen needs JavaScript. The same settings can be changed with WP-CLI or the decent/v1/settings REST route.', 'decent-core' ); ?></p>
 				</div>
-			<?php endif; ?>
-
-			<nav class="nav-tab-wrapper">
-				<?php foreach ( $tabs as $slug => $label ) : ?>
-					<a class="nav-tab <?php echo $slug === $tab ? 'nav-tab-active' : ''; ?>"
-						href="<?php echo esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&tab=' . $slug ) ); ?>">
-						<?php echo esc_html( $label ); ?>
-					</a>
-				<?php endforeach; ?>
-			</nav>
-
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-				<input type="hidden" name="action" value="decent_core_save">
-				<input type="hidden" name="tab" value="<?php echo esc_attr( $tab ); ?>">
-				<?php wp_nonce_field( self::NONCE ); ?>
-
-				<?php
-				if ( 'widgets' === $tab ) {
-					$this->render_widgets_tab();
-				} elseif ( 'tools' === $tab ) {
-					$this->render_tools_tab();
-				} else {
-					$this->render_fields( $tab );
-				}
-				?>
-
-				<?php if ( 'tools' !== $tab ) : ?>
-					<?php submit_button(); ?>
-				<?php endif; ?>
-			</form>
+			</noscript>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Renders the fields belonging to a tab.
-	 *
-	 * @param string $tab Tab key.
-	 * @return void
-	 */
-	private function render_fields( string $tab ): void {
-		$fields = Schema::fields_for( $tab );
-
-		if ( empty( $fields ) ) {
-			printf( '<p>%s</p>', esc_html__( 'Nothing to configure here yet.', 'decent-core' ) );
-			return;
-		}
-
-		echo '<table class="form-table" role="presentation"><tbody>';
-
-		foreach ( $fields as $key => $field ) {
-			$value = Settings::get( $key );
-			$id    = 'decent-' . $key;
-			?>
-			<tr>
-				<th scope="row">
-					<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $field['label'] ); ?></label>
-				</th>
-				<td>
-					<?php if ( 'boolean' === $field['type'] ) : ?>
-						<label>
-							<input type="checkbox"
-								id="<?php echo esc_attr( $id ); ?>"
-								name="settings[<?php echo esc_attr( $key ); ?>]"
-								value="1"
-								<?php checked( (bool) $value ); ?>>
-							<?php echo esc_html( $field['label'] ); ?>
-						</label>
-					<?php elseif ( 'integer' === $field['type'] ) : ?>
-						<input type="number"
-							id="<?php echo esc_attr( $id ); ?>"
-							name="settings[<?php echo esc_attr( $key ); ?>]"
-							value="<?php echo esc_attr( (string) $value ); ?>"
-							min="<?php echo esc_attr( (string) ( $field['min'] ?? 0 ) ); ?>"
-							max="<?php echo esc_attr( (string) ( $field['max'] ?? 9999 ) ); ?>"
-							class="small-text">
-					<?php elseif ( isset( $field['allowed'] ) ) : ?>
-						<select id="<?php echo esc_attr( $id ); ?>" name="settings[<?php echo esc_attr( $key ); ?>]">
-							<?php foreach ( (array) $field['allowed'] as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $value, $option ); ?>>
-									<?php echo esc_html( $option ); ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					<?php else : ?>
-						<input type="text"
-							id="<?php echo esc_attr( $id ); ?>"
-							name="settings[<?php echo esc_attr( $key ); ?>]"
-							value="<?php echo esc_attr( (string) $value ); ?>"
-							class="regular-text">
-					<?php endif; ?>
-
-					<?php if ( ! empty( $field['help'] ) ) : ?>
-						<p class="description"><?php echo esc_html( $field['help'] ); ?></p>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<?php
-		}
-
-		echo '</tbody></table>';
-	}
-
-	/**
-	 * Renders the per-widget toggles, generated from the widget map.
-	 *
-	 * @return void
-	 */
-	private function render_widgets_tab(): void {
-		$map = Widget_Registry::map();
-
-		printf(
-			'<p>%s</p>',
-			esc_html__( 'Switching a widget off removes it from the Elementor panel and stops registering its assets. Pages already using it will render nothing in its place.', 'decent-core' )
-		);
-
-		echo '<table class="form-table" role="presentation"><tbody>';
-
-		foreach ( $map as $slug => $widget ) {
-			$key = Widget_Registry::toggle_key( $slug );
-			?>
-			<tr>
-				<th scope="row"><?php echo esc_html( $widget['title'] ); ?></th>
-				<td>
-					<label>
-						<input type="checkbox"
-							name="widgets[<?php echo esc_attr( $key ); ?>]"
-							value="1"
-							<?php checked( Widget_Registry::is_enabled( $slug, $widget ) ); ?>>
-						<?php esc_html_e( 'Enabled', 'decent-core' ); ?>
-					</label>
-
-					<?php if ( ! empty( $widget['requires'] ) ) : ?>
-						<p class="description">
-							<?php
-							printf(
-								/* translators: %s: comma-separated dependency list. */
-								esc_html__( 'Requires: %s', 'decent-core' ),
-								esc_html( implode( ', ', (array) $widget['requires'] ) )
-							);
-							?>
-						</p>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<?php
-		}
-
-		echo '</tbody></table>';
-	}
-
-	/**
-	 * Renders the tools tab.
-	 *
-	 * @return void
-	 */
-	private function render_tools_tab(): void {
-		$kit_id = (int) get_option( 'elementor_active_kit' );
-		?>
-		<h2><?php esc_html_e( 'System', 'decent-core' ); ?></h2>
-		<table class="widefat striped" style="max-width:720px">
-			<tbody>
-				<tr><td><?php esc_html_e( 'Plugin version', 'decent-core' ); ?></td><td><code><?php echo esc_html( DECENT_CORE_VERSION ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'PHP', 'decent-core' ); ?></td><td><code><?php echo esc_html( PHP_VERSION ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'WordPress', 'decent-core' ); ?></td><td><code><?php echo esc_html( get_bloginfo( 'version' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Elementor', 'decent-core' ); ?></td><td><code><?php echo esc_html( defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : __( 'not active', 'decent-core' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Easy Digital Downloads', 'decent-core' ); ?></td><td><code><?php echo esc_html( defined( 'EDD_VERSION' ) ? EDD_VERSION : __( 'not active', 'decent-core' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Theme', 'decent-core' ); ?></td><td><code><?php echo esc_html( (string) wp_get_theme()->get( 'Name' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Persistent object cache', 'decent-core' ); ?></td><td><code><?php echo esc_html( wp_using_ext_object_cache() ? __( 'yes', 'decent-core' ) : __( 'no', 'decent-core' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Uploads writable', 'decent-core' ); ?></td><td><code><?php echo esc_html( wp_is_writable( (string) ( wp_upload_dir()['basedir'] ?? '' ) ) ? __( 'yes', 'decent-core' ) : __( 'no', 'decent-core' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Elementor active kit', 'decent-core' ); ?></td><td><code><?php echo esc_html( $kit_id ? (string) $kit_id : __( 'none', 'decent-core' ) ); ?></code></td></tr>
-				<tr><td><?php esc_html_e( 'Registered widgets', 'decent-core' ); ?></td><td><code><?php echo esc_html( (string) count( Widget_Registry::active() ) . ' / ' . count( Widget_Registry::map() ) ); ?></code></td></tr>
-			</tbody>
-		</table>
-		<?php
-	}
-
-	/**
-	 * Handles the form submit.
-	 *
-	 * @return void
-	 */
-	public function handle_save(): void {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to change these settings.', 'decent-core' ), '', array( 'response' => 403 ) );
-		}
-
-		check_admin_referer( self::NONCE );
-
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Each value is sanitised by Schema::sanitize() against its declared type.
-		$posted = isset( $_POST['settings'] ) ? (array) wp_unslash( $_POST['settings'] ) : array();
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Cast to bool below.
-		$widget_toggles = isset( $_POST['widgets'] ) ? (array) wp_unslash( $_POST['widgets'] ) : array();
-
-		$tab = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : 'general';
-
-		// An unchecked checkbox posts nothing at all, so every boolean on the
-		// tab being saved is seeded false first. Without this, switching one
-		// off would look like "no change" and silently do nothing.
-		if ( 'widgets' !== $tab ) {
-			foreach ( Schema::fields_for( $tab ) as $key => $field ) {
-				if ( 'boolean' === $field['type'] && ! isset( $posted[ $key ] ) ) {
-					$posted[ $key ] = false;
-				}
-			}
-
-			Settings::save( $posted );
-		} else {
-			$values = array();
-
-			foreach ( Widget_Registry::map() as $slug => $widget ) {
-				$key            = Widget_Registry::toggle_key( $slug );
-				$values[ $key ] = isset( $widget_toggles[ $key ] );
-			}
-
-			// Widget toggles are not in the schema, so they are written
-			// directly — as plain booleans, keyed by a slug we generated.
-			$current = get_option( Settings::OPTION, array() );
-			$current = is_array( $current ) ? $current : array();
-
-			update_option( Settings::OPTION, array_merge( $current, $values ), true );
-			Settings::flush();
-		}
-
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page'    => self::SLUG,
-					'tab'     => $tab,
-					'updated' => '1',
-				),
-				admin_url( 'admin.php' )
-			)
-		);
-		exit;
 	}
 }

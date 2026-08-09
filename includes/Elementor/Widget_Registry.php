@@ -129,4 +129,31 @@ final class Widget_Registry {
 	public static function toggle_key( string $slug ): string {
 		return self::TOGGLE_PREFIX . str_replace( '-', '_', $slug );
 	}
+
+	/**
+	 * Adds one boolean field per widget to the settings schema.
+	 *
+	 * The toggles could have been stored on the side, but then they would be
+	 * the one thing writable without passing the schema's validation — and the
+	 * REST endpoint would need a special case to accept them. Declaring them
+	 * as ordinary fields means they are sanitised, bounded and exported by
+	 * exactly the same code as everything else.
+	 *
+	 * @param array<string, array<string, mixed>> $fields Existing schema.
+	 * @return array<string, array<string, mixed>>
+	 */
+	public static function extend_schema( array $fields ): array {
+		foreach ( self::map() as $slug => $widget ) {
+			$fields[ self::toggle_key( $slug ) ] = array(
+				'tab'      => 'widgets',
+				'type'     => 'boolean',
+				'default'  => (bool) ( $widget['default'] ?? true ),
+				'label'    => (string) ( $widget['title'] ?? $slug ),
+				'help'     => '',
+				'sanitize' => 'rest_sanitize_boolean',
+			);
+		}
+
+		return $fields;
+	}
 }

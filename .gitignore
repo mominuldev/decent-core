@@ -7,10 +7,13 @@
 .idea/
 *.swp
 
-# Dev tooling — never shipped. composer.lock IS committed so CI installs the
-# exact versions this project was linted against.
+# Dev tooling — never shipped. composer.lock and package-lock.json ARE
+# committed so CI builds the exact versions this project was built against.
 /vendor/
 /node_modules/
+
+# assets/ is build OUTPUT and is committed on purpose: the plugin has to run
+# from a zip without anyone installing node. Sources live in src/.
 phpcs.xml
 phpstan.neon
 .phpunit.result.cache

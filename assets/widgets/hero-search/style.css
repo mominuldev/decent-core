@@ -1,10 +1,1 @@
-/* Hero Search — widget-owned layout glue only.
-   .hero, .hero__inner, .hero__title, .hero-search, .pill and .btn all come
-   from the theme. Anything this file restyles would be a component the theme
-   already owns, which is how a design system forks. */
-
-.hero--search .hero-search { width: 100%; }
-
-/* The widget can be dropped into a narrow column, where the theme's centred
-   720px search bar would overflow its container. */
-.elementor-widget-decent-hero-search .hero-search { max-width: 100%; }
+.hero--search .hero-search{width:100%}.elementor-widget-decent-hero-search .hero-search{max-width:100%}

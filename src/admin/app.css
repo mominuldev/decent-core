@@ -1,0 +1,130 @@
+/* Decent Core — admin app styles.
+   ==========================================================================
+
+   Two constraints shape this file, and both come from living inside somebody
+   else's admin rather than owning the page:
+
+   1. No preflight. Tailwind's reset would restyle every element in wp-admin,
+      not just ours. The layers are imported individually so base/ is skipped.
+
+   2. Every utility is prefixed `dc:`. WordPress admin already defines .button,
+      .card, .hidden, .notice and more; an unprefixed `.hidden` from a later
+      stylesheet would silently change core UI outside our container.
+
+   Design tokens mirror the theme's palette so the settings screen looks like
+   the product it configures. They are declared here rather than imported
+   because wp-admin never loads the theme's stylesheet.
+   ========================================================================== */
+
+@layer theme, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme) prefix(dc);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(dc);
+
+@source "./";
+
+@theme {
+  --color-ink: #212529;
+  --color-ink-panel: #2a3037;
+  --color-muted: #6c757d;
+  --color-muted-alt: #5a6169;
+  --color-line: #e9ecef;
+  --color-line-strong: #ced4da;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8f8f8;
+
+  --color-brand: #007bff;
+  --color-brand-600: #0069d9;
+  --color-brand-700: #0062cc;
+  --color-brand-tint: #f1f7ff;
+  --color-brand-tint-line: #cfe3ff;
+
+  --color-ok: #28a745;
+  --color-ok-tint: #f1fbf4;
+  --color-warn: #ffc107;
+  --color-warn-tint: #fffaec;
+  --color-danger: #dc3545;
+  --color-danger-tint: #fef2f3;
+
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-card: 0 2px 12px rgb(0 0 0 / 0.06);
+  --shadow-lift: 0 2px 8px rgb(0 0 0 / 0.08);
+
+  --ease-out-fast: 200ms ease-out;
+}
+
+/* A scoped reset, standing in for the preflight we deliberately skipped.
+   Only inside our own root, so wp-admin is untouched. */
+#decent-core-app {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+#decent-core-app *,
+#decent-core-app *::before,
+#decent-core-app *::after {
+  box-sizing: border-box;
+
+  /* Tailwind's `border` utility only sets border-width; the style comes from
+     preflight, which is deliberately not loaded here. Without this every
+     border-* class renders nothing at all, and so does divide-*. */
+  border-width: 0;
+  border-style: solid;
+  border-color: var(--color-line);
+}
+
+#decent-core-app h1,
+#decent-core-app h2,
+#decent-core-app h3,
+#decent-core-app p,
+#decent-core-app ul,
+#decent-core-app li,
+#decent-core-app figure {
+  margin: 0;
+  padding: 0;
+}
+
+#decent-core-app ul {
+  list-style: none;
+}
+
+#decent-core-app button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+#decent-core-app input,
+#decent-core-app select {
+  font: inherit;
+  color: inherit;
+}
+
+/* WordPress puts a 20px margin on .wrap and a notice area above it; the app
+   claims the full width of the content column instead. */
+#decent-core-app {
+  margin: 20px 20px 0 0;
+}
+
+@media (max-width: 782px) {
+  #decent-core-app { margin-right: 12px; }
+}
+
+/* Respect the platform: reduced motion turns off the transitions entirely. */
+@media (prefers-reduced-motion: reduce) {
+  #decent-core-app *,
+  #decent-core-app *::before,
+  #decent-core-app *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
