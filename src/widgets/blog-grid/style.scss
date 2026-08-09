@@ -1,0 +1,9 @@
+// blog-grid — widget-owned layout glue only.
+// The cards themselves are theme components; this is the grid the column and
+// gap controls target.
+
+.elementor-widget-decent-blog-grid {
+  .decent-grid {
+    display: grid;
+  }
+}
