@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -16,6 +17,8 @@ use Elementor\Controls_Manager;
  * A compact bundle or offer panel.
  */
 final class Promo_Card extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -94,6 +97,35 @@ final class Promo_Card extends Widget_Base {
 				),
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Card', 'decent-core' ) );
+
+		$this->register_box_style(
+			'promo',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .promo',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_alignment_style( 'promo_align', '{{WRAPPER}} .promo' );
+
+		$this->register_icon_style(
+			'promo_icon',
+			__( 'Icon', 'decent-core' ),
+			'{{WRAPPER}} .promo > svg',
+			array(
+				'svg_selector' => '{{WRAPPER}} .promo > svg',
+				'box'          => false,
+			)
+		);
+
+		$this->register_text_style( 'promo_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .promo h3' );
+
+		$this->register_text_style( 'promo_text', __( 'Text', 'decent-core' ), '{{WRAPPER}} .promo p' );
+
+		$this->register_button_style( 'promo_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .promo .btn' );
 
 		$this->end_controls_section();
 	}

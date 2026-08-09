@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin as Elementor_Plugin;
@@ -22,6 +23,8 @@ use Elementor\Plugin as Elementor_Plugin;
  * replaces. If the component changes, it changes in one place.
  */
 final class Product_Hero extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -48,6 +51,88 @@ final class Product_Hero extends Widget_Base {
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+
+		$this->register_text_style(
+			'hero_title',
+			__( 'Title', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__title',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'hero_text', __( 'Excerpt', 'decent-core' ), '{{WRAPPER}} .product-hero__text' );
+
+		$this->register_text_style(
+			'hero_facts',
+			__( 'Facts list', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__facts',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'hero_stars',
+			__( 'Stars', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__facts .stars',
+			array( 'spacing' => false )
+		);
+
+		$this->register_link_style( 'hero_breadcrumb', __( 'Breadcrumb links', 'decent-core' ), '{{WRAPPER}} .breadcrumb a' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_badges', __( 'Badges', 'decent-core' ) );
+
+		$this->register_box_style(
+			'badge',
+			__( 'Badge', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__badges .badge',
+			array(
+				'separator' => 'none',
+				'shadow'    => false,
+			)
+		);
+
+		$this->register_text_style(
+			'badge_text',
+			__( 'Badge text', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__badges .badge',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_gap_style( 'badges_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .product-hero__badges', 32 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_icon', __( 'Product icon', 'decent-core' ) );
+
+		$this->register_icon_style(
+			'hero_icon',
+			__( 'Icon', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__icon',
+			array( 'separator' => 'none' )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .product-hero__inner',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
+		$this->register_gap_style( 'row_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .product-hero__row', 64 );
 
 		$this->end_controls_section();
 	}

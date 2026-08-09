@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -16,6 +17,8 @@ use Elementor\Controls_Manager;
  * The site's brand mark, for header templates.
  */
 final class Site_Logo extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -56,6 +59,80 @@ final class Site_Logo extends Widget_Base {
 				'condition' => array( 'source' => 'custom' ),
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_logo', __( 'Logo', 'decent-core' ) );
+
+		$this->add_responsive_control(
+			'logo_width',
+			array(
+				'label'      => __( 'Image width', 'decent-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 40,
+						'max'  => 400,
+						'step' => 2,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} img' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				),
+				'condition'  => array( 'source' => array( 'site', 'custom' ) ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'logo_radius',
+			array(
+				'label'      => __( 'Image radius', 'decent-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array( 'source' => array( 'site', 'custom' ) ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// The text mark is also the fallback when no image resolves, so these
+		// are offered whatever the source is set to.
+		$this->start_style_section( 'style_mark', __( 'Text mark', 'decent-core' ) );
+
+		$this->register_box_style(
+			'mark',
+			__( 'Initials tile', 'decent-core' ),
+			'{{WRAPPER}} .brand__mark',
+			array(
+				'separator' => 'none',
+				'shadow'    => false,
+			)
+		);
+
+		$this->register_text_style(
+			'mark_text',
+			__( 'Initials text', 'decent-core' ),
+			'{{WRAPPER}} .brand__mark',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_text_style(
+			'brand_name',
+			__( 'Site name', 'decent-core' ),
+			'{{WRAPPER}} .brand__name',
+			array( 'spacing' => false )
+		);
+
+		$this->register_link_style( 'brand_link', __( 'Link', 'decent-core' ), '{{WRAPPER}} .brand' );
+
+		$this->register_gap_style( 'brand_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .brand', 32 );
 
 		$this->end_controls_section();
 	}

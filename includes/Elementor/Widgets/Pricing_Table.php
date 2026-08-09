@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -22,6 +23,7 @@ final class Pricing_Table extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -146,6 +148,102 @@ final class Pricing_Table extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 2 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Plan cards', 'decent-core' ) );
+
+		$this->register_box_style(
+			'card',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .price-card',
+			array( 'separator' => 'none' )
+		);
+
+		// The highlighted plan is styled after the base card so its values win
+		// on the one card that carries both classes.
+		$this->register_box_style(
+			'card_featured',
+			__( 'Highlighted card', 'decent-core' ),
+			'{{WRAPPER}} .price-card--featured'
+		);
+
+		$this->register_text_style( 'plan_name', __( 'Plan name', 'decent-core' ), '{{WRAPPER}} .price-card__head h3' );
+
+		$this->register_box_style(
+			'plan_badge',
+			__( 'Badge', 'decent-core' ),
+			'{{WRAPPER}} .price-card__head .badge',
+			array( 'shadow' => false )
+		);
+
+		$this->register_text_style(
+			'plan_badge_text',
+			__( 'Badge text', 'decent-core' ),
+			'{{WRAPPER}} .price-card__head .badge',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_text_style(
+			'plan_price',
+			__( 'Price', 'decent-core' ),
+			'{{WRAPPER}} .price-card__price span:first-child',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'plan_note',
+			__( 'Price note', 'decent-core' ),
+			'{{WRAPPER}} .price-card__price span + span',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'plan_feature',
+			__( 'Included item', 'decent-core' ),
+			'{{WRAPPER}} .price-card .tick-list li',
+			array( 'spacing' => false )
+		);
+
+		$this->register_icon_style(
+			'plan_tick',
+			__( 'Tick icon', 'decent-core' ),
+			'{{WRAPPER}} .price-card .tick-list li svg',
+			array(
+				'svg_selector' => '{{WRAPPER}} .price-card .tick-list li svg',
+				'box'          => false,
+			)
+		);
+
+		$this->register_gap_style(
+			'plan_feature_gap',
+			__( 'Included list gap', 'decent-core' ),
+			'{{WRAPPER}} .price-card .tick-list',
+			32
+		);
+
+		$this->register_button_style( 'plan_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .price-card .btn' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

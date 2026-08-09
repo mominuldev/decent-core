@@ -10,6 +10,7 @@ namespace DecentCore\Elementor\Widgets;
 defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -24,6 +25,7 @@ use Elementor\Repeater;
 final class Showcase extends Widget_Base {
 
 	use Has_Section_Head;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -115,6 +117,93 @@ final class Showcase extends Widget_Base {
 					),
 				),
 			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_rows', __( 'Rows', 'decent-core' ) );
+
+		$this->register_text_style(
+			'row_count',
+			__( 'Count label', 'decent-core' ),
+			'{{WRAPPER}} .showcase__count',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'row_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .showcase__title' );
+
+		$this->register_text_style( 'row_body', __( 'Body', 'decent-core' ), '{{WRAPPER}} .showcase__body' );
+
+		$this->register_text_style(
+			'row_point',
+			__( 'Tick list item', 'decent-core' ),
+			'{{WRAPPER}} .showcase__points li',
+			array( 'spacing' => false )
+		);
+
+		$this->register_icon_style(
+			'row_tick',
+			__( 'Tick icon', 'decent-core' ),
+			'{{WRAPPER}} .showcase__points li svg',
+			array(
+				'svg_selector' => '{{WRAPPER}} .showcase__points li svg',
+				'box'          => false,
+			)
+		);
+
+		$this->register_gap_style( 'points_gap', __( 'Tick list gap', 'decent-core' ), '{{WRAPPER}} .showcase__points', 32 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_layout', __( 'Layout', 'decent-core' ) );
+
+		$this->register_gap_style(
+			'row_gap',
+			__( 'Text and image gap', 'decent-core' ),
+			'{{WRAPPER}} .showcase',
+			96
+		);
+
+		$this->add_responsive_control(
+			'row_spacing',
+			array(
+				'label'      => __( 'Space between rows', 'decent-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 160,
+						'step' => 8,
+					),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .showcase + .showcase' => 'margin-top: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_radius',
+			array(
+				'label'      => __( 'Image radius', 'decent-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .showcase img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array( 'shadow' => false )
 		);
 
 		$this->end_controls_section();

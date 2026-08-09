@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -22,6 +23,7 @@ final class Benefit_Grid extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -42,7 +44,10 @@ final class Benefit_Grid extends Widget_Base {
 		$this->register_section_head_controls( __( 'Buy once. Ship with confidence.', 'decent-core' ), __( 'Why choose us', 'decent-core' ) );
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Benefits', 'decent-core' ) ) );
+		// Not 'items': the repeater below is already called that, and a section
+		// shares the control stack with the controls inside it. Elementor
+		// refuses the second registration, so the repeater would never appear.
+		$this->start_controls_section( 'items_section', array( 'label' => __( 'Benefits', 'decent-core' ) ) );
 
 		$repeater = new Repeater();
 
@@ -112,6 +117,54 @@ final class Benefit_Grid extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 3 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Cards', 'decent-core' ) );
+
+		$this->register_box_style(
+			'card',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .benefit-card',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_icon_style(
+			'card_icon',
+			__( 'Icon', 'decent-core' ),
+			'{{WRAPPER}} .benefit-card > svg',
+			array(
+				'svg_selector' => '{{WRAPPER}} .benefit-card > svg',
+				'box'          => false,
+			)
+		);
+
+		$this->register_text_style( 'card_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .benefit-card h3' );
+
+		$this->register_text_style(
+			'card_text',
+			__( 'Text', 'decent-core' ),
+			'{{WRAPPER}} .benefit-card p',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

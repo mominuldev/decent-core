@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -20,6 +21,8 @@ use Elementor\Controls_Manager;
  * preventDefault(), which is fine for a mockup and dishonest on a live site.
  */
 final class Newsletter extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -85,6 +88,61 @@ final class Newsletter extends Widget_Base {
 				'default'     => __( 'New releases and changelogs only. Unsubscribe anytime.', 'decent-core' ),
 				'label_block' => true,
 			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_form', __( 'Form', 'decent-core' ) );
+
+		$this->register_box_style(
+			'form',
+			__( 'Form', 'decent-core' ),
+			'{{WRAPPER}} .newsletter',
+			array(
+				'separator' => 'none',
+				'shadow'    => false,
+			)
+		);
+
+		$this->register_text_style( 'label', __( 'Label', 'decent-core' ), '{{WRAPPER}} .newsletter__label' );
+
+		$this->register_box_style(
+			'field',
+			__( 'Email field', 'decent-core' ),
+			'{{WRAPPER}} .newsletter .input',
+			array( 'shadow' => false )
+		);
+
+		$this->register_text_style(
+			'field_text',
+			__( 'Email field text', 'decent-core' ),
+			'{{WRAPPER}} .newsletter .input',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->add_control(
+			'field_placeholder_color',
+			array(
+				'label'     => __( 'Placeholder colour', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .newsletter .input::placeholder' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->register_button_style( 'submit_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .newsletter .btn' );
+
+		$this->register_gap_style( 'row_gap', __( 'Field and button gap', 'decent-core' ), '{{WRAPPER}} .newsletter__row', 32 );
+
+		$this->register_text_style(
+			'note',
+			__( 'Small print', 'decent-core' ),
+			'{{WRAPPER}} .newsletter__note',
+			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();

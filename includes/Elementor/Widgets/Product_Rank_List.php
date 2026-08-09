@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 
 /**
@@ -20,6 +21,7 @@ final class Product_Rank_List extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Query_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -45,6 +47,95 @@ final class Product_Rank_List extends Widget_Base {
 
 		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'decent-core' ) ) );
 		$this->register_query_controls( 5 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_rows', __( 'Rows', 'decent-core' ) );
+
+		$this->register_box_style(
+			'row',
+			__( 'Row', 'decent-core' ),
+			'{{WRAPPER}} .rank-list li',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'rank', __( 'Rank number', 'decent-core' ), '{{WRAPPER}} .rank-list__rank' );
+
+		$this->register_box_style(
+			'thumb',
+			__( 'Initials tile', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__thumb',
+			array( 'shadow' => false )
+		);
+
+		$this->register_text_style(
+			'thumb_text',
+			__( 'Initials text', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__thumb',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_text_style( 'row_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .rank-list__head h3' );
+
+		$this->register_link_style( 'row_title_link', __( 'Title link', 'decent-core' ), '{{WRAPPER}} .rank-list__head h3 a' );
+
+		$this->register_text_style(
+			'row_sub',
+			__( 'Category line', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__sub',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_stats', __( 'Statistics and buy', 'decent-core' ) );
+
+		$this->register_text_style(
+			'row_stat',
+			__( 'Statistic', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__stat',
+			array(
+				'separator' => 'none',
+				'spacing'   => false,
+			)
+		);
+
+		$this->register_text_style(
+			'row_stars',
+			__( 'Stars', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__stat .stars',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'row_price',
+			__( 'Price', 'decent-core' ),
+			'{{WRAPPER}} .rank-list__buy span',
+			array( 'spacing' => false )
+		);
+
+		$this->register_link_style( 'row_link', __( 'View link', 'decent-core' ), '{{WRAPPER}} .rank-list__buy a' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

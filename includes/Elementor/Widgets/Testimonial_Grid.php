@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -22,6 +23,7 @@ final class Testimonial_Grid extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -121,6 +123,48 @@ final class Testimonial_Grid extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 3 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Review cards', 'decent-core' ) );
+
+		$this->register_box_style(
+			'card',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .review-card',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'card_stars', __( 'Stars', 'decent-core' ), '{{WRAPPER}} .review-card .stars' );
+
+		$this->register_text_style( 'card_quote', __( 'Quote', 'decent-core' ), '{{WRAPPER}} .review-card__quote' );
+
+		$this->register_text_style( 'card_name', __( 'Name', 'decent-core' ), '{{WRAPPER}} .review-card__name' );
+
+		$this->register_text_style(
+			'card_role',
+			__( 'Role', 'decent-core' ),
+			'{{WRAPPER}} .review-card__role',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

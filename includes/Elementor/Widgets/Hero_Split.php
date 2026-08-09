@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -21,6 +22,8 @@ use Elementor\Repeater;
  * one, which is what the switch was standing in for.
  */
 final class Hero_Split extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -130,7 +133,10 @@ final class Hero_Split extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'stats', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
+		// Not 'stats': the repeater below is already called that, and a section
+		// shares the control stack with the controls inside it. Elementor
+		// refuses the second registration, so the repeater would never appear.
+		$this->start_controls_section( 'stats_section', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
 
 		$repeater = new Repeater();
 
@@ -175,6 +181,123 @@ final class Hero_Split extends Widget_Base {
 				),
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+
+		$this->register_alignment_style( 'text_align', '{{WRAPPER}} .hero__inner > div:first-child' );
+
+		$this->register_text_style( 'pill', __( 'Eyebrow pill', 'decent-core' ), '{{WRAPPER}} .pill' );
+
+		$this->add_control(
+			'pill_dot_color',
+			array(
+				'label'     => __( 'Pill dot colour', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .pill__dot' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->register_text_style( 'heading', __( 'Heading', 'decent-core' ), '{{WRAPPER}} .hero__title' );
+
+		$this->register_text_style(
+			'text',
+			__( 'Supporting text', 'decent-core' ),
+			'{{WRAPPER}} .hero__text',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_buttons', __( 'Buttons', 'decent-core' ) );
+
+		$this->register_button_style(
+			'primary_button',
+			__( 'Primary button', 'decent-core' ),
+			'{{WRAPPER}} .hero__actions .btn--primary',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_button_style(
+			'secondary_button',
+			__( 'Secondary button', 'decent-core' ),
+			'{{WRAPPER}} .hero__actions .btn--secondary'
+		);
+
+		$this->register_gap_style( 'buttons_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .hero__actions', 40 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_stats', __( 'Statistics', 'decent-core' ) );
+
+		$this->register_text_style(
+			'stat_value',
+			__( 'Figure', 'decent-core' ),
+			'{{WRAPPER}} .hero__stats dt',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style(
+			'stat_label',
+			__( 'Label', 'decent-core' ),
+			'{{WRAPPER}} .hero__stats dd',
+			array( 'spacing' => false )
+		);
+
+		$this->register_gap_style( 'stats_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .hero__stats', 64 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_visual', __( 'Visual', 'decent-core' ) );
+
+		$this->register_box_style(
+			'visual',
+			__( 'Browser frame', 'decent-core' ),
+			'{{WRAPPER}} .hero__visual .browser',
+			array( 'separator' => 'none' )
+		);
+
+		$this->add_control(
+			'visual_bar_background',
+			array(
+				'label'     => __( 'Title bar background', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .browser__bar' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'visual_image_radius',
+			array(
+				'label'      => __( 'Image radius', 'decent-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .hero__visual img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Hero band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .hero',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
+		$this->register_gap_style( 'band_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .hero__inner', 96 );
 
 		$this->end_controls_section();
 	}

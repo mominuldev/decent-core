@@ -15,14 +15,16 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Group_Control_Typography;
 
 /**
  * A search-led hero.
  */
 final class Hero_Search extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -145,24 +147,82 @@ final class Hero_Search extends Widget_Base {
 			)
 		);
 
+		// The eyebrow, heading and supporting text. `heading_color` and
+		// `heading_typography` keep the ids they were first published under —
+		// renaming them would drop the values off every page already using the
+		// widget.
+		$this->register_text_style( 'pill', __( 'Eyebrow pill', 'decent-core' ), '{{WRAPPER}} .pill' );
+
 		$this->add_control(
-			'heading_color',
+			'pill_dot_color',
 			array(
-				'label'     => __( 'Heading colour', 'decent-core' ),
+				'label'     => __( 'Pill dot colour', 'decent-core' ),
 				'type'      => Controls_Manager::COLOR,
-				// Defaults to the theme token rather than a literal, so a
-				// palette change propagates without touching the widget.
 				'selectors' => array(
-					'{{WRAPPER}} .hero__title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .pill__dot' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->register_text_style( 'heading', __( 'Heading', 'decent-core' ), '{{WRAPPER}} .hero__title' );
+
+		$this->register_text_style(
+			'text',
+			__( 'Supporting text', 'decent-core' ),
+			'{{WRAPPER}} .hero__text',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_form', __( 'Search form', 'decent-core' ) );
+
+		$this->register_box_style(
+			'field',
+			__( 'Field', 'decent-core' ),
+			'{{WRAPPER}} .hero-search__input',
 			array(
-				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .hero__title',
+				'separator' => 'none',
+				'shadow'    => false,
+			)
+		);
+
+		$this->register_text_style(
+			'field_text',
+			__( 'Field text', 'decent-core' ),
+			'{{WRAPPER}} .hero-search__input',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->add_control(
+			'field_placeholder_color',
+			array(
+				'label'     => __( 'Placeholder colour', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .hero-search__input::placeholder' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->register_button_style( 'search_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .hero-search .btn' );
+
+		$this->register_gap_style( 'form_gap', __( 'Field and button gap', 'decent-core' ), '{{WRAPPER}} .hero-search', 32 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Hero band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .hero',
+			array(
+				'heading' => false,
+				'shadow'  => false,
 			)
 		);
 

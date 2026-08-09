@@ -10,6 +10,7 @@ namespace DecentCore\Elementor\Widgets;
 defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -24,6 +25,7 @@ use Elementor\Repeater;
 final class Faq_Accordion extends Widget_Base {
 
 	use Has_Section_Head;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -87,6 +89,69 @@ final class Faq_Accordion extends Widget_Base {
 						'answer'   => __( 'For the life of the product. Version history and changelogs are in your dashboard so you can review a release before pushing it.', 'decent-core' ),
 					),
 				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_question', __( 'Questions', 'decent-core' ) );
+
+		$this->register_box_style(
+			'trigger',
+			__( 'Row', 'decent-core' ),
+			'{{WRAPPER}} .accordion__trigger',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_link_style(
+			'trigger_text',
+			__( 'Question text', 'decent-core' ),
+			'{{WRAPPER}} .accordion__trigger'
+		);
+
+		$this->register_text_style(
+			'trigger_mark',
+			__( 'Plus and minus mark', 'decent-core' ),
+			'{{WRAPPER}} .accordion__mark',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_answer', __( 'Answers', 'decent-core' ) );
+
+		$this->register_box_style(
+			'panel',
+			__( 'Panel', 'decent-core' ),
+			'{{WRAPPER}} .accordion__panel',
+			array(
+				'separator' => 'none',
+				'shadow'    => false,
+			)
+		);
+
+		$this->register_text_style(
+			'panel_text',
+			__( 'Answer text', 'decent-core' ),
+			'{{WRAPPER}} .accordion__panel p',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
 			)
 		);
 

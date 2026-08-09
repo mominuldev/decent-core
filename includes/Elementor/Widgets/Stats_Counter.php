@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -22,6 +23,7 @@ final class Stats_Counter extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -42,7 +44,10 @@ final class Stats_Counter extends Widget_Base {
 		$this->register_section_head_controls();
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
+		// Not 'items': the repeater below is already called that, and a section
+		// shares the control stack with the controls inside it. Elementor
+		// refuses the second registration, so the repeater would never appear.
+		$this->start_controls_section( 'items_section', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
 
 		$repeater = new Repeater();
 
@@ -103,6 +108,50 @@ final class Stats_Counter extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 4 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_items', __( 'Statistics', 'decent-core' ) );
+
+		$this->register_box_style(
+			'stat',
+			__( 'Item', 'decent-core' ),
+			'{{WRAPPER}} .trust__metrics li',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_alignment_style( 'stat_align', '{{WRAPPER}} .trust__metrics li' );
+
+		$this->register_text_style(
+			'stat_title',
+			__( 'Figure', 'decent-core' ),
+			'{{WRAPPER}} .trust__metrics dt'
+		);
+
+		$this->register_text_style(
+			'stat_text',
+			__( 'Label', 'decent-core' ),
+			'{{WRAPPER}} .trust__metrics dd',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

@@ -9,6 +9,8 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -21,6 +23,9 @@ use Elementor\Controls_Manager;
  * quietly break the "every filter is a shareable URL" guarantee.
  */
 final class Product_Archive extends Widget_Base {
+
+	use Has_Style_Controls;
+	use Has_Product_Card_Style;
 
 	/**
 	 * Widget slug.
@@ -63,6 +68,182 @@ final class Product_Archive extends Widget_Base {
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__( 'Reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template.', 'decent-core' ),
 				'content_classes' => 'elementor-descriptor',
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->register_product_card_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_grid', __( 'Grid', 'decent-core' ) );
+
+		$this->add_responsive_control(
+			'columns',
+			array(
+				'label'     => __( 'Columns', 'decent-core' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					''  => __( 'Theme default', 'decent-core' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .catalog__grid' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
+				),
+			)
+		);
+
+		$this->register_gap_style( 'grid_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .catalog__grid', 56 );
+
+		$this->add_responsive_control(
+			'sidebar_width',
+			array(
+				'label'      => __( 'Sidebar width', 'decent-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 180,
+						'max'  => 400,
+						'step' => 10,
+					),
+				),
+				// .catalog is a flex row, so the sidebar's width is its
+				// flex-basis. Setting grid-template-columns here would be a
+				// declaration the browser drops without a word.
+				'selectors'  => array(
+					'{{WRAPPER}} .catalog__sidebar' => 'flex-basis: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_filters' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section(
+			'style_filters',
+			__( 'Filters', 'decent-core' ),
+			array( 'condition' => array( 'show_filters' => 'yes' ) )
+		);
+
+		$this->register_box_style(
+			'filter_panel',
+			__( 'Panel', 'decent-core' ),
+			'{{WRAPPER}} .filter-panel',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'filter_head', __( 'Panel heading', 'decent-core' ), '{{WRAPPER}} .filter-panel h3' );
+
+		$this->register_text_style( 'filter_label', __( 'Field label', 'decent-core' ), '{{WRAPPER}} .catalog__sidebar .field-label' );
+
+		$this->register_box_style(
+			'filter_input',
+			__( 'Search field', 'decent-core' ),
+			'{{WRAPPER}} .catalog__sidebar .input',
+			array( 'shadow' => false )
+		);
+
+		$this->register_text_style(
+			'filter_input_text',
+			__( 'Search field text', 'decent-core' ),
+			'{{WRAPPER}} .catalog__sidebar .input',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_link_style( 'filter_option', __( 'Filter option', 'decent-core' ), '{{WRAPPER}} .filter-option' );
+
+		$this->register_text_style(
+			'filter_count',
+			__( 'Option count', 'decent-core' ),
+			'{{WRAPPER}} .filter-option__count',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section(
+			'style_toolbar',
+			__( 'Toolbar', 'decent-core' ),
+			array( 'condition' => array( 'show_toolbar' => 'yes' ) )
+		);
+
+		$this->register_box_style(
+			'toolbar',
+			__( 'Bar', 'decent-core' ),
+			'{{WRAPPER}} .toolbar',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'toolbar_count', __( 'Result count', 'decent-core' ), '{{WRAPPER}} .toolbar__count' );
+
+		$this->register_box_style(
+			'toolbar_select',
+			__( 'Sort field', 'decent-core' ),
+			'{{WRAPPER}} .toolbar .select',
+			array( 'shadow' => false )
+		);
+
+		$this->register_text_style(
+			'toolbar_select_text',
+			__( 'Sort field text', 'decent-core' ),
+			'{{WRAPPER}} .toolbar .select',
+			array(
+				'heading' => false,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_button_style( 'toolbar_button', __( 'Sort button', 'decent-core' ), '{{WRAPPER}} .toolbar .btn' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_pagination', __( 'Pagination', 'decent-core' ) );
+
+		$this->register_link_style(
+			'pagination_link',
+			__( 'Page link', 'decent-core' ),
+			'{{WRAPPER}} .pagination a',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style(
+			'pagination_current',
+			__( 'Current page', 'decent-core' ),
+			'{{WRAPPER}} .pagination__current',
+			array( 'spacing' => false )
+		);
+
+		// .pagination is a flex row, so its alignment is justify-content.
+		$this->add_responsive_control(
+			'pagination_align',
+			array(
+				'label'     => __( 'Alignment', 'decent-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'decent-core' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Centre', 'decent-core' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'decent-core' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .pagination' => 'justify-content: {{VALUE}};',
+				),
 			)
 		);
 

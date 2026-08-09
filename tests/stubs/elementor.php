@@ -133,6 +133,38 @@ abstract class Widget_Base {
 	 * @return void
 	 */
 	protected function add_group_control( $type, array $args = array(), array $options = array() ) {}
+
+	/**
+	 * Opens a set of control tabs.
+	 *
+	 * @param string              $id   Tabs id.
+	 * @param array<string,mixed> $args Tabs arguments.
+	 * @return void
+	 */
+	protected function start_controls_tabs( $id, array $args = array() ) {}
+
+	/**
+	 * Closes a set of control tabs.
+	 *
+	 * @return void
+	 */
+	protected function end_controls_tabs() {}
+
+	/**
+	 * Opens one control tab.
+	 *
+	 * @param string              $id   Tab id.
+	 * @param array<string,mixed> $args Tab arguments.
+	 * @return void
+	 */
+	protected function start_controls_tab( $id, array $args = array() ) {}
+
+	/**
+	 * Closes one control tab.
+	 *
+	 * @return void
+	 */
+	protected function end_controls_tab() {}
 }
 
 /**
@@ -157,6 +189,7 @@ class Controls_Manager {
 	const RAW_HTML    = 'raw_html';
 	const HEADING     = 'heading';
 	const DIVIDER     = 'divider';
+	const DIMENSIONS  = 'dimensions';
 }
 
 /**
@@ -186,6 +219,32 @@ class Repeater {
  * Typography group control.
  */
 class Group_Control_Typography {
+
+	/**
+	 * Returns the group control type.
+	 *
+	 * @return string
+	 */
+	public static function get_type() {}
+}
+
+/**
+ * Border group control.
+ */
+class Group_Control_Border {
+
+	/**
+	 * Returns the group control type.
+	 *
+	 * @return string
+	 */
+	public static function get_type() {}
+}
+
+/**
+ * Box shadow group control.
+ */
+class Group_Control_Box_Shadow {
 
 	/**
 	 * Returns the group control type.

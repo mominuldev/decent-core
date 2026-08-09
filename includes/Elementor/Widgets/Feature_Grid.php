@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -22,6 +23,7 @@ final class Feature_Grid extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -114,6 +116,53 @@ final class Feature_Grid extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 3 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Cards', 'decent-core' ) );
+
+		$this->register_box_style(
+			'card',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .feature-card',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_icon_style( 'card_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .feature-card__icon' );
+
+		$this->register_text_style( 'card_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .feature-card h3' );
+
+		$this->register_text_style(
+			'card_text',
+			__( 'Text', 'decent-core' ),
+			'{{WRAPPER}} .feature-card p',
+			array( 'spacing' => false )
+		);
+
+		$this->register_gap_style(
+			'card_gap',
+			__( 'Icon and text gap', 'decent-core' ),
+			'{{WRAPPER}} .feature-card',
+			40
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

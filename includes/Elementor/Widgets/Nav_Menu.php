@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -21,6 +22,8 @@ use Elementor\Controls_Manager;
  * link, and the submenu that flattens rather than disappearing on mobile.
  */
 final class Nav_Menu extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -70,6 +73,109 @@ final class Nav_Menu extends Widget_Base {
 				'default'     => __( 'Primary', 'decent-core' ),
 				'description' => __( 'Distinguishes this navigation landmark from others on the page.', 'decent-core' ),
 				'label_block' => true,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_links', __( 'Menu items', 'decent-core' ) );
+
+		$this->register_link_style(
+			'link',
+			__( 'Link', 'decent-core' ),
+			'{{WRAPPER}} .main-nav a',
+			array( 'separator' => 'none' )
+		);
+
+		// The walker mirrors aria-current onto the link, so the active item is
+		// styleable without a class of its own.
+		$this->add_control(
+			'link_color_active',
+			array(
+				'label'     => __( 'Active colour', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .main-nav a[aria-current]' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'link_padding',
+			array(
+				'label'      => __( 'Link padding', 'decent-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .main-nav > ul > li > a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->register_gap_style( 'menu_gap', __( 'Gap between items', 'decent-core' ), '{{WRAPPER}} .main-nav > ul', 64 );
+
+		$this->add_responsive_control(
+			'menu_align',
+			array(
+				'label'     => __( 'Alignment', 'decent-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'decent-core' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Centre', 'decent-core' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'decent-core' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .main-nav > ul' => 'justify-content: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_submenu', __( 'Submenu', 'decent-core' ) );
+
+		$this->register_box_style(
+			'submenu',
+			__( 'Panel', 'decent-core' ),
+			'{{WRAPPER}} .main-nav__sub',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_link_style(
+			'submenu_link',
+			__( 'Link', 'decent-core' ),
+			'{{WRAPPER}} .main-nav__sub a'
+		);
+
+		$this->add_control(
+			'submenu_link_background_hover',
+			array(
+				'label'     => __( 'Link hover background', 'decent-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .main-nav__sub a:hover' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'submenu_link_padding',
+			array(
+				'label'      => __( 'Link padding', 'decent-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .main-nav__sub a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
 			)
 		);
 

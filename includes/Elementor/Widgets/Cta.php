@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -16,6 +17,8 @@ use Elementor\Controls_Manager;
  * A closing call to action.
  */
 final class Cta extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -93,6 +96,78 @@ final class Cta extends Widget_Base {
 				'label'       => __( 'Small print', 'decent-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_panel', __( 'Panel', 'decent-core' ) );
+
+		$this->register_box_style(
+			'panel',
+			__( 'Panel', 'decent-core' ),
+			'{{WRAPPER}} .cta',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_gap_style( 'panel_gap', __( 'Copy and actions gap', 'decent-core' ), '{{WRAPPER}} .cta', 64 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+
+		$this->register_text_style(
+			'cta_title',
+			__( 'Title', 'decent-core' ),
+			'{{WRAPPER}} .cta .section-title',
+			array(
+				'separator' => 'none',
+				'align'     => true,
+			)
+		);
+
+		$this->register_text_style(
+			'cta_text',
+			__( 'Text', 'decent-core' ),
+			'{{WRAPPER}} .cta .section-intro',
+			array(
+				'align'   => true,
+				'spacing' => false,
+			)
+		);
+
+		$this->register_text_style(
+			'cta_note',
+			__( 'Small print', 'decent-core' ),
+			'{{WRAPPER}} .cta__note',
+			array(
+				'align'   => true,
+				'spacing' => false,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_button', __( 'Button', 'decent-core' ) );
+
+		$this->register_button_style(
+			'cta_button',
+			__( 'Button', 'decent-core' ),
+			'{{WRAPPER}} .cta__actions .btn',
+			array( 'separator' => 'none' )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
 			)
 		);
 

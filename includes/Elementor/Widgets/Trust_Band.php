@@ -9,6 +9,7 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -21,6 +22,8 @@ use Elementor\Repeater;
  * dt and a dd — not a flat dl.
  */
 final class Trust_Band extends Widget_Base {
+
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -126,6 +129,79 @@ final class Trust_Band extends Widget_Base {
 				),
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_eyebrow', __( 'Eyebrow', 'decent-core' ) );
+
+		$this->register_text_style(
+			'eyebrow',
+			__( 'Eyebrow', 'decent-core' ),
+			'{{WRAPPER}} .trust__inner .eyebrow',
+			array(
+				'separator' => 'none',
+				'align'     => true,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_clients', __( 'Clients', 'decent-core' ) );
+
+		$this->register_text_style(
+			'client',
+			__( 'Client name', 'decent-core' ),
+			'{{WRAPPER}} .trust__clients li',
+			array(
+				'separator' => 'none',
+				'spacing'   => false,
+			)
+		);
+
+		$this->register_box_style(
+			'client_box',
+			__( 'Client item', 'decent-core' ),
+			'{{WRAPPER}} .trust__clients li',
+			array( 'shadow' => false )
+		);
+
+		$this->register_gap_style( 'clients_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .trust__clients', 48 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_metrics', __( 'Metrics', 'decent-core' ) );
+
+		$this->register_text_style(
+			'metric_value',
+			__( 'Figure', 'decent-core' ),
+			'{{WRAPPER}} .trust__metrics dt',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style(
+			'metric_label',
+			__( 'Label', 'decent-core' ),
+			'{{WRAPPER}} .trust__metrics dd',
+			array( 'spacing' => false )
+		);
+
+		$this->register_gap_style( 'metrics_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .trust__metrics', 64 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
+		$this->register_gap_style( 'grid_gap', __( 'Clients and metrics gap', 'decent-core' ), '{{WRAPPER}} .trust__grid', 96 );
 
 		$this->end_controls_section();
 	}

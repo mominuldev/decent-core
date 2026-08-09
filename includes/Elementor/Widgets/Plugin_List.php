@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 
 /**
@@ -24,6 +25,7 @@ final class Plugin_List extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Query_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -49,6 +51,74 @@ final class Plugin_List extends Widget_Base {
 
 		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'decent-core' ) ) );
 		$this->register_query_controls( 4 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_rows', __( 'Rows', 'decent-core' ) );
+
+		$this->register_box_style(
+			'row',
+			__( 'Row', 'decent-core' ),
+			'{{WRAPPER}} .plugin-item',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_icon_style( 'row_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .plugin-item__icon' );
+
+		$this->register_text_style( 'row_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .plugin-item__body h3' );
+
+		$this->register_link_style( 'row_title_link', __( 'Title link', 'decent-core' ), '{{WRAPPER}} .plugin-item__body h3 a' );
+
+		$this->register_text_style( 'row_text', __( 'Description', 'decent-core' ), '{{WRAPPER}} .plugin-item__body > p' );
+
+		$this->register_text_style(
+			'row_rating',
+			__( 'Rating line', 'decent-core' ),
+			'{{WRAPPER}} .plugin-item .rating-line',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'row_stars',
+			__( 'Stars', 'decent-core' ),
+			'{{WRAPPER}} .plugin-item .stars',
+			array( 'spacing' => false )
+		);
+
+		$this->register_gap_style( 'row_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .plugin-item', 48 );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_aside', __( 'Price and button', 'decent-core' ) );
+
+		$this->register_text_style(
+			'row_price',
+			__( 'Price', 'decent-core' ),
+			'{{WRAPPER}} .plugin-item__price',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_button_style( 'row_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .plugin-item__aside .btn' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
+		$this->register_gap_style( 'list_gap', __( 'Gap between rows', 'decent-core' ), '{{WRAPPER}} .plugin-list', 48 );
+
 		$this->end_controls_section();
 	}
 

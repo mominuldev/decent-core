@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -24,6 +25,7 @@ final class Category_Grid extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Grid_Controls;
+	use Has_Style_Controls;
 
 	/**
 	 * Widget slug.
@@ -83,6 +85,88 @@ final class Category_Grid extends Widget_Base {
 			)
 		);
 		$this->register_grid_controls( 4 );
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		// Two sets, each conditioned on the style the editor picked: the strip
+		// and the card have different elements, and offering both at once would
+		// mean half the panel silently does nothing.
+		$this->start_style_section(
+			'style_cards',
+			__( 'Cards', 'decent-core' ),
+			array( 'condition' => array( 'style' => 'card' ) )
+		);
+
+		$this->register_box_style(
+			'card',
+			__( 'Card', 'decent-core' ),
+			'{{WRAPPER}} .category-card',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_icon_style( 'card_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .category-card__icon' );
+
+		$this->register_text_style( 'card_title', __( 'Name', 'decent-core' ), '{{WRAPPER}} .category-card h3' );
+
+		$this->register_text_style( 'card_text', __( 'Blurb', 'decent-core' ), '{{WRAPPER}} .category-card > p' );
+
+		$this->register_text_style(
+			'card_meta',
+			__( 'Product count', 'decent-core' ),
+			'{{WRAPPER}} .category-card__foot .meta',
+			array( 'spacing' => false )
+		);
+
+		$this->register_link_style( 'card_link', __( 'Browse link', 'decent-core' ), '{{WRAPPER}} .category-card .link-arrow' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section(
+			'style_strip',
+			__( 'Compact strip', 'decent-core' ),
+			array( 'condition' => array( 'style' => 'strip' ) )
+		);
+
+		$this->register_box_style(
+			'strip',
+			__( 'Item', 'decent-core' ),
+			'{{WRAPPER}} .cat-strip__item a',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_icon_style( 'strip_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .cat-strip__icon' );
+
+		$this->register_text_style(
+			'strip_title',
+			__( 'Name', 'decent-core' ),
+			'{{WRAPPER}} .cat-strip__item h3',
+			array( 'spacing' => false )
+		);
+
+		$this->register_text_style(
+			'strip_meta',
+			__( 'Product count', 'decent-core' ),
+			'{{WRAPPER}} .cat-strip__item .meta',
+			array( 'spacing' => false )
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

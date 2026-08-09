@@ -9,8 +9,10 @@ namespace DecentCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
 use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
@@ -30,6 +32,8 @@ final class Product_Slider extends Widget_Base {
 
 	use Has_Section_Head;
 	use Has_Query_Controls;
+	use Has_Style_Controls;
+	use Has_Product_Card_Style;
 
 	/**
 	 * Widget slug.
@@ -88,6 +92,56 @@ final class Product_Slider extends Widget_Base {
 				'selectors'      => array(
 					'{{WRAPPER}} .decent-slider__track > li' => 'flex: 0 0 {{SIZE}}{{UNIT}};',
 				),
+			)
+		);
+
+		$this->register_gap_style(
+			'slide_gap',
+			__( 'Slide gap', 'decent-core' ),
+			'{{WRAPPER}} .decent-slider__track',
+			48
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->register_section_head_style_controls();
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->register_product_card_style_controls();
+		$this->end_controls_section();
+
+		// The nav buttons are injected by the script, so they are absent until
+		// it runs. Styling them is still worth offering: when they do appear
+		// they are the only chrome the slider has.
+		$this->start_style_section( 'style_nav', __( 'Navigation buttons', 'decent-core' ) );
+
+		$this->register_button_style(
+			'nav_button',
+			__( 'Button', 'decent-core' ),
+			'{{WRAPPER}} .decent-slider__nav .btn',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_gap_style(
+			'nav_gap',
+			__( 'Gap between buttons', 'decent-core' ),
+			'{{WRAPPER}} .decent-slider__nav',
+			32
+		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+
+		$this->register_box_style(
+			'band',
+			__( 'Band', 'decent-core' ),
+			'{{WRAPPER}} .section',
+			array(
+				'heading' => false,
+				'shadow'  => false,
 			)
 		);
 
