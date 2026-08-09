@@ -360,4 +360,43 @@ return array(
 		'requires' => array(),
 		'default'  => true,
 	),
+
+	'site-logo'         => array(
+		'class'    => DecentCore\Elementor\Widgets\Site_Logo::class,
+		'title'    => __( 'Site Logo', 'decent-core' ),
+		'category' => 'decent-header',
+		'group'    => 'branding',
+		'icon'     => 'eicon-site-logo',
+		'keywords' => array( 'logo', 'brand', 'header' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
+
+	'nav-menu'          => array(
+		'class'    => DecentCore\Elementor\Widgets\Nav_Menu::class,
+		'title'    => __( 'Nav Menu', 'decent-core' ),
+		'category' => 'decent-header',
+		'group'    => 'navigation',
+		'icon'     => 'eicon-nav-menu',
+		'keywords' => array( 'menu', 'navigation', 'header' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'theme' ),
+		'default'  => true,
+	),
+
+	'copyright'         => array(
+		'class'    => DecentCore\Elementor\Widgets\Copyright::class,
+		'title'    => __( 'Copyright', 'decent-core' ),
+		'category' => 'decent-header',
+		'group'    => 'footer',
+		'icon'     => 'eicon-copyright',
+		'keywords' => array( 'copyright', 'footer', 'year' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
 );

@@ -1,0 +1,73 @@
+<?php
+/**
+ * Elementor support for builder templates.
+ *
+ * @package DecentCore
+ */
+
+namespace DecentCore\Builder;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Makes decent_template editable in Elementor, and editable sensibly.
+ *
+ * A header edited inside the normal page canvas inherits the theme's header
+ * and footer, so an editor builds a header while looking at another one. These
+ * templates therefore edit on a bare canvas.
+ */
+final class Elementor_Support {
+
+	/**
+	 * Attaches hooks.
+	 *
+	 * @return void
+	 */
+	public function register(): void {
+		add_filter( 'elementor/pro/utils/get_public_post_types', array( $this, 'allow_post_type' ) );
+		add_filter( 'template_include', array( $this, 'use_canvas' ), 999 );
+		add_filter( 'body_class', array( $this, 'body_class' ) );
+	}
+
+	/**
+	 * Adds the template post type to Elementor's list.
+	 *
+	 * @param array<string, string> $types Post types.
+	 * @return array<string, string>
+	 */
+	public function allow_post_type( array $types ): array {
+		$types[ Post_Type::NAME ] = __( 'Templates', 'decent-core' );
+
+		return $types;
+	}
+
+	/**
+	 * Renders a template on a bare canvas when previewed directly.
+	 *
+	 * @param string $template Template path.
+	 * @return string
+	 */
+	public function use_canvas( string $template ): string {
+		if ( ! is_singular( Post_Type::NAME ) ) {
+			return $template;
+		}
+
+		$canvas = locate_template( 'page-templates/canvas.php' );
+
+		return $canvas ? $canvas : $template;
+	}
+
+	/**
+	 * Marks the canvas so styles can target it.
+	 *
+	 * @param string[] $classes Body classes.
+	 * @return string[]
+	 */
+	public function body_class( array $classes ): array {
+		if ( is_singular( Post_Type::NAME ) ) {
+			$classes[] = 'is-builder-template';
+		}
+
+		return $classes;
+	}
+}

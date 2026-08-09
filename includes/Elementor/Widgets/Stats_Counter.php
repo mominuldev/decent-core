@@ -39,7 +39,7 @@ final class Stats_Counter extends Widget_Base {
 	 */
 	protected function register_controls(): void {
 		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
-		$this->register_section_head_controls( __( '', 'decent-core' ), __( '', 'decent-core' ) );
+		$this->register_section_head_controls();
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'items', array( 'label' => __( 'Statistics', 'decent-core' ) ) );

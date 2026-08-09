@@ -11,10 +11,13 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Admin\Admin_Page;
 use DecentCore\Assets\Bundler;
+use DecentCore\Builder\Builder;
+use DecentCore\Builder\Pro_Bridge;
 use DecentCore\Assets\Garbage_Collector;
 use DecentCore\Assets\Usage_Index;
 use DecentCore\Elementor\Manager;
 use DecentCore\Settings\Rest_Controller;
+use DecentCore\Settings\Settings;
 
 /**
  * Boots the plugin.
@@ -92,6 +95,13 @@ final class Plugin {
 		$this->container->get( Usage_Index::class )->register();
 		$this->container->get( Bundler::class )->register();
 		$this->container->get( Garbage_Collector::class )->register();
+
+		// Modules are switchable, and a module that is off costs nothing: its
+		// classes are never loaded and its hooks never attached.
+		if ( Settings::enabled( Builder::key() ) ) {
+			$this->container->get( Builder::class )->register();
+			$this->container->get( Pro_Bridge::class )->register();
+		}
 
 		/**
 		 * Fires once the plugin has booted.

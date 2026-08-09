@@ -286,6 +286,13 @@ class Plugin {
 	public $editor;
 
 	/**
+	 * Frontend renderer.
+	 *
+	 * @var Frontend|null
+	 */
+	public $frontend;
+
+	/**
 	 * Preview.
 	 *
 	 * @var Preview|null
@@ -324,4 +331,19 @@ class Preview {
 	 * @return bool
 	 */
 	public function is_preview_mode() {}
+}
+
+/**
+ * Frontend renderer.
+ */
+class Frontend {
+
+	/**
+	 * Returns a template's rendered builder content.
+	 *
+	 * @param int  $content_id Template ID.
+	 * @param bool $with_css   Whether to include generated CSS.
+	 * @return string
+	 */
+	public function get_builder_content_for_display( $content_id, $with_css = false ) {}
 }

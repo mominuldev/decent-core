@@ -228,7 +228,7 @@ final class Admin_Page {
 			__( 'Theme', 'decent-core' )            => (string) wp_get_theme()->get( 'Name' ),
 			__( 'Object cache', 'decent-core' )     => wp_using_ext_object_cache() ? __( 'persistent', 'decent-core' ) : __( 'none', 'decent-core' ),
 			__( 'Uploads writable', 'decent-core' ) => wp_is_writable( (string) ( $uploads['basedir'] ?? '' ) ) ? __( 'yes', 'decent-core' ) : __( 'no', 'decent-core' ),
-			__( 'Elementor kit', 'decent-core' )    => (string) ( get_option( 'elementor_active_kit' ) ?: __( 'none', 'decent-core' ) ),
+			__( 'Elementor kit', 'decent-core' )    => ( get_option( 'elementor_active_kit' ) ? (string) get_option( 'elementor_active_kit' ) : __( 'none', 'decent-core' ) ),
 			__( 'Widgets active', 'decent-core' )   => count( Widget_Registry::active() ) . ' / ' . count( Widget_Registry::map() ),
 		);
 	}
