@@ -46,24 +46,41 @@ final class Manager implements Module {
 	}
 
 	/**
+	 * The panel categories, as slug => label, in display order.
+	 *
+	 * The settings screen groups its widget list by these same four, so the
+	 * place a widget lives on the settings screen is the place it lives in the
+	 * editor panel. Two lists that disagree about where a widget sits are worse
+	 * than either one on its own.
+	 *
+	 * Labels are unprefixed. The "Decent — " prefix belongs to the editor
+	 * panel, where the category sits among every other plugin's; on our own
+	 * settings screen it is noise on all four rows.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function categories(): array {
+		return array(
+			'decent-layout'   => __( 'Layout', 'decent-core' ),
+			'decent-products' => __( 'Products', 'decent-core' ),
+			'decent-header'   => __( 'Header & Footer', 'decent-core' ),
+			'decent-content'  => __( 'Content', 'decent-core' ),
+		);
+	}
+
+	/**
 	 * Registers the panel categories.
 	 *
 	 * @param Elements_Manager $elements Elements manager.
 	 * @return void
 	 */
 	public function register_categories( Elements_Manager $elements ): void {
-		$categories = array(
-			'decent-layout'   => __( 'Decent — Layout', 'decent-core' ),
-			'decent-products' => __( 'Decent — Products', 'decent-core' ),
-			'decent-header'   => __( 'Decent — Header & Footer', 'decent-core' ),
-			'decent-content'  => __( 'Decent — Content', 'decent-core' ),
-		);
-
-		foreach ( $categories as $slug => $title ) {
+		foreach ( self::categories() as $slug => $title ) {
 			$elements->add_category(
 				$slug,
 				array(
-					'title' => $title,
+					/* translators: %s: category name, for example "Layout". */
+					'title' => sprintf( __( 'Decent — %s', 'decent-core' ), $title ),
 					'icon'  => 'eicon-elementor-square',
 				)
 			);

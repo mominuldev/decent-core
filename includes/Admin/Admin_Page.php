@@ -22,6 +22,7 @@ namespace DecentCore\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+use DecentCore\Elementor\Manager;
 use DecentCore\Elementor\Widget_Registry;
 use DecentCore\Settings\Schema;
 use DecentCore\Settings\Settings;
@@ -37,6 +38,17 @@ final class Admin_Page {
 	public const SLUG = 'decent-core';
 
 	/**
+	 * Whether the build output is missing on this request.
+	 *
+	 * Tracked rather than read twice because clearing the screen's notices
+	 * removes our own warning along with everybody else's, and this is what
+	 * says whether it has to go back.
+	 *
+	 * @var bool
+	 */
+	private $build_missing = false;
+
+	/**
 	 * Attaches hooks.
 	 *
 	 * @return void
@@ -44,6 +56,10 @@ final class Admin_Page {
 	public function register(): void {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+
+		// After admin_enqueue_scripts, which is where our own notice is
+		// registered, and before the notice hooks themselves fire.
+		add_action( 'in_admin_header', array( $this, 'clear_notices' ), PHP_INT_MAX );
 	}
 
 	/**
@@ -101,6 +117,7 @@ final class Admin_Page {
 		// installed from a checkout without running the build, and saying so
 		// is far better than a blank screen.
 		if ( ! file_exists( DECENT_CORE_DIR . $script ) ) {
+			$this->build_missing = true;
 			add_action( 'admin_notices', array( $this, 'missing_build_notice' ) );
 			return;
 		}
@@ -128,6 +145,57 @@ final class Admin_Page {
 	}
 
 	/**
+	 * Clears every admin notice on this screen.
+	 *
+	 * Notices are not printed where they are hooked. WordPress relocates any
+	 * `.notice` inside `.wrap` to sit directly after the first heading, and
+	 * this screen's `h1` is inside the header card — so a licence reminder
+	 * from an unrelated plugin lands between the title and its description,
+	 * on a gradient it was never styled against and cannot be read on.
+	 *
+	 * There is nowhere better to put them either: the app owns the whole
+	 * column, and every band of it is doing a job. Other plugins with a
+	 * single-purpose screen of their own do the same thing.
+	 *
+	 * Scoped to this one screen. Anything genuinely urgent — a core update, a
+	 * PHP warning — is still shown on every other page in wp-admin, which is
+	 * where somebody reading it can act on it.
+	 *
+	 * @return void
+	 */
+	public function clear_notices(): void {
+		if ( ! $this->is_settings_screen() ) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'all_admin_notices' );
+		remove_all_actions( 'user_admin_notices' );
+		remove_all_actions( 'network_admin_notices' );
+
+		// The one exception. Without it a missing build is a blank screen with
+		// no explanation, which is the state this notice exists to describe.
+		if ( $this->build_missing ) {
+			add_action( 'admin_notices', array( $this, 'missing_build_notice' ) );
+		}
+	}
+
+	/**
+	 * Whether the current request is this plugin's settings screen.
+	 *
+	 * @return bool
+	 */
+	private function is_settings_screen(): bool {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return false;
+		}
+
+		$screen = get_current_screen();
+
+		return $screen instanceof \WP_Screen && 'toplevel_page_' . self::SLUG === $screen->id;
+	}
+
+	/**
 	 * Warns that the build output is missing.
 	 *
 	 * @return void
@@ -145,16 +213,23 @@ final class Admin_Page {
 	 */
 	private function boot_data(): array {
 		return array(
-			'restUrl'  => esc_url_raw( rest_url( 'decent/v1/settings' ) ),
-			'toolsUrl' => esc_url_raw( rest_url( 'decent/v1/tools' ) ),
+			'restUrl'    => esc_url_raw( rest_url( 'decent/v1/settings' ) ),
+			'toolsUrl'   => esc_url_raw( rest_url( 'decent/v1/tools' ) ),
 			// Proves the request came from this session. The capability check
 			// itself happens server-side in Rest_Controller.
-			'nonce'    => wp_create_nonce( 'wp_rest' ),
-			'tabs'     => Schema::tabs(),
-			'schema'   => $this->schema_for_js(),
-			'settings' => $this->settings_for_js(),
-			'widgets'  => $this->widgets_for_js(),
-			'system'   => $this->system_info(),
+			'nonce'      => wp_create_nonce( 'wp_rest' ),
+			// Also present in the system read-out, but under a translated key.
+			// The header badge needs it by a stable name.
+			'version'    => DECENT_CORE_VERSION,
+			'tabs'       => Schema::tabs(),
+			'schema'     => $this->schema_for_js(),
+			'settings'   => $this->settings_for_js(),
+			'widgets'    => $this->widgets_for_js(),
+			// The four editor panel categories, which the widget list groups
+			// by. Sent as a map so the app keeps their order without knowing
+			// any of the slugs itself.
+			'categories' => Manager::categories(),
+			'system'     => $this->system_info(),
 		);
 	}
 
@@ -220,7 +295,11 @@ final class Admin_Page {
 			$out[ $slug ] = array(
 				'key'      => Widget_Registry::toggle_key( $slug ),
 				'title'    => $widget['title'],
-				'group'    => $widget['group'] ?? '',
+				// The editor panel category, not the finer-grained `group`:
+				// sixteen groups across twenty-nine widgets left most of them
+				// alone under a heading of their own, which is a list with
+				// extra steps.
+				'category' => $widget['category'] ?? '',
 				'keywords' => array_values( (array) ( $widget['keywords'] ?? array() ) ),
 				'missing'  => $missing,
 			);

@@ -13,8 +13,10 @@ export const config = {
   schema: boot.schema || {},
   tabs: boot.tabs || {},
   widgets: boot.widgets || {},
+  categories: boot.categories || {},
   system: boot.system || {},
   settings: boot.settings || {},
+  version: boot.version || '',
   docsUrl: boot.docsUrl || '',
   toolsUrl: boot.toolsUrl || '',
 };

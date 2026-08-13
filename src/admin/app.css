@@ -11,50 +11,127 @@
       .card, .hidden, .notice and more; an unprefixed `.hidden` from a later
       stylesheet would silently change core UI outside our container.
 
+      The prefix goes FIRST, before variants — `dc:hover:bg-x`, never
+      `hover:dc:bg-x`. Tailwind v4 treats the prefix as a required leading
+      segment, so the reversed form compiles to nothing at all and the style
+      silently goes missing.
+
+   3. Utilities are imported `important`. Two separate things outrank them
+      otherwise, and both are unavoidable here: the scoped reset below, which
+      has to be ID-scoped so it cannot leak out of the app, and wp-admin's own
+      `input[type="search"] { border: … }` rules, which are unlayered and so
+      beat any layered utility whatever its specificity. Without the flag,
+      `border`, `divide-*` and every margin utility on a reset element are
+      silently dropped — which is exactly what used to happen.
+
    Design tokens mirror the theme's palette so the settings screen looks like
    the product it configures. They are declared here rather than imported
    because wp-admin never loads the theme's stylesheet.
    ========================================================================== */
 
-@layer theme, components, utilities;
+/* `motion` is declared first on purpose. Layer order runs in reverse for
+   !important declarations — the earliest layer wins — so the reduced-motion
+   block at the end of this file needs to live in the first layer to outrank
+   the important utilities. */
+@layer motion, theme, components, utilities;
 
 @import "tailwindcss/theme.css" layer(theme) prefix(dc);
-@import "tailwindcss/utilities.css" layer(utilities) prefix(dc);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(dc) important;
 
 @source "./";
 
 @theme {
-  --color-ink: #212529;
-  --color-ink-panel: #2a3037;
-  --color-muted: #6c757d;
-  --color-muted-alt: #5a6169;
-  --color-line: #e9ecef;
-  --color-line-strong: #ced4da;
+  /* Neutrals lean slightly blue so they sit next to the brand without the
+     muddy grey wp-admin defaults to. */
+  --color-ink: #0f172a;
+  --color-ink-soft: #1e293b;
+
+  /* Both carry body text, so both are held to WCAG AA against every surface
+     they land on — including the tinted pills, which are the darkest of them.
+     The values they replaced measured 4.76:1 and 2.56:1 on white; the second
+     was failing outright at the 10-11px this screen uses them at. */
+  --color-muted: #55617a;      /* 6.22:1 on white, 5.50:1 on --color-surface-sunk */
+  --color-muted-alt: #5d6a82;  /* 5.46:1 on white, 4.82:1 on --color-surface-sunk */
+  --color-line: #e6e9f0;
+  --color-line-soft: #f1f3f8;
+  --color-line-strong: #cbd5e1;
   --color-surface: #ffffff;
-  --color-surface-alt: #f8f8f8;
+  --color-surface-alt: #f7f8fc;
+  --color-surface-sunk: #eef1f8;
 
-  --color-brand: #007bff;
-  --color-brand-600: #0069d9;
-  --color-brand-700: #0062cc;
-  --color-brand-tint: #f1f7ff;
-  --color-brand-tint-line: #cfe3ff;
+  /* Indigo rather than the browser-default blue: the old #007bff read as an
+     unstyled link colour, which is exactly what made the screen look
+     unfinished. */
+  --color-brand: #4f46e5;
+  --color-brand-600: #4338ca;
+  --color-brand-700: #3730a3;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-tint: #eef0ff;
+  --color-brand-tint-line: #d6dafd;
 
-  --color-ok: #28a745;
-  --color-ok-tint: #f1fbf4;
-  --color-warn: #ffc107;
-  --color-warn-tint: #fffaec;
-  --color-danger: #dc3545;
-  --color-danger-tint: #fef2f3;
+  --color-accent: #d946ef;
+
+  /* Held to AA as text, because all three of these are printed as words in a
+     tinted pill — "none", "yes", "Needs Easy Digital Downloads" — not just
+     drawn as a dot. The amber they replaced measured 2.15:1 on its own tint,
+     which is a colour you can see but not read. */
+  --color-ok: #0e9f6e;
+  --color-ok-tint: #e8faf2;
+  --color-warn: #b45309;
+  --color-warn-tint: #fef6e7;
+  --color-danger: #e11d48;
+  --color-danger-tint: #fff1f3;
+
+  /* The header sits on the brand field, where the tokens above are unreadable.
+     These two are the only colours allowed on it. */
+  --color-on-brand-ok: #6ee7b7;
+  --color-on-brand-warn: #fcd34d;
 
   --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* A named scale, because the screen was written in arbitrary values —
+     text-[15px], text-[13px], text-[12px], text-[11px] — spread over seven
+     files. Nothing enforced them, so a heading was 15px in two places and 14 in
+     a third, and the only way to answer "what size is help text" was to grep.
+     Each step carries its own line height: 13px body copy at Tailwind's default
+     ratio sets too tight for the multi-line help text this screen is full of.
 
-  --shadow-card: 0 2px 12px rgb(0 0 0 / 0.06);
-  --shadow-lift: 0 2px 8px rgb(0 0 0 / 0.08);
+     `micro` is the uppercase mono lettering on badges and category rules. It is
+     the smallest thing here and never carries a sentence — 11px body copy would
+     not be acceptable, and none of it is. */
+  --text-micro: 11px;
+  --text-micro--line-height: 1.45;
+  --text-help: 12px;
+  --text-help--line-height: 1.5;
+  --text-body: 13px;
+  --text-body--line-height: 1.6;
+  /* Control labels. One step above the help text under them, which is the only
+     thing separating the two once colour is taken away — and colour is exactly
+     what a low-vision reader loses first. */
+  --text-label: 14px;
+  --text-label--line-height: 1.45;
+  --text-title: 15px;
+  --text-title--line-height: 1.4;
+  --text-display: 30px;
+  --text-display--line-height: 1.15;
+
+  /* One step per role, so a radius is chosen by naming the thing rather than by
+     eye: sm = tags, md = buttons and inputs, lg = nav rows and icon chips,
+     xl = cards and panels, 2xl = the header. */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.05);
+  --shadow-lift: 0 8px 24px -6px rgb(15 23 42 / 0.14), 0 2px 6px rgb(15 23 42 / 0.06);
+  --shadow-bar: 0 -6px 20px -8px rgb(15 23 42 / 0.14);
+  /* Brand-tinted rather than grey: a shadow under a saturated element that is
+     cast in neutral grey reads as dirt against the colour above it. */
+  --shadow-brand: 0 2px 6px rgb(79 70 229 / 0.32);
 
   --ease-out-fast: 200ms ease-out;
 }
@@ -86,7 +163,9 @@
 #decent-core-app p,
 #decent-core-app ul,
 #decent-core-app li,
-#decent-core-app figure {
+#decent-core-app figure,
+#decent-core-app dl,
+#decent-core-app dd {
   margin: 0;
   padding: 0;
 }
@@ -109,6 +188,40 @@
   color: inherit;
 }
 
+/* wp-admin styles input[type=search] and select globally enough that the
+   utility classes lose; the app's own controls opt out here. */
+#decent-core-app input[type="search"],
+#decent-core-app input[type="number"],
+#decent-core-app input[type="text"],
+#decent-core-app select {
+  min-height: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+#decent-core-app input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+/* Notices are not printed where they are hooked. WordPress's common.js takes
+   every `.notice` on the page and re-inserts it after the first heading inside
+   `.wrap` — and this screen's `h1` sits inside the header card, so an unrelated
+   plugin's licence reminder lands between the title and its description, on a
+   gradient it was never styled against.
+
+   The hooks themselves are cleared server-side in Admin_Page::clear_notices().
+   This is the second half of that: it catches anything injected by script after
+   the page has loaded, which no PHP hook can reach.
+
+   Scoped inside the app root, so the noscript fallback — a sibling of this
+   element, not a descendant — still shows when scripting is off. */
+#decent-core-app .notice,
+#decent-core-app .updated,
+#decent-core-app .error,
+#decent-core-app .update-nag {
+  display: none !important;
+}
+
 /* WordPress puts a 20px margin on .wrap and a notice area above it; the app
    claims the full width of the content column instead. */
 #decent-core-app {
@@ -119,12 +232,50 @@
   #decent-core-app { margin-right: 12px; }
 }
 
-/* Respect the platform: reduced motion turns off the transitions entirely. */
-@media (prefers-reduced-motion: reduce) {
-  #decent-core-app *,
-  #decent-core-app *::before,
-  #decent-core-app *::after {
-    transition: none !important;
-    animation: none !important;
+/* The sticky save bar spans from the admin menu's right edge to the window's.
+   The menu's width is not a constant — it folds at 960px and again on
+   mobile — so it is tracked as a variable rather than hard-coded, which is
+   what previously left the bar overlapping a collapsed menu. */
+#decent-core-app {
+  --dc-menu-width: 160px;
+}
+
+body.folded #decent-core-app,
+body.auto-fold.folded #decent-core-app {
+  --dc-menu-width: 36px;
+}
+
+@media (max-width: 960px) {
+  body.auto-fold #decent-core-app { --dc-menu-width: 36px; }
+}
+
+@media (max-width: 782px) {
+  #decent-core-app,
+  body.auto-fold #decent-core-app,
+  body.folded #decent-core-app { --dc-menu-width: 0px; }
+}
+
+/* Entrance: panels fade up as the tab changes, which makes the switch legible
+   without a spinner. Disabled wholesale under reduced motion below. */
+@keyframes dc-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dc-rise {
+  animation: dc-rise 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respect the platform: reduced motion turns off the transitions entirely.
+   In the `motion` layer so it outranks the important utilities — see the layer
+   note at the top of this file. */
+@layer motion {
+  @media (prefers-reduced-motion: reduce) {
+    #decent-core-app *,
+    #decent-core-app *::before,
+    #decent-core-app *::after {
+      transition: none !important;
+      animation: none !important;
+    }
   }
 }
