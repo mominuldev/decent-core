@@ -12,25 +12,32 @@ defined( 'ABSPATH' ) || exit;
 use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
 use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Section_Head;
+use DecentCore\Elementor\Base\Traits\Has_Slider_Controls;
 use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
 use DecentCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
- * Products in a horizontally scrollable track.
+ * Products in a carousel.
  *
- * The design system has no slider, so this is the specification written for
- * it: the track is CSS scroll-snap and the slides are the same product cards
- * as everywhere else. That means it works with no JavaScript at all — a touch
- * device can already swipe it, and a keyboard can already tab through it —
- * and the script only adds the previous and next buttons.
+ * The slides are the same product cards as everywhere else; the carousel
+ * around them is the shared pix-carousel, so this widget declares no slider
+ * markup, no slider controls and no script of its own — Has_Slider_Controls
+ * supplies all three.
  *
- * Swiper is deliberately not a dependency. A carousel that needs 140 KB of
- * library to move three cards sideways is not worth the request.
+ * It used to be a hand-rolled scroll-snap track on the grounds that Swiper was
+ * not worth 140 KB. That reasoning no longer holds: Elementor ships Swiper
+ * 8.4.5 and registers it whether we use it or not, so the library is already
+ * on the page. What the hand-rolled version cost instead was a second slider
+ * implementation to keep in step with the first.
+ *
+ * The scroll-snap fallback survives the move — the track is still a snapping
+ * row until Swiper takes over, so a page with no JavaScript still swipes.
  */
 final class Product_Slider extends Widget_Base {
 
 	use Has_Section_Head;
+	use Has_Slider_Controls;
 	use Has_Query_Controls;
 	use Has_Style_Controls;
 	use Has_Product_Card_Style;
@@ -61,45 +68,18 @@ final class Product_Slider extends Widget_Base {
 		$this->register_query_controls( 8 );
 		$this->end_controls_section();
 
-		$this->start_controls_section(
-			'layout',
-			array(
-				'label' => __( 'Layout', 'decent-core' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
+		$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'decent-core' ) ) );
 
-		$this->add_responsive_control(
-			'slide_width',
+		// Four across at 1440 with a peek on a phone: a product card is
+		// narrower than a review card, so the row carries one more.
+		$this->register_slider_controls(
 			array(
-				'label'          => __( 'Slide width', 'decent-core' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => array(
-					'size' => 300,
-					'unit' => 'px',
-				),
-				'mobile_default' => array(
-					'size' => 260,
-					'unit' => 'px',
-				),
-				'range'          => array(
-					'px' => array(
-						'min'  => 220,
-						'max'  => 420,
-						'step' => 20,
-					),
-				),
-				'selectors'      => array(
-					'{{WRAPPER}} .decent-slider__track > li' => 'flex: 0 0 {{SIZE}}{{UNIT}};',
-				),
+				'slides_to_show'        => '4',
+				'slides_to_show_tablet' => '3',
+				'slides_to_show_mobile' => '1.3',
+				'space_between'         => 20,
+				'space_between_mobile'  => 14,
 			)
-		);
-
-		$this->register_gap_style(
-			'slide_gap',
-			__( 'Slide gap', 'decent-core' ),
-			'{{WRAPPER}} .decent-slider__track',
-			48
 		);
 
 		$this->end_controls_section();
@@ -112,25 +92,8 @@ final class Product_Slider extends Widget_Base {
 		$this->register_product_card_style_controls();
 		$this->end_controls_section();
 
-		// The nav buttons are injected by the script, so they are absent until
-		// it runs. Styling them is still worth offering: when they do appear
-		// they are the only chrome the slider has.
-		$this->start_style_section( 'style_nav', __( 'Navigation buttons', 'decent-core' ) );
-
-		$this->register_button_style(
-			'nav_button',
-			__( 'Button', 'decent-core' ),
-			'{{WRAPPER}} .decent-slider__nav .btn',
-			array( 'separator' => 'none' )
-		);
-
-		$this->register_gap_style(
-			'nav_gap',
-			__( 'Gap between buttons', 'decent-core' ),
-			'{{WRAPPER}} .decent-slider__nav',
-			32
-		);
-
+		$this->start_style_section( 'style_nav', __( 'Slider controls', 'decent-core' ) );
+		$this->register_slider_style_controls();
 		$this->end_controls_section();
 
 		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
@@ -168,43 +131,35 @@ final class Product_Slider extends Widget_Base {
 		$label = $this->text( 'title', __( 'Products', 'decent-core' ) );
 		?>
 		<section class="section">
-			<div class="container section__inner section__inner--tight">
+			<div class="container section__inner">
 				<?php $this->render_section_head(); ?>
 
-				<div class="decent-slider" data-slider>
-					<ul class="decent-slider__track"
-						tabindex="0"
-						role="region"
-						aria-label="<?php echo esc_attr( $label ); ?>">
-						<?php
-						while ( $query->have_posts() ) :
-							$query->the_post();
+				<?php
+				// The carousel shell, its controls and its Swiper config all
+				// come from Has_Slider_Controls. This widget supplies slides.
+				$this->render_slider_start();
 
-							\DecentThemes\Frontend\Card::render(
-								(int) get_the_ID(),
-								array(
-									'density' => 'sm',
-									'context' => 'slider',
-								)
-							);
-						endwhile;
+				while ( $query->have_posts() ) :
+					$query->the_post();
 
-						wp_reset_postdata();
-						?>
-					</ul>
+					\DecentThemes\Frontend\Card::render(
+						(int) get_the_ID(),
+						array(
+							'density' => 'sm',
+							'context' => 'slider',
+						)
+					);
+				endwhile;
 
-					<?php // Injected by the script; absent without it, since a track that already scrolls needs no fallback buttons. ?>
-					<div class="decent-slider__nav" data-slider-nav hidden>
-						<button type="button" class="btn btn--secondary btn--sm" data-slider-prev>
-							<span class="sr-only"><?php esc_html_e( 'Previous products', 'decent-core' ); ?></span>
-							<span aria-hidden="true">&larr;</span>
-						</button>
-						<button type="button" class="btn btn--secondary btn--sm" data-slider-next>
-							<span class="sr-only"><?php esc_html_e( 'Next products', 'decent-core' ); ?></span>
-							<span aria-hidden="true">&rarr;</span>
-						</button>
-					</div>
-				</div>
+				wp_reset_postdata();
+
+				$this->render_slider_end(
+					array(
+						'prev_label' => __( 'Previous products', 'decent-core' ),
+						'next_label' => __( 'Next products', 'decent-core' ),
+					)
+				);
+				?>
 			</div>
 		</section>
 		<?php

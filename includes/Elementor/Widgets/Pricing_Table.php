@@ -263,7 +263,7 @@ final class Pricing_Table extends Widget_Base {
 			<div class="container section__inner section__inner--tight">
 				<?php $this->render_section_head(); ?>
 
-				<ul class="decent-grid">
+				<ul class="pix-grid">
 					<?php foreach ( $plans as $plan ) : ?>
 						<?php
 						$features = array_values( array_filter( array_map( 'trim', (array) preg_split( '/\R/', (string) ( $plan['features'] ?? '' ) ) ) ) );

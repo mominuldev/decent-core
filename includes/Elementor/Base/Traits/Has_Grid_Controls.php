@@ -23,6 +23,10 @@ trait Has_Grid_Controls {
 	/**
 	 * Registers the grid controls.
 	 *
+	 * The three defaults are the design's: three across at 1440, two at the
+	 * 900px tablet step, one at 560. An editor can override any breakpoint,
+	 * but out of the box a dropped widget already matches the mockup.
+	 *
 	 * @param int $default Desktop column count.
 	 * @return void
 	 */
@@ -40,9 +44,11 @@ trait Has_Grid_Controls {
 					'2' => '2',
 					'3' => '3',
 					'4' => '4',
+					'5' => '5',
+					'6' => '6',
 				),
 				'selectors'      => array(
-					'{{WRAPPER}} .decent-grid' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
+					'{{WRAPPER}} .pix-grid' => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));',
 				),
 			)
 		);
@@ -50,23 +56,29 @@ trait Has_Grid_Controls {
 		$this->add_responsive_control(
 			'gap',
 			array(
-				'label'     => __( 'Gap', 'decent-core' ),
-				'type'      => Controls_Manager::SLIDER,
-				'default'   => array(
+				'label'          => __( 'Gap', 'decent-core' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => array(
 					'size' => 24,
+					'unit' => 'px',
+				),
+				// 16px on a phone, matching the mobile mockup: the desktop
+				// gutter is most of a screen width once the grid is one column.
+				'mobile_default' => array(
+					'size' => 16,
 					'unit' => 'px',
 				),
 				// Constrained to the 8px scale: an editor should not be able
 				// to produce a 23px gutter in a system built on multiples.
-				'range'     => array(
+				'range'          => array(
 					'px' => array(
 						'min'  => 8,
 						'max'  => 56,
 						'step' => 8,
 					),
 				),
-				'selectors' => array(
-					'{{WRAPPER}} .decent-grid' => 'gap: {{SIZE}}{{UNIT}};',
+				'selectors'      => array(
+					'{{WRAPPER}} .pix-grid' => 'gap: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);

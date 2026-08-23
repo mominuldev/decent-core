@@ -168,7 +168,7 @@ final class Stats_Counter extends Widget_Base {
 				<?php $this->render_section_head(); ?>
 
 				<?php if ( ! empty( $items ) ) : ?>
-					<ul class="trust__metrics decent-grid">
+					<ul class="trust__metrics pix-grid">
 						<?php foreach ( $items as $item ) : ?>
 							<li>
 								<dl>

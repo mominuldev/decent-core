@@ -1,0 +1,229 @@
+// Carousel — the shared Swiper chrome.
+//
+// Every slider widget renders this block through Has_Slider_Controls, so it is
+// styled once here rather than per widget: the viewport, the track, the arrow
+// pair, the drag rail and the three pagination looks. A widget adds its own
+// slide styling and, where the design calls for it, overrides a value under
+// its own wrapper class.
+//
+// Not scoped to an .elementor-widget-* class, unlike a widget stylesheet —
+// it is shared, and the pix- prefix is what keeps it from colliding.
+
+.pix-carousel {
+  position: relative;
+}
+
+// Before Swiper, and if it never arrives: a scroll-snap row, so the slides are
+// readable and swipeable with no script at all. Swiper cannot drive a scroll
+// container, so the script trades this for the clipped version below once it
+// is ready.
+.pix-carousel__viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.pix-carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+// height:auto is load-bearing. Swiper's own .swiper-wrapper is height:100%,
+// which in a container with no definite height resolves circularly — Chrome
+// settles it against the viewport and every slide comes out several hundred
+// pixels tall. Slides are content-height, so say so: the track sizes to its
+// tallest slide and align-items:stretch levels the rest to it.
+.pix-carousel__track {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.pix-carousel__track > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+// Swiper is driving. It sets the widths and the transform itself, so the flex
+// fallback is handed back and the box stops being a scroller.
+.pix-carousel--ready .pix-carousel__viewport {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+
+.pix-carousel--ready .pix-carousel__track {
+  gap: 0;
+}
+
+.pix-carousel--ready .pix-carousel__track > * {
+  scroll-snap-align: none;
+}
+
+/* ------------------------------------------------------------------ controls */
+
+.pix-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.pix-carousel__progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+// Swiper's scrollbar, restyled into the design's rail. Keeping its module
+// rather than drawing a bar from the slide index means the thumb is draggable,
+// which a hand-rolled bar would not be.
+.pix-carousel__rail.swiper-scrollbar {
+  // Relative, not static: Swiper positions the drag absolutely, and a static
+  // rail hands it the nearest positioned ancestor instead — which is the
+  // carousel, so the thumb becomes a slab over the slides.
+  position: relative;
+  inset: auto;
+  width: 280px;
+  max-width: 40vw;
+  height: 4px;
+  margin: 0;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+}
+
+.pix-carousel__rail .swiper-scrollbar-drag {
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+// Bullets, fraction and progress bar all land in the same element; Swiper
+// decides which by the type it was given, so all three are styled here and
+// only one is ever populated.
+.pix-carousel__pagination.swiper-pagination {
+  position: static;
+  width: auto;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-label-sm);
+  font-weight: 500;
+  line-height: var(--leading-label-sm);
+  white-space: nowrap;
+}
+
+.pix-carousel__pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  opacity: 1;
+  background: var(--border-strong);
+  transition: background var(--ease), width var(--ease);
+}
+
+// The current bullet is a stadium, not a bigger dot: it reads as position in a
+// row rather than as a different kind of control.
+.pix-carousel__pagination .swiper-pagination-bullet-active {
+  width: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.pix-carousel__pagination--progressbar.swiper-pagination {
+  position: relative;
+  width: 280px;
+  max-width: 40vw;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+}
+
+.pix-carousel__pagination .swiper-pagination-progressbar-fill {
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.pix-carousel__count {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-label-sm);
+  font-weight: 500;
+  line-height: var(--leading-label-sm);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------- arrows */
+
+.pix-carousel__arrows {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.pix-carousel__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--blue);
+  color: var(--white);
+  cursor: pointer;
+  transition: background var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.pix-carousel__nav:focus-visible {
+  outline: 2px solid var(--blue-600);
+  outline-offset: 3px;
+}
+
+// At either end of the track there is nothing to go to, so the button says so
+// — and Swiper's own disabled class, renamed to this modifier, is what says it.
+.pix-carousel__nav--disabled {
+  border-color: var(--border);
+  background: var(--white);
+  color: var(--border-strong);
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .pix-carousel__nav:hover:not(.pix-carousel__nav--disabled) {
+    background: var(--blue-600);
+  }
+}
+
+/* ---------------------------------------------------------------- responsive */
+
+@media (max-width: 560px) {
+  .pix-carousel__track {
+    gap: 14px;
+  }
+
+  .pix-carousel__controls {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .pix-carousel__rail.swiper-scrollbar,
+  .pix-carousel__pagination--progressbar.swiper-pagination {
+    width: 132px;
+  }
+
+  .pix-carousel__nav {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pix-carousel__nav {
+    transition: none;
+  }
+}

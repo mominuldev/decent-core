@@ -1,17 +1,232 @@
-// Product Grid — widget-owned layout glue only.
+// Product Grid — the filter bar, the grid glue and the footer.
 //
-// The components inside (.product-card, .section-head) all come from the theme. What lives
-// here is the grid the column and gap controls target, which exists only
-// because this widget exposes those controls.
+// The cards inside come from the theme and are not touched here. What this
+// file owns is the chip row, the sort control and the view-all footer: three
+// components the design puts on the landing grid and nowhere else, so the
+// theme has no reason to carry them.
+//
+// Every value is a token from the theme's base.css. The one deliberate
+// departure from the mockup is the footer note, which the design draws in
+// ink/400 — 2.56:1 on white. base.css documents that rule already: text the
+// design shows in ink/400 renders in --muted, the nearest step that clears
+// 4.5:1.
 
 .elementor-widget-decent-product-grid {
-  .decent-grid {
+
+  /* ------------------------------------------------------------ filter bar */
+
+  .pix-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .pix-filter__chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .pix-filter__chip {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--muted-alt);
+    font-family: var(--font-sans);
+    font-size: var(--text-label-sm);
+    font-weight: 500;
+    line-height: var(--leading-label-sm);
+    white-space: nowrap;
+    transition: background var(--ease), border-color var(--ease), color var(--ease);
+  }
+
+  .pix-filter__chip:hover {
+    text-decoration: none;
+  }
+
+  // The selected chip is a filled slug, not a tinted one: it has to read as
+  // the current state from across the section, next to four quiet neighbours.
+  .pix-filter__chip--active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+  }
+
+  @media (hover: hover) {
+    .pix-filter__chip:hover:not(.pix-filter__chip--active) {
+      background: var(--gray-50);
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+  }
+
+  /* ---------------------------------------------------------------- sort */
+
+  .pix-filter__sort {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    color: var(--muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-label-sm);
+    font-weight: 500;
+    line-height: var(--leading-label-sm);
+  }
+
+  // The design draws the sort as a line of text with a chevron, not a control
+  // in a box. A bare <select> cannot be that: browsers size one to its widest
+  // option, so "Most popular" would sit in a box cut for "Price: low to high".
+  // The visible text is therefore a span, and the real select is laid over it
+  // and made transparent — the native picker, the keyboard and the mobile
+  // sheet all keep working, and the width is the width of what is selected.
+  .pix-filter__select {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: inherit;
+  }
+
+  .pix-filter__value {
+    white-space: nowrap;
+  }
+
+  .pix-filter__select svg {
+    flex-shrink: 0;
+  }
+
+  .pix-filter__select select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    // Safari draws a select's own text even at zero opacity on some versions;
+    // appearance:none is what actually removes the chrome underneath.
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  // The ring goes on the wrapper, because the control itself is invisible and
+  // a ring nobody can see is not a focus indicator.
+  .pix-filter__select:focus-within {
+    outline: 2px solid var(--blue-600);
+    outline-offset: 4px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* --------------------------------------------------------------- results */
+
+  // The list carries both classes: .product-grid is the theme's, and it is the
+  // floor this widget renders on if Elementor's generated CSS never arrives.
+  // The column and gap controls target .pix-grid through {{WRAPPER}}, which
+  // outranks the theme rule on the same element, so nothing has to be undone
+  // here — only the display mode the theme would have set anyway.
+  .pix-grid {
     display: grid;
   }
 
-  // The theme's product grid is auto-fill; an explicit column count from the
-  // panel has to win over it.
-  .product-grid {
-    grid-template-columns: inherit;
+  // A swap in flight keeps the old cards on screen and dims them. Replacing
+  // them with a spinner would collapse the section's height and throw the
+  // page under the visitor's thumb.
+  .pix-product-grid__results[aria-busy="true"] {
+    opacity: 0.55;
+    transition: opacity var(--ease);
+    pointer-events: none;
+  }
+
+  /* ---------------------------------------------------------------- footer */
+
+  .pix-product-grid__more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  .pix-product-grid__more-link {
+    min-height: 50px;
+    padding: 0 24px;
+    gap: 8px;
+    border-radius: var(--radius-md);
+    font-size: var(--text-label);
+  }
+
+  .pix-product-grid__more-note {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-label-sm);
+    font-weight: 500;
+    line-height: var(--leading-label-sm);
+  }
+
+  /* ------------------------------------------------------------ responsive */
+
+  // Below the tablet step the bar stacks: chips keep their row and scroll,
+  // the sort drops beneath them. Wrapping the chips instead would push the
+  // grid down by a line for every category the site adds.
+  @media (max-width: 768px) {
+    .pix-filter {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    // Full-bleed, like the catalogue's category rail: a scrolling row that
+    // stops at the gutter reads as clipped, one that runs to the screen edge
+    // reads as scrollable.
+    .pix-filter__chips {
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+
+    .pix-filter__chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pix-filter__sort {
+      justify-content: flex-end;
+    }
+  }
+
+  // One column, and the button goes full width — the mobile mockup's footer
+  // is an edge-to-edge button with no note under it.
+  @media (max-width: 560px) {
+    .pix-product-grid__more {
+      margin-top: 32px;
+    }
+
+    .pix-product-grid__more-link {
+      width: 100%;
+      min-height: 48px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pix-filter__chip,
+    .pix-product-grid__results {
+      transition: none;
+    }
   }
 }

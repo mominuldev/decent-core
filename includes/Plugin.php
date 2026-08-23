@@ -16,6 +16,7 @@ use DecentCore\Builder\Pro_Bridge;
 use DecentCore\Assets\Garbage_Collector;
 use DecentCore\Assets\Usage_Index;
 use DecentCore\Elementor\Manager;
+use DecentCore\Rest\Product_Grid_Controller;
 use DecentCore\Rest\Tools_Controller;
 use DecentCore\Settings\Rest_Controller;
 use DecentCore\Settings\Settings;
@@ -90,6 +91,11 @@ final class Plugin {
 		}
 
 		$this->container->get( Manager::class )->register();
+
+		// The Product Grid's filter bar. Registered with the widgets rather
+		// than with the settings endpoints above, because without Elementor
+		// there is no document to read a widget's settings out of.
+		$this->container->get( Product_Grid_Controller::class )->register();
 
 		// Asset pipeline. Usage_Index records what a document uses at save
 		// time; Bundler collapses that set on the front end and steps aside

@@ -23,14 +23,47 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 
+	// The slug stays `hero-search` — it is the widget's identity in the
+	// Elementor name and on every page already built with it. The title and
+	// icon moved with the redesign: the search form is now one option inside
+	// the landing hero rather than the thing the widget is.
 	'hero-search'       => array(
 		'class'    => DecentCore\Elementor\Widgets\Hero_Search::class,
-		'title'    => __( 'Hero Search', 'decent-core' ),
+		'title'    => __( 'Hero', 'decent-core' ),
 		'category' => 'decent-layout',
 		'group'    => 'hero',
-		'icon'     => 'eicon-search',
-		'keywords' => array( 'hero', 'search', 'banner' ),
+		'icon'     => 'eicon-banner',
+		'keywords' => array( 'hero', 'banner', 'landing', 'cta', 'search' ),
 		'styles'   => array( 'hero-search' ),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
+
+	'heading'           => array(
+		'class'    => DecentCore\Elementor\Widgets\Heading::class,
+		'title'    => __( 'Heading', 'decent-core' ),
+		'category' => 'decent-content',
+		'group'    => 'heading',
+		'icon'     => 'eicon-t-letter',
+		'keywords' => array( 'heading', 'title', 'section', 'eyebrow', 'intro' ),
+		'styles'   => array( 'heading' ),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
+
+	// A single box, not a grid of them: the row is composed with Elementor's
+	// own grid container, so the columns behave like every other container on
+	// the page instead of like a control only this widget understands.
+	'icon-box'          => array(
+		'class'    => DecentCore\Elementor\Widgets\Icon_Box::class,
+		'title'    => __( 'Icon Box', 'decent-core' ),
+		'category' => 'decent-content',
+		'group'    => 'feature',
+		'icon'     => 'eicon-icon-box',
+		'keywords' => array( 'icon', 'box', 'feature', 'service', 'card' ),
+		'styles'   => array( 'icon-box' ),
 		'scripts'  => array(),
 		'requires' => array(),
 		'default'  => true,
@@ -161,7 +194,7 @@ return array(
 		'icon'     => 'eicon-products',
 		'keywords' => array( 'product', 'edd', 'download', 'shop' ),
 		'styles'   => array( 'product-grid' ),
-		'scripts'  => array(),
+		'scripts'  => array( 'product-grid' ),
 		'requires' => array( 'edd', 'theme' ),
 		'default'  => true,
 	),
@@ -245,16 +278,20 @@ return array(
 	),
 
 	'product-slider'    => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Slider::class,
-		'title'    => __( 'Product Slider', 'decent-core' ),
-		'category' => 'decent-products',
-		'group'    => 'products',
-		'icon'     => 'eicon-slider-push',
-		'keywords' => array( 'product', 'slider', 'carousel', 'edd' ),
-		'styles'   => array( 'product-slider' ),
-		'scripts'  => array( 'product-slider' ),
-		'requires' => array( 'edd', 'theme' ),
-		'default'  => true,
+		'class'       => DecentCore\Elementor\Widgets\Product_Slider::class,
+		'title'       => __( 'Product Slider', 'decent-core' ),
+		'category'    => 'decent-products',
+		'group'       => 'products',
+		'icon'        => 'eicon-slider-push',
+		'keywords'    => array( 'product', 'slider', 'carousel', 'edd' ),
+		// No stylesheet or script of its own: the carousel is shared and the
+		// cards are the theme's.
+		'styles'      => array( 'carousel' ),
+		'scripts'     => array( 'carousel' ),
+		'style_deps'  => array( 'swiper' ),
+		'script_deps' => array( 'swiper' ),
+		'requires'    => array( 'edd', 'theme' ),
+		'default'     => true,
 	),
 
 	'product-archive'   => array(
@@ -336,16 +373,22 @@ return array(
 	),
 
 	'testimonial-grid'  => array(
-		'class'    => DecentCore\Elementor\Widgets\Testimonial_Grid::class,
-		'title'    => __( 'Testimonial Grid', 'decent-core' ),
-		'category' => 'decent-content',
-		'group'    => 'social',
-		'icon'     => 'eicon-testimonial',
-		'keywords' => array( 'testimonial', 'review', 'quote' ),
-		'styles'   => array( 'testimonial-grid' ),
-		'scripts'  => array(),
-		'requires' => array(),
-		'default'  => true,
+		'class'       => DecentCore\Elementor\Widgets\Testimonial_Grid::class,
+		'title'       => __( 'Testimonials', 'decent-core' ),
+		'category'    => 'decent-content',
+		'group'       => 'social',
+		'icon'        => 'eicon-testimonial',
+		'keywords'    => array( 'testimonial', 'review', 'quote', 'slider', 'carousel' ),
+		// `carousel` is the shared slider chrome and its Swiper boot — every
+		// slider widget lists it and needs no script of its own. Elementor
+		// already ships Swiper 8.4.5 under the `swiper` handles, so the
+		// carousel costs no bytes of ours either.
+		'styles'      => array( 'carousel', 'testimonial-grid' ),
+		'scripts'     => array( 'carousel' ),
+		'style_deps'  => array( 'swiper' ),
+		'script_deps' => array( 'swiper' ),
+		'requires'    => array(),
+		'default'     => true,
 	),
 
 	'pricing-table'     => array(

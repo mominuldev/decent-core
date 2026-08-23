@@ -1,11 +1,52 @@
 // Feature Grid — widget-owned layout glue only.
 //
-// The components inside (.feature-card, .section-head) all come from the theme. What lives
+// The components inside (.feature-card, .pix-section-heading) all come from the theme. What lives
 // here is the grid the column and gap controls target, which exists only
 // because this widget exposes those controls.
 
 .elementor-widget-decent-feature-grid {
-  .decent-grid {
+  .pix-grid {
     display: grid;
+  }
+
+  // The icon is picked through Elementor now, so the tile has to hold three
+  // different things at one size: the theme's inline SVG, an uploaded SVG, and
+  // a Font Awesome glyph — which is a font character with no width or height,
+  // only a font-size. Sizing the tile and drawing the glyph at 1em is the one
+  // rule that covers all three, and it replaces the SVG's own width/height
+  // attributes, which used to be what set the size.
+  //
+  // The size comes in as a custom property rather than as font-size directly:
+  // .feature-card is the theme's, so this rule must stay scoped to the widget
+  // wrapper, and that is two classes — the same weight as Elementor's own
+  // Style-tab CSS. Reading a property nothing else writes avoids the tie
+  // entirely.
+  .feature-card__icon {
+    font-size: var(--pix-feature-icon-size, 20px);
+    line-height: 1;
+  }
+
+  // height, not width: a Font Awesome glyph is not square (its viewBox is
+  // 576x512), so pinning both axes to 1em squashes it. Height plus the SVG's
+  // own intrinsic ratio sizes all of them correctly.
+  .feature-card__icon svg {
+    display: block;
+    height: 1em;
+    width: auto;
+  }
+
+  // Elementor renders a Font Awesome pick as an SVG whose path carries no
+  // fill, which paints black and ignores the Icon colour control. The theme's
+  // own icons are stroked with fill="none" and must NOT be caught by this —
+  // a CSS fill would beat that attribute and turn a line drawing into a blob —
+  // so this is scoped to Elementor's font-icon class rather than to svg.
+  .feature-card__icon .e-font-icon-svg {
+    fill: currentColor;
+  }
+
+  .feature-card__icon i {
+    font-size: inherit;
+    font-style: normal;
+    line-height: 1;
   }
 }

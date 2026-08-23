@@ -146,7 +146,7 @@ final class Product_Tabs extends Widget_Base {
 		$this->register_text_style(
 			'review_score',
 			__( 'Average score', 'decent-core' ),
-			'{{WRAPPER}} .rating-summary__score',
+			'{{WRAPPER}} .pix-rating-summary__score',
 			array( 'separator' => 'none' )
 		);
 

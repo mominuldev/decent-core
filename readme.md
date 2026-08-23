@@ -54,12 +54,45 @@ Two constraints come from living inside somebody else's admin:
 ### Adding a widget
 
 1. `config/widgets.php` — one entry: class, title, category, group, styles,
-   scripts, requires, default.
+   scripts, style_deps, script_deps, requires, default.
 2. `includes/Elementor/Widgets/<Name>.php` extending the base widget.
 3. `src/widgets/<slug>/style.scss` if it needs styles.
 
 The registry, the settings toggle, the asset handles and the admin UI all read
 that one entry. Nothing else needs changing.
+
+Shared control sets live in `includes/Elementor/Base/Traits/` — compose them
+rather than restating controls: `Has_Query_Controls` (the EDD product query),
+`Has_Grid_Controls` (responsive columns and gap), `Has_Slider_Controls` (a whole
+Swiper carousel), `Has_Section_Head`, `Has_Style_Controls`.
+
+### Adding a slider widget
+
+Sliders always use Swiper, and always the shared one. Elementor already ships
+Swiper 8.4.5 and registers it, so it costs no bytes of ours — and a second
+slider implementation would be a second thing to keep in step.
+
+`Has_Slider_Controls` supplies the controls, the Style-tab panel, the markup and
+the Swiper config; the widget supplies slides:
+
+```php
+use Has_Slider_Controls;   // alongside Has_Style_Controls
+
+$this->register_slider_controls( array( 'slides_to_show' => '4' ) );
+$this->register_slider_style_controls();
+
+$slider = $this->render_slider_start();
+foreach ( $items as $item ) { /* echo one .swiper-slide */ }
+$this->render_slider_end( array( 'tag' => $slider['tag'] ) );
+```
+
+with `'styles' => array( 'carousel' )`, `'scripts' => array( 'carousel' )` and
+`'style_deps' => array( 'swiper' )`, `'script_deps' => array( 'swiper' )` in the
+map. The shared `pix-carousel` block does the rest — viewport, track, arrows,
+drag rail, bullets/fraction/progress-bar pagination and the slide count.
+
+Widget JavaScript must initialise from Elementor's `frontend/element_ready`
+hook, never on load, or it will not run in the editor. See `CLAUDE.md`.
 
 ## CLI
 

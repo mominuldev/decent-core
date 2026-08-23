@@ -66,8 +66,9 @@ trait Has_Style_Controls {
 	 * @param string $selector Section head selector, scoped to {{WRAPPER}}.
 	 * @return void
 	 */
-	protected function register_section_head_style_controls( string $selector = '{{WRAPPER}} .section-head' ): void {
+	protected function register_section_head_style_controls( string $selector = '{{WRAPPER}} .pix-section-heading' ): void {
 		$this->register_alignment_style( 'head_align', $selector );
+		$this->register_alignment_flex_style( 'text_align', $selector );
 
 		$this->register_text_style(
 			'head_eyebrow',
@@ -537,6 +538,39 @@ trait Has_Style_Controls {
 					),
 				),
 				'selectors' => array( $selector => 'text-align: {{VALUE}};' ),
+			)
+		);
+	}
+
+	/**
+	 * Registers a text alignment control.
+	 *
+	 * @param string $id       Control id.
+	 * @param string $selector Selector the alignment applies to.
+	 * @param string $label    Optional label.
+	 * @return void
+	 */
+	protected function register_alignment_flex_style( string $id, string $selector, string $label = '' ): void {
+		$this->add_responsive_control(
+			$id,
+			array(
+				'label'     => '' !== $label ? $label : __( 'Alignment', 'decent-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'decent-core' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Centre', 'decent-core' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'decent-core' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array( $selector => 'justify-content: {{VALUE}};' ),
 			)
 		);
 	}

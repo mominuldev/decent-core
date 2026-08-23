@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use DecentCore\Contracts\Module;
 use DecentCore\Elementor\Compat\Breakpoints;
+use DecentCore\Elementor\Compat\Icon_Library;
 use DecentCore\Elementor\Compat\Kit_Seeder;
 use Elementor\Elements_Manager;
 use Elementor\Widgets_Manager;
@@ -39,10 +40,12 @@ final class Manager implements Module {
 		add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
 		add_action( 'elementor/frontend/after_register_styles', array( $this, 'register_assets' ) );
 		add_action( 'elementor/dynamic_tags/register', array( $this, 'register_tags' ) );
-		add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_editor_assets' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_editor_assets' ) );
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_editor_assets' ) );
 
 		( new Breakpoints() )->register();
 		( new Kit_Seeder() )->register();
+		( new Icon_Library() )->register();
 	}
 
 	/**
@@ -154,6 +157,8 @@ final class Manager implements Module {
 	 */
 	public function register_assets(): void {
 		foreach ( Widget_Registry::map() as $slug => $widget ) {
+			$style_deps = array_map( 'strval', (array) ( $widget['style_deps'] ?? array() ) );
+
 			foreach ( (array) ( $widget['styles'] ?? array() ) as $handle ) {
 				$path = 'assets/widgets/' . $handle . '/style.css';
 
@@ -164,10 +169,20 @@ final class Manager implements Module {
 				wp_register_style(
 					'decent-core-' . $handle,
 					DECENT_CORE_URL . $path,
-					array(),
+					$style_deps,
 					DECENT_CORE_VERSION
 				);
 			}
+
+			// Every widget script binds elementor/frontend/element_ready, so
+			// every one of them needs elementor-frontend — and jQuery under
+			// it, because that event is a jQuery event and a native listener
+			// never hears it. A script whose handle is not declared as a
+			// dependency loads in registration order, which is to say by luck.
+			$deps = array_merge(
+				array( 'jquery', 'elementor-frontend' ),
+				array_map( 'strval', (array) ( $widget['script_deps'] ?? array() ) )
+			);
 
 			foreach ( (array) ( $widget['scripts'] ?? array() ) as $handle ) {
 				$path = 'assets/widgets/' . $handle . '/script.js';
@@ -179,7 +194,7 @@ final class Manager implements Module {
 				wp_register_script(
 					'decent-core-' . $handle,
 					DECENT_CORE_URL . $path,
-					array(),
+					$deps,
 					DECENT_CORE_VERSION,
 					true
 				);
@@ -188,11 +203,20 @@ final class Manager implements Module {
 	}
 
 	/**
-	 * Loads every widget asset in the editor.
+	 * Loads every widget asset in the editor preview.
 	 *
-	 * The editor has to style a widget the moment it is dropped, before any
-	 * render pass has told us it is on the page. Conditional loading is a
-	 * front-end optimisation and would only produce unstyled previews here.
+	 * Both halves matter, and for the same reason. A widget dropped into the
+	 * canvas is rendered by an AJAX round trip that returns markup and nothing
+	 * else — Elementor does not add a script or a style tag for it. Anything
+	 * the widget needs has to be in the preview document already, or the
+	 * widget appears unstyled and inert until the page is reloaded.
+	 *
+	 * That is also why every widget script initialises from
+	 * frontend/element_ready rather than on load: in here, "load" happened
+	 * long before the widget existed.
+	 *
+	 * Conditional loading is a front-end optimisation. In the editor it only
+	 * produces broken previews.
 	 *
 	 * @return void
 	 */
@@ -200,6 +224,10 @@ final class Manager implements Module {
 		foreach ( Widget_Registry::map() as $widget ) {
 			foreach ( (array) ( $widget['styles'] ?? array() ) as $handle ) {
 				wp_enqueue_style( 'decent-core-' . $handle );
+			}
+
+			foreach ( (array) ( $widget['scripts'] ?? array() ) as $handle ) {
+				wp_enqueue_script( 'decent-core-' . $handle );
 			}
 		}
 	}

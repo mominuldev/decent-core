@@ -1,0 +1,187 @@
+// Icon Box.
+//
+// The one widget here whose stylesheet is the component rather than glue over
+// a theme one: `.pix-icon-box` does not exist in the theme, so there is nothing
+// to delegate to. Every value below is a theme token with the design's literal
+// as its fallback, which is what keeps the box inside the design system while
+// still rendering correctly under a theme that does not ship them.
+//
+// Deliberately NOT scoped to `.elementor-widget-decent-icon-box`. Elementor
+// writes its Style-tab CSS as `.elementor-element-<id> .pix-icon-box` — two
+// classes. Scoping these rules to the widget wrapper would match that exactly,
+// and which one won would come down to stylesheet order. Left at one class
+// they always lose to the panel, which is the point of the panel.
+//
+// The layout is a single flex container: `column` puts the icon on top, `row`
+// puts it on the left, and the gap is the same property either way. Nothing
+// about the markup, the spacing or the alignment changes between the two, so
+// the Icon position control is one declaration and can differ per breakpoint.
+
+.pix-icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 26px;
+  background: var(--white, #fff);
+  border: 1px solid var(--border, #e4e9f2);
+  border-radius: var(--radius-xl, 16px);
+  box-shadow: var(--shadow-soft, 0 1px 2px rgba(11, 18, 32, 0.05));
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+// Icon on the left. The icon keeps its own size against a content column that
+// takes the rest, so a long title wraps rather than squeezing the tile.
+.pix-icon-box--icon-left {
+  flex-direction: row;
+}
+
+// The glyph is drawn at 1em and the tile carries the size, so one Icon size
+// control moves all three things the picker can produce: the theme's inline
+// SVG, an uploaded SVG, and a Font Awesome glyph — which is a font character
+// and has no width or height to set, only a font-size.
+.pix-icon-box__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  box-sizing: border-box;
+  font-size: 22px;
+  line-height: 1;
+  border-radius: var(--radius-lg, 12px);
+  background: var(--blue-50, #ebf4ff);
+  color: var(--blue, #007bff);
+}
+
+.pix-icon-box__icon svg {
+  display: block;
+  height: 1em;
+  width: auto;
+}
+
+// Elementor paints a Font Awesome pick as an SVG with no fill, which lands
+// black and ignores the colour control. Scoped to its own class: the theme's
+// icons are stroked over fill="none", and a CSS fill would override that
+// attribute and turn a line drawing into a solid shape.
+.pix-icon-box__icon .e-font-icon-svg {
+  fill: currentColor;
+}
+
+.pix-icon-box__icon i {
+  font-size: inherit;
+  font-style: normal;
+  line-height: 1;
+}
+
+// `min-width: 0` so a long unbroken word — a URL, a product slug — wraps
+// inside the column instead of pushing the flex row wider than the box.
+.pix-icon-box__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  min-width: 0;
+  width: 100%;
+}
+
+.pix-icon-box__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+}
+
+.pix-icon-box__title {
+  margin: 0;
+  font-family: var(--font-display, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: var(--text-h4, 19px);
+  line-height: var(--leading-h4, 26px);
+  letter-spacing: var(--tracking-h4, -0.008em);
+  font-weight: 600;
+  color: var(--ink, #0b1220);
+}
+
+.pix-icon-box__text {
+  margin: 0;
+  font-family: var(--font-sans, Geist, system-ui, sans-serif);
+  font-size: var(--text-body-sm, 14px);
+  line-height: var(--leading-body-sm, 22px);
+  color: var(--muted, #64748b);
+}
+
+// --blue-600 rather than --blue: at 15px this label is not "large text" under
+// WCAG 1.4.3, and --blue is 3.98:1 on white. --blue-600 is 5.54:1.
+.pix-icon-box__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans, Geist, system-ui, sans-serif);
+  font-size: var(--text-label, 15px);
+  line-height: var(--leading-label, 20px);
+  letter-spacing: var(--tracking-label, -0.002em);
+  font-weight: 600;
+  color: var(--color-link, #0064d6);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.pix-icon-box__link:hover,
+.pix-icon-box__link:focus-visible {
+  color: var(--color-link-hover, #0050ad);
+}
+
+.pix-icon-box__link-icon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 16px;
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.pix-icon-box__link-icon svg {
+  display: block;
+  height: 1em;
+  width: auto;
+}
+
+// Elementor paints a Font Awesome pick as an SVG with no fill, which lands
+// black and ignores the colour control. Scoped to its own class: the theme's
+// icons are stroked over fill="none", and a CSS fill would override that
+// attribute and turn a line drawing into a solid shape.
+.pix-icon-box__link-icon .e-font-icon-svg {
+  fill: currentColor;
+}
+
+.pix-icon-box__link-icon i {
+  font-size: inherit;
+  font-style: normal;
+  line-height: 1;
+}
+
+// A 2px nudge on the arrow, which is the only movement the design gives a
+// trailing link. The box itself does not lift: it is not the click target,
+// and only the link inside it is.
+.pix-icon-box__link:hover .pix-icon-box__link-icon,
+.pix-icon-box__link:focus-visible .pix-icon-box__link-icon {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pix-icon-box,
+  .pix-icon-box__link,
+  .pix-icon-box__link-icon {
+    transition: none;
+  }
+
+  .pix-icon-box__link:hover .pix-icon-box__link-icon,
+  .pix-icon-box__link:focus-visible .pix-icon-box__link-icon {
+    transform: none;
+  }
+}

@@ -212,7 +212,7 @@ final class Blog_Grid extends Widget_Base {
 			<div class="container section__inner section__inner--tight">
 				<?php $this->render_section_head(); ?>
 
-				<ul class="post-grid decent-grid">
+				<ul class="post-grid pix-grid">
 					<?php
 					while ( $query->have_posts() ) :
 						$query->the_post();

@@ -180,7 +180,7 @@ final class Guarantee_Grid extends Widget_Base {
 				<?php $this->render_section_head(); ?>
 
 				<?php if ( ! empty( $items ) ) : ?>
-					<ul class="guarantee-grid decent-grid">
+					<ul class="guarantee-grid pix-grid">
 						<?php foreach ( $items as $item ) : ?>
 							<li class="guarantee-card">
 								<span class="guarantee-card__icon">

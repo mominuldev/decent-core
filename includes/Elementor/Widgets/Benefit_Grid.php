@@ -181,7 +181,7 @@ final class Benefit_Grid extends Widget_Base {
 				<?php $this->render_section_head(); ?>
 
 				<?php if ( ! empty( $items ) ) : ?>
-					<ul class="benefit-grid decent-grid">
+					<ul class="benefit-grid pix-grid">
 						<?php foreach ( $items as $item ) : ?>
 							<li class="benefit-card">
 								<?php $this->icon( (string) ( $item['icon'] ?? 'check' ), 22, 1.5 ); ?>

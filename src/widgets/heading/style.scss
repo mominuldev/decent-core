@@ -1,0 +1,38 @@
+// Heading — widget-owned layout glue only.
+//
+// .pix-section-heading, .eyebrow, .section-title, .section-intro, .link-arrow and the
+// .section / .container band all come from the theme. Anything this file
+// restyled would be a component the theme already owns, which is how a design
+// system forks.
+
+.elementor-widget-decent-heading {
+  // .section-title and .section-intro both carry a 14px top margin, which is
+  // the gap under the element above them. As the first thing in the head —
+  // a title with no eyebrow, or an intro with neither — that margin has
+  // nothing to sit under and pushes the widget down inside whatever container
+  // it was dropped into. Every other widget using a section head opens on an
+  // eyebrow, so this only ever bites here.
+  //
+  // Scoped to the text column: .pix-section-heading__aside is a sibling of it, not a
+  // child, and its own alignment must not be touched.
+  .pix-section-heading > div > :first-child {
+    margin-top: 0;
+  }
+
+  // The theme lifts .section-title and .section-intro onto a dark band but
+  // never .eyebrow, so all three eyebrow tones land under 4.5:1 on --ink:
+  // brand at 3.38, yellow at 3.24, muted at 3.93. Each one moves to the step
+  // the palette already nominates for a dark ground — the same values
+  // .section--dark and the design-system board use — clearing AA at 6.5, 9.2
+  // and 12.6:1.
+  //
+  // This belongs in the theme beside its two sibling rules, and would fix the
+  // theme's own dark section with it. It sits here because the widget's Dark
+  // band is what makes the combination reachable, and shipping a control that
+  // fails contrast by default is not an option.
+  .section--dark {
+    .eyebrow { color: var(--blue-400); }
+    .eyebrow--muted { color: var(--border-strong); }
+    .eyebrow--yellow { color: var(--yellow); }
+  }
+}

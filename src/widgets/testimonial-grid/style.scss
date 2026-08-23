@@ -1,9 +1,225 @@
-// testimonial-grid — widget-owned layout glue only.
-// The cards themselves are theme components; this is the grid the column and
-// gap controls target.
+// Testimonial slider — this design's parts only.
+//
+// The carousel chrome (viewport, track, arrows, rail, pagination, count) is
+// the shared pix-carousel component; see src/widgets/carousel/style.scss. What
+// is here is what this section does differently: a track that bleeds off the
+// right edge under a fade, the rating summary beside the head, and the card.
+//
+// The card is deliberately not the theme's .review-card. That component still
+// exists and the theme's own review sections still use it; this is the
+// redesign, and a widget that inherited the old card and then undid half of it
+// would be coupled to something it no longer resembles.
 
 .elementor-widget-decent-testimonial-grid {
-  .decent-grid {
-    display: grid;
+
+  // The track runs off the right edge of the screen, so the overflow is
+  // clipped at the band rather than at the container — that is what turns a
+  // horizontally scrolling page into a peeking carousel.
+  .pix-reviews {
+    overflow: hidden;
+  }
+
+  /* ------------------------------------------------------------------ head */
+
+  .pix-reviews__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .pix-reviews__copy {
+    max-width: 620px;
+  }
+
+  .pix-reviews__copy .pix-section-heading {
+    margin-bottom: 0;
+  }
+
+  .pix-rating-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 26px 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--gray-50);
+    text-align: center;
+  }
+
+  .pix-rating-summary__score {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 58px;
+    letter-spacing: -0.022em;
+    color: var(--ink);
+  }
+
+  .pix-rating-summary__stars {
+    margin: 0;
+    color: var(--star);
+    font-size: 17px;
+    letter-spacing: 4px;
+  }
+
+  .pix-rating-summary__note {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-label-sm);
+    font-weight: 500;
+    line-height: var(--leading-label-sm);
+  }
+
+  /* ---------------------------------------------------------------- slider */
+
+  // The track runs off the right edge of the screen, so the overflow is
+  // clipped at the band rather than at the container — that is what turns a
+  // horizontally scrolling page into a peeking carousel. Both are this
+  // design's, not the shared carousel's, so they live here.
+  .pix-reviews__slider.pix-carousel--ready .pix-carousel__viewport {
+    overflow: visible;
+    clip-path: inset(-32px -100vw -32px 0);
+  }
+
+  // The fade sits over the last stretch of the viewport, out to the screen
+  // edge — `50% - 50vw` is exactly the distance from a centred container's
+  // edge to the window's. Only once Swiper is driving: in the scroll-snap
+  // fallback the viewport is a scroll container, and a fade pinned inside one
+  // slides away with the content.
+  .pix-reviews__slider.pix-carousel--ready .pix-carousel__viewport::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(50% - 50vw);
+    width: 124px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.35) 60%, rgba(255, 255, 255, 0.82) 100%);
+    pointer-events: none;
+  }
+
+  /* -------------------------------------------------------------- the card */
+
+  // Owned outright rather than extended from the theme's .review-card. The
+  // two are different components now — the theme's carries an oversized quote
+  // glyph, an 8px radius and a grey 44px avatar, and this one is the
+  // redesign. Inheriting and then undoing four declarations would leave the
+  // widget silently coupled to a component it no longer looks like.
+  .pix-review-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    height: auto;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--white);
+    box-shadow: var(--shadow);
+    transition: box-shadow var(--ease), border-color var(--ease), transform var(--ease);
+  }
+
+  @media (hover: hover) {
+    .pix-review-card:hover {
+      border-color: var(--blue-tint-border);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+  }
+
+  .pix-review-card__stars {
+    margin: 0;
+    color: var(--star);
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .pix-review-card__quote {
+    margin: 0;
+    color: var(--ink-700);
+    font-size: 1rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .pix-review-card__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .pix-review-card__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-2xl);
+    background: var(--blue-50);
+    color: var(--blue-700);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: var(--leading-label);
+  }
+
+  .pix-review-card__who {
+    min-width: 0;
+  }
+
+  .pix-review-card__name {
+    margin: 0;
+    color: var(--ink);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: var(--leading-label);
+  }
+
+  .pix-review-card__role {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: var(--text-label-sm);
+    font-weight: 500;
+    line-height: var(--leading-label-sm);
+  }
+
+  /* ------------------------------------------------------------ responsive */
+
+  @media (max-width: 900px) {
+    .pix-reviews__head {
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+  }
+
+  // The mobile mockup drops the summary card; the head is copy alone.
+  @media (max-width: 768px) {
+    .pix-reviews__head {
+      display: block;
+      margin-bottom: 28px;
+    }
+
+    .pix-rating-summary {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pix-reviews__slider.pix-carousel--ready .pix-carousel__viewport::after {
+      width: 70px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pix-review-card {
+      transition: none;
+    }
   }
 }

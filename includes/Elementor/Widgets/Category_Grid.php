@@ -202,7 +202,7 @@ final class Category_Grid extends Widget_Base {
 			<div class="container section__inner section__inner--tight">
 				<?php $this->render_section_head(); ?>
 
-				<ul class="<?php echo $strip ? 'cat-strip' : 'category-grid'; ?> decent-grid">
+				<ul class="<?php echo $strip ? 'cat-strip' : 'category-grid'; ?> pix-grid">
 					<?php foreach ( $terms as $term ) : ?>
 						<?php
 						$accent = (string) get_term_meta( $term->term_id, '_decent_cat_accent', true );
