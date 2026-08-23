@@ -28,6 +28,13 @@ final class Renderer {
 	private $resolver;
 
 	/**
+	 * Templates already rendered on this request, by ID.
+	 *
+	 * @var array<int, bool>
+	 */
+	private static $rendering = array();
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Resolver $resolver Resolver.
@@ -86,7 +93,7 @@ final class Renderer {
 			return false;
 		}
 
-		$markup = $this->content( $template_id );
+		$markup = self::content( $template_id );
 
 		if ( '' === trim( $markup ) ) {
 			// An empty template is almost certainly a mistake; falling through
@@ -94,13 +101,13 @@ final class Renderer {
 			return false;
 		}
 
-		list( $open, $close ) = self::landmark( $type );
+		list( $open, $close ) = self::landmark( $type, $template_id );
 
 		// The landmark lives here, not in the builder content: an editor
 		// composing a header should not have to know that the page needs a
 		// banner role, and replacing the static part must not silently remove
 		// it. Wrapping by type means every tier produces the same structure.
-		echo $open; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static markup from self::landmark().
+		echo $open; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built and escaped by self::landmark().
 
 		// Elementor has already escaped its own output, and running it through
 		// wp_kses here would strip the very markup an editor built.
@@ -114,20 +121,135 @@ final class Renderer {
 	/**
 	 * Returns the wrapper a location's landmark needs.
 	 *
-	 * @param string $type Template type.
+	 * @param string $type        Template type.
+	 * @param int    $template_id Template ID.
 	 * @return array{0:string, 1:string} Opening and closing markup.
 	 */
-	private static function landmark( string $type ): array {
+	private static function landmark( string $type, int $template_id ): array {
 		if ( Template_Type::HEADER === $type ) {
-			return array( '<header class="site-header site-header--builder">', '</header>' );
+			return array( '<header ' . self::attributes( self::header_attributes( $template_id ), $type, $template_id ) . '>', '</header>' );
 		}
 
 		if ( Template_Type::FOOTER === $type ) {
-			return array( '<footer class="site-footer site-footer--builder">', '</footer>' );
+			return array( '<footer ' . self::attributes( self::footer_attributes( $template_id ), $type, $template_id ) . '>', '</footer>' );
 		}
 
 		// A block is placed inside an existing landmark, so it adds none.
 		return array( '', '' );
+	}
+
+	/**
+	 * Builds the header element's attributes.
+	 *
+	 * The behaviour options become classes, because CSS does the sticking and
+	 * the overlaying on its own, and one data attribute, because the script
+	 * that adds the stuck and hidden states needs values rather than classes.
+	 *
+	 * @param int $template_id Template ID.
+	 * @return array<string, string>
+	 */
+	private static function header_attributes( int $template_id ): array {
+		$settings = Display_Settings::for_template( $template_id, Template_Type::HEADER );
+		$classes  = array( 'site-header', 'site-header--builder' );
+
+		if ( ! empty( $settings['overlay'] ) ) {
+			$classes[] = 'site-header--overlay';
+		}
+
+		if ( ! empty( $settings['sticky'] ) ) {
+			$classes[] = 'site-header--sticky';
+
+			if ( ! empty( $settings['sticky_mobile'] ) ) {
+				$classes[] = 'site-header--sticky-mobile';
+			}
+
+			if ( ! empty( $settings['shadow'] ) ) {
+				$classes[] = 'site-header--shadow';
+			}
+
+			if ( ! empty( $settings['hide'] ) ) {
+				$classes[] = 'site-header--hide-on-scroll';
+			}
+		}
+
+		$attributes = array(
+			'id'    => 'masthead',
+			'class' => implode( ' ', $classes ),
+		);
+
+		// Only a header with a state to keep gives the script something to
+		// bind to. Without this attribute the script finds nothing and
+		// returns, which is what happens on most pages of most sites.
+		if ( Display_Settings::needs_script( $settings ) ) {
+			$attributes['data-decent-header'] = (string) wp_json_encode(
+				array(
+					'offset'  => (int) $settings['offset'],
+					'hide'    => (bool) $settings['hide'],
+					'mobile'  => (bool) $settings['sticky_mobile'],
+					'overlay' => (bool) $settings['overlay'],
+					'sticky'  => (bool) $settings['sticky'],
+				)
+			);
+		}
+
+		if ( ! empty( $settings['offset'] ) ) {
+			$attributes['style'] = '--decent-sticky-offset:' . (int) $settings['offset'] . 'px';
+		}
+
+		return $attributes;
+	}
+
+	/**
+	 * Builds the footer element's attributes.
+	 *
+	 * @param int $template_id Template ID.
+	 * @return array<string, string>
+	 */
+	private static function footer_attributes( int $template_id ): array {
+		$settings = Display_Settings::for_template( $template_id, Template_Type::FOOTER );
+		$classes  = array( 'site-footer', 'site-footer--builder' );
+
+		if ( ! empty( $settings['bottom'] ) ) {
+			$classes[] = 'site-footer--bottom';
+		}
+
+		return array(
+			'id'    => 'colophon',
+			'class' => implode( ' ', $classes ),
+		);
+	}
+
+	/**
+	 * Renders an attribute map, escaped.
+	 *
+	 * @param array<string, string> $attributes  Attribute map.
+	 * @param string                $type        Template type.
+	 * @param int                   $template_id Template ID.
+	 * @return string
+	 */
+	private static function attributes( array $attributes, string $type, int $template_id ): string {
+		/**
+		 * Filters the attributes of a rendered header or footer.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array<string, string> $attributes  Attribute map.
+		 * @param string                $type        Template type.
+		 * @param int                   $template_id Template ID.
+		 */
+		$attributes = (array) apply_filters( 'decent_core/builder/attributes', $attributes, $type, $template_id );
+
+		$parts = array();
+
+		foreach ( $attributes as $name => $value ) {
+			if ( null === $value || false === $value || '' === $value ) {
+				continue;
+			}
+
+			$parts[] = sprintf( '%s="%s"', esc_attr( (string) $name ), esc_attr( (string) $value ) );
+		}
+
+		return implode( ' ', $parts );
 	}
 
 	/**
@@ -136,8 +258,14 @@ final class Renderer {
 	 * @param int $template_id Template ID.
 	 * @return string
 	 */
-	public function content( int $template_id ): string {
+	public static function content( int $template_id ): string {
 		if ( ! class_exists( '\Elementor\Plugin' ) ) {
+			return '';
+		}
+
+		// A template that contains a shortcode for itself would otherwise
+		// recurse until the request runs out of memory.
+		if ( isset( self::$rendering[ $template_id ] ) ) {
 			return '';
 		}
 
@@ -147,8 +275,14 @@ final class Renderer {
 			return '';
 		}
 
+		self::$rendering[ $template_id ] = true;
+
 		// with_css so the template's own generated styles are printed even
 		// though this post is not the queried object.
-		return (string) $frontend->get_builder_content_for_display( $template_id, true );
+		$markup = (string) $frontend->get_builder_content_for_display( $template_id, true );
+
+		unset( self::$rendering[ $template_id ] );
+
+		return $markup;
 	}
 }

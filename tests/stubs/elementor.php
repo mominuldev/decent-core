@@ -22,7 +22,7 @@ namespace Elementor;
 /**
  * Elementor's widget base class.
  */
-abstract class Widget_Base {
+abstract class Widget_Base extends Element_Base {
 
 	/**
 	 * Returns the widget's unique name.
@@ -180,8 +180,9 @@ class Controls_Manager {
 	const SLIDER      = 'slider';
 	const NUMBER      = 'number';
 	const REPEATER    = 'repeater';
-	const TAB_STYLE   = 'style';
-	const TAB_CONTENT = 'content';
+	const TAB_STYLE    = 'style';
+	const TAB_CONTENT  = 'content';
+	const TAB_SETTINGS = 'settings';
 	const SELECT2     = 'select2';
 	const URL         = 'url';
 	const MEDIA       = 'media';
@@ -190,6 +191,25 @@ class Controls_Manager {
 	const HEADING     = 'heading';
 	const DIVIDER     = 'divider';
 	const DIMENSIONS  = 'dimensions';
+	const HIDDEN      = 'hidden';
+	const ALERT       = 'alert';
+	const NOTICE      = 'notice';
+}
+
+/**
+ * Elementor's icon picker back end.
+ */
+class Icons_Manager {
+
+	/**
+	 * Returns the markup for a picked icon, or an empty string.
+	 *
+	 * @param array<string, mixed> $icon       Icon, as `value` and `library`.
+	 * @param array<string, mixed> $attributes Attributes for the icon element.
+	 * @param string               $tag        Tag to use for a font icon.
+	 * @return string|false
+	 */
+	public static function try_get_icon_html( $icon, $attributes = array(), $tag = 'i' ) {}
 }
 
 /**
@@ -296,6 +316,133 @@ class Elements_Manager {
 	 * @return array<string,mixed>
 	 */
 	public function get_categories() {}
+
+	/**
+	 * Builds a live element from its saved data.
+	 *
+	 * @param array<string, mixed> $element_data Saved element data.
+	 * @param array<string, mixed> $element_args Extra arguments.
+	 * @param Element_Base|null    $element_type Element type.
+	 * @return Element_Base|null
+	 */
+	public function create_element_instance( $element_data, $element_args = array(), $element_type = null ) {}
+}
+
+/**
+ * The base every element and widget extends.
+ */
+class Element_Base {}
+
+/**
+ * One Elementor document — a page, a template, a builder part.
+ */
+class Document {
+
+	/**
+	 * The post the document is saved on.
+	 *
+	 * @return int
+	 */
+	public function get_main_id() {}
+
+	/**
+	 * Whether the post was actually built in Elementor.
+	 *
+	 * @return bool
+	 */
+	public function is_built_with_elementor() {}
+
+	/**
+	 * The saved element tree.
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function get_elements_data() {}
+}
+
+/**
+ * Documents registry.
+ */
+class Documents_Manager {
+
+	/**
+	 * Returns a document for a post.
+	 *
+	 * @param int  $post_id      Post ID.
+	 * @param bool $from_cache   Whether a cached instance may be returned.
+	 * @return Document|false
+	 */
+	public function get( $post_id, $from_cache = true ) {}
+
+	/**
+	 * The document currently being rendered, if any.
+	 *
+	 * @return Document|false
+	 */
+	public function get_current() {}
+
+	/**
+	 * Makes a document the current one.
+	 *
+	 * @param Document $document Document.
+	 * @return void
+	 */
+	public function switch_to_document( $document ) {}
+
+	/**
+	 * Restores the document switch_to_document() replaced.
+	 *
+	 * @return void
+	 */
+	public function restore_document() {}
+}
+
+/**
+ * One responsive breakpoint.
+ */
+class Breakpoint {
+
+	/**
+	 * The breakpoint's max-width in pixels.
+	 *
+	 * @return int
+	 */
+	public function get_value() {}
+
+	/**
+	 * The breakpoint's name, e.g. 'tablet'.
+	 *
+	 * @return string
+	 */
+	public function get_name() {}
+}
+
+/**
+ * Breakpoints registry.
+ */
+class Breakpoints_Manager {
+
+	/**
+	 * The breakpoints the active kit switched on, keyed by name.
+	 *
+	 * @return array<string, Breakpoint>
+	 */
+	public function get_active_breakpoints() {}
+}
+
+/**
+ * Elementor's helpers.
+ */
+class Utils {
+
+	/**
+	 * Finds an element by ID anywhere in a saved element tree.
+	 *
+	 * @param array<int, array<string, mixed>> $elements Element tree.
+	 * @param string                           $form_id  Element ID.
+	 * @return array<string, mixed>|false
+	 */
+	public static function find_element_recursive( $elements, $form_id ) {}
 }
 
 /**
@@ -336,6 +483,20 @@ class Plugin {
 	 * @var Elements_Manager|null
 	 */
 	public $elements_manager;
+
+	/**
+	 * Breakpoints manager.
+	 *
+	 * @var Breakpoints_Manager|null
+	 */
+	public $breakpoints;
+
+	/**
+	 * Documents manager.
+	 *
+	 * @var Documents_Manager|null
+	 */
+	public $documents;
 
 	/**
 	 * Editor.
@@ -448,4 +609,72 @@ abstract class Tag {
 	 * @return void
 	 */
 	public function render() {}
+}
+
+namespace Elementor\Core\Base;
+
+/**
+ * The document behind one post: a page, a template, a builder part.
+ *
+ * Only the surface the builder registers controls against. The methods are
+ * public on Elementor's own Controls_Stack, which is what makes adding a
+ * section to somebody else's document possible at all.
+ */
+class Document {
+
+	/**
+	 * The post the document is saved on.
+	 *
+	 * @return int
+	 */
+	public function get_main_id() {}
+
+	/**
+	 * Opens a controls section.
+	 *
+	 * @param string              $section_id Section ID.
+	 * @param array<string,mixed> $args       Section arguments.
+	 * @return void
+	 */
+	public function start_controls_section( $section_id, array $args = array() ) {}
+
+	/**
+	 * Adds a control to the open section.
+	 *
+	 * @param string              $id      Control ID.
+	 * @param array<string,mixed> $args    Control arguments.
+	 * @param array<string,mixed> $options Control options.
+	 * @return void
+	 */
+	public function add_control( $id, array $args = array(), $options = array() ) {}
+
+	/**
+	 * Closes the open controls section.
+	 *
+	 * @return void
+	 */
+	public function end_controls_section() {}
+}
+
+namespace Elementor\Core\Files\CSS;
+
+/**
+ * The stylesheet Elementor generates for one document.
+ */
+class Post {
+
+	/**
+	 * Returns the file object for a post.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return static
+	 */
+	public static function create( $post_id ) {}
+
+	/**
+	 * Enqueues the generated stylesheet.
+	 *
+	 * @return void
+	 */
+	public function enqueue() {}
 }

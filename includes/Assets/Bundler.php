@@ -117,13 +117,52 @@ final class Bundler {
 		$handle = self::HANDLE . '-' . $extension;
 		$url    = $this->files->url( $hash, $extension );
 
+		// The bundle inherits what its parts depended on. Without this the
+		// concatenation quietly drops every dependency the handles declared —
+		// a widget script that needs Swiper or elementor-frontend would load
+		// before either of them, and only on pages carrying enough widgets to
+		// trigger bundling, which is the hardest kind of bug to catch.
+		$deps = $this->inherited_deps( $extension, array_keys( $sources ) );
+
 		if ( 'css' === $extension ) {
-			wp_enqueue_style( $handle, $url, array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Filename is content-hashed, so a version query would only defeat caching.
+			wp_enqueue_style( $handle, $url, $deps, null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Filename is content-hashed, so a version query would only defeat caching.
 		} else {
-			wp_enqueue_script( $handle, $url, array(), null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- As above.
+			wp_enqueue_script( $handle, $url, $deps, null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- As above.
 		}
 
 		$this->absorb( $extension, array_keys( $sources ), $handle );
+	}
+
+	/**
+	 * Collects the dependencies of the handles a bundle is about to replace.
+	 *
+	 * Handles inside the bundle are dropped from the result: they are about to
+	 * become aliases of it, and a bundle that depended on its own aliases
+	 * would be a dependency cycle WordPress resolves by printing nothing.
+	 *
+	 * @param string   $extension 'css' or 'js'.
+	 * @param string[] $handles   Handles the bundle contains.
+	 * @return string[]
+	 */
+	private function inherited_deps( string $extension, array $handles ): array {
+		$registry = 'css' === $extension ? wp_styles() : wp_scripts();
+		$deps     = array();
+
+		foreach ( $handles as $handle ) {
+			$registered = $registry->registered[ $handle ] ?? null;
+
+			if ( ! $registered ) {
+				continue;
+			}
+
+			foreach ( (array) $registered->deps as $dep ) {
+				if ( ! in_array( $dep, $handles, true ) ) {
+					$deps[] = (string) $dep;
+				}
+			}
+		}
+
+		return array_values( array_unique( $deps ) );
 	}
 
 	/**
@@ -241,12 +280,24 @@ final class Bundler {
 	 */
 	private function slugs_for_request(): array {
 		$post_id = (int) get_queried_object_id();
+		$slugs   = ( $post_id && is_singular() ) ? $this->index->for_post( $post_id ) : array();
 
-		if ( ! $post_id || ! is_singular() ) {
-			return array();
-		}
+		/**
+		 * Filters the widget slugs the bundle is built from.
+		 *
+		 * The queried post is not the only thing on the page. The header and
+		 * footer builder adds the widgets its resolved templates use, which is
+		 * what keeps a menu in the header from being a request of its own on
+		 * every page of the site.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string[] $slugs   Widget slugs.
+		 * @param int      $post_id Queried post ID, or 0.
+		 */
+		$slugs = (array) apply_filters( 'decent_core/assets/request_slugs', $slugs, $post_id );
 
-		return $this->index->for_post( $post_id );
+		return array_values( array_unique( array_map( 'strval', $slugs ) ) );
 	}
 
 	/**

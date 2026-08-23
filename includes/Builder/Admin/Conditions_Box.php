@@ -61,7 +61,7 @@ final class Conditions_Box {
 	public function render( $post ): void {
 		wp_nonce_field( self::NONCE, self::NONCE . '_nonce' );
 
-		$type  = Template_Type::of( (int) $post->ID );
+		$type  = self::current_type( $post );
 		$rules = Manager::rules_for( (int) $post->ID );
 		?>
 		<p>
@@ -98,6 +98,28 @@ final class Conditions_Box {
 			<?php endforeach; ?>
 		</ul>
 		<?php
+	}
+
+	/**
+	 * The type to preselect.
+	 *
+	 * A template created from a filtered list — "Add New" while looking at the
+	 * footers — starts as a footer. Anywhere else the stored type wins, and a
+	 * template with none stored is a header.
+	 *
+	 * @param \WP_Post $post Template being edited.
+	 * @return string
+	 */
+	private static function current_type( $post ): string {
+		if ( 'auto-draft' === $post->post_status ) {
+			$selected = Templates_List::selected_type();
+
+			if ( '' !== $selected ) {
+				return $selected;
+			}
+		}
+
+		return Template_Type::of( (int) $post->ID );
 	}
 
 	/**

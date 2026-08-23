@@ -1,0 +1,99 @@
+/**
+ * Header and footer templates.
+ *
+ * Not scoped to a widget the way widget stylesheets are: this styles the
+ * landmark the builder renders into the theme's own header and footer slots,
+ * so it extends the theme's block names rather than inventing new ones.
+ *
+ * Every behaviour is a modifier the renderer prints from the template's
+ * document settings. There is no state here that the markup does not declare,
+ * and only two classes the script adds: --stuck and --hidden.
+ *
+ * The doubled `.site-header.site-header--builder` is deliberate. The theme's
+ * stylesheet loads after the plugin's, so a single class would lose to
+ * `.site-header` on every property it resets.
+ */
+
+.site-header.site-header--builder {
+	/* The theme's static header is sticky, white and bordered by design. A
+	   built header brings its own background and sticks only if it was told
+	   to. */
+	position: static;
+	background: transparent;
+	border-bottom: 0;
+
+	&.site-header--sticky {
+		position: sticky;
+		top: var(--decent-sticky-offset, 0px);
+		z-index: 100;
+	}
+
+	/* Lifted out of the flow so the page's first section starts at the top of
+	   the viewport and the header sits over it. */
+	&.site-header--overlay {
+		position: absolute;
+		top: var(--decent-sticky-offset, 0px);
+		left: 0;
+		right: 0;
+		z-index: 100;
+	}
+
+	/* An overlaid header has no space of its own to stick in, so it swaps to
+	   fixed once the page has scrolled past it. It also needs a background at
+	   that point: over a hero it had none, and over body copy it would be
+	   unreadable. --decent-sticky-bg is the override. */
+	&.site-header--overlay.site-header--sticky.site-header--stuck {
+		position: fixed;
+		top: 0;
+		background: var(--decent-sticky-bg, var(--white));
+	}
+
+	&.site-header--shadow.site-header--stuck {
+		box-shadow: var(--shadow);
+	}
+
+	&.site-header--hide-on-scroll {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		will-change: transform;
+	}
+
+	&.site-header--hidden {
+		transform: translateY(calc(-100% - var(--decent-sticky-offset, 0px)));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header.site-header--builder.site-header--hide-on-scroll {
+		transition: none;
+	}
+}
+
+/* "Stick on mobile" off. The script stops measuring at the same width, so the
+   two agree about where mobile starts. */
+@media (max-width: 768px) {
+	.site-header.site-header--builder.site-header--sticky:not(.site-header--sticky-mobile) {
+		position: static;
+	}
+
+	.site-header.site-header--builder.site-header--overlay.site-header--sticky:not(.site-header--sticky-mobile).site-header--stuck {
+		position: absolute;
+		top: 0;
+	}
+}
+
+.site-footer.site-footer--builder {
+	background: transparent;
+	border-top: 0;
+}
+
+/* Holds the bottom of the viewport on a short page. The theme's .page is
+   already min-height: 100dvh, so this only has to decide where the slack
+   goes: to the main content, never to the footer. */
+body.has-bottom-footer .page {
+	display: flex;
+	flex-direction: column;
+}
+
+body.has-bottom-footer .site-main {
+	flex: 1 0 auto;
+}

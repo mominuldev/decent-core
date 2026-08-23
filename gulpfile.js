@@ -3,6 +3,8 @@
  *
  *   src/widgets/<slug>/style.scss  ->  assets/widgets/<slug>/style.css
  *   src/widgets/<slug>/script.js   ->  assets/widgets/<slug>/script.js
+ *   src/builder/style.scss         ->  assets/builder/style.css
+ *   src/builder/script.js          ->  assets/builder/script.js
  *   src/admin/index.jsx            ->  assets/admin/app.js
  *   src/admin/app.css              ->  assets/admin/app.css
  *
@@ -45,6 +47,26 @@ function widgetScripts() {
     .pipe(dest('assets/widgets', { sourcemaps: !PROD ? '.' : false }));
 }
 
+/* ------------------------------------------------------------- builder */
+
+/**
+ * The header and footer builder's own pair. Not a widget: it styles the
+ * landmark the builder renders into the theme's header and footer slots, and
+ * it is enqueued by the builder rather than by a widget's asset declaration.
+ */
+function builderStyles() {
+  return src('src/builder/*.scss', { sourcemaps: !PROD })
+    .pipe(sass.sync({ silenceDeprecations: ['legacy-js-api'] }).on('error', sass.logError))
+    .pipe(postcss([autoprefixer(), ...(PROD ? [cssnano({ preset: 'default' })] : [])]))
+    .pipe(dest('assets/builder', { sourcemaps: !PROD ? '.' : false }));
+}
+
+function builderScripts() {
+  return src('src/builder/*.js', { sourcemaps: !PROD })
+    .pipe(PROD ? terser({ format: { comments: false } }) : rename((p) => p))
+    .pipe(dest('assets/builder', { sourcemaps: !PROD ? '.' : false }));
+}
+
 /* --------------------------------------------------------------- admin */
 
 /**
@@ -82,17 +104,21 @@ function adminStyles() {
 
 /* --------------------------------------------------------------- tasks */
 
-const build = parallel(widgetStyles, widgetScripts, adminScripts, adminStyles);
+const build = parallel(widgetStyles, widgetScripts, builderStyles, builderScripts, adminScripts, adminStyles);
 
 function watchFiles() {
   watch('src/widgets/**/*.scss', widgetStyles);
   watch('src/widgets/**/*.js', widgetScripts);
+  watch('src/builder/*.scss', builderStyles);
+  watch('src/builder/*.js', builderScripts);
   watch(['src/admin/**/*.jsx', 'src/admin/**/*.js'], adminScripts);
   watch(['src/admin/**/*.css'], adminStyles);
 }
 
 exports.widgetStyles = widgetStyles;
 exports.widgetScripts = widgetScripts;
+exports.builderStyles = builderStyles;
+exports.builderScripts = builderScripts;
 exports.adminScripts = adminScripts;
 exports.adminStyles = adminStyles;
 exports.build = build;

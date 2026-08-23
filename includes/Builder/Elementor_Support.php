@@ -10,11 +10,11 @@ namespace DecentCore\Builder;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Makes decent_template editable in Elementor, and editable sensibly.
+ * Makes decent_template a first-class Elementor document, and keeps it out of
+ * everywhere a header has no business being.
  *
- * A header edited inside the normal page canvas inherits the theme's header
- * and footer, so an editor builds a header while looking at another one. These
- * templates therefore edit on a bare canvas.
+ * The canvas itself lives in Canvas: a template is edited, previewed and
+ * rendered on a bare page, and that is enforced in one place.
  */
 final class Elementor_Support {
 
@@ -25,13 +25,15 @@ final class Elementor_Support {
 	 */
 	public function register(): void {
 		add_filter( 'elementor/pro/utils/get_public_post_types', array( $this, 'allow_post_type' ) );
-		add_filter( 'template_include', array( $this, 'use_canvas' ), 999 );
-		add_filter( 'body_class', array( $this, 'body_class' ) );
 
 		// Publicly queryable so the editor's preview resolves, but it is not
 		// content: keep it out of sitemaps and out of search engines.
 		add_filter( 'wp_sitemaps_post_types', array( $this, 'hide_from_sitemap' ) );
 		add_filter( 'wp_robots', array( $this, 'no_index' ) );
+
+		// A template is not a document with a next and a previous, and it must
+		// never be the canonical URL of anything.
+		add_filter( 'get_canonical_url', array( $this, 'no_canonical' ), 10, 2 );
 	}
 
 	/**
@@ -40,26 +42,11 @@ final class Elementor_Support {
 	 * @param array<string, string> $types Post types.
 	 * @return array<string, string>
 	 */
-	public function allow_post_type( array $types ): array {
+	public function allow_post_type( $types ): array {
+		$types                    = (array) $types;
 		$types[ Post_Type::NAME ] = __( 'Templates', 'decent-core' );
 
 		return $types;
-	}
-
-	/**
-	 * Renders a template on a bare canvas when previewed directly.
-	 *
-	 * @param string $template Template path.
-	 * @return string
-	 */
-	public function use_canvas( string $template ): string {
-		if ( ! is_singular( Post_Type::NAME ) ) {
-			return $template;
-		}
-
-		$canvas = locate_template( 'page-templates/canvas.php' );
-
-		return $canvas ? $canvas : $template;
 	}
 
 	/**
@@ -68,7 +55,9 @@ final class Elementor_Support {
 	 * @param array<string, mixed> $post_types Post types.
 	 * @return array<string, mixed>
 	 */
-	public function hide_from_sitemap( array $post_types ): array {
+	public function hide_from_sitemap( $post_types ): array {
+		$post_types = (array) $post_types;
+
 		unset( $post_types[ Post_Type::NAME ] );
 
 		return $post_types;
@@ -80,7 +69,9 @@ final class Elementor_Support {
 	 * @param array<string, mixed> $robots Robots directives.
 	 * @return array<string, mixed>
 	 */
-	public function no_index( array $robots ): array {
+	public function no_index( $robots ): array {
+		$robots = (array) $robots;
+
 		if ( is_singular( Post_Type::NAME ) ) {
 			$robots['noindex']  = true;
 			$robots['nofollow'] = true;
@@ -90,16 +81,17 @@ final class Elementor_Support {
 	}
 
 	/**
-	 * Marks the canvas so styles can target it.
+	 * Drops the canonical link from a template preview.
 	 *
-	 * @param string[] $classes Body classes.
-	 * @return string[]
+	 * @param string   $url  Canonical URL.
+	 * @param \WP_Post $post Post.
+	 * @return string
 	 */
-	public function body_class( array $classes ): array {
-		if ( is_singular( Post_Type::NAME ) ) {
-			$classes[] = 'is-builder-template';
+	public function no_canonical( $url, $post ): string {
+		if ( $post && Post_Type::NAME === $post->post_type ) {
+			return '';
 		}
 
-		return $classes;
+		return (string) $url;
 	}
 }
