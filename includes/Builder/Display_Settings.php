@@ -2,10 +2,10 @@
 /**
  * Per-template display settings.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -92,70 +92,70 @@ final class Display_Settings {
 	 */
 	private function header_controls( $document ): void {
 		$document->start_controls_section(
-			'decent_header_options',
+			'pixelomatic_header_options',
 			array(
-				'label' => __( 'Header behaviour', 'decent-core' ),
+				'label' => __( 'Header behaviour', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
 		$document->add_control(
-			'decent_header_overlay',
+			'pixelomatic_header_overlay',
 			array(
-				'label'       => __( 'Overlay the first section', 'decent-core' ),
+				'label'       => __( 'Overlay the first section', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Lifts the header out of the flow so the page starts underneath it. For headers designed to sit over a hero.', 'decent-core' ),
+				'description' => __( 'Lifts the header out of the flow so the page starts underneath it. For headers designed to sit over a hero.', 'pixelomatic-core' ),
 			)
 		);
 
 		$document->add_control(
-			'decent_header_sticky',
+			'pixelomatic_header_sticky',
 			array(
-				'label' => __( 'Stick to the top', 'decent-core' ),
+				'label' => __( 'Stick to the top', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::SWITCHER,
 			)
 		);
 
 		$document->add_control(
-			'decent_header_sticky_offset',
+			'pixelomatic_header_sticky_offset',
 			array(
-				'label'     => __( 'Offset (px)', 'decent-core' ),
+				'label'     => __( 'Offset (px)', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 400,
 				'step'      => 1,
 				'default'   => 0,
-				'condition' => array( 'decent_header_sticky' => 'yes' ),
+				'condition' => array( 'pixelomatic_header_sticky' => 'yes' ),
 			)
 		);
 
 		$document->add_control(
-			'decent_header_sticky_mobile',
+			'pixelomatic_header_sticky_mobile',
 			array(
-				'label'     => __( 'Stick on mobile', 'decent-core' ),
+				'label'     => __( 'Stick on mobile', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'decent_header_sticky' => 'yes' ),
+				'condition' => array( 'pixelomatic_header_sticky' => 'yes' ),
 			)
 		);
 
 		$document->add_control(
-			'decent_header_sticky_shadow',
+			'pixelomatic_header_sticky_shadow',
 			array(
-				'label'     => __( 'Shadow once stuck', 'decent-core' ),
+				'label'     => __( 'Shadow once stuck', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'decent_header_sticky' => 'yes' ),
+				'condition' => array( 'pixelomatic_header_sticky' => 'yes' ),
 			)
 		);
 
 		$document->add_control(
-			'decent_header_sticky_hide',
+			'pixelomatic_header_sticky_hide',
 			array(
-				'label'       => __( 'Hide when scrolling down', 'decent-core' ),
+				'label'       => __( 'Hide when scrolling down', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Slides the header away as the visitor scrolls down and brings it back on the way up.', 'decent-core' ),
-				'condition'   => array( 'decent_header_sticky' => 'yes' ),
+				'description' => __( 'Slides the header away as the visitor scrolls down and brings it back on the way up.', 'pixelomatic-core' ),
+				'condition'   => array( 'pixelomatic_header_sticky' => 'yes' ),
 			)
 		);
 
@@ -170,19 +170,19 @@ final class Display_Settings {
 	 */
 	private function footer_controls( $document ): void {
 		$document->start_controls_section(
-			'decent_footer_options',
+			'pixelomatic_footer_options',
 			array(
-				'label' => __( 'Footer behaviour', 'decent-core' ),
+				'label' => __( 'Footer behaviour', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_SETTINGS,
 			)
 		);
 
 		$document->add_control(
-			'decent_footer_bottom',
+			'pixelomatic_footer_bottom',
 			array(
-				'label'       => __( 'Hold the bottom of the viewport', 'decent-core' ),
+				'label'       => __( 'Hold the bottom of the viewport', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'Keeps a short page from leaving a strip of background under the footer. The footer still scrolls with a long one.', 'decent-core' ),
+				'description' => __( 'Keeps a short page from leaving a strip of background under the footer. The footer still scrolls with a long one.', 'pixelomatic-core' ),
 			)
 		);
 
@@ -206,17 +206,17 @@ final class Display_Settings {
 
 		if ( Template_Type::FOOTER === $type ) {
 			$settings = array(
-				'bottom' => self::flag( $stored, 'decent_footer_bottom' ),
+				'bottom' => self::flag( $stored, 'pixelomatic_footer_bottom' ),
 			);
 		} else {
-			$sticky = self::flag( $stored, 'decent_header_sticky' );
+			$sticky = self::flag( $stored, 'pixelomatic_header_sticky' );
 
 			$settings = array(
-				'overlay'       => self::flag( $stored, 'decent_header_overlay' ),
+				'overlay'       => self::flag( $stored, 'pixelomatic_header_overlay' ),
 				'sticky'        => $sticky,
-				'sticky_mobile' => $sticky && self::flag( $stored, 'decent_header_sticky_mobile', true ),
-				'shadow'        => $sticky && self::flag( $stored, 'decent_header_sticky_shadow', true ),
-				'hide'          => $sticky && self::flag( $stored, 'decent_header_sticky_hide' ),
+				'sticky_mobile' => $sticky && self::flag( $stored, 'pixelomatic_header_sticky_mobile', true ),
+				'shadow'        => $sticky && self::flag( $stored, 'pixelomatic_header_sticky_shadow', true ),
+				'hide'          => $sticky && self::flag( $stored, 'pixelomatic_header_sticky_hide' ),
 				'offset'        => $sticky ? self::offset( $stored ) : 0,
 			);
 		}
@@ -230,7 +230,7 @@ final class Display_Settings {
 		 * @param int                  $template_id Template ID.
 		 * @param string               $type        Template type.
 		 */
-		$settings = (array) apply_filters( 'decent_core/builder/settings', $settings, $template_id, $type );
+		$settings = (array) apply_filters( 'pixelomatic_core/builder/settings', $settings, $template_id, $type );
 
 		self::$cache[ $template_id ] = $settings;
 
@@ -282,7 +282,7 @@ final class Display_Settings {
 	 * @return int
 	 */
 	private static function offset( array $stored ): int {
-		$offset = isset( $stored['decent_header_sticky_offset'] ) ? (int) $stored['decent_header_sticky_offset'] : 0;
+		$offset = isset( $stored['pixelomatic_header_sticky_offset'] ) ? (int) $stored['pixelomatic_header_sticky_offset'] : 0;
 
 		return max( 0, min( 400, $offset ) );
 	}

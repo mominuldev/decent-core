@@ -2,15 +2,15 @@
 /**
  * Builder template post type.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers decent_template.
+ * Registers pixelomatic_template.
  *
  * Not public: a header is not a page and must never be reachable at a URL of
  * its own, indexed, or returned by a search. It is show_in_rest because
@@ -21,7 +21,7 @@ final class Post_Type {
 	/**
 	 * Post type name.
 	 */
-	public const NAME = 'decent_template';
+	public const NAME = 'pixelomatic_template';
 
 	/**
 	 * Attaches hooks.
@@ -42,12 +42,12 @@ final class Post_Type {
 			self::NAME,
 			array(
 				'labels'              => array(
-					'name'          => __( 'Templates', 'decent-core' ),
-					'singular_name' => __( 'Template', 'decent-core' ),
-					'add_new_item'  => __( 'Add template', 'decent-core' ),
-					'edit_item'     => __( 'Edit template', 'decent-core' ),
-					'search_items'  => __( 'Search templates', 'decent-core' ),
-					'not_found'     => __( 'No templates yet.', 'decent-core' ),
+					'name'          => __( 'Templates', 'pixelomatic-core' ),
+					'singular_name' => __( 'Template', 'pixelomatic-core' ),
+					'add_new_item'  => __( 'Add template', 'pixelomatic-core' ),
+					'edit_item'     => __( 'Edit template', 'pixelomatic-core' ),
+					'search_items'  => __( 'Search templates', 'pixelomatic-core' ),
+					'not_found'     => __( 'No templates yet.', 'pixelomatic-core' ),
 				),
 				// Public, but only just. Elementor's editor loads the post's
 				// own permalink in a preview iframe; with publicly_queryable
@@ -63,7 +63,7 @@ final class Post_Type {
 				'public'              => true,
 				'publicly_queryable'  => true,
 				'show_ui'             => true,
-				'show_in_menu'        => 'decent-core',
+				'show_in_menu'        => 'pixelomatic-core',
 				'show_in_rest'        => true,
 				'rewrite'             => false,
 				'query_var'           => false,

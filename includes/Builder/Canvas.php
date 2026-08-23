@@ -2,10 +2,10 @@
 /**
  * Canvas enforcement for builder templates.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -90,7 +90,7 @@ final class Canvas {
 
 		// Elementor's own label when Elementor supplied it, so the picker does
 		// not rename a layout the editor already knows by another name.
-		$label = isset( $templates[ self::TEMPLATE ] ) ? (string) $templates[ self::TEMPLATE ] : __( 'Canvas', 'decent-core' );
+		$label = isset( $templates[ self::TEMPLATE ] ) ? (string) $templates[ self::TEMPLATE ] : __( 'Canvas', 'pixelomatic-core' );
 
 		return array( self::TEMPLATE => $label );
 	}
@@ -138,7 +138,7 @@ final class Canvas {
 			}
 		}
 
-		$own = DECENT_CORE_DIR . 'templates/canvas.php';
+		$own = PIXELOMATIC_CORE_DIR . 'templates/canvas.php';
 
 		return file_exists( $own ) ? $own : $fallback;
 	}

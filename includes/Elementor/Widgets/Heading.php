@@ -13,16 +13,16 @@
  * .section-intro, .link-arrow and the .section/.container band all come from
  * the theme, and the stylesheet beside this file is one rule of layout glue.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -66,31 +66,31 @@ final class Heading extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->register_section_head_controls(
-			__( 'Find the right stack, fast', 'decent-core' ),
-			__( 'Categories', 'decent-core' )
+			__( 'Find the right stack, fast', 'pixelomatic-core' ),
+			__( 'Categories', 'pixelomatic-core' )
 		);
 
 		$this->register_section_head_link_controls();
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'layout', array( 'label' => __( 'Layout', 'decent-core' ) ) );
+		$this->start_controls_section( 'layout', array( 'label' => __( 'Layout', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'band',
 			array(
-				'label'       => __( 'Band', 'decent-core' ),
+				'label'       => __( 'Band', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'none',
-				'description' => __( 'Wraps the heading in one of the theme’s section bands. Leave as None inside an Elementor container, which already owns the background and padding.', 'decent-core' ),
+				'description' => __( 'Wraps the heading in one of the theme’s section bands. Leave as None inside an Elementor container, which already owns the background and padding.', 'pixelomatic-core' ),
 				'options'     => array(
-					'none'  => __( 'None', 'decent-core' ),
-					'plain' => __( 'Plain', 'decent-core' ),
-					'alt'   => __( 'Alt — tinted', 'decent-core' ),
-					'dark'  => __( 'Dark', 'decent-core' ),
+					'none'  => __( 'None', 'pixelomatic-core' ),
+					'plain' => __( 'Plain', 'pixelomatic-core' ),
+					'alt'   => __( 'Alt — tinted', 'pixelomatic-core' ),
+					'dark'  => __( 'Dark', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -98,14 +98,14 @@ final class Heading extends Widget_Base {
 		$this->add_control(
 			'band_border',
 			array(
-				'label'     => __( 'Band edges', 'decent-core' ),
+				'label'     => __( 'Band edges', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '',
 				'options'   => array(
-					''                         => __( 'None', 'decent-core' ),
-					'section--bordered-top'    => __( 'Top', 'decent-core' ),
-					'section--bordered-bottom' => __( 'Bottom', 'decent-core' ),
-					'section--bordered'        => __( 'Both', 'decent-core' ),
+					''                         => __( 'None', 'pixelomatic-core' ),
+					'section--bordered-top'    => __( 'Top', 'pixelomatic-core' ),
+					'section--bordered-bottom' => __( 'Bottom', 'pixelomatic-core' ),
+					'section--bordered'        => __( 'Both', 'pixelomatic-core' ),
 				),
 				'condition' => array( 'band!' => 'none' ),
 			)
@@ -114,12 +114,12 @@ final class Heading extends Widget_Base {
 		$this->add_control(
 			'band_padding',
 			array(
-				'label'     => __( 'Band padding', 'decent-core' ),
+				'label'     => __( 'Band padding', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'section__inner--tight',
 				'options'   => array(
-					'section__inner'        => __( 'Full', 'decent-core' ),
-					'section__inner--tight' => __( 'Tight', 'decent-core' ),
+					'section__inner'        => __( 'Full', 'pixelomatic-core' ),
+					'section__inner--tight' => __( 'Tight', 'pixelomatic-core' ),
 				),
 				'condition' => array( 'band!' => 'none' ),
 			)
@@ -128,13 +128,13 @@ final class Heading extends Widget_Base {
 		$this->add_control(
 			'eyebrow_tone',
 			array(
-				'label'     => __( 'Eyebrow tone', 'decent-core' ),
+				'label'     => __( 'Eyebrow tone', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '',
 				'options'   => array(
-					''                => __( 'Brand', 'decent-core' ),
-					'eyebrow--muted'  => __( 'Muted', 'decent-core' ),
-					'eyebrow--yellow' => __( 'Yellow', 'decent-core' ),
+					''                => __( 'Brand', 'pixelomatic-core' ),
+					'eyebrow--muted'  => __( 'Muted', 'pixelomatic-core' ),
+					'eyebrow--yellow' => __( 'Yellow', 'pixelomatic-core' ),
 				),
 				'separator' => 'before',
 				'condition' => array( 'eyebrow!' => '' ),
@@ -144,17 +144,17 @@ final class Heading extends Widget_Base {
 		$this->add_control(
 			'intro_narrow',
 			array(
-				'label'       => __( 'Narrow intro', 'decent-core' ),
+				'label'       => __( 'Narrow intro', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => '',
-				'description' => __( 'Holds the intro to a shorter measure.', 'decent-core' ),
+				'description' => __( 'Holds the intro to a shorter measure.', 'pixelomatic-core' ),
 				'condition'   => array( 'intro!' => '' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Head', 'pixelomatic-core' ) );
 
 		// The eyebrow / title / intro group, shared with every other widget
 		// that opens on a section head, so the controls an editor learns here
@@ -165,13 +165,13 @@ final class Heading extends Widget_Base {
 
 		$this->start_style_section(
 			'style_link',
-			__( 'Trailing link', 'decent-core' ),
+			__( 'Trailing link', 'pixelomatic-core' ),
 			array( 'condition' => array( 'head_link_label!' => '' ) )
 		);
 
 		$this->register_link_style(
 			'head_link',
-			__( 'Link', 'decent-core' ),
+			__( 'Link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-section-heading__aside',
 			array( 'separator' => 'none' )
 		);
@@ -180,13 +180,13 @@ final class Heading extends Widget_Base {
 
 		$this->start_style_section(
 			'style_band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			array( 'condition' => array( 'band!' => 'none' ) )
 		);
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,

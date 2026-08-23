@@ -1,9 +1,9 @@
-# Copyright (C) 2026 Decent Themes
+# Copyright (C) 2026 Pixelomatic
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Decent Core 1.0.0-alpha\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/decent-core\n"
+"Project-Id-Version: Pixelomatic Core 1.0.0-alpha\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pixelomatic-core\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,33 +12,33 @@ msgstr ""
 "POT-Creation-Date: 2026-08-23T08:58:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: decent-core\n"
+"X-Domain: pixelomatic-core\n"
 
 #. Plugin Name of the plugin
-#: decent-core.php
+#: pixelomatic-core.php
 #: includes/Admin/Admin_Page.php:72
 #: includes/Admin/Admin_Page.php:90
-msgid "Decent Core"
+msgid "Pixelomatic Core"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: decent-core.php
-msgid "https://decentthemes.com/decent-core"
+#: pixelomatic-core.php
+msgid "https://pixelomatic.com/pixelomatic-core"
 msgstr ""
 
 #. Description of the plugin
-#: decent-core.php
-msgid "Elementor widgets, header and footer builder, and Easy Digital Downloads extensions for the Decent Themes marketplace."
+#: pixelomatic-core.php
+msgid "Elementor widgets, header and footer builder, and Easy Digital Downloads extensions for the Pixelomatic marketplace."
 msgstr ""
 
 #. Author of the plugin
-#: decent-core.php
-msgid "Decent Themes"
+#: pixelomatic-core.php
+msgid "Pixelomatic"
 msgstr ""
 
 #. Author URI of the plugin
-#: decent-core.php
-msgid "https://decentthemes.com/"
+#: pixelomatic-core.php
+msgid "https://pixelomatic.com/"
 msgstr ""
 
 #: config/settings.php:26
@@ -277,7 +277,7 @@ msgid "Copyright"
 msgstr ""
 
 #: includes/Admin/Admin_Page.php:73
-msgid "Decent"
+msgid "Pixelomatic"
 msgstr ""
 
 #: includes/Admin/Admin_Page.php:91
@@ -285,7 +285,7 @@ msgid "Settings"
 msgstr ""
 
 #: includes/Admin/Admin_Page.php:205
-msgid "Decent Core: the admin bundle is missing. Run \"npm install && npm run build\" in the plugin directory."
+msgid "Pixelomatic Core: the admin bundle is missing. Run \"npm install && npm run build\" in the plugin directory."
 msgstr ""
 
 #: includes/Admin/Admin_Page.php:320
@@ -351,7 +351,7 @@ msgid "Widgets active"
 msgstr ""
 
 #: includes/Admin/Admin_Page.php:350
-msgid "This screen needs JavaScript. The same settings can be changed with WP-CLI or the decent/v1/settings REST route."
+msgid "This screen needs JavaScript. The same settings can be changed with WP-CLI or the pixelomatic/v1/settings REST route."
 msgstr ""
 
 #: includes/Builder/Admin/Conditions_Box.php:47
@@ -1108,7 +1108,7 @@ msgid "Right"
 msgstr ""
 
 #: includes/Elementor/Compat/Icon_Library.php:108
-msgid "Decent Icons"
+msgid "Pixelomatic Icons"
 msgstr ""
 
 #: includes/Elementor/Dynamic_Tags/Download_Badge.php:32
@@ -1184,11 +1184,11 @@ msgstr ""
 #. translators: %s: category name, for example "Layout".
 #: includes/Elementor/Manager.php:86
 #, php-format
-msgid "Decent — %s"
+msgid "Pixelomatic — %s"
 msgstr ""
 
 #: includes/Elementor/Manager.php:129
-msgid "Decent — Product"
+msgid "Pixelomatic — Product"
 msgstr ""
 
 #: includes/Elementor/Widgets/Benefit_Grid.php:43
@@ -2719,7 +2719,7 @@ msgid "Sort"
 msgstr ""
 
 #: includes/Elementor/Widgets/Product_Grid.php:640
-msgid "Product Grid needs the Decent Themes theme, which owns the product card markup."
+msgid "Product Grid needs the Pixelomatic theme, which owns the product card markup."
 msgstr ""
 
 #: includes/Elementor/Widgets/Product_Grid.php:736
@@ -3193,7 +3193,7 @@ msgid "Elementor %s or later"
 msgstr ""
 
 #: includes/Requirements.php:100
-msgid "Decent Core is inactive."
+msgid "Pixelomatic Core is inactive."
 msgstr ""
 
 #: includes/Requirements.php:102

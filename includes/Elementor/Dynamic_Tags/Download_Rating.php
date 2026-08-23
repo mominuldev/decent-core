@@ -2,10 +2,10 @@
 /**
  * Product rating dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Rating extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-rating';
+		return 'pixelomatic-download-rating';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Rating extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product rating', 'decent-core' );
+		return __( 'Product rating', 'pixelomatic-core' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ final class Download_Rating extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		$average = (float) get_post_meta( $download_id, '_decent_rating_avg', true );
+		$average = (float) get_post_meta( $download_id, '_pixelomatic_rating_avg', true );
 
 		return $average > 0 ? number_format_i18n( $average, 1 ) : '';
 	}

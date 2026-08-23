@@ -18,15 +18,15 @@
  * for, and those are namespaced .pix-hero__* so ownership is never in
  * question.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -52,7 +52,7 @@ final class Hero_Search extends Widget_Base {
 	 * Widget slug.
 	 *
 	 * Unchanged: the slug is the widget's identity in config/widgets.php, in
-	 * the `decent-hero-search` Elementor name and in every page already built
+	 * the `pixelomatic-hero-search` Elementor name and in every page already built
 	 * with it.
 	 *
 	 * @return string
@@ -82,7 +82,7 @@ final class Hero_Search extends Widget_Base {
 	private function register_content_controls(): void {
 		$this->start_controls_section(
 			'content',
-			array( 'label' => __( 'Content', 'decent-core' ) )
+			array( 'label' => __( 'Content', 'pixelomatic-core' ) )
 		);
 
 		// `pill` keeps its id from the search-led version of this widget: it
@@ -92,9 +92,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'pill',
 			array(
-				'label'       => __( 'Announcement', 'decent-core' ),
+				'label'       => __( 'Announcement', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Aperture Pro 3.2 — 4 new demo layouts', 'decent-core' ),
+				'default'     => __( 'Aperture Pro 3.2 — 4 new demo layouts', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -102,10 +102,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'pill_badge',
 			array(
-				'label'       => __( 'Announcement badge', 'decent-core' ),
+				'label'       => __( 'Announcement badge', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'New', 'decent-core' ),
-				'description' => __( 'Leave empty to drop the badge.', 'decent-core' ),
+				'default'     => __( 'New', 'pixelomatic-core' ),
+				'description' => __( 'Leave empty to drop the badge.', 'pixelomatic-core' ),
 				'condition'   => array( 'pill!' => '' ),
 			)
 		);
@@ -113,7 +113,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'pill_url',
 			array(
-				'label'     => __( 'Announcement link', 'decent-core' ),
+				'label'     => __( 'Announcement link', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'pill!' => '' ),
 			)
@@ -122,10 +122,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'heading',
 			array(
-				'label'       => __( 'Heading', 'decent-core' ),
+				'label'       => __( 'Heading', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
-				'default'     => __( 'Beautiful themes.', 'decent-core' ),
+				'default'     => __( 'Beautiful themes.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -133,10 +133,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'heading_accent',
 			array(
-				'label'       => __( 'Heading accent line', 'decent-core' ),
+				'label'       => __( 'Heading accent line', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Serious code.', 'decent-core' ),
-				'description' => __( 'Second line of the headline, in the brand colour.', 'decent-core' ),
+				'default'     => __( 'Serious code.', 'pixelomatic-core' ),
+				'description' => __( 'Second line of the headline, in the brand colour.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -144,7 +144,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'heading_tag',
 			array(
-				'label'   => __( 'Heading tag', 'decent-core' ),
+				'label'   => __( 'Heading tag', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h1',
 				// Constrained, not free text: one h1 per page is a structural
@@ -154,7 +154,7 @@ final class Hero_Search extends Widget_Base {
 					'h1' => 'H1',
 					'h2' => 'H2',
 					'h3' => 'H3',
-					'p'  => __( 'Paragraph', 'decent-core' ),
+					'p'  => __( 'Paragraph', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -162,10 +162,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Supporting text', 'decent-core' ),
+				'label'       => __( 'Supporting text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => __( '42 WordPress themes, plugins and React templates. Designed in-house, reviewed line by line, and supported by the people who wrote them — one-time price, lifetime updates.', 'decent-core' ),
+				'default'     => __( '42 WordPress themes, plugins and React templates. Designed in-house, reviewed line by line, and supported by the people who wrote them — one-time price, lifetime updates.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -173,9 +173,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'primary_label',
 			array(
-				'label'     => __( 'Primary button', 'decent-core' ),
+				'label'     => __( 'Primary button', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Browse all products', 'decent-core' ),
+				'default'   => __( 'Browse all products', 'pixelomatic-core' ),
 				'separator' => 'before',
 			)
 		);
@@ -183,7 +183,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'primary_url',
 			array(
-				'label'     => __( 'Primary link', 'decent-core' ),
+				'label'     => __( 'Primary link', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'primary_label!' => '' ),
 			)
@@ -192,16 +192,16 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'secondary_label',
 			array(
-				'label'   => __( 'Secondary button', 'decent-core' ),
+				'label'   => __( 'Secondary button', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Watch a live demo', 'decent-core' ),
+				'default' => __( 'Watch a live demo', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'secondary_url',
 			array(
-				'label'     => __( 'Secondary link', 'decent-core' ),
+				'label'     => __( 'Secondary link', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'secondary_label!' => '' ),
 			)
@@ -210,7 +210,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'secondary_play',
 			array(
-				'label'     => __( 'Play glyph on the secondary button', 'decent-core' ),
+				'label'     => __( 'Play glyph on the secondary button', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array( 'secondary_label!' => '' ),
@@ -224,10 +224,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'show_search',
 			array(
-				'label'       => __( 'Show the search form', 'decent-core' ),
+				'label'       => __( 'Show the search form', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => '',
-				'description' => __( 'Adds the search field below the buttons.', 'decent-core' ),
+				'description' => __( 'Adds the search field below the buttons.', 'pixelomatic-core' ),
 				'separator'   => 'before',
 			)
 		);
@@ -235,9 +235,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'placeholder',
 			array(
-				'label'       => __( 'Search placeholder', 'decent-core' ),
+				'label'       => __( 'Search placeholder', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Search products…', 'decent-core' ),
+				'default'     => __( 'Search products…', 'pixelomatic-core' ),
 				'label_block' => true,
 				'condition'   => array( 'show_search' => 'yes' ),
 			)
@@ -246,9 +246,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'button_label',
 			array(
-				'label'     => __( 'Search button label', 'decent-core' ),
+				'label'     => __( 'Search button label', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Search', 'decent-core' ),
+				'default'   => __( 'Search', 'pixelomatic-core' ),
 				'condition' => array( 'show_search' => 'yes' ),
 			)
 		);
@@ -264,13 +264,13 @@ final class Hero_Search extends Widget_Base {
 	private function register_proof_controls(): void {
 		$this->start_controls_section(
 			'content_proof',
-			array( 'label' => __( 'Social proof', 'decent-core' ) )
+			array( 'label' => __( 'Social proof', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(
 			'show_proof',
 			array(
-				'label'   => __( 'Show social proof', 'decent-core' ),
+				'label'   => __( 'Show social proof', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -281,17 +281,17 @@ final class Hero_Search extends Widget_Base {
 		$avatars->add_control(
 			'initials',
 			array(
-				'label'       => __( 'Initials', 'decent-core' ),
+				'label'       => __( 'Initials', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => 'RM',
-				'description' => __( 'Two letters. Used only when no image is set.', 'decent-core' ),
+				'description' => __( 'Two letters. Used only when no image is set.', 'pixelomatic-core' ),
 			)
 		);
 
 		$avatars->add_control(
 			'image',
 			array(
-				'label' => __( 'Photo', 'decent-core' ),
+				'label' => __( 'Photo', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::MEDIA,
 			)
 		);
@@ -299,7 +299,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'avatars',
 			array(
-				'label'       => __( 'Avatars', 'decent-core' ),
+				'label'       => __( 'Avatars', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $avatars->get_controls(),
 				'title_field' => '{{{ initials }}}',
@@ -317,7 +317,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'stars',
 			array(
-				'label'     => __( 'Stars', 'decent-core' ),
+				'label'     => __( 'Stars', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 5,
@@ -330,7 +330,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'proof_score',
 			array(
-				'label'     => __( 'Score', 'decent-core' ),
+				'label'     => __( 'Score', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => '4.9',
 				'condition' => array( 'show_proof' => 'yes' ),
@@ -340,9 +340,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'proof_text',
 			array(
-				'label'       => __( 'Rating text', 'decent-core' ),
+				'label'       => __( 'Rating text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'from 25,400 developers and agencies', 'decent-core' ),
+				'default'     => __( 'from 25,400 developers and agencies', 'pixelomatic-core' ),
 				'label_block' => true,
 				'condition'   => array( 'show_proof' => 'yes' ),
 			)
@@ -359,14 +359,14 @@ final class Hero_Search extends Widget_Base {
 	private function register_stack_controls(): void {
 		$this->start_controls_section(
 			'content_stack',
-			array( 'label' => __( 'Stack chips', 'decent-core' ) )
+			array( 'label' => __( 'Stack chips', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(
 			'stack_notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Chips float at the edges of the hero on desktop and collapse into a “built for” row below 900px.', 'decent-core' ),
+				'raw'             => esc_html__( 'Chips float at the edges of the hero on desktop and collapse into a “built for” row below 900px.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
@@ -376,7 +376,7 @@ final class Hero_Search extends Widget_Base {
 		$stack->add_control(
 			'label',
 			array(
-				'label'       => __( 'Name', 'decent-core' ),
+				'label'       => __( 'Name', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => 'WordPress',
 				'label_block' => true,
@@ -389,16 +389,16 @@ final class Hero_Search extends Widget_Base {
 		$stack->add_control(
 			'image',
 			array(
-				'label'       => __( 'Logo', 'decent-core' ),
+				'label'       => __( 'Logo', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::MEDIA,
-				'description' => __( 'Falls back to the first letter of the name.', 'decent-core' ),
+				'description' => __( 'Falls back to the first letter of the name.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'stack',
 			array(
-				'label'       => __( 'Chips', 'decent-core' ),
+				'label'       => __( 'Chips', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $stack->get_controls(),
 				'title_field' => '{{{ label }}}',
@@ -416,9 +416,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'stack_label',
 			array(
-				'label'       => __( 'Small-screen label', 'decent-core' ),
+				'label'       => __( 'Small-screen label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Built for', 'decent-core' ),
+				'default'     => __( 'Built for', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -434,22 +434,22 @@ final class Hero_Search extends Widget_Base {
 	private function register_visual_controls(): void {
 		$this->start_controls_section(
 			'content_visual',
-			array( 'label' => __( 'Visual', 'decent-core' ) )
+			array( 'label' => __( 'Visual', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(
 			'image',
 			array(
-				'label'       => __( 'Screenshot', 'decent-core' ),
+				'label'       => __( 'Screenshot', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::MEDIA,
-				'description' => __( 'Shown inside the browser frame. This is the page’s LCP image.', 'decent-core' ),
+				'description' => __( 'Shown inside the browser frame. This is the page’s LCP image.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'preview_url',
 			array(
-				'label'     => __( 'Address bar', 'decent-core' ),
+				'label'     => __( 'Address bar', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'aperture-pro.demo',
 				'condition' => array( 'image[id]!' => '' ),
@@ -459,9 +459,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'preview_badge',
 			array(
-				'label'     => __( 'Chrome badge', 'decent-core' ),
+				'label'     => __( 'Chrome badge', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Live demo', 'decent-core' ),
+				'default'   => __( 'Live demo', 'pixelomatic-core' ),
 				'condition' => array( 'image[id]!' => '' ),
 			)
 		);
@@ -469,9 +469,9 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'image_mobile',
 			array(
-				'label'       => __( 'Phone screenshot', 'decent-core' ),
+				'label'       => __( 'Phone screenshot', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::MEDIA,
-				'description' => __( 'Optional. Adds the tilted phone beside the browser on wide screens.', 'decent-core' ),
+				'description' => __( 'Optional. Adds the tilted phone beside the browser on wide screens.', 'pixelomatic-core' ),
 				'separator'   => 'before',
 			)
 		);
@@ -481,7 +481,7 @@ final class Hero_Search extends Widget_Base {
 		$stats->add_control(
 			'value',
 			array(
-				'label'   => __( 'Figure', 'decent-core' ),
+				'label'   => __( 'Figure', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '1,284',
 			)
@@ -490,9 +490,9 @@ final class Hero_Search extends Widget_Base {
 		$stats->add_control(
 			'label',
 			array(
-				'label'       => __( 'Label', 'decent-core' ),
+				'label'       => __( 'Label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Downloads', 'decent-core' ),
+				'default'     => __( 'Downloads', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -502,7 +502,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'aside_stats',
 			array(
-				'label'       => __( 'Side card figures', 'decent-core' ),
+				'label'       => __( 'Side card figures', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $stats->get_controls(),
 				'title_field' => '{{{ value }}}',
@@ -514,18 +514,18 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'aside_title',
 			array(
-				'label'   => __( 'Side card title', 'decent-core' ),
+				'label'   => __( 'Side card title', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Your licences', 'decent-core' ),
+				'default' => __( 'Your licences', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'aside_note',
 			array(
-				'label'       => __( 'Side card caption', 'decent-core' ),
+				'label'       => __( 'Side card caption', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Updates delivered — last 12 weeks', 'decent-core' ),
+				'default'     => __( 'Updates delivered — last 12 weeks', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -543,21 +543,21 @@ final class Hero_Search extends Widget_Base {
 	 * @return void
 	 */
 	private function register_style_sections(): void {
-		$this->start_style_section( 'style', __( 'Text', 'decent-core' ) );
+		$this->start_style_section( 'style', __( 'Text', 'pixelomatic-core' ) );
 
 		$this->add_control(
 			'align',
 			array(
-				'label'     => __( 'Alignment', 'decent-core' ),
+				'label'     => __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'default'   => 'center',
 				'options'   => array(
 					'left'   => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Center', 'decent-core' ),
+						'title' => __( 'Center', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 				),
@@ -567,20 +567,20 @@ final class Hero_Search extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'pill', __( 'Announcement', 'decent-core' ), '{{WRAPPER}} .pix-hero__announce' );
+		$this->register_text_style( 'pill', __( 'Announcement', 'pixelomatic-core' ), '{{WRAPPER}} .pix-hero__announce' );
 
 		$this->register_box_style(
 			'pill_box',
-			__( 'Announcement box', 'decent-core' ),
+			__( 'Announcement box', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__announce'
 		);
 
-		$this->register_text_style( 'heading', __( 'Heading', 'decent-core' ), '{{WRAPPER}} .hero__title' );
+		$this->register_text_style( 'heading', __( 'Heading', 'pixelomatic-core' ), '{{WRAPPER}} .hero__title' );
 
 		$this->add_control(
 			'heading_accent_color',
 			array(
-				'label'     => __( 'Accent line colour', 'decent-core' ),
+				'label'     => __( 'Accent line colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-hero__accent' => 'color: {{VALUE}};',
@@ -590,41 +590,41 @@ final class Hero_Search extends Widget_Base {
 
 		$this->register_text_style(
 			'text',
-			__( 'Supporting text', 'decent-core' ),
+			__( 'Supporting text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__text',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_actions', __( 'Buttons', 'decent-core' ) );
+		$this->start_style_section( 'style_actions', __( 'Buttons', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'primary_button',
-			__( 'Primary', 'decent-core' ),
+			__( 'Primary', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__actions .btn--primary'
 		);
 
 		$this->register_button_style(
 			'secondary_button',
-			__( 'Secondary', 'decent-core' ),
+			__( 'Secondary', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__actions .btn--secondary'
 		);
 
-		$this->register_gap_style( 'actions_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .pix-hero__actions', 32 );
+		$this->register_gap_style( 'actions_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .pix-hero__actions', 32 );
 
 		$this->end_controls_section();
 
 		$this->start_style_section(
 			'style_proof',
-			__( 'Social proof', 'decent-core' ),
+			__( 'Social proof', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_proof' => 'yes' ) )
 		);
 
 		$this->add_control(
 			'avatar_size',
 			array(
-				'label'      => __( 'Avatar size', 'decent-core' ),
+				'label'      => __( 'Avatar size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -635,7 +635,7 @@ final class Hero_Search extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .pix-hero__proof' => '--decent-avatar: {{SIZE}}px;',
+					'{{WRAPPER}} .pix-hero__proof' => '--pixelomatic-avatar: {{SIZE}}px;',
 				),
 			)
 		);
@@ -643,7 +643,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'star_color',
 			array(
-				'label'     => __( 'Star colour', 'decent-core' ),
+				'label'     => __( 'Star colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-hero__proof .stars' => 'color: {{VALUE}};',
@@ -653,19 +653,19 @@ final class Hero_Search extends Widget_Base {
 
 		$this->register_text_style(
 			'proof',
-			__( 'Rating text', 'decent-core' ),
+			__( 'Rating text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__proof .rating-line',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_stack', __( 'Stack chips', 'decent-core' ) );
+		$this->start_style_section( 'style_stack', __( 'Stack chips', 'pixelomatic-core' ) );
 
 		$this->add_control(
 			'stack_size',
 			array(
-				'label'      => __( 'Chip size', 'decent-core' ),
+				'label'      => __( 'Chip size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -676,32 +676,32 @@ final class Hero_Search extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .pix-hero' => '--decent-chip: {{SIZE}}px;',
+					'{{WRAPPER}} .pix-hero' => '--pixelomatic-chip: {{SIZE}}px;',
 				),
 			)
 		);
 
 		$this->register_box_style(
 			'stack_chip',
-			__( 'Chip', 'decent-core' ),
+			__( 'Chip', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__chip',
 			array( 'margin' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_visual', __( 'Visual', 'decent-core' ) );
+		$this->start_style_section( 'style_visual', __( 'Visual', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'preview',
-			__( 'Browser frame', 'decent-core' ),
+			__( 'Browser frame', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-hero__preview'
 		);
 
 		$this->add_responsive_control(
 			'visual_offset',
 			array(
-				'label'      => __( 'Space above', 'decent-core' ),
+				'label'      => __( 'Space above', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -721,13 +721,13 @@ final class Hero_Search extends Widget_Base {
 
 		$this->start_style_section(
 			'style_form',
-			__( 'Search form', 'decent-core' ),
+			__( 'Search form', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_search' => 'yes' ) )
 		);
 
 		$this->register_box_style(
 			'field',
-			__( 'Field', 'decent-core' ),
+			__( 'Field', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero-search__input',
 			array(
 				'separator' => 'none',
@@ -737,7 +737,7 @@ final class Hero_Search extends Widget_Base {
 
 		$this->register_text_style(
 			'field_text',
-			__( 'Field text', 'decent-core' ),
+			__( 'Field text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero-search__input',
 			array(
 				'heading' => false,
@@ -748,7 +748,7 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			array(
-				'label'     => __( 'Placeholder colour', 'decent-core' ),
+				'label'     => __( 'Placeholder colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .hero-search__input::placeholder' => 'color: {{VALUE}};',
@@ -756,17 +756,17 @@ final class Hero_Search extends Widget_Base {
 			)
 		);
 
-		$this->register_button_style( 'search_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .hero-search .btn' );
+		$this->register_button_style( 'search_button', __( 'Button', 'pixelomatic-core' ), '{{WRAPPER}} .hero-search .btn' );
 
-		$this->register_gap_style( 'form_gap', __( 'Field and button gap', 'decent-core' ), '{{WRAPPER}} .hero-search', 32 );
+		$this->register_gap_style( 'form_gap', __( 'Field and button gap', 'pixelomatic-core' ), '{{WRAPPER}} .hero-search', 32 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Hero band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Hero band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero',
 			array(
 				'heading' => false,
@@ -944,8 +944,8 @@ final class Hero_Search extends Widget_Base {
 			return;
 		}
 
-		$placeholder = $this->text( 'placeholder', __( 'Search…', 'decent-core' ) );
-		$button      = $this->text( 'button_label', __( 'Search', 'decent-core' ) );
+		$placeholder = $this->text( 'placeholder', __( 'Search…', 'pixelomatic-core' ) );
+		$button      = $this->text( 'button_label', __( 'Search', 'pixelomatic-core' ) );
 
 		// The form posts to the catalogue when EDD is present and to the site
 		// search otherwise, so the widget is never a dead end.
@@ -954,7 +954,7 @@ final class Hero_Search extends Widget_Base {
 			: home_url( '/' );
 
 		$field = defined( 'EDD_VERSION' ) ? 'q' : 's';
-		$id    = 'decent-hero-search-' . $this->get_id();
+		$id    = 'pixelomatic-hero-search-' . $this->get_id();
 		?>
 		<form class="hero-search" role="search" method="get" action="<?php echo esc_url( $action ); ?>">
 			<label class="sr-only" for="<?php echo esc_attr( $id ); ?>">
@@ -1059,7 +1059,7 @@ final class Hero_Search extends Widget_Base {
 		}
 
 		$label = $this->text( 'stack_label' );
-		$id    = 'decent-hero-stack-' . $this->get_id();
+		$id    = 'pixelomatic-hero-stack-' . $this->get_id();
 
 		// The label is hidden on desktop, where the chips are decoration at
 		// the hero's edges, so the list is named by it only when there is one
@@ -1115,7 +1115,7 @@ final class Hero_Search extends Widget_Base {
 	 * @return void
 	 */
 	private function render_visual(): void {
-		if ( ! class_exists( '\DecentThemes\Frontend\Media' ) ) {
+		if ( ! class_exists( '\Pixelomatic\Frontend\Media' ) ) {
 			return;
 		}
 
@@ -1157,7 +1157,7 @@ final class Hero_Search extends Widget_Base {
 				</div>
 				<?php
 				// The hero image is the page's LCP candidate.
-				\DecentThemes\Frontend\Media::render(
+				\Pixelomatic\Frontend\Media::render(
 					$image_id,
 					array(
 						'frame' => 'hero',
@@ -1171,7 +1171,7 @@ final class Hero_Search extends Widget_Base {
 				<div class="pix-hero__phone" aria-hidden="true">
 					<span class="pix-hero__phone-notch"></span>
 					<?php
-					\DecentThemes\Frontend\Media::render(
+					\Pixelomatic\Frontend\Media::render(
 						$phone_id,
 						array(
 							'frame' => 'sm',

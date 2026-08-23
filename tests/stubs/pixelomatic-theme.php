@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimal Decent Themes stubs for static analysis.
+ * Minimal Pixelomatic stubs for static analysis.
  *
  * The theme is an optional runtime dependency: widgets that need it declare
  * `'requires' => array( 'theme' )` and every other call site is guarded by
@@ -14,10 +14,10 @@
  *
  * Never loaded at runtime. See phpstan.neon.dist -> scanFiles.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentThemes\Frontend;
+namespace Pixelomatic\Frontend;
 
 /**
  * The theme's inline SVG icon map.

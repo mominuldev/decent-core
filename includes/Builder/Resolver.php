@@ -2,14 +2,14 @@
 /**
  * Template resolution.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Builder\Conditions\Manager;
+use PixelomaticCore\Builder\Conditions\Manager;
 
 /**
  * Decides which template applies to the current request.
@@ -94,7 +94,7 @@ final class Resolver {
 		 * @param int    $best Template ID, or 0.
 		 * @param string $type Template type.
 		 */
-		$best = (int) apply_filters( 'decent_core/builder/resolve', $best, $type );
+		$best = (int) apply_filters( 'pixelomatic_core/builder/resolve', $best, $type );
 
 		$this->resolved[ $type ] = $best;
 
@@ -191,7 +191,7 @@ final class Resolver {
 			$keys[] = 'edd_checkout';
 		}
 
-		if ( class_exists( '\DecentThemes\Integrations\EDD\Account' ) && \DecentThemes\Integrations\EDD\Account::is_account_page() ) {
+		if ( class_exists( '\Pixelomatic\Integrations\EDD\Account' ) && \Pixelomatic\Integrations\EDD\Account::is_account_page() ) {
 			$keys[] = 'edd_account';
 		}
 

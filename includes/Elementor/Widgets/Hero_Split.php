@@ -2,15 +2,15 @@
 /**
  * Hero Split widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -40,14 +40,14 @@ final class Hero_Split extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'pill',
 			array(
-				'label'       => __( 'Eyebrow pill', 'decent-core' ),
+				'label'       => __( 'Eyebrow pill', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( '1,200+ products · 14 new releases this month', 'decent-core' ),
+				'default'     => __( '1,200+ products · 14 new releases this month', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -55,10 +55,10 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'heading',
 			array(
-				'label'       => __( 'Heading', 'decent-core' ),
+				'label'       => __( 'Heading', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
-				'default'     => __( 'Professional themes, plugins and templates', 'decent-core' ),
+				'default'     => __( 'Professional themes, plugins and templates', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -66,13 +66,13 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'heading_tag',
 			array(
-				'label'   => __( 'Heading tag', 'decent-core' ),
+				'label'   => __( 'Heading tag', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h1',
 				'options' => array(
 					'h1' => 'H1',
 					'h2' => 'H2',
-					'p'  => __( 'Paragraph', 'decent-core' ),
+					'p'  => __( 'Paragraph', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -80,10 +80,10 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Supporting text', 'decent-core' ),
+				'label'       => __( 'Supporting text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => __( 'One-time price, lifetime updates, and documentation with every release.', 'decent-core' ),
+				'default'     => __( 'One-time price, lifetime updates, and documentation with every release.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -91,16 +91,16 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'primary_label',
 			array(
-				'label'   => __( 'Primary button', 'decent-core' ),
+				'label'   => __( 'Primary button', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Browse products', 'decent-core' ),
+				'default' => __( 'Browse products', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'primary_url',
 			array(
-				'label'       => __( 'Primary link', 'decent-core' ),
+				'label'       => __( 'Primary link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 			)
@@ -109,7 +109,7 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'secondary_label',
 			array(
-				'label' => __( 'Secondary button', 'decent-core' ),
+				'label' => __( 'Secondary button', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::TEXT,
 			)
 		);
@@ -117,7 +117,7 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'secondary_url',
 			array(
-				'label'       => __( 'Secondary link', 'decent-core' ),
+				'label'       => __( 'Secondary link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 			)
@@ -126,7 +126,7 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'image',
 			array(
-				'label' => __( 'Visual', 'decent-core' ),
+				'label' => __( 'Visual', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::MEDIA,
 			)
 		);
@@ -136,14 +136,14 @@ final class Hero_Split extends Widget_Base {
 		// Not 'stats': the repeater below is already called that, and a section
 		// shares the control stack with the controls inside it. Elementor
 		// refuses the second registration, so the repeater would never appear.
-		$this->start_controls_section( 'stats_section', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
+		$this->start_controls_section( 'stats_section', array( 'label' => __( 'Statistics', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'value',
 			array(
-				'label'   => __( 'Figure', 'decent-core' ),
+				'label'   => __( 'Figure', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '25,400+',
 			)
@@ -152,9 +152,9 @@ final class Hero_Split extends Widget_Base {
 		$repeater->add_control(
 			'label',
 			array(
-				'label'       => __( 'Label', 'decent-core' ),
+				'label'       => __( 'Label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Customers', 'decent-core' ),
+				'default'     => __( 'Customers', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -168,15 +168,15 @@ final class Hero_Split extends Widget_Base {
 				'default'     => array(
 					array(
 						'value' => '25,400+',
-						'label' => __( 'Customers', 'decent-core' ),
+						'label' => __( 'Customers', 'pixelomatic-core' ),
 					),
 					array(
 						'value' => '1,240',
-						'label' => __( 'Products', 'decent-core' ),
+						'label' => __( 'Products', 'pixelomatic-core' ),
 					),
 					array(
 						'value' => '98%',
-						'label' => __( 'Positive reviews', 'decent-core' ),
+						'label' => __( 'Positive reviews', 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -184,16 +184,16 @@ final class Hero_Split extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+		$this->start_style_section( 'style_text', __( 'Text', 'pixelomatic-core' ) );
 
 		$this->register_alignment_style( 'text_align', '{{WRAPPER}} .hero__inner > div:first-child' );
 
-		$this->register_text_style( 'pill', __( 'Eyebrow pill', 'decent-core' ), '{{WRAPPER}} .pill' );
+		$this->register_text_style( 'pill', __( 'Eyebrow pill', 'pixelomatic-core' ), '{{WRAPPER}} .pill' );
 
 		$this->add_control(
 			'pill_dot_color',
 			array(
-				'label'     => __( 'Pill dot colour', 'decent-core' ),
+				'label'     => __( 'Pill dot colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pill__dot' => 'background-color: {{VALUE}};',
@@ -201,61 +201,61 @@ final class Hero_Split extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'heading', __( 'Heading', 'decent-core' ), '{{WRAPPER}} .hero__title' );
+		$this->register_text_style( 'heading', __( 'Heading', 'pixelomatic-core' ), '{{WRAPPER}} .hero__title' );
 
 		$this->register_text_style(
 			'text',
-			__( 'Supporting text', 'decent-core' ),
+			__( 'Supporting text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__text',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_buttons', __( 'Buttons', 'decent-core' ) );
+		$this->start_style_section( 'style_buttons', __( 'Buttons', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'primary_button',
-			__( 'Primary button', 'decent-core' ),
+			__( 'Primary button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__actions .btn--primary',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_button_style(
 			'secondary_button',
-			__( 'Secondary button', 'decent-core' ),
+			__( 'Secondary button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__actions .btn--secondary'
 		);
 
-		$this->register_gap_style( 'buttons_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .hero__actions', 40 );
+		$this->register_gap_style( 'buttons_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .hero__actions', 40 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_stats', __( 'Statistics', 'decent-core' ) );
+		$this->start_style_section( 'style_stats', __( 'Statistics', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'stat_value',
-			__( 'Figure', 'decent-core' ),
+			__( 'Figure', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__stats dt',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_text_style(
 			'stat_label',
-			__( 'Label', 'decent-core' ),
+			__( 'Label', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__stats dd',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'stats_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .hero__stats', 64 );
+		$this->register_gap_style( 'stats_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .hero__stats', 64 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_visual', __( 'Visual', 'decent-core' ) );
+		$this->start_style_section( 'style_visual', __( 'Visual', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'visual',
-			__( 'Browser frame', 'decent-core' ),
+			__( 'Browser frame', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero__visual .browser',
 			array( 'separator' => 'none' )
 		);
@@ -263,7 +263,7 @@ final class Hero_Split extends Widget_Base {
 		$this->add_control(
 			'visual_bar_background',
 			array(
-				'label'     => __( 'Title bar background', 'decent-core' ),
+				'label'     => __( 'Title bar background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .browser__bar' => 'background-color: {{VALUE}};',
@@ -274,7 +274,7 @@ final class Hero_Split extends Widget_Base {
 		$this->add_responsive_control(
 			'visual_image_radius',
 			array(
-				'label'      => __( 'Image radius', 'decent-core' ),
+				'label'      => __( 'Image radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -285,11 +285,11 @@ final class Hero_Split extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Hero band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Hero band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .hero',
 			array(
 				'heading' => false,
@@ -297,7 +297,7 @@ final class Hero_Split extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'band_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .hero__inner', 96 );
+		$this->register_gap_style( 'band_gap', __( 'Column gap', 'pixelomatic-core' ), '{{WRAPPER}} .hero__inner', 96 );
 
 		$this->end_controls_section();
 	}
@@ -352,7 +352,7 @@ final class Hero_Split extends Widget_Base {
 				</div>
 
 				<div class="hero__visual">
-					<?php if ( ! empty( $image['id'] ) && class_exists( '\DecentThemes\Frontend\Media' ) ) : ?>
+					<?php if ( ! empty( $image['id'] ) && class_exists( '\Pixelomatic\Frontend\Media' ) ) : ?>
 						<div class="browser">
 							<div class="browser__bar">
 								<span class="browser__dot browser__dot--red"></span>
@@ -361,7 +361,7 @@ final class Hero_Split extends Widget_Base {
 							</div>
 							<?php
 							// The hero image is the page's LCP candidate.
-							\DecentThemes\Frontend\Media::render(
+							\Pixelomatic\Frontend\Media::render(
 								(int) $image['id'],
 								array(
 									'frame' => 'hero',

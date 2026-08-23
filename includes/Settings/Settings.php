@@ -5,10 +5,10 @@
  * One autoloaded option holds everything, including the widget toggles: one
  * row and one query rather than option-table sprawl.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Settings;
+namespace PixelomaticCore\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Settings {
 	/**
 	 * Option name.
 	 */
-	public const OPTION = 'decent_core_settings';
+	public const OPTION = 'pixelomatic_core_settings';
 
 	/**
 	 * Cached values.
@@ -110,7 +110,7 @@ final class Settings {
 		 *
 		 * @param array<string, mixed> $current Stored settings.
 		 */
-		do_action( 'decent_core/settings/saved', $current );
+		do_action( 'pixelomatic_core/settings/saved', $current );
 
 		return $current;
 	}

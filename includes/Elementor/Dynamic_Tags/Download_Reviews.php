@@ -2,10 +2,10 @@
 /**
  * Product review count dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Reviews extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-reviews';
+		return 'pixelomatic-download-reviews';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Reviews extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product review count', 'decent-core' );
+		return __( 'Product review count', 'pixelomatic-core' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ final class Download_Reviews extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		$count = (int) get_post_meta( $download_id, '_decent_rating_count', true );
+		$count = (int) get_post_meta( $download_id, '_pixelomatic_rating_count', true );
 
 		return $count > 0 ? number_format_i18n( $count ) : '';
 	}

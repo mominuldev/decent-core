@@ -9,10 +9,10 @@
  * Runs once, and never overwrites a kit somebody has customised: a seeder that
  * resets a client's palette on every plugin update is worse than no seeder.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Compat;
+namespace PixelomaticCore\Elementor\Compat;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,7 +24,7 @@ final class Kit_Seeder {
 	/**
 	 * Option recording that seeding has happened.
 	 */
-	private const FLAG = 'decent_core_kit_seeded';
+	private const FLAG = 'pixelomatic_core_kit_seeded';
 
 	/**
 	 * Attaches hooks.
@@ -46,7 +46,7 @@ final class Kit_Seeder {
 		}
 
 		if ( $this->seed() ) {
-			update_option( self::FLAG, DECENT_CORE_VERSION, false );
+			update_option( self::FLAG, PIXELOMATIC_CORE_VERSION, false );
 		}
 	}
 
@@ -62,7 +62,7 @@ final class Kit_Seeder {
 			return false;
 		}
 
-		$tokens   = require DECENT_CORE_DIR . 'config/tokens.php';
+		$tokens   = require PIXELOMATIC_CORE_DIR . 'config/tokens.php';
 		$settings = get_post_meta( $kit_id, '_elementor_page_settings', true );
 		$settings = is_array( $settings ) ? $settings : array();
 

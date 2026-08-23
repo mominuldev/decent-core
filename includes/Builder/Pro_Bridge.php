@@ -2,10 +2,10 @@
 /**
  * Elementor Pro coexistence.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,7 +35,7 @@ final class Pro_Bridge {
 			return;
 		}
 
-		add_filter( 'decent_core/builder/resolve', array( $this, 'defer_to_pro' ), 10, 2 );
+		add_filter( 'pixelomatic_core/builder/resolve', array( $this, 'defer_to_pro' ), 10, 2 );
 	}
 
 	/**
@@ -85,7 +85,7 @@ final class Pro_Bridge {
 		 *
 		 * @param string $class_name Fully qualified class name.
 		 */
-		$class_name = (string) apply_filters( 'decent_core/builder/pro_module', 'ElementorPro\\Modules\\ThemeBuilder\\Module' );
+		$class_name = (string) apply_filters( 'pixelomatic_core/builder/pro_module', 'ElementorPro\\Modules\\ThemeBuilder\\Module' );
 
 		$factory = array( $class_name, 'instance' );
 

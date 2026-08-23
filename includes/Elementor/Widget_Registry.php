@@ -2,14 +2,14 @@
 /**
  * Widget registry.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor;
+namespace PixelomaticCore\Elementor;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Reads config/widgets.php and decides what Elementor sees.
@@ -46,8 +46,8 @@ final class Widget_Registry {
 			 * @param array<string, array<string, mixed>> $map Widget definitions.
 			 */
 			self::$map = apply_filters(
-				'decent_core/widgets/map',
-				require DECENT_CORE_DIR . 'config/widgets.php'
+				'pixelomatic_core/widgets/map',
+				require PIXELOMATIC_CORE_DIR . 'config/widgets.php'
 			);
 		}
 
@@ -113,7 +113,7 @@ final class Widget_Registry {
 				return defined( 'EDD_VERSION' );
 
 			case 'theme':
-				return function_exists( 'decent_icon' );
+				return function_exists( 'pixelomatic_icon' );
 
 			default:
 				return true;

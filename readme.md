@@ -1,7 +1,7 @@
-# Decent Core
+# Pixelomatic Core
 
 Elementor widgets, header and footer builder, and Easy Digital Downloads
-extensions for the Decent Themes marketplace.
+extensions for the Pixelomatic marketplace.
 
 ## Requirements
 
@@ -38,13 +38,13 @@ src/admin/app.css               ->  assets/admin/app.css
 
 React 19 and Tailwind 4, bundled with esbuild. No `@wordpress/*` packages:
 everything WordPress needs to say arrives as one JSON object on
-`window.decentCore`, and the app talks back over `decent/v1/settings`, which is
+`window.pixelomaticCore`, and the app talks back over `pixelomatic/v1/settings`, which is
 capability-checked server-side.
 
 Two constraints come from living inside somebody else's admin:
 
 - **Preflight is not loaded.** Tailwind's reset would restyle all of wp-admin.
-  A scoped reset under `#decent-core-app` stands in for it — including
+  A scoped reset under `#pixelomatic-core-app` stands in for it — including
   `border-style: solid`, without which every `border-*` utility renders
   nothing.
 - **Every utility is prefixed `dc:`.** WordPress already defines `.button`,
@@ -97,6 +97,6 @@ hook, never on load, or it will not run in the editor. See `CLAUDE.md`.
 ## CLI
 
 ```bash
-wp decent-core tokens verify   # diffs config/tokens.php against the theme's base.css
-wp decent-core kit seed        # re-seeds Elementor globals and breakpoints
+wp pixelomatic-core tokens verify   # diffs config/tokens.php against the theme's base.css
+wp pixelomatic-core kit seed        # re-seeds Elementor globals and breakpoints
 ```

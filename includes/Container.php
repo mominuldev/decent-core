@@ -2,10 +2,10 @@
 /**
  * Dependency container.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore;
+namespace PixelomaticCore;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -24,7 +24,7 @@
 
 	&.site-header--sticky {
 		position: sticky;
-		top: var(--decent-sticky-offset, 0px);
+		top: var(--pixelomatic-sticky-offset, 0px);
 		z-index: 100;
 	}
 
@@ -32,7 +32,7 @@
 	   the viewport and the header sits over it. */
 	&.site-header--overlay {
 		position: absolute;
-		top: var(--decent-sticky-offset, 0px);
+		top: var(--pixelomatic-sticky-offset, 0px);
 		left: 0;
 		right: 0;
 		z-index: 100;
@@ -41,11 +41,11 @@
 	/* An overlaid header has no space of its own to stick in, so it swaps to
 	   fixed once the page has scrolled past it. It also needs a background at
 	   that point: over a hero it had none, and over body copy it would be
-	   unreadable. --decent-sticky-bg is the override. */
+	   unreadable. --pixelomatic-sticky-bg is the override. */
 	&.site-header--overlay.site-header--sticky.site-header--stuck {
 		position: fixed;
 		top: 0;
-		background: var(--decent-sticky-bg, var(--white));
+		background: var(--pixelomatic-sticky-bg, var(--white));
 	}
 
 	&.site-header--shadow.site-header--stuck {
@@ -58,7 +58,7 @@
 	}
 
 	&.site-header--hidden {
-		transform: translateY(calc(-100% - var(--decent-sticky-offset, 0px)));
+		transform: translateY(calc(-100% - var(--pixelomatic-sticky-offset, 0px)));
 	}
 }
 

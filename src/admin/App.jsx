@@ -12,7 +12,7 @@ const TAB_ORDER = Object.keys(config.tabs);
 /**
  * An icon per tab, keyed by the schema's tab slug.
  *
- * A tab added by the `decent_core/settings/schema` filter simply gets no icon
+ * A tab added by the `pixelomatic_core/settings/schema` filter simply gets no icon
  * rather than a broken one, so third-party tabs stay possible.
  */
 const TAB_ICONS = {
@@ -148,7 +148,7 @@ export default function App() {
   }, [settings]);
 
   return (
-    <div id="decent-core-app-inner" className="dc:pb-28">
+    <div id="pixelomatic-core-app-inner" className="dc:pb-28">
       <header className="dc:relative dc:overflow-hidden dc:rounded-2xl dc:px-6 dc:py-6 dc:text-white dc:sm:px-8">
         {/* The brand field runs the whole width of the header rather than
             fading to near-black on the left. This is the one place on the
@@ -175,7 +175,7 @@ export default function App() {
           <div className="dc:min-w-0">
             <p className="dc:flex dc:items-center dc:gap-2 dc:font-mono dc:text-micro dc:tracking-[0.18em] dc:text-white/75 dc:uppercase">
               <Icon name="spark" size={13} />
-              Decent Core
+              Pixelomatic Core
               {config.version && (
                 <span className="dc:rounded-full dc:bg-white/10 dc:px-2 dc:py-0.5 dc:tracking-normal dc:normal-case">
                   v{config.version}

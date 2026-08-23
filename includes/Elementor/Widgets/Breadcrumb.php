@@ -2,15 +2,15 @@
 /**
  * Breadcrumb widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -39,64 +39,64 @@ final class Breadcrumb extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Breadcrumb', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Breadcrumb', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'schema',
 			array(
-				'label'       => __( 'Include structured data', 'decent-core' ),
+				'label'       => __( 'Include structured data', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'yes',
-				'description' => __( 'Turn off if another plugin already outputs BreadcrumbList markup — two copies on one page is worse than none.', 'decent-core' ),
+				'description' => __( 'Turn off if another plugin already outputs BreadcrumbList markup — two copies on one page is worse than none.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_trail', __( 'Trail', 'decent-core' ) );
+		$this->start_style_section( 'style_trail', __( 'Trail', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'trail',
-			__( 'Trail', 'decent-core' ),
+			__( 'Trail', 'pixelomatic-core' ),
 			'{{WRAPPER}} .breadcrumb',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_link_style( 'crumb_link', __( 'Links', 'decent-core' ), '{{WRAPPER}} .breadcrumb a' );
+		$this->register_link_style( 'crumb_link', __( 'Links', 'pixelomatic-core' ), '{{WRAPPER}} .breadcrumb a' );
 
 		$this->register_text_style(
 			'crumb_current',
-			__( 'Current page', 'decent-core' ),
+			__( 'Current page', 'pixelomatic-core' ),
 			'{{WRAPPER}} .breadcrumb [aria-current]',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'crumb_separator',
-			__( 'Separator', 'decent-core' ),
+			__( 'Separator', 'pixelomatic-core' ),
 			'{{WRAPPER}} .breadcrumb [aria-hidden]',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'crumb_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .breadcrumb', 32 );
+		$this->register_gap_style( 'crumb_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .breadcrumb', 32 );
 
 		// .breadcrumb is a flex row, so its alignment is justify-content.
 		$this->add_responsive_control(
 			'trail_align',
 			array(
-				'label'     => __( 'Alignment', 'decent-core' ),
+				'label'     => __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -115,10 +115,10 @@ final class Breadcrumb extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		if ( ! function_exists( 'decent_breadcrumbs' ) ) {
+		if ( ! function_exists( 'pixelomatic_breadcrumbs' ) ) {
 			return;
 		}
 
-		decent_breadcrumbs( array( 'schema' => 'yes' === (string) $this->get_settings_for_display( 'schema' ) ) );
+		pixelomatic_breadcrumbs( array( 'schema' => 'yes' === (string) $this->get_settings_for_display( 'schema' ) ) );
 	}
 }

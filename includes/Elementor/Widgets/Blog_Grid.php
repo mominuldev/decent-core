@@ -2,17 +2,17 @@
 /**
  * Blog Grid widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use WP_Query;
 
@@ -40,19 +40,19 @@ final class Blog_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'From the journal', 'decent-core' ),
-			__( 'Writing', 'decent-core' )
+			__( 'From the journal', 'pixelomatic-core' ),
+			__( 'Writing', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'query', array( 'label' => __( 'Posts', 'decent-core' ) ) );
+		$this->start_controls_section( 'query', array( 'label' => __( 'Posts', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'count',
 			array(
-				'label'   => __( 'How many', 'decent-core' ),
+				'label'   => __( 'How many', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 3,
 				'min'     => 1,
@@ -63,7 +63,7 @@ final class Blog_Grid extends Widget_Base {
 		$this->add_control(
 			'category',
 			array(
-				'label'       => __( 'Category', 'decent-core' ),
+				'label'       => __( 'Category', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
@@ -76,25 +76,25 @@ final class Blog_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->register_grid_controls( 3 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
 		// The card itself is the theme's, shared with the blog archive. These
 		// selectors name its classes rather than reimplementing it, and they are
 		// scoped to this widget, so restyling it here cannot reach the archive.
-		$this->start_style_section( 'style_card', __( 'Post cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Post cards', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .post-card',
 			array( 'separator' => 'none' )
 		);
@@ -102,7 +102,7 @@ final class Blog_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'card_media_height',
 			array(
-				'label'      => __( 'Image height', 'decent-core' ),
+				'label'      => __( 'Image height', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -119,32 +119,32 @@ final class Blog_Grid extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'card_type', __( 'Category line', 'decent-core' ), '{{WRAPPER}} .post-card__type' );
+		$this->register_text_style( 'card_type', __( 'Category line', 'pixelomatic-core' ), '{{WRAPPER}} .post-card__type' );
 
-		$this->register_text_style( 'card_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .post-card__title' );
+		$this->register_text_style( 'card_title', __( 'Title', 'pixelomatic-core' ), '{{WRAPPER}} .post-card__title' );
 
 		$this->register_link_style(
 			'card_title_link',
-			__( 'Title link', 'decent-core' ),
+			__( 'Title link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .post-card__title a'
 		);
 
-		$this->register_text_style( 'card_desc', __( 'Excerpt', 'decent-core' ), '{{WRAPPER}} .post-card__desc' );
+		$this->register_text_style( 'card_desc', __( 'Excerpt', 'pixelomatic-core' ), '{{WRAPPER}} .post-card__desc' );
 
 		$this->register_text_style(
 			'card_foot',
-			__( 'Footer', 'decent-core' ),
+			__( 'Footer', 'pixelomatic-core' ),
 			'{{WRAPPER}} .post-card__foot',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,

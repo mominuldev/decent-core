@@ -2,16 +2,16 @@
 /**
  * Product Archive widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -42,12 +42,12 @@ final class Product_Archive extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Catalogue', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Catalogue', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'show_filters',
 			array(
-				'label'   => __( 'Filter sidebar', 'decent-core' ),
+				'label'   => __( 'Filter sidebar', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -56,7 +56,7 @@ final class Product_Archive extends Widget_Base {
 		$this->add_control(
 			'show_toolbar',
 			array(
-				'label'   => __( 'Toolbar', 'decent-core' ),
+				'label'   => __( 'Toolbar', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -66,26 +66,26 @@ final class Product_Archive extends Widget_Base {
 			'notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template.', 'decent-core' ),
+				'raw'             => esc_html__( 'Reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Product cards', 'pixelomatic-core' ) );
 		$this->register_product_card_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_grid', __( 'Grid', 'decent-core' ) );
+		$this->start_style_section( 'style_grid', __( 'Grid', 'pixelomatic-core' ) );
 
 		$this->add_responsive_control(
 			'columns',
 			array(
-				'label'     => __( 'Columns', 'decent-core' ),
+				'label'     => __( 'Columns', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					''  => __( 'Theme default', 'decent-core' ),
+					''  => __( 'Theme default', 'pixelomatic-core' ),
 					'1' => '1',
 					'2' => '2',
 					'3' => '3',
@@ -97,12 +97,12 @@ final class Product_Archive extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'grid_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .catalog__grid', 56 );
+		$this->register_gap_style( 'grid_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .catalog__grid', 56 );
 
 		$this->add_responsive_control(
 			'sidebar_width',
 			array(
-				'label'      => __( 'Sidebar width', 'decent-core' ),
+				'label'      => __( 'Sidebar width', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -126,31 +126,31 @@ final class Product_Archive extends Widget_Base {
 
 		$this->start_style_section(
 			'style_filters',
-			__( 'Filters', 'decent-core' ),
+			__( 'Filters', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_filters' => 'yes' ) )
 		);
 
 		$this->register_box_style(
 			'filter_panel',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .filter-panel',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'filter_head', __( 'Panel heading', 'decent-core' ), '{{WRAPPER}} .filter-panel h3' );
+		$this->register_text_style( 'filter_head', __( 'Panel heading', 'pixelomatic-core' ), '{{WRAPPER}} .filter-panel h3' );
 
-		$this->register_text_style( 'filter_label', __( 'Field label', 'decent-core' ), '{{WRAPPER}} .catalog__sidebar .field-label' );
+		$this->register_text_style( 'filter_label', __( 'Field label', 'pixelomatic-core' ), '{{WRAPPER}} .catalog__sidebar .field-label' );
 
 		$this->register_box_style(
 			'filter_input',
-			__( 'Search field', 'decent-core' ),
+			__( 'Search field', 'pixelomatic-core' ),
 			'{{WRAPPER}} .catalog__sidebar .input',
 			array( 'shadow' => false )
 		);
 
 		$this->register_text_style(
 			'filter_input_text',
-			__( 'Search field text', 'decent-core' ),
+			__( 'Search field text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .catalog__sidebar .input',
 			array(
 				'heading' => false,
@@ -158,11 +158,11 @@ final class Product_Archive extends Widget_Base {
 			)
 		);
 
-		$this->register_link_style( 'filter_option', __( 'Filter option', 'decent-core' ), '{{WRAPPER}} .filter-option' );
+		$this->register_link_style( 'filter_option', __( 'Filter option', 'pixelomatic-core' ), '{{WRAPPER}} .filter-option' );
 
 		$this->register_text_style(
 			'filter_count',
-			__( 'Option count', 'decent-core' ),
+			__( 'Option count', 'pixelomatic-core' ),
 			'{{WRAPPER}} .filter-option__count',
 			array( 'spacing' => false )
 		);
@@ -171,29 +171,29 @@ final class Product_Archive extends Widget_Base {
 
 		$this->start_style_section(
 			'style_toolbar',
-			__( 'Toolbar', 'decent-core' ),
+			__( 'Toolbar', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_toolbar' => 'yes' ) )
 		);
 
 		$this->register_box_style(
 			'toolbar',
-			__( 'Bar', 'decent-core' ),
+			__( 'Bar', 'pixelomatic-core' ),
 			'{{WRAPPER}} .toolbar',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'toolbar_count', __( 'Result count', 'decent-core' ), '{{WRAPPER}} .toolbar__count' );
+		$this->register_text_style( 'toolbar_count', __( 'Result count', 'pixelomatic-core' ), '{{WRAPPER}} .toolbar__count' );
 
 		$this->register_box_style(
 			'toolbar_select',
-			__( 'Sort field', 'decent-core' ),
+			__( 'Sort field', 'pixelomatic-core' ),
 			'{{WRAPPER}} .toolbar .select',
 			array( 'shadow' => false )
 		);
 
 		$this->register_text_style(
 			'toolbar_select_text',
-			__( 'Sort field text', 'decent-core' ),
+			__( 'Sort field text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .toolbar .select',
 			array(
 				'heading' => false,
@@ -201,22 +201,22 @@ final class Product_Archive extends Widget_Base {
 			)
 		);
 
-		$this->register_button_style( 'toolbar_button', __( 'Sort button', 'decent-core' ), '{{WRAPPER}} .toolbar .btn' );
+		$this->register_button_style( 'toolbar_button', __( 'Sort button', 'pixelomatic-core' ), '{{WRAPPER}} .toolbar .btn' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_pagination', __( 'Pagination', 'decent-core' ) );
+		$this->start_style_section( 'style_pagination', __( 'Pagination', 'pixelomatic-core' ) );
 
 		$this->register_link_style(
 			'pagination_link',
-			__( 'Page link', 'decent-core' ),
+			__( 'Page link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pagination a',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_text_style(
 			'pagination_current',
-			__( 'Current page', 'decent-core' ),
+			__( 'Current page', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pagination__current',
 			array( 'spacing' => false )
 		);
@@ -225,19 +225,19 @@ final class Product_Archive extends Widget_Base {
 		$this->add_responsive_control(
 			'pagination_align',
 			array(
-				'label'     => __( 'Alignment', 'decent-core' ),
+				'label'     => __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -256,7 +256,7 @@ final class Product_Archive extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		if ( ! function_exists( 'decent_pagination' ) ) {
+		if ( ! function_exists( 'pixelomatic_pagination' ) ) {
 			return;
 		}
 
@@ -289,7 +289,7 @@ final class Product_Archive extends Widget_Base {
 					);
 					?>
 
-					<?php decent_pagination(); ?>
+					<?php pixelomatic_pagination(); ?>
 
 				<?php else : ?>
 					<?php
@@ -299,8 +299,8 @@ final class Product_Archive extends Widget_Base {
 						array(
 							'icon'  => 'search',
 							'tag'   => 'h2',
-							'title' => __( 'No products match those filters', 'decent-core' ),
-							'text'  => __( 'Try widening the price range, or clear the filters to see the whole catalogue.', 'decent-core' ),
+							'title' => __( 'No products match those filters', 'pixelomatic-core' ),
+							'text'  => __( 'Try widening the price range, or clear the filters to see the whole catalogue.', 'pixelomatic-core' ),
 						)
 					);
 					?>

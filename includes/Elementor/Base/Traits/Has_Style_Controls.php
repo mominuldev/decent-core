@@ -2,10 +2,10 @@
 /**
  * Style controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -72,19 +72,19 @@ trait Has_Style_Controls {
 
 		$this->register_text_style(
 			'head_eyebrow',
-			__( 'Eyebrow', 'decent-core' ),
+			__( 'Eyebrow', 'pixelomatic-core' ),
 			$selector . ' .eyebrow'
 		);
 
 		$this->register_text_style(
 			'head_title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			$selector . ' .section-title'
 		);
 
 		$this->register_text_style(
 			'head_intro',
-			__( 'Intro', 'decent-core' ),
+			__( 'Intro', 'pixelomatic-core' ),
 			$selector . ' .section-intro',
 			array( 'spacing' => false )
 		);
@@ -92,7 +92,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			'head_spacing',
 			array(
-				'label'      => __( 'Space below the head', 'decent-core' ),
+				'label'      => __( 'Space below the head', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'separator'  => 'before',
@@ -125,7 +125,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_color',
 			array(
-				'label'     => __( 'Colour', 'decent-core' ),
+				'label'     => __( 'Colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'color: {{VALUE}};' ),
 			)
@@ -150,7 +150,7 @@ trait Has_Style_Controls {
 			$this->add_responsive_control(
 				$prefix . '_spacing',
 				array(
-					'label'      => __( 'Spacing below', 'decent-core' ),
+					'label'      => __( 'Spacing below', 'pixelomatic-core' ),
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => array( 'px', 'em' ),
 					'range'      => array(
@@ -188,7 +188,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'background-color: {{VALUE}};' ),
 			)
@@ -205,7 +205,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_radius',
 			array(
-				'label'      => __( 'Border radius', 'decent-core' ),
+				'label'      => __( 'Border radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -227,7 +227,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_padding',
 			array(
-				'label'      => __( 'Padding', 'decent-core' ),
+				'label'      => __( 'Padding', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
@@ -240,7 +240,7 @@ trait Has_Style_Controls {
 			$this->add_responsive_control(
 				$prefix . '_margin',
 				array(
-					'label'      => __( 'Margin', 'decent-core' ),
+					'label'      => __( 'Margin', 'pixelomatic-core' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
@@ -275,7 +275,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_color',
 			array(
-				'label'     => __( 'Icon colour', 'decent-core' ),
+				'label'     => __( 'Icon colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'color: {{VALUE}};' ),
 			)
@@ -284,7 +284,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_size',
 			array(
-				'label'      => __( 'Icon size', 'decent-core' ),
+				'label'      => __( 'Icon size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -307,7 +307,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_background',
 			array(
-				'label'     => __( 'Icon background', 'decent-core' ),
+				'label'     => __( 'Icon background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'background-color: {{VALUE}};' ),
 			)
@@ -316,7 +316,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_radius',
 			array(
-				'label'      => __( 'Icon radius', 'decent-core' ),
+				'label'      => __( 'Icon radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -328,7 +328,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_padding',
 			array(
-				'label'      => __( 'Icon padding', 'decent-core' ),
+				'label'      => __( 'Icon padding', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
@@ -366,13 +366,13 @@ trait Has_Style_Controls {
 
 		$this->start_controls_tab(
 			$prefix . '_tab_normal',
-			array( 'label' => __( 'Normal', 'decent-core' ) )
+			array( 'label' => __( 'Normal', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(
 			$prefix . '_color',
 			array(
-				'label'     => __( 'Text colour', 'decent-core' ),
+				'label'     => __( 'Text colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'color: {{VALUE}};' ),
 			)
@@ -381,7 +381,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'background-color: {{VALUE}};' ),
 			)
@@ -390,7 +390,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_border_color',
 			array(
-				'label'     => __( 'Border colour', 'decent-core' ),
+				'label'     => __( 'Border colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'border-color: {{VALUE}};' ),
 			)
@@ -400,13 +400,13 @@ trait Has_Style_Controls {
 
 		$this->start_controls_tab(
 			$prefix . '_tab_hover',
-			array( 'label' => __( 'Hover', 'decent-core' ) )
+			array( 'label' => __( 'Hover', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(
 			$prefix . '_color_hover',
 			array(
-				'label'     => __( 'Text colour', 'decent-core' ),
+				'label'     => __( 'Text colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'color: {{VALUE}};' ),
 			)
@@ -415,7 +415,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_background_hover',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'background-color: {{VALUE}};' ),
 			)
@@ -424,7 +424,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_border_color_hover',
 			array(
-				'label'     => __( 'Border colour', 'decent-core' ),
+				'label'     => __( 'Border colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'border-color: {{VALUE}};' ),
 			)
@@ -444,7 +444,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_radius',
 			array(
-				'label'      => __( 'Border radius', 'decent-core' ),
+				'label'      => __( 'Border radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -456,7 +456,7 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$prefix . '_padding',
 			array(
-				'label'      => __( 'Padding', 'decent-core' ),
+				'label'      => __( 'Padding', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
@@ -493,7 +493,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_color',
 			array(
-				'label'     => __( 'Colour', 'decent-core' ),
+				'label'     => __( 'Colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $selector => 'color: {{VALUE}};' ),
 			)
@@ -502,7 +502,7 @@ trait Has_Style_Controls {
 		$this->add_control(
 			$prefix . '_color_hover',
 			array(
-				'label'     => __( 'Hover colour', 'decent-core' ),
+				'label'     => __( 'Hover colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'color: {{VALUE}};' ),
 			)
@@ -521,19 +521,19 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$id,
 			array(
-				'label'     => '' !== $label ? $label : __( 'Alignment', 'decent-core' ),
+				'label'     => '' !== $label ? $label : __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'left'   => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -554,19 +554,19 @@ trait Has_Style_Controls {
 		$this->add_responsive_control(
 			$id,
 			array(
-				'label'     => '' !== $label ? $label : __( 'Alignment', 'decent-core' ),
+				'label'     => '' !== $label ? $label : __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),

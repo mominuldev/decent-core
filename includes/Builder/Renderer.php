@@ -2,10 +2,10 @@
 /**
  * Template rendering.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ use Elementor\Plugin as Elementor_Plugin;
 /**
  * Renders a resolved template into the theme's header and footer slots.
  *
- * The theme exposes decentthemes/header/replaced and its footer twin, and
+ * The theme exposes pixelomatic/header/replaced and its footer twin, and
  * checks Elementor Pro's own location first. This hooks the middle tier, so a
  * site with Pro keeps Pro's header and never gets two.
  */
@@ -49,8 +49,8 @@ final class Renderer {
 	 * @return void
 	 */
 	public function register(): void {
-		add_filter( 'decentthemes/header/replaced', array( $this, 'render_header' ) );
-		add_filter( 'decentthemes/footer/replaced', array( $this, 'render_footer' ) );
+		add_filter( 'pixelomatic/header/replaced', array( $this, 'render_header' ) );
+		add_filter( 'pixelomatic/footer/replaced', array( $this, 'render_footer' ) );
 	}
 
 	/**
@@ -181,7 +181,7 @@ final class Renderer {
 		// bind to. Without this attribute the script finds nothing and
 		// returns, which is what happens on most pages of most sites.
 		if ( Display_Settings::needs_script( $settings ) ) {
-			$attributes['data-decent-header'] = (string) wp_json_encode(
+			$attributes['data-pixelomatic-header'] = (string) wp_json_encode(
 				array(
 					'offset'  => (int) $settings['offset'],
 					'hide'    => (bool) $settings['hide'],
@@ -193,7 +193,7 @@ final class Renderer {
 		}
 
 		if ( ! empty( $settings['offset'] ) ) {
-			$attributes['style'] = '--decent-sticky-offset:' . (int) $settings['offset'] . 'px';
+			$attributes['style'] = '--pixelomatic-sticky-offset:' . (int) $settings['offset'] . 'px';
 		}
 
 		return $attributes;
@@ -237,7 +237,7 @@ final class Renderer {
 		 * @param string                $type        Template type.
 		 * @param int                   $template_id Template ID.
 		 */
-		$attributes = (array) apply_filters( 'decent_core/builder/attributes', $attributes, $type, $template_id );
+		$attributes = (array) apply_filters( 'pixelomatic_core/builder/attributes', $attributes, $type, $template_id );
 
 		$parts = array();
 

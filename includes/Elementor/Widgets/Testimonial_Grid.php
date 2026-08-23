@@ -2,17 +2,17 @@
 /**
  * Testimonial slider widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Slider_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Slider_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -53,29 +53,29 @@ final class Testimonial_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( '24,000 purchases, 98% positive', 'decent-core' ),
-			__( 'Customer reviews', 'decent-core' )
+			__( '24,000 purchases, 98% positive', 'pixelomatic-core' ),
+			__( 'Customer reviews', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'summary', array( 'label' => __( 'Rating summary', 'decent-core' ) ) );
+		$this->start_controls_section( 'summary', array( 'label' => __( 'Rating summary', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'show_summary',
 			array(
-				'label'       => __( 'Summary card', 'decent-core' ),
+				'label'       => __( 'Summary card', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'yes',
-				'description' => __( 'Sits beside the head. Hidden on phones, where the design drops it.', 'decent-core' ),
+				'description' => __( 'Sits beside the head. Hidden on phones, where the design drops it.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'summary_score',
 			array(
-				'label'     => __( 'Score', 'decent-core' ),
+				'label'     => __( 'Score', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => '4.9',
 				'condition' => array( 'show_summary' => 'yes' ),
@@ -85,7 +85,7 @@ final class Testimonial_Grid extends Widget_Base {
 		$this->add_control(
 			'summary_stars',
 			array(
-				'label'     => __( 'Stars', 'decent-core' ),
+				'label'     => __( 'Stars', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => 5,
 				'min'       => 1,
@@ -97,9 +97,9 @@ final class Testimonial_Grid extends Widget_Base {
 		$this->add_control(
 			'summary_note',
 			array(
-				'label'       => __( 'Note', 'decent-core' ),
+				'label'       => __( 'Note', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( '2,840 verified reviews', 'decent-core' ),
+				'default'     => __( '2,840 verified reviews', 'pixelomatic-core' ),
 				'label_block' => true,
 				'condition'   => array( 'show_summary' => 'yes' ),
 			)
@@ -107,14 +107,14 @@ final class Testimonial_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Reviews', 'decent-core' ) ) );
+		$this->start_controls_section( 'items', array( 'label' => __( 'Reviews', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'quote',
 			array(
-				'label'       => __( 'Quote', 'decent-core' ),
+				'label'       => __( 'Quote', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
 				'label_block' => true,
@@ -124,16 +124,16 @@ final class Testimonial_Grid extends Widget_Base {
 		$repeater->add_control(
 			'name',
 			array(
-				'label'   => __( 'Name', 'decent-core' ),
+				'label'   => __( 'Name', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Customer', 'decent-core' ),
+				'default' => __( 'Customer', 'pixelomatic-core' ),
 			)
 		);
 
 		$repeater->add_control(
 			'role',
 			array(
-				'label'       => __( 'Role', 'decent-core' ),
+				'label'       => __( 'Role', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 			)
@@ -142,7 +142,7 @@ final class Testimonial_Grid extends Widget_Base {
 		$repeater->add_control(
 			'rating',
 			array(
-				'label'   => __( 'Rating', 'decent-core' ),
+				'label'   => __( 'Rating', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 5,
 				'min'     => 1,
@@ -153,9 +153,9 @@ final class Testimonial_Grid extends Widget_Base {
 		$repeater->add_control(
 			'initials',
 			array(
-				'label'       => __( 'Avatar initials', 'decent-core' ),
+				'label'       => __( 'Avatar initials', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'Taken from the name when empty.', 'decent-core' ),
+				'description' => __( 'Taken from the name when empty.', 'pixelomatic-core' ),
 			)
 		);
 
@@ -167,27 +167,27 @@ final class Testimonial_Grid extends Widget_Base {
 				'title_field' => '{{{ name }}}',
 				'default'     => array(
 					array(
-						'quote'  => __( 'The documentation alone saved us a week. Every hook we needed was already there and named sensibly.', 'decent-core' ),
+						'quote'  => __( 'The documentation alone saved us a week. Every hook we needed was already there and named sensibly.', 'pixelomatic-core' ),
 						'name'   => 'Priya Raman',
-						'role'   => __( 'Lead developer, Northwind Studio', 'decent-core' ),
+						'role'   => __( 'Lead developer, Northwind Studio', 'pixelomatic-core' ),
 						'rating' => 5,
 					),
 					array(
-						'quote'  => __( 'We shipped a client site on the theme in four days. The update path has not broken anything since.', 'decent-core' ),
+						'quote'  => __( 'We shipped a client site on the theme in four days. The update path has not broken anything since.', 'pixelomatic-core' ),
 						'name'   => 'Tom Beckett',
-						'role'   => __( 'Founder, Baseline Agency', 'decent-core' ),
+						'role'   => __( 'Founder, Baseline Agency', 'pixelomatic-core' ),
 						'rating' => 5,
 					),
 					array(
-						'quote'  => __( 'A CSS question sent at 7am came back with a working example, not a link to the docs. That is why we bought two more licences.', 'decent-core' ),
+						'quote'  => __( 'A CSS question sent at 7am came back with a working example, not a link to the docs. That is why we bought two more licences.', 'pixelomatic-core' ),
 						'name'   => 'Sofia Lindqvist',
-						'role'   => __( 'Design lead, Norrsken Studio', 'decent-core' ),
+						'role'   => __( 'Design lead, Norrsken Studio', 'pixelomatic-core' ),
 						'rating' => 5,
 					),
 					array(
-						'quote'  => __( 'We stayed on version 2 for eleven months, then upgraded in an afternoon. The migration notes listed every breaking change.', 'decent-core' ),
+						'quote'  => __( 'We stayed on version 2 for eleven months, then upgraded in an afternoon. The migration notes listed every breaking change.', 'pixelomatic-core' ),
 						'name'   => 'Daniel Okonkwo',
-						'role'   => __( 'Freelance developer', 'decent-core' ),
+						'role'   => __( 'Freelance developer', 'pixelomatic-core' ),
 						'rating' => 5,
 					),
 				),
@@ -196,7 +196,7 @@ final class Testimonial_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'decent-core' ) ) );
+		$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'pixelomatic-core' ) ) );
 
 		// The shared control set, with this design's numbers as the defaults:
 		// three across at 1440, two at the tablet step, and one and a peek on
@@ -215,67 +215,67 @@ final class Testimonial_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
 		$this->start_style_section(
 			'style_summary',
-			__( 'Rating summary', 'decent-core' ),
+			__( 'Rating summary', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_summary' => 'yes' ) )
 		);
 
 		$this->register_box_style(
 			'summary',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-rating-summary',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'summary_score', __( 'Score', 'decent-core' ), '{{WRAPPER}} .pix-rating-summary__score' );
+		$this->register_text_style( 'summary_score', __( 'Score', 'pixelomatic-core' ), '{{WRAPPER}} .pix-rating-summary__score' );
 
 		$this->register_text_style(
 			'summary_note',
-			__( 'Note', 'decent-core' ),
+			__( 'Note', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-rating-summary__note',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Review cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Review cards', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-review-card',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'card_stars', __( 'Stars', 'decent-core' ), '{{WRAPPER}} .pix-review-card__stars' );
+		$this->register_text_style( 'card_stars', __( 'Stars', 'pixelomatic-core' ), '{{WRAPPER}} .pix-review-card__stars' );
 
-		$this->register_text_style( 'card_quote', __( 'Quote', 'decent-core' ), '{{WRAPPER}} .pix-review-card__quote' );
+		$this->register_text_style( 'card_quote', __( 'Quote', 'pixelomatic-core' ), '{{WRAPPER}} .pix-review-card__quote' );
 
-		$this->register_text_style( 'card_name', __( 'Name', 'decent-core' ), '{{WRAPPER}} .pix-review-card__name' );
+		$this->register_text_style( 'card_name', __( 'Name', 'pixelomatic-core' ), '{{WRAPPER}} .pix-review-card__name' );
 
 		$this->register_text_style(
 			'card_role',
-			__( 'Role', 'decent-core' ),
+			__( 'Role', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-review-card__role',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_controls', __( 'Slider controls', 'decent-core' ) );
+		$this->start_style_section( 'style_controls', __( 'Slider controls', 'pixelomatic-core' ) );
 		$this->register_slider_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -318,8 +318,8 @@ final class Testimonial_Grid extends Widget_Base {
 
 				$this->render_slider_end(
 					array(
-						'prev_label' => __( 'Previous reviews', 'decent-core' ),
-						'next_label' => __( 'Next reviews', 'decent-core' ),
+						'prev_label' => __( 'Previous reviews', 'pixelomatic-core' ),
+						'next_label' => __( 'Next reviews', 'pixelomatic-core' ),
 					)
 				);
 				?>
@@ -347,7 +347,7 @@ final class Testimonial_Grid extends Widget_Base {
 				<?php
 				printf(
 					/* translators: %d: star rating out of five. */
-					esc_html__( '%d out of 5', 'decent-core' ),
+					esc_html__( '%d out of 5', 'pixelomatic-core' ),
 					(int) $rating
 				);
 				?>
@@ -417,8 +417,8 @@ final class Testimonial_Grid extends Widget_Base {
 	 * @return string
 	 */
 	private function initials( string $name ): string {
-		if ( class_exists( '\DecentThemes\Frontend\Card' ) ) {
-			return \DecentThemes\Frontend\Card::initials( $name );
+		if ( class_exists( '\Pixelomatic\Frontend\Card' ) ) {
+			return \Pixelomatic\Frontend\Card::initials( $name );
 		}
 
 		$split = preg_split( '/\s+/', trim( $name ) );

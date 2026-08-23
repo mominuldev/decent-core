@@ -2,15 +2,15 @@
 /**
  * Activation and deactivation.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore;
+namespace PixelomaticCore;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Settings\Schema;
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Settings\Schema;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Install-time routines.
@@ -30,10 +30,10 @@ final class Install {
 		$stored = is_array( $stored ) ? $stored : array();
 
 		update_option( Settings::OPTION, array_merge( Schema::defaults(), $stored ), true );
-		update_option( 'decent_core_version', DECENT_CORE_VERSION, true );
+		update_option( 'pixelomatic_core_version', PIXELOMATIC_CORE_VERSION, true );
 
-		if ( ! get_option( 'decent_core_activated_at' ) ) {
-			update_option( 'decent_core_activated_at', time(), false );
+		if ( ! get_option( 'pixelomatic_core_activated_at' ) ) {
+			update_option( 'pixelomatic_core_activated_at', time(), false );
 		}
 	}
 
@@ -47,6 +47,6 @@ final class Install {
 	 * @return void
 	 */
 	public static function deactivate(): void {
-		wp_clear_scheduled_hook( 'decent_core_sweep_assets' );
+		wp_clear_scheduled_hook( 'pixelomatic_core_sweep_assets' );
 	}
 }

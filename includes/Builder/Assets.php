@@ -2,15 +2,15 @@
 /**
  * Front-end assets for builder templates.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Assets\Usage_Index;
-use DecentCore\Elementor\Widget_Registry;
+use PixelomaticCore\Assets\Usage_Index;
+use PixelomaticCore\Elementor\Widget_Registry;
 
 /**
  * Loads what a resolved header or footer needs, in the head, before it renders.
@@ -27,7 +27,7 @@ final class Assets {
 	/**
 	 * Style and script handle.
 	 */
-	public const HANDLE = 'decent-core-builder';
+	public const HANDLE = 'pixelomatic-core-builder';
 
 	/**
 	 * Resolver.
@@ -70,7 +70,7 @@ final class Assets {
 		// After Elementor registers its handles at 5, before the bundler
 		// collapses ours at 20.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ), 10 );
-		add_filter( 'decent_core/assets/request_slugs', array( $this, 'template_widgets' ) );
+		add_filter( 'pixelomatic_core/assets/request_slugs', array( $this, 'template_widgets' ) );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
 	}
 
@@ -88,9 +88,9 @@ final class Assets {
 
 		wp_enqueue_style(
 			self::HANDLE,
-			DECENT_CORE_URL . 'assets/builder/style.css',
+			PIXELOMATIC_CORE_URL . 'assets/builder/style.css',
 			array(),
-			DECENT_CORE_VERSION
+			PIXELOMATIC_CORE_VERSION
 		);
 
 		foreach ( $templates as $template_id ) {
@@ -100,9 +100,9 @@ final class Assets {
 		if ( $this->needs_script() ) {
 			wp_enqueue_script(
 				self::HANDLE,
-				DECENT_CORE_URL . 'assets/builder/script.js',
+				PIXELOMATIC_CORE_URL . 'assets/builder/script.js',
 				array(),
-				DECENT_CORE_VERSION,
+				PIXELOMATIC_CORE_VERSION,
 				true
 			);
 		}
@@ -126,11 +126,11 @@ final class Assets {
 
 		foreach ( $this->index->for_post( $template_id ) as $slug ) {
 			foreach ( (array) ( $map[ $slug ]['styles'] ?? array() ) as $handle ) {
-				wp_enqueue_style( 'decent-core-' . $handle );
+				wp_enqueue_style( 'pixelomatic-core-' . $handle );
 			}
 
 			foreach ( (array) ( $map[ $slug ]['scripts'] ?? array() ) as $handle ) {
-				wp_enqueue_script( 'decent-core-' . $handle );
+				wp_enqueue_script( 'pixelomatic-core-' . $handle );
 			}
 		}
 	}

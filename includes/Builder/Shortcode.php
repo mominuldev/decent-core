@@ -2,10 +2,10 @@
 /**
  * Block template shortcode.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,14 +15,14 @@ defined( 'ABSPATH' ) || exit;
  * Headers and footers replace a slot the theme already has. A block has no
  * slot of its own, so it needs somewhere to be asked for: a widget, a content
  * editor, a template part in a child theme. One shortcode covers all three,
- * and `decent_core/builder/block` covers the code path.
+ * and `pixelomatic_core/builder/block` covers the code path.
  */
 final class Shortcode {
 
 	/**
 	 * Shortcode tag.
 	 */
-	public const TAG = 'decent_template';
+	public const TAG = 'pixelomatic_template';
 
 	/**
 	 * Attaches hooks.
@@ -31,7 +31,7 @@ final class Shortcode {
 	 */
 	public function register(): void {
 		add_shortcode( self::TAG, array( $this, 'render' ) );
-		add_action( 'decent_core/builder/block', array( $this, 'output' ) );
+		add_action( 'pixelomatic_core/builder/block', array( $this, 'output' ) );
 	}
 
 	/**

@@ -6,7 +6,7 @@
 // as its fallback, which is what keeps the box inside the design system while
 // still rendering correctly under a theme that does not ship them.
 //
-// Deliberately NOT scoped to `.elementor-widget-decent-icon-box`. Elementor
+// Deliberately NOT scoped to `.elementor-widget-pixelomatic-icon-box`. Elementor
 // writes its Style-tab CSS as `.elementor-element-<id> .pix-icon-box` — two
 // classes. Scoping these rules to the widget wrapper would match that exactly,
 // and which one won would come down to stylesheet order. Left at one class

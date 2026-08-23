@@ -2,10 +2,10 @@
 /**
  * Product sales dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Sales extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-sales';
+		return 'pixelomatic-download-sales';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Sales extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product sales', 'decent-core' );
+		return __( 'Product sales', 'pixelomatic-core' );
 	}
 
 	/**

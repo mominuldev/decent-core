@@ -2,10 +2,10 @@
  * REST client.
  *
  * No @wordpress/api-fetch: everything WordPress needs to tell us arrives on
- * window.decentCore, and a nonce header plus fetch is the whole contract.
+ * window.pixelomaticCore, and a nonce header plus fetch is the whole contract.
  */
 
-const boot = window.decentCore || {};
+const boot = window.pixelomaticCore || {};
 
 export const config = {
   restUrl: boot.restUrl || '',

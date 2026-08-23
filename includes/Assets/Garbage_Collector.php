@@ -6,10 +6,10 @@
  * invalidation is simply "stop referencing the old one". That leaves orphans
  * behind after an update or a settings change, and this removes them.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Assets;
+namespace PixelomaticCore\Assets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ final class Garbage_Collector {
 	/**
 	 * Cron hook.
 	 */
-	public const HOOK = 'decent_core_sweep_assets';
+	public const HOOK = 'pixelomatic_core_sweep_assets';
 
 	/**
 	 * How long an untouched bundle survives.

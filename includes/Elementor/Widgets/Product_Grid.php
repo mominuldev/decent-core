@@ -2,18 +2,18 @@
 /**
  * Product Grid widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
-use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use PixelomaticCore\Elementor\Base\Traits\Has_Query_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use WP_Term;
 
@@ -60,18 +60,18 @@ final class Product_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'decent-core' ) ) );
+		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'pixelomatic-core' ) ) );
 		$this->register_query_controls( 6 );
 
 		$this->add_control(
 			'density',
 			array(
-				'label'     => __( 'Card size', 'decent-core' ),
+				'label'     => __( 'Card size', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'md',
 				'options'   => array(
-					'sm' => __( 'Compact', 'decent-core' ),
-					'md' => __( 'Standard', 'decent-core' ),
+					'sm' => __( 'Compact', 'pixelomatic-core' ),
+					'md' => __( 'Standard', 'pixelomatic-core' ),
 				),
 				'separator' => 'before',
 			)
@@ -80,7 +80,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'show_actions',
 			array(
-				'label'   => __( 'Show buttons', 'decent-core' ),
+				'label'   => __( 'Show buttons', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -88,12 +88,12 @@ final class Product_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'filter', array( 'label' => __( 'Filter bar', 'decent-core' ) ) );
+		$this->start_controls_section( 'filter', array( 'label' => __( 'Filter bar', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'show_filter',
 			array(
-				'label'   => __( 'Category chips', 'decent-core' ),
+				'label'   => __( 'Category chips', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -102,9 +102,9 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'all_label',
 			array(
-				'label'       => __( 'First chip', 'decent-core' ),
+				'label'       => __( 'First chip', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'All products', 'decent-core' ),
+				'default'     => __( 'All products', 'pixelomatic-core' ),
 				'label_block' => true,
 				'condition'   => array( 'show_filter' => 'yes' ),
 			)
@@ -113,12 +113,12 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'filter_categories',
 			array(
-				'label'       => __( 'Chips', 'decent-core' ),
+				'label'       => __( 'Chips', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => $this->chip_options(),
-				'description' => __( 'Leave empty to use the categories above, or the busiest top-level categories when those are empty too.', 'decent-core' ),
+				'description' => __( 'Leave empty to use the categories above, or the busiest top-level categories when those are empty too.', 'pixelomatic-core' ),
 				'condition'   => array( 'show_filter' => 'yes' ),
 			)
 		);
@@ -126,12 +126,12 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'filter_limit',
 			array(
-				'label'       => __( 'Most chips', 'decent-core' ),
+				'label'       => __( 'Most chips', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 4,
 				'min'         => 2,
 				'max'         => 10,
-				'description' => __( 'Only caps the automatic list. Chips picked by hand are all shown.', 'decent-core' ),
+				'description' => __( 'Only caps the automatic list. Chips picked by hand are all shown.', 'pixelomatic-core' ),
 				'condition'   => array(
 					'show_filter'       => 'yes',
 					'filter_categories' => '',
@@ -142,7 +142,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'show_sort',
 			array(
-				'label'     => __( 'Sort control', 'decent-core' ),
+				'label'     => __( 'Sort control', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'separator' => 'before',
@@ -152,21 +152,21 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'sort_prefix',
 			array(
-				'label'     => __( 'Sort label', 'decent-core' ),
+				'label'     => __( 'Sort label', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Sort:', 'decent-core' ),
+				'default'   => __( 'Sort:', 'pixelomatic-core' ),
 				'condition' => array( 'show_sort' => 'yes' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'more', array( 'label' => __( 'Footer', 'decent-core' ) ) );
+		$this->start_controls_section( 'more', array( 'label' => __( 'Footer', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'show_more',
 			array(
-				'label'   => __( 'View all button', 'decent-core' ),
+				'label'   => __( 'View all button', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			)
@@ -175,13 +175,13 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'more_label',
 			array(
-				'label'       => __( 'Button text', 'decent-core' ),
+				'label'       => __( 'Button text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				/* translators: %s: number of products, inserted by the widget. */
-				'default'     => __( 'See all %s products', 'decent-core' ),
+				'default'     => __( 'See all %s products', 'pixelomatic-core' ),
 				'label_block' => true,
 				/* translators: %s is a literal placeholder token the editor types, not a value. */
-				'description' => __( '%s becomes the number of products the query matched.', 'decent-core' ),
+				'description' => __( '%s becomes the number of products the query matched.', 'pixelomatic-core' ),
 				'condition'   => array( 'show_more' => 'yes' ),
 			)
 		);
@@ -189,10 +189,10 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'more_url',
 			array(
-				'label'       => __( 'Button link', 'decent-core' ),
+				'label'       => __( 'Button link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
 				'placeholder' => (string) get_post_type_archive_link( 'download' ),
-				'description' => __( 'Defaults to the product archive.', 'decent-core' ),
+				'description' => __( 'Defaults to the product archive.', 'pixelomatic-core' ),
 				'condition'   => array( 'show_more' => 'yes' ),
 			)
 		);
@@ -200,10 +200,10 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'more_note',
 			array(
-				'label'       => __( 'Note', 'decent-core' ),
+				'label'       => __( 'Note', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
-				'default'     => __( 'Prices shown are one-time. VAT added at checkout where applicable.', 'decent-core' ),
+				'default'     => __( 'Prices shown are one-time. VAT added at checkout where applicable.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -213,7 +213,7 @@ final class Product_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -222,7 +222,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'filter_gap',
 			array(
-				'label'      => __( 'Space below the filter bar', 'decent-core' ),
+				'label'      => __( 'Space below the filter bar', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'default'    => array(
@@ -246,7 +246,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'more_gap',
 			array(
-				'label'      => __( 'Space above the footer', 'decent-core' ),
+				'label'      => __( 'Space above the footer', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'default'    => array(
@@ -270,13 +270,13 @@ final class Product_Grid extends Widget_Base {
 
 		$this->start_style_section(
 			'style_chips',
-			__( 'Category chips', 'decent-core' ),
+			__( 'Category chips', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_filter' => 'yes' ) )
 		);
 
 		$this->register_button_style(
 			'chip',
-			__( 'Chip', 'decent-core' ),
+			__( 'Chip', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-filter__chip',
 			array( 'separator' => 'none' )
 		);
@@ -284,7 +284,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'chip_active_heading',
 			array(
-				'label'     => __( 'Selected chip', 'decent-core' ),
+				'label'     => __( 'Selected chip', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -293,7 +293,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'chip_active_color',
 			array(
-				'label'     => __( 'Text', 'decent-core' ),
+				'label'     => __( 'Text', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-filter__chip--active' => 'color: {{VALUE}};',
@@ -304,7 +304,7 @@ final class Product_Grid extends Widget_Base {
 		$this->add_control(
 			'chip_active_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-filter__chip--active' => 'background: {{VALUE}}; border-color: {{VALUE}};',
@@ -312,19 +312,19 @@ final class Product_Grid extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'chip_gap', __( 'Space between chips', 'decent-core' ), '{{WRAPPER}} .pix-filter__chips', 32 );
+		$this->register_gap_style( 'chip_gap', __( 'Space between chips', 'pixelomatic-core' ), '{{WRAPPER}} .pix-filter__chips', 32 );
 
 		$this->end_controls_section();
 
 		$this->start_style_section(
 			'style_sort',
-			__( 'Sort control', 'decent-core' ),
+			__( 'Sort control', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_sort' => 'yes' ) )
 		);
 
 		$this->register_text_style(
 			'sort',
-			__( 'Sort', 'decent-core' ),
+			__( 'Sort', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-filter__sort',
 			array(
 				'heading' => false,
@@ -335,37 +335,37 @@ final class Product_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Product cards', 'pixelomatic-core' ) );
 		$this->register_product_card_style_controls();
 		$this->end_controls_section();
 
 		$this->start_style_section(
 			'style_more',
-			__( 'Footer', 'decent-core' ),
+			__( 'Footer', 'pixelomatic-core' ),
 			array( 'condition' => array( 'show_more' => 'yes' ) )
 		);
 
 		$this->register_button_style(
 			'more',
-			__( 'Button', 'decent-core' ),
+			__( 'Button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-product-grid__more-link',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_text_style(
 			'note',
-			__( 'Note', 'decent-core' ),
+			__( 'Note', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-product-grid__more-note',
 			array( 'align' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -384,7 +384,7 @@ final class Product_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		if ( ! class_exists( '\DecentThemes\Frontend\Card' ) ) {
+		if ( ! class_exists( '\Pixelomatic\Frontend\Card' ) ) {
 			$this->render_unavailable();
 			return;
 		}
@@ -407,7 +407,7 @@ final class Product_Grid extends Widget_Base {
 		?>
 		<section class="section pix-product-grid"
 			data-product-grid
-			data-endpoint="<?php echo esc_url( rest_url( 'decent/v1/product-grid' ) ); ?>"
+			data-endpoint="<?php echo esc_url( rest_url( 'pixelomatic/v1/product-grid' ) ); ?>"
 			data-post="<?php echo esc_attr( (string) $this->document_id() ); ?>"
 			data-widget="<?php echo esc_attr( $this->get_id() ); ?>">
 			<div class="container section__inner">
@@ -451,7 +451,7 @@ final class Product_Grid extends Widget_Base {
 					<?php
 					$this->render_chip(
 						0,
-						$this->text( 'all_label', __( 'All products', 'decent-core' ) ),
+						$this->text( 'all_label', __( 'All products', 'pixelomatic-core' ) ),
 						$archive,
 						0 === (int) $state['category']
 					);
@@ -471,10 +471,10 @@ final class Product_Grid extends Widget_Base {
 			<?php endif; ?>
 
 			<?php if ( $sort ) : ?>
-				<?php $field = 'decent-sort-' . $this->get_id(); ?>
+				<?php $field = 'pixelomatic-sort-' . $this->get_id(); ?>
 				<form class="pix-filter__sort" method="get" action="<?php echo esc_url( $archive ); ?>" data-sort-form>
 					<label class="pix-filter__sort-label" for="<?php echo esc_attr( $field ); ?>">
-						<?php echo esc_html( $this->text( 'sort_prefix', __( 'Sort:', 'decent-core' ) ) ); ?>
+						<?php echo esc_html( $this->text( 'sort_prefix', __( 'Sort:', 'pixelomatic-core' ) ) ); ?>
 					</label>
 
 					<?php
@@ -505,7 +505,7 @@ final class Product_Grid extends Widget_Base {
 
 					<?php // Without a script the select cannot submit itself, so the button is the whole interaction. ?>
 					<noscript>
-						<button class="btn btn--sm btn--secondary" type="submit"><?php esc_html_e( 'Sort', 'decent-core' ); ?></button>
+						<button class="btn btn--sm btn--secondary" type="submit"><?php esc_html_e( 'Sort', 'pixelomatic-core' ); ?></button>
 					</noscript>
 				</form>
 			<?php endif; ?>
@@ -637,7 +637,7 @@ final class Product_Grid extends Widget_Base {
 
 		printf(
 			'<p style="padding:16px;border:1px dashed #ced4da;color:#6c757d">%s</p>',
-			esc_html__( 'Product Grid needs the Decent Themes theme, which owns the product card markup.', 'decent-core' )
+			esc_html__( 'Product Grid needs the Pixelomatic theme, which owns the product card markup.', 'pixelomatic-core' )
 		);
 	}
 
@@ -681,7 +681,7 @@ final class Product_Grid extends Widget_Base {
 				while ( $query->have_posts() ) :
 					$query->the_post();
 
-					\DecentThemes\Frontend\Card::render(
+					\Pixelomatic\Frontend\Card::render(
 						(int) get_the_ID(),
 						array(
 							'density' => (string) ( $settings['density'] ?? 'md' ),
@@ -733,8 +733,8 @@ final class Product_Grid extends Widget_Base {
 			array(
 				'icon'  => 'search',
 				'tag'   => 'p',
-				'title' => __( 'No products in that category yet', 'decent-core' ),
-				'text'  => __( 'Pick another category, or see the whole catalogue.', 'decent-core' ),
+				'title' => __( 'No products in that category yet', 'pixelomatic-core' ),
+				'text'  => __( 'Pick another category, or see the whole catalogue.', 'pixelomatic-core' ),
 			)
 		);
 

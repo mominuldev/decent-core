@@ -2,19 +2,19 @@
 /**
  * Product Slider widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
-use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Slider_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use PixelomaticCore\Elementor\Base\Traits\Has_Query_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Slider_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -57,18 +57,18 @@ final class Product_Slider extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'Recently released', 'decent-core' ),
-			__( 'New in the catalogue', 'decent-core' )
+			__( 'Recently released', 'pixelomatic-core' ),
+			__( 'New in the catalogue', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'decent-core' ) ) );
+		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'pixelomatic-core' ) ) );
 		$this->register_query_controls( 8 );
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'decent-core' ) ) );
+		$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'pixelomatic-core' ) ) );
 
 		// Four across at 1440 with a peek on a phone: a product card is
 		// narrower than a review card, so the row carries one more.
@@ -84,23 +84,23 @@ final class Product_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Product cards', 'pixelomatic-core' ) );
 		$this->register_product_card_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_nav', __( 'Slider controls', 'decent-core' ) );
+		$this->start_style_section( 'style_nav', __( 'Slider controls', 'pixelomatic-core' ) );
 		$this->register_slider_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -117,7 +117,7 @@ final class Product_Slider extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		if ( ! class_exists( '\DecentThemes\Frontend\Card' ) ) {
+		if ( ! class_exists( '\Pixelomatic\Frontend\Card' ) ) {
 			return;
 		}
 
@@ -128,7 +128,7 @@ final class Product_Slider extends Widget_Base {
 			return;
 		}
 
-		$label = $this->text( 'title', __( 'Products', 'decent-core' ) );
+		$label = $this->text( 'title', __( 'Products', 'pixelomatic-core' ) );
 		?>
 		<section class="section">
 			<div class="container section__inner">
@@ -142,21 +142,31 @@ final class Product_Slider extends Widget_Base {
 				while ( $query->have_posts() ) :
 					$query->the_post();
 
-					\DecentThemes\Frontend\Card::render(
+					// The slide wrapper is the widget's, the card inside it is
+					// the theme's. Swiper finds slides by `.swiper-slide` and
+					// nothing else, so a card echoed straight into the track is
+					// a track with no slides — and the theme's card template
+					// cannot carry the class, because the same card renders in
+					// grids and lists that are not sliders.
+					echo '<div class="swiper-slide pix-carousel__slide">';
+
+					\Pixelomatic\Frontend\Card::render(
 						(int) get_the_ID(),
 						array(
 							'density' => 'sm',
 							'context' => 'slider',
 						)
 					);
+
+					echo '</div>';
 				endwhile;
 
 				wp_reset_postdata();
 
 				$this->render_slider_end(
 					array(
-						'prev_label' => __( 'Previous products', 'decent-core' ),
-						'next_label' => __( 'Next products', 'decent-core' ),
+						'prev_label' => __( 'Previous products', 'pixelomatic-core' ),
+						'next_label' => __( 'Next products', 'pixelomatic-core' ),
 					)
 				);
 				?>

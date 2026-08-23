@@ -2,17 +2,17 @@
 /**
  * Statistics Counter widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -40,23 +40,23 @@ final class Stats_Counter extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls();
 		$this->end_controls_section();
 
 		// Not 'items': the repeater below is already called that, and a section
 		// shares the control stack with the controls inside it. Elementor
 		// refuses the second registration, so the repeater would never appear.
-		$this->start_controls_section( 'items_section', array( 'label' => __( 'Statistics', 'decent-core' ) ) );
+		$this->start_controls_section( 'items_section', array( 'label' => __( 'Statistics', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Title', 'decent-core' ),
+				'default'     => __( 'Title', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -64,7 +64,7 @@ final class Stats_Counter extends Widget_Base {
 		$repeater->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
 				'label_block' => true,
@@ -79,20 +79,20 @@ final class Stats_Counter extends Widget_Base {
 				'title_field' => '{{{ title }}}',
 				'default'     => array(
 					array(
-						'title' => __( '25,400+', 'decent-core' ),
-						'text'  => __( 'Customers in 80+ countries', 'decent-core' ),
+						'title' => __( '25,400+', 'pixelomatic-core' ),
+						'text'  => __( 'Customers in 80+ countries', 'pixelomatic-core' ),
 					),
 					array(
-						'title' => __( '1,240', 'decent-core' ),
-						'text'  => __( 'Reviewed products', 'decent-core' ),
+						'title' => __( '1,240', 'pixelomatic-core' ),
+						'text'  => __( 'Reviewed products', 'pixelomatic-core' ),
 					),
 					array(
-						'title' => __( '98%', 'decent-core' ),
-						'text'  => __( 'Positive reviews', 'decent-core' ),
+						'title' => __( '98%', 'pixelomatic-core' ),
+						'text'  => __( 'Positive reviews', 'pixelomatic-core' ),
 					),
 					array(
-						'title' => __( '< 4 hrs', 'decent-core' ),
-						'text'  => __( 'Median support reply', 'decent-core' ),
+						'title' => __( '< 4 hrs', 'pixelomatic-core' ),
+						'text'  => __( 'Median support reply', 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -103,22 +103,22 @@ final class Stats_Counter extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->register_grid_controls( 4 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_items', __( 'Statistics', 'decent-core' ) );
+		$this->start_style_section( 'style_items', __( 'Statistics', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'stat',
-			__( 'Item', 'decent-core' ),
+			__( 'Item', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__metrics li',
 			array( 'separator' => 'none' )
 		);
@@ -127,24 +127,24 @@ final class Stats_Counter extends Widget_Base {
 
 		$this->register_text_style(
 			'stat_title',
-			__( 'Figure', 'decent-core' ),
+			__( 'Figure', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__metrics dt'
 		);
 
 		$this->register_text_style(
 			'stat_text',
-			__( 'Label', 'decent-core' ),
+			__( 'Label', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__metrics dd',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,

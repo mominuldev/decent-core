@@ -2,15 +2,15 @@
 /**
  * Display conditions.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder\Conditions;
+namespace PixelomaticCore\Builder\Conditions;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Builder\Post_Type;
-use DecentCore\Builder\Template_Type;
+use PixelomaticCore\Builder\Post_Type;
+use PixelomaticCore\Builder\Template_Type;
 
 /**
  * Stores conditions and compiles them into one lookup table.
@@ -29,12 +29,12 @@ final class Manager {
 	/**
 	 * Option holding the compiled map.
 	 */
-	public const OPTION = 'decent_core_conditions_map';
+	public const OPTION = 'pixelomatic_core_conditions_map';
 
 	/**
 	 * Post meta holding a template's raw rules.
 	 */
-	public const META = '_decent_conditions';
+	public const META = '_pixelomatic_conditions';
 
 	/**
 	 * Attaches hooks.

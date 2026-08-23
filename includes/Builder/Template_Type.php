@@ -2,10 +2,10 @@
 /**
  * Template types.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ final class Template_Type {
 	/**
 	 * Meta key holding a template's type.
 	 */
-	public const META = '_decent_template_type';
+	public const META = '_pixelomatic_template_type';
 
 	/**
 	 * Replaces the site header.
@@ -41,9 +41,9 @@ final class Template_Type {
 	 */
 	public static function all(): array {
 		return array(
-			self::HEADER => __( 'Header', 'decent-core' ),
-			self::FOOTER => __( 'Footer', 'decent-core' ),
-			self::BLOCK  => __( 'Block', 'decent-core' ),
+			self::HEADER => __( 'Header', 'pixelomatic-core' ),
+			self::FOOTER => __( 'Footer', 'pixelomatic-core' ),
+			self::BLOCK  => __( 'Block', 'pixelomatic-core' ),
 		);
 	}
 

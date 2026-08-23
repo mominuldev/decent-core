@@ -2,17 +2,17 @@
 /**
  * Elementor integration manager.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor;
+namespace PixelomaticCore\Elementor;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Contracts\Module;
-use DecentCore\Elementor\Compat\Breakpoints;
-use DecentCore\Elementor\Compat\Icon_Library;
-use DecentCore\Elementor\Compat\Kit_Seeder;
+use PixelomaticCore\Contracts\Module;
+use PixelomaticCore\Elementor\Compat\Breakpoints;
+use PixelomaticCore\Elementor\Compat\Icon_Library;
+use PixelomaticCore\Elementor\Compat\Kit_Seeder;
 use Elementor\Elements_Manager;
 use Elementor\Widgets_Manager;
 
@@ -56,7 +56,7 @@ final class Manager implements Module {
 	 * editor panel. Two lists that disagree about where a widget sits are worse
 	 * than either one on its own.
 	 *
-	 * Labels are unprefixed. The "Decent — " prefix belongs to the editor
+	 * Labels are unprefixed. The "Pixelomatic — " prefix belongs to the editor
 	 * panel, where the category sits among every other plugin's; on our own
 	 * settings screen it is noise on all four rows.
 	 *
@@ -64,10 +64,10 @@ final class Manager implements Module {
 	 */
 	public static function categories(): array {
 		return array(
-			'decent-layout'   => __( 'Layout', 'decent-core' ),
-			'decent-products' => __( 'Products', 'decent-core' ),
-			'decent-header'   => __( 'Header & Footer', 'decent-core' ),
-			'decent-content'  => __( 'Content', 'decent-core' ),
+			'pixelomatic-layout'   => __( 'Layout', 'pixelomatic-core' ),
+			'pixelomatic-products' => __( 'Products', 'pixelomatic-core' ),
+			'pixelomatic-header'   => __( 'Header & Footer', 'pixelomatic-core' ),
+			'pixelomatic-content'  => __( 'Content', 'pixelomatic-core' ),
 		);
 	}
 
@@ -83,7 +83,7 @@ final class Manager implements Module {
 				$slug,
 				array(
 					/* translators: %s: category name, for example "Layout". */
-					'title' => sprintf( __( 'Decent — %s', 'decent-core' ), $title ),
+					'title' => sprintf( __( 'Pixelomatic — %s', 'pixelomatic-core' ), $title ),
 					'icon'  => 'eicon-elementor-square',
 				)
 			);
@@ -125,8 +125,8 @@ final class Manager implements Module {
 
 		if ( method_exists( $tags, 'register_group' ) ) {
 			$tags->register_group(
-				'decent-product',
-				array( 'title' => __( 'Decent — Product', 'decent-core' ) )
+				'pixelomatic-product',
+				array( 'title' => __( 'Pixelomatic — Product', 'pixelomatic-core' ) )
 			);
 		}
 
@@ -162,15 +162,15 @@ final class Manager implements Module {
 			foreach ( (array) ( $widget['styles'] ?? array() ) as $handle ) {
 				$path = 'assets/widgets/' . $handle . '/style.css';
 
-				if ( ! file_exists( DECENT_CORE_DIR . $path ) ) {
+				if ( ! file_exists( PIXELOMATIC_CORE_DIR . $path ) ) {
 					continue;
 				}
 
 				wp_register_style(
-					'decent-core-' . $handle,
-					DECENT_CORE_URL . $path,
+					'pixelomatic-core-' . $handle,
+					PIXELOMATIC_CORE_URL . $path,
 					$style_deps,
-					DECENT_CORE_VERSION
+					PIXELOMATIC_CORE_VERSION
 				);
 			}
 
@@ -187,15 +187,15 @@ final class Manager implements Module {
 			foreach ( (array) ( $widget['scripts'] ?? array() ) as $handle ) {
 				$path = 'assets/widgets/' . $handle . '/script.js';
 
-				if ( ! file_exists( DECENT_CORE_DIR . $path ) ) {
+				if ( ! file_exists( PIXELOMATIC_CORE_DIR . $path ) ) {
 					continue;
 				}
 
 				wp_register_script(
-					'decent-core-' . $handle,
-					DECENT_CORE_URL . $path,
+					'pixelomatic-core-' . $handle,
+					PIXELOMATIC_CORE_URL . $path,
 					$deps,
-					DECENT_CORE_VERSION,
+					PIXELOMATIC_CORE_VERSION,
 					true
 				);
 			}
@@ -223,11 +223,11 @@ final class Manager implements Module {
 	public function enqueue_editor_assets(): void {
 		foreach ( Widget_Registry::map() as $widget ) {
 			foreach ( (array) ( $widget['styles'] ?? array() ) as $handle ) {
-				wp_enqueue_style( 'decent-core-' . $handle );
+				wp_enqueue_style( 'pixelomatic-core-' . $handle );
 			}
 
 			foreach ( (array) ( $widget['scripts'] ?? array() ) as $handle ) {
-				wp_enqueue_script( 'decent-core-' . $handle );
+				wp_enqueue_script( 'pixelomatic-core-' . $handle );
 			}
 		}
 	}

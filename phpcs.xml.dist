@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Decent Core">
+<ruleset name="Pixelomatic Core">
 
 	<description>WordPress coding standards, adjusted for PSR-4 autoloading.</description>
 
@@ -37,16 +37,16 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="decent_core"/>
-				<element value="DECENT_CORE"/>
-				<element value="DecentCore"/>
+				<element value="pixelomatic_core"/>
+				<element value="PIXELOMATIC_CORE"/>
+				<element value="PixelomaticCore"/>
 			</property>
 		</properties>
 	</rule>
 
-	<!-- Hook names use slashes: decent_core/settings/saved. This matches
+	<!-- Hook names use slashes: pixelomatic_core/settings/saved. This matches
 	     Elementor, which the plugin extends, and makes a grep for
-	     "decent_core/" find every extension point and nothing else. -->
+	     "pixelomatic_core/" find every extension point and nothing else. -->
 	<rule ref="WordPress.NamingConventions.ValidHookName">
 		<properties>
 			<property name="additionalWordDelimiters" value="/"/>
@@ -56,7 +56,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="decent-core"/>
+				<element value="pixelomatic-core"/>
 			</property>
 		</properties>
 	</rule>

@@ -9,14 +9,14 @@
  * fact, which is why this runs on activation rather than being documented as
  * a manual step.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Compat;
+namespace PixelomaticCore\Elementor\Compat;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Aligns Elementor's active breakpoints with the theme's.
@@ -42,13 +42,13 @@ final class Breakpoints {
 			return;
 		}
 
-		if ( 'done' === get_option( 'decent_core_breakpoints_synced' ) ) {
+		if ( 'done' === get_option( 'pixelomatic_core_breakpoints_synced' ) ) {
 			return;
 		}
 
 		$this->sync();
 
-		update_option( 'decent_core_breakpoints_synced', 'done', false );
+		update_option( 'pixelomatic_core_breakpoints_synced', 'done', false );
 	}
 
 	/**
@@ -61,7 +61,7 @@ final class Breakpoints {
 			return false;
 		}
 
-		$tokens = require DECENT_CORE_DIR . 'config/tokens.php';
+		$tokens = require PIXELOMATIC_CORE_DIR . 'config/tokens.php';
 		$kit_id = (int) get_option( 'elementor_active_kit' );
 
 		if ( ! $kit_id ) {

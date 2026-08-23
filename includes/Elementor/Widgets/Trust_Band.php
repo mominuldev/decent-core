@@ -2,15 +2,15 @@
 /**
  * Trust Band widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -40,14 +40,14 @@ final class Trust_Band extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'eyebrow',
 			array(
-				'label'       => __( 'Eyebrow', 'decent-core' ),
+				'label'       => __( 'Eyebrow', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Trusted by agencies, startups and product teams', 'decent-core' ),
+				'default'     => __( 'Trusted by agencies, startups and product teams', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -57,9 +57,9 @@ final class Trust_Band extends Widget_Base {
 		$clients->add_control(
 			'name',
 			array(
-				'label'       => __( 'Name', 'decent-core' ),
+				'label'       => __( 'Name', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Client', 'decent-core' ),
+				'default'     => __( 'Client', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -67,7 +67,7 @@ final class Trust_Band extends Widget_Base {
 		$this->add_control(
 			'clients',
 			array(
-				'label'       => __( 'Clients', 'decent-core' ),
+				'label'       => __( 'Clients', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $clients->get_controls(),
 				'title_field' => '{{{ name }}}',
@@ -86,7 +86,7 @@ final class Trust_Band extends Widget_Base {
 		$metrics->add_control(
 			'value',
 			array(
-				'label'   => __( 'Figure', 'decent-core' ),
+				'label'   => __( 'Figure', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '25,400+',
 			)
@@ -95,9 +95,9 @@ final class Trust_Band extends Widget_Base {
 		$metrics->add_control(
 			'label',
 			array(
-				'label'       => __( 'Label', 'decent-core' ),
+				'label'       => __( 'Label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Customers', 'decent-core' ),
+				'default'     => __( 'Customers', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -105,26 +105,26 @@ final class Trust_Band extends Widget_Base {
 		$this->add_control(
 			'metrics',
 			array(
-				'label'       => __( 'Metrics', 'decent-core' ),
+				'label'       => __( 'Metrics', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $metrics->get_controls(),
 				'title_field' => '{{{ value }}}',
 				'default'     => array(
 					array(
 						'value' => '25,400+',
-						'label' => __( 'Customers in 80+ countries', 'decent-core' ),
+						'label' => __( 'Customers in 80+ countries', 'pixelomatic-core' ),
 					),
 					array(
 						'value' => '1,240',
-						'label' => __( 'Reviewed products', 'decent-core' ),
+						'label' => __( 'Reviewed products', 'pixelomatic-core' ),
 					),
 					array(
 						'value' => '98%',
-						'label' => __( 'Positive reviews', 'decent-core' ),
+						'label' => __( 'Positive reviews', 'pixelomatic-core' ),
 					),
 					array(
 						'value' => '< 4 hrs',
-						'label' => __( 'Median support reply', 'decent-core' ),
+						'label' => __( 'Median support reply', 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -132,11 +132,11 @@ final class Trust_Band extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_eyebrow', __( 'Eyebrow', 'decent-core' ) );
+		$this->start_style_section( 'style_eyebrow', __( 'Eyebrow', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'eyebrow',
-			__( 'Eyebrow', 'decent-core' ),
+			__( 'Eyebrow', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__inner .eyebrow',
 			array(
 				'separator' => 'none',
@@ -146,11 +146,11 @@ final class Trust_Band extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_clients', __( 'Clients', 'decent-core' ) );
+		$this->start_style_section( 'style_clients', __( 'Clients', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'client',
-			__( 'Client name', 'decent-core' ),
+			__( 'Client name', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__clients li',
 			array(
 				'separator' => 'none',
@@ -160,40 +160,40 @@ final class Trust_Band extends Widget_Base {
 
 		$this->register_box_style(
 			'client_box',
-			__( 'Client item', 'decent-core' ),
+			__( 'Client item', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__clients li',
 			array( 'shadow' => false )
 		);
 
-		$this->register_gap_style( 'clients_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .trust__clients', 48 );
+		$this->register_gap_style( 'clients_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .trust__clients', 48 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_metrics', __( 'Metrics', 'decent-core' ) );
+		$this->start_style_section( 'style_metrics', __( 'Metrics', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'metric_value',
-			__( 'Figure', 'decent-core' ),
+			__( 'Figure', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__metrics dt',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_text_style(
 			'metric_label',
-			__( 'Label', 'decent-core' ),
+			__( 'Label', 'pixelomatic-core' ),
 			'{{WRAPPER}} .trust__metrics dd',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'metrics_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .trust__metrics', 64 );
+		$this->register_gap_style( 'metrics_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .trust__metrics', 64 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -201,7 +201,7 @@ final class Trust_Band extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'grid_gap', __( 'Clients and metrics gap', 'decent-core' ), '{{WRAPPER}} .trust__grid', 96 );
+		$this->register_gap_style( 'grid_gap', __( 'Clients and metrics gap', 'pixelomatic-core' ), '{{WRAPPER}} .trust__grid', 96 );
 
 		$this->end_controls_section();
 	}

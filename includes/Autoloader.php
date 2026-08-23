@@ -5,22 +5,22 @@
  * Composer is a development dependency only; its vendor directory is never
  * shipped, so a site never needs `composer install` to run the plugin.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore;
+namespace PixelomaticCore;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Maps DecentCore\Foo\Bar to includes/Foo/Bar.php.
+ * Maps PixelomaticCore\Foo\Bar to includes/Foo/Bar.php.
  */
 final class Autoloader {
 
 	/**
 	 * Namespace prefix this autoloader answers for.
 	 */
-	private const PREFIX = 'DecentCore\\';
+	private const PREFIX = 'PixelomaticCore\\';
 
 	/**
 	 * Registers the autoloader with SPL.
@@ -43,12 +43,12 @@ final class Autoloader {
 		}
 
 		$relative = substr( $class_name, strlen( self::PREFIX ) );
-		$path     = DECENT_CORE_DIR . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
+		$path     = PIXELOMATIC_CORE_DIR . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
 
 		// realpath() collapses any traversal before the comparison, so a class
 		// name containing .. cannot escape includes/.
 		$real = realpath( $path );
-		$root = realpath( DECENT_CORE_DIR . 'includes' );
+		$root = realpath( PIXELOMATIC_CORE_DIR . 'includes' );
 
 		if ( false === $real || false === $root || 0 !== strpos( $real, $root ) ) {
 			return;

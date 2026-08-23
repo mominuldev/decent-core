@@ -2,17 +2,17 @@
 /**
  * Pricing Table widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -40,30 +40,30 @@ final class Pricing_Table extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'One-time price, lifetime updates', 'decent-core' ),
-			__( 'Pricing', 'decent-core' )
+			__( 'One-time price, lifetime updates', 'pixelomatic-core' ),
+			__( 'Pricing', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Plans', 'decent-core' ) ) );
+		$this->start_controls_section( 'items', array( 'label' => __( 'Plans', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'name',
 			array(
-				'label'   => __( 'Name', 'decent-core' ),
+				'label'   => __( 'Name', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Regular licence', 'decent-core' ),
+				'default' => __( 'Regular licence', 'pixelomatic-core' ),
 			)
 		);
 
 		$repeater->add_control(
 			'price',
 			array(
-				'label'   => __( 'Price', 'decent-core' ),
+				'label'   => __( 'Price', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '$59',
 			)
@@ -72,7 +72,7 @@ final class Pricing_Table extends Widget_Base {
 		$repeater->add_control(
 			'note',
 			array(
-				'label'       => __( 'Note', 'decent-core' ),
+				'label'       => __( 'Note', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 			)
@@ -81,10 +81,10 @@ final class Pricing_Table extends Widget_Base {
 		$repeater->add_control(
 			'features',
 			array(
-				'label'       => __( 'Included', 'decent-core' ),
+				'label'       => __( 'Included', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 5,
-				'description' => __( 'One per line.', 'decent-core' ),
+				'description' => __( 'One per line.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -92,16 +92,16 @@ final class Pricing_Table extends Widget_Base {
 		$repeater->add_control(
 			'button_label',
 			array(
-				'label'   => __( 'Button', 'decent-core' ),
+				'label'   => __( 'Button', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Choose', 'decent-core' ),
+				'default' => __( 'Choose', 'pixelomatic-core' ),
 			)
 		);
 
 		$repeater->add_control(
 			'button_url',
 			array(
-				'label' => __( 'Link', 'decent-core' ),
+				'label' => __( 'Link', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::URL,
 			)
 		);
@@ -109,7 +109,7 @@ final class Pricing_Table extends Widget_Base {
 		$repeater->add_control(
 			'featured',
 			array(
-				'label' => __( 'Highlight this plan', 'decent-core' ),
+				'label' => __( 'Highlight this plan', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::SWITCHER,
 			)
 		);
@@ -122,16 +122,16 @@ final class Pricing_Table extends Widget_Base {
 				'title_field' => '{{{ name }}}',
 				'default'     => array(
 					array(
-						'name'     => __( 'Regular licence', 'decent-core' ),
+						'name'     => __( 'Regular licence', 'pixelomatic-core' ),
 						'price'    => '$59',
-						'note'     => __( 'One end product you do not charge for', 'decent-core' ),
-						'features' => __( "Lifetime updates\n6 months support\nDocumentation and demo content", 'decent-core' ),
+						'note'     => __( 'One end product you do not charge for', 'pixelomatic-core' ),
+						'features' => __( "Lifetime updates\n6 months support\nDocumentation and demo content", 'pixelomatic-core' ),
 					),
 					array(
-						'name'     => __( 'Extended licence', 'decent-core' ),
+						'name'     => __( 'Extended licence', 'pixelomatic-core' ),
 						'price'    => '$295',
-						'note'     => __( 'One paid end product, plus client resale', 'decent-core' ),
-						'features' => __( "Everything in Regular\nResale rights\n12 months support", 'decent-core' ),
+						'note'     => __( 'One paid end product, plus client resale', 'pixelomatic-core' ),
+						'features' => __( "Everything in Regular\nResale rights\n12 months support", 'pixelomatic-core' ),
 						'featured' => 'yes',
 					),
 				),
@@ -143,22 +143,22 @@ final class Pricing_Table extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->register_grid_controls( 2 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Plan cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Plan cards', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card',
 			array( 'separator' => 'none' )
 		);
@@ -167,22 +167,22 @@ final class Pricing_Table extends Widget_Base {
 		// on the one card that carries both classes.
 		$this->register_box_style(
 			'card_featured',
-			__( 'Highlighted card', 'decent-core' ),
+			__( 'Highlighted card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card--featured'
 		);
 
-		$this->register_text_style( 'plan_name', __( 'Plan name', 'decent-core' ), '{{WRAPPER}} .price-card__head h3' );
+		$this->register_text_style( 'plan_name', __( 'Plan name', 'pixelomatic-core' ), '{{WRAPPER}} .price-card__head h3' );
 
 		$this->register_box_style(
 			'plan_badge',
-			__( 'Badge', 'decent-core' ),
+			__( 'Badge', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card__head .badge',
 			array( 'shadow' => false )
 		);
 
 		$this->register_text_style(
 			'plan_badge_text',
-			__( 'Badge text', 'decent-core' ),
+			__( 'Badge text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card__head .badge',
 			array(
 				'heading' => false,
@@ -192,28 +192,28 @@ final class Pricing_Table extends Widget_Base {
 
 		$this->register_text_style(
 			'plan_price',
-			__( 'Price', 'decent-core' ),
+			__( 'Price', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card__price span:first-child',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'plan_note',
-			__( 'Price note', 'decent-core' ),
+			__( 'Price note', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card__price span + span',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'plan_feature',
-			__( 'Included item', 'decent-core' ),
+			__( 'Included item', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card .tick-list li',
 			array( 'spacing' => false )
 		);
 
 		$this->register_icon_style(
 			'plan_tick',
-			__( 'Tick icon', 'decent-core' ),
+			__( 'Tick icon', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card .tick-list li svg',
 			array(
 				'svg_selector' => '{{WRAPPER}} .price-card .tick-list li svg',
@@ -223,20 +223,20 @@ final class Pricing_Table extends Widget_Base {
 
 		$this->register_gap_style(
 			'plan_feature_gap',
-			__( 'Included list gap', 'decent-core' ),
+			__( 'Included list gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .price-card .tick-list',
 			32
 		);
 
-		$this->register_button_style( 'plan_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .price-card .btn' );
+		$this->register_button_style( 'plan_button', __( 'Button', 'pixelomatic-core' ), '{{WRAPPER}} .price-card .btn' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -275,7 +275,7 @@ final class Pricing_Table extends Widget_Base {
 							<div class="price-card__head">
 								<h3><?php echo esc_html( (string) ( $plan['name'] ?? '' ) ); ?></h3>
 								<?php if ( $featured ) : ?>
-									<span class="badge badge--blue"><?php esc_html_e( 'POPULAR', 'decent-core' ); ?></span>
+									<span class="badge badge--blue"><?php esc_html_e( 'POPULAR', 'pixelomatic-core' ); ?></span>
 								<?php endif; ?>
 							</div>
 
@@ -302,7 +302,7 @@ final class Pricing_Table extends Widget_Base {
 								<a class="btn <?php echo $featured ? 'btn--primary' : 'btn--secondary'; ?> btn--block"
 									href="<?php echo esc_url( $url ); ?>"
 									<?php echo ! empty( $link['is_external'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>>
-									<?php echo esc_html( (string) ( $plan['button_label'] ?? __( 'Choose', 'decent-core' ) ) ); ?>
+									<?php echo esc_html( (string) ( $plan['button_label'] ?? __( 'Choose', 'pixelomatic-core' ) ) ); ?>
 								</a>
 							<?php endif; ?>
 						</li>

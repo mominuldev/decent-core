@@ -2,10 +2,10 @@
 /**
  * Module contract.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Contracts;
+namespace PixelomaticCore\Contracts;
 
 defined( 'ABSPATH' ) || exit;
 

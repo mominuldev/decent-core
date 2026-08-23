@@ -2,19 +2,19 @@
 /**
  * Base widget.
  *
- * Every Decent Core widget extends this. It reads the widget map so no widget
+ * Every Pixelomatic Core widget extends this. It reads the widget map so no widget
  * hand-maintains its own name, title, icon, category or asset dependencies —
  * those live in config/widgets.php and are declared once.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base;
+namespace PixelomaticCore\Elementor\Base;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Compat\Icon_Library;
-use DecentCore\Elementor\Widget_Registry;
+use PixelomaticCore\Elementor\Compat\Icon_Library;
+use PixelomaticCore\Elementor\Widget_Registry;
 use Elementor\Widget_Base as Elementor_Widget_Base;
 
 /**
@@ -47,7 +47,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-' . static::slug();
+		return 'pixelomatic-' . static::slug();
 	}
 
 	/**
@@ -74,7 +74,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * @return string[]
 	 */
 	public function get_categories() {
-		return array( (string) ( $this->definition()['category'] ?? 'decent-content' ) );
+		return array( (string) ( $this->definition()['category'] ?? 'pixelomatic-content' ) );
 	}
 
 	/**
@@ -97,7 +97,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	public function get_style_depends() {
 		return array_map(
 			static function ( string $handle ): string {
-				return 'decent-core-' . $handle;
+				return 'pixelomatic-core-' . $handle;
 			},
 			(array) ( $this->definition()['styles'] ?? array() )
 		);
@@ -111,7 +111,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	public function get_script_depends() {
 		return array_map(
 			static function ( string $handle ): string {
-				return 'decent-core-' . $handle;
+				return 'pixelomatic-core-' . $handle;
 			},
 			(array) ( $this->definition()['scripts'] ?? array() )
 		);
@@ -147,11 +147,11 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * @return void
 	 */
 	protected function icon( string $slug, int $size = 22, float $stroke = 1.6 ): void {
-		if ( ! function_exists( 'decent_icon' ) ) {
+		if ( ! function_exists( 'pixelomatic_icon' ) ) {
 			return;
 		}
 
-		decent_icon(
+		pixelomatic_icon(
 			$slug,
 			array(
 				'size'   => $size,
@@ -238,7 +238,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * These controls were selects of theme icon slugs before they were icon
 	 * pickers, so a page saved by an earlier version has a bare string where
 	 * Elementor now expects `value` and `library`. A string is exactly the
-	 * slug the Decent Icons library is keyed by, so it converts cleanly and an
+	 * slug the Pixelomatic Icons library is keyed by, so it converts cleanly and an
 	 * existing page keeps the icon it was built with — without a migration
 	 * step, and without a second control kept around to hold the old value.
 	 *
@@ -349,8 +349,8 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * @return array<string, string>
 	 */
 	protected static function icon_options(): array {
-		$slugs = class_exists( '\\DecentThemes\\Frontend\\Icons' )
-			? \DecentThemes\Frontend\Icons::slugs()
+		$slugs = class_exists( '\\Pixelomatic\\Frontend\\Icons' )
+			? \Pixelomatic\Frontend\Icons::slugs()
 			: array( 'check', 'star', 'shield', 'refresh', 'file-text', 'bolt', 'tag', 'cart' );
 
 		$options = array();

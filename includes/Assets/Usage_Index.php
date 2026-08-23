@@ -2,17 +2,17 @@
 /**
  * Widget usage index.
  *
- * Records which Decent widgets a document uses, once, when it is saved.
+ * Records which Pixelomatic widgets a document uses, once, when it is saved.
  *
  * The alternative — working it out on the front end — means parsing
  * _elementor_data on every request, which is the thing the bundle is supposed
  * to be saving. Computing it at save time costs one walk per edit and turns
  * the front-end question into a single meta read.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Assets;
+namespace PixelomaticCore\Assets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,7 +24,7 @@ final class Usage_Index {
 	/**
 	 * Post meta key.
 	 */
-	public const META = '_decent_widgets';
+	public const META = '_pixelomatic_widgets';
 
 	/**
 	 * Attaches hooks.
@@ -141,7 +141,7 @@ final class Usage_Index {
 	}
 
 	/**
-	 * Walks a document's data and collects Decent widget slugs.
+	 * Walks a document's data and collects Pixelomatic widget slugs.
 	 *
 	 * @param int $post_id Post ID.
 	 * @return string[] Sorted, unique slugs.
@@ -184,8 +184,8 @@ final class Usage_Index {
 
 			$type = (string) ( $element['widgetType'] ?? '' );
 
-			if ( 0 === strpos( $type, 'decent-' ) ) {
-				$found[] = substr( $type, strlen( 'decent-' ) );
+			if ( 0 === strpos( $type, 'pixelomatic-' ) ) {
+				$found[] = substr( $type, strlen( 'pixelomatic-' ) );
 			}
 
 			if ( ! empty( $element['elements'] ) && is_array( $element['elements'] ) ) {

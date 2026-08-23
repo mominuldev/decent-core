@@ -169,7 +169,7 @@
 
   $(window).on('elementor/frontend/init', function () {
     elementorFrontend.hooks.addAction(
-      'frontend/element_ready/decent-product-grid.default',
+      'frontend/element_ready/pixelomatic-product-grid.default',
       function ($scope) {
         var section = $scope[0].querySelector('[data-product-grid]');
         if (section) init(section);

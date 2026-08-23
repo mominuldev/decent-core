@@ -2,19 +2,19 @@
 /**
  * WP-CLI commands.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Cli;
+namespace PixelomaticCore\Cli;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Compat\Breakpoints;
-use DecentCore\Elementor\Compat\Kit_Seeder;
+use PixelomaticCore\Elementor\Compat\Breakpoints;
+use PixelomaticCore\Elementor\Compat\Kit_Seeder;
 use WP_CLI;
 
 /**
- * `wp decent-core <command>`
+ * `wp pixelomatic-core <command>`
  */
 final class Commands {
 
@@ -28,8 +28,8 @@ final class Commands {
 			return;
 		}
 
-		WP_CLI::add_command( 'decent-core tokens', array( __CLASS__, 'tokens' ) );
-		WP_CLI::add_command( 'decent-core kit', array( __CLASS__, 'kit' ) );
+		WP_CLI::add_command( 'pixelomatic-core tokens', array( __CLASS__, 'tokens' ) );
+		WP_CLI::add_command( 'pixelomatic-core kit', array( __CLASS__, 'kit' ) );
 	}
 
 	/**
@@ -42,14 +42,14 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp decent-core tokens verify
+	 *     wp pixelomatic-core tokens verify
 	 *
 	 * @param string[] $args Positional arguments.
 	 * @return void
 	 */
 	public static function tokens( array $args ): void {
 		if ( 'verify' !== ( $args[0] ?? '' ) ) {
-			WP_CLI::error( 'Usage: wp decent-core tokens verify' );
+			WP_CLI::error( 'Usage: wp pixelomatic-core tokens verify' );
 		}
 
 		$css = get_template_directory() . '/assets/css/base.css';
@@ -59,7 +59,7 @@ final class Commands {
 		}
 
 		$source = (string) file_get_contents( $css ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local theme file.
-		$tokens = require DECENT_CORE_DIR . 'config/tokens.php';
+		$tokens = require PIXELOMATIC_CORE_DIR . 'config/tokens.php';
 
 		// Map the mirror's slugs onto the custom property names in base.css.
 		$map = array(
@@ -107,14 +107,14 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp decent-core kit seed
+	 *     wp pixelomatic-core kit seed
 	 *
 	 * @param string[] $args Positional arguments.
 	 * @return void
 	 */
 	public static function kit( array $args ): void {
 		if ( 'seed' !== ( $args[0] ?? '' ) ) {
-			WP_CLI::error( 'Usage: wp decent-core kit seed' );
+			WP_CLI::error( 'Usage: wp pixelomatic-core kit seed' );
 		}
 
 		$seeded = ( new Kit_Seeder() )->seed();

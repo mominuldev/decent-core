@@ -2,10 +2,10 @@
 /**
  * Dynamic tag base.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ abstract class Base_Tag extends Tag {
 	 * @return string
 	 */
 	public function get_group() {
-		return 'decent-product';
+		return 'pixelomatic-product';
 	}
 
 	/**

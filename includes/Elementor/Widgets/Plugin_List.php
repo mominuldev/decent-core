@@ -2,17 +2,17 @@
 /**
  * Plugin List widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Query_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Query_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 
 /**
  * Products as wide rows: icon, body, price aside.
@@ -42,74 +42,74 @@ final class Plugin_List extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'The plugins we maintain in-house', 'decent-core' ),
-			__( 'Our plugins', 'decent-core' )
+			__( 'The plugins we maintain in-house', 'pixelomatic-core' ),
+			__( 'Our plugins', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'decent-core' ) ) );
+		$this->start_controls_section( 'query', array( 'label' => __( 'Products', 'pixelomatic-core' ) ) );
 		$this->register_query_controls( 4 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_rows', __( 'Rows', 'decent-core' ) );
+		$this->start_style_section( 'style_rows', __( 'Rows', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'row',
-			__( 'Row', 'decent-core' ),
+			__( 'Row', 'pixelomatic-core' ),
 			'{{WRAPPER}} .plugin-item',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_icon_style( 'row_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .plugin-item__icon' );
+		$this->register_icon_style( 'row_icon', __( 'Icon', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item__icon' );
 
-		$this->register_text_style( 'row_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .plugin-item__body h3' );
+		$this->register_text_style( 'row_title', __( 'Title', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item__body h3' );
 
-		$this->register_link_style( 'row_title_link', __( 'Title link', 'decent-core' ), '{{WRAPPER}} .plugin-item__body h3 a' );
+		$this->register_link_style( 'row_title_link', __( 'Title link', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item__body h3 a' );
 
-		$this->register_text_style( 'row_text', __( 'Description', 'decent-core' ), '{{WRAPPER}} .plugin-item__body > p' );
+		$this->register_text_style( 'row_text', __( 'Description', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item__body > p' );
 
 		$this->register_text_style(
 			'row_rating',
-			__( 'Rating line', 'decent-core' ),
+			__( 'Rating line', 'pixelomatic-core' ),
 			'{{WRAPPER}} .plugin-item .rating-line',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'row_stars',
-			__( 'Stars', 'decent-core' ),
+			__( 'Stars', 'pixelomatic-core' ),
 			'{{WRAPPER}} .plugin-item .stars',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'row_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .plugin-item', 48 );
+		$this->register_gap_style( 'row_gap', __( 'Column gap', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item', 48 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_aside', __( 'Price and button', 'decent-core' ) );
+		$this->start_style_section( 'style_aside', __( 'Price and button', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'row_price',
-			__( 'Price', 'decent-core' ),
+			__( 'Price', 'pixelomatic-core' ),
 			'{{WRAPPER}} .plugin-item__price',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_button_style( 'row_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .plugin-item__aside .btn' );
+		$this->register_button_style( 'row_button', __( 'Button', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-item__aside .btn' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -117,7 +117,7 @@ final class Plugin_List extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'list_gap', __( 'Gap between rows', 'decent-core' ), '{{WRAPPER}} .plugin-list', 48 );
+		$this->register_gap_style( 'list_gap', __( 'Gap between rows', 'pixelomatic-core' ), '{{WRAPPER}} .plugin-list', 48 );
 
 		$this->end_controls_section();
 	}
@@ -154,7 +154,7 @@ final class Plugin_List extends Widget_Base {
 			return;
 		}
 
-		$has_card = class_exists( '\DecentThemes\Frontend\Card' );
+		$has_card = class_exists( '\Pixelomatic\Frontend\Card' );
 		?>
 		<section class="section">
 			<div class="container section__inner section__inner--tight">
@@ -167,7 +167,7 @@ final class Plugin_List extends Widget_Base {
 
 						$id     = (int) get_the_ID();
 						$rating = $has_card
-							? \DecentThemes\Frontend\Card::rating( $id )
+							? \Pixelomatic\Frontend\Card::rating( $id )
 							: array(
 								'average' => 0.0,
 								'count'   => 0,
@@ -177,7 +177,7 @@ final class Plugin_List extends Widget_Base {
 						// blue/green/yellow. An unmapped value produces a class
 						// that does not exist, which renders as a white icon on
 						// a white tile: invisible, and silent.
-						$accent = $has_card ? self::icon_accent( \DecentThemes\Frontend\Card::type( $id )['accent'] ) : 'brand';
+						$accent = $has_card ? self::icon_accent( \Pixelomatic\Frontend\Card::type( $id )['accent'] ) : 'brand';
 						?>
 						<li class="plugin-item">
 							<span class="plugin-item__icon <?php echo esc_attr( 'plugin-item__icon--' . $accent ); ?>">
@@ -192,14 +192,14 @@ final class Plugin_List extends Widget_Base {
 								<?php if ( $has_card && $rating['count'] > 0 ) : ?>
 									<p class="rating-line">
 										<span class="stars" aria-hidden="true">
-											<?php echo esc_html( \DecentThemes\Frontend\Card::stars( $rating['average'] ) ); ?>
+											<?php echo esc_html( \Pixelomatic\Frontend\Card::stars( $rating['average'] ) ); ?>
 										</span>
 										<strong><?php echo esc_html( number_format_i18n( $rating['average'], 1 ) ); ?></strong>
 										<span>
 											<?php
 											printf(
 												/* translators: %s: review count. */
-												esc_html( _n( '(%s review)', '(%s reviews)', $rating['count'], 'decent-core' ) ),
+												esc_html( _n( '(%s review)', '(%s reviews)', $rating['count'], 'pixelomatic-core' ) ),
 												esc_html( number_format_i18n( $rating['count'] ) )
 											);
 											?>
@@ -211,13 +211,13 @@ final class Plugin_List extends Widget_Base {
 							<div class="plugin-item__aside">
 								<?php if ( function_exists( 'edd_currency_filter' ) ) : ?>
 									<p class="plugin-item__price">
-										<?php esc_html_e( 'From', 'decent-core' ); ?>
-										<strong><?php echo esc_html( (string) edd_currency_filter( edd_format_amount( (float) get_post_meta( $id, '_decent_price_min', true ) ) ) ); ?></strong>
+										<?php esc_html_e( 'From', 'pixelomatic-core' ); ?>
+										<strong><?php echo esc_html( (string) edd_currency_filter( edd_format_amount( (float) get_post_meta( $id, '_pixelomatic_price_min', true ) ) ) ); ?></strong>
 									</p>
 								<?php endif; ?>
 
 								<a class="btn btn--primary btn--sm" href="<?php the_permalink(); ?>">
-									<?php esc_html_e( 'View product', 'decent-core' ); ?>
+									<?php esc_html_e( 'View product', 'pixelomatic-core' ); ?>
 								</a>
 							</div>
 						</li>

@@ -1,8 +1,8 @@
 {
-  "name": "decent-core",
+  "name": "pixelomatic-core",
   "version": "1.0.0-alpha",
   "private": true,
-  "description": "Build pipeline for Decent Core: widget SCSS/JS via Gulp, and the React + Tailwind admin app via esbuild.",
+  "description": "Build pipeline for Pixelomatic Core: widget SCSS/JS via Gulp, and the React + Tailwind admin app via esbuild.",
   "license": "GPL-2.0-or-later",
   "scripts": {
     "build": "gulp build",

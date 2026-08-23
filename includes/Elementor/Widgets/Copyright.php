@@ -2,15 +2,15 @@
 /**
  * Copyright widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -35,26 +35,26 @@ final class Copyright extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Copyright', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Copyright', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( '&copy; {year} {site}. All rights reserved.', 'decent-core' ),
-				'description' => __( '{year} and {site} are replaced when the page renders, so a hard-coded year cannot go stale in January.', 'decent-core' ),
+				'default'     => __( '&copy; {year} {site}. All rights reserved.', 'pixelomatic-core' ),
+				'description' => __( '{year} and {site} are replaced when the page renders, so a hard-coded year cannot go stale in January.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_text', __( 'Copyright', 'decent-core' ) );
+		$this->start_style_section( 'style_text', __( 'Copyright', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'copyright',
-			__( 'Text', 'decent-core' ),
+			__( 'Text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .footer-copyright',
 			array(
 				'separator' => 'none',
@@ -64,11 +64,11 @@ final class Copyright extends Widget_Base {
 		);
 
 		// The text runs through wp_kses_post, so it may carry a link.
-		$this->register_link_style( 'copyright_link', __( 'Links', 'decent-core' ), '{{WRAPPER}} .footer-copyright a' );
+		$this->register_link_style( 'copyright_link', __( 'Links', 'pixelomatic-core' ), '{{WRAPPER}} .footer-copyright a' );
 
 		$this->register_box_style(
 			'copyright_box',
-			__( 'Box', 'decent-core' ),
+			__( 'Box', 'pixelomatic-core' ),
 			'{{WRAPPER}} .footer-copyright',
 			array(
 				'shadow' => false,

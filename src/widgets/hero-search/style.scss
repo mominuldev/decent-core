@@ -9,16 +9,16 @@
 // chips and the three-part visual — plus the small number of theme values
 // this particular hero moves off (a heavier headline, a taller browser
 // frame). Every one of those overrides is scoped to
-// .elementor-widget-decent-hero-search, so the theme's own hero on the front
+// .elementor-widget-pixelomatic-hero-search, so the theme's own hero on the front
 // page is untouched.
 //
 // Breakpoints are the theme's fixed ladder — 1180 / 1024 / 900 / 768 / 560 —
 // written out as raw max-width queries because gulp compiles each widget
 // stylesheet on its own and the theme's bp() mixin is not in scope here.
 
-.elementor-widget-decent-hero-search {
-  --decent-chip: 66px;
-  --decent-avatar: 34px;
+.elementor-widget-pixelomatic-hero-search {
+  --pixelomatic-chip: 66px;
+  --pixelomatic-avatar: 34px;
 
   // The widget can be dropped into a narrow column, where the theme's centred
   // 720px search bar would overflow its container.
@@ -165,8 +165,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--decent-avatar);
-    height: var(--decent-avatar);
+    width: var(--pixelomatic-avatar);
+    height: var(--pixelomatic-avatar);
     border: 2px solid var(--white);
     border-radius: var(--radius-pill);
     overflow: hidden;
@@ -234,8 +234,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--decent-chip);
-    height: var(--decent-chip);
+    width: var(--pixelomatic-chip);
+    height: var(--pixelomatic-chip);
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 19px;
@@ -291,7 +291,7 @@
 
   .pix-hero__preview {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 900px;
     margin-inline: auto;
     border-radius: 18px;
@@ -306,7 +306,7 @@
     // this only moves the number the theme picked for a 440px hero slot to
     // the taller one the design draws.
     .media-frame {
-      height: clamp(280px, 41vw, 596px);
+      height: clamp(280px, 41vw, 487px);
     }
   }
 
@@ -439,7 +439,7 @@
   /* --------------------------------------------------------- 1180 and in */
 
   @media (max-width: 1180px) {
-    --decent-chip: 58px;
+    --pixelomatic-chip: 58px;
 
     // The container has run out of the margin the desktop offsets hang in, so
     // everything that overhung it comes back inside the viewport rather than
@@ -600,7 +600,7 @@
   /* ---------------------------------------------------------- 560 and in */
 
   @media (max-width: 560px) {
-    --decent-avatar: 30px;
+    --pixelomatic-avatar: 30px;
 
     // The design drops the glyphs at this width and keeps the score, which is
     // the same information in a third of the room. They were decorative — the
@@ -627,12 +627,13 @@
 // The theme's hero band clips its decorative layers, and the floating chips
 // sit outside the container by design — so they are clipped with them rather
 // than widening the page.
-.elementor-widget-decent-hero-search .hero--search {
+.elementor-widget-pixelomatic-hero-search .hero--search {
   overflow: hidden;
+
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .elementor-widget-decent-hero-search .pix-hero__announce-arrow {
+  .elementor-widget-pixelomatic-hero-search .pix-hero__announce-arrow {
     transition: none;
   }
 }

@@ -2,16 +2,16 @@
 /**
  * Showcase widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -42,23 +42,23 @@ final class Showcase extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'Built for the stack you work in', 'decent-core' ),
-			__( 'Product showcase', 'decent-core' )
+			__( 'Built for the stack you work in', 'pixelomatic-core' ),
+			__( 'Product showcase', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Rows', 'decent-core' ) ) );
+		$this->start_controls_section( 'items', array( 'label' => __( 'Rows', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'count',
 			array(
-				'label'       => __( 'Count label', 'decent-core' ),
+				'label'       => __( 'Count label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( '418 PRODUCTS', 'decent-core' ),
+				'default'     => __( '418 PRODUCTS', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -66,9 +66,9 @@ final class Showcase extends Widget_Base {
 		$repeater->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Themes that survive a real content team', 'decent-core' ),
+				'default'     => __( 'Themes that survive a real content team', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -76,7 +76,7 @@ final class Showcase extends Widget_Base {
 		$repeater->add_control(
 			'body',
 			array(
-				'label'       => __( 'Body', 'decent-core' ),
+				'label'       => __( 'Body', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
 				'label_block' => true,
@@ -86,10 +86,10 @@ final class Showcase extends Widget_Base {
 		$repeater->add_control(
 			'points',
 			array(
-				'label'       => __( 'Tick list', 'decent-core' ),
+				'label'       => __( 'Tick list', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
-				'description' => __( 'One per line.', 'decent-core' ),
+				'description' => __( 'One per line.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -97,7 +97,7 @@ final class Showcase extends Widget_Base {
 		$repeater->add_control(
 			'image',
 			array(
-				'label' => __( 'Image', 'decent-core' ),
+				'label' => __( 'Image', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::MEDIA,
 			)
 		);
@@ -110,10 +110,10 @@ final class Showcase extends Widget_Base {
 				'title_field' => '{{{ title }}}',
 				'default'     => array(
 					array(
-						'count'  => __( '418 PRODUCTS', 'decent-core' ),
-						'title'  => __( 'Themes that survive a real content team', 'decent-core' ),
-						'body'   => __( 'Block-native themes built on current WordPress standards: full site editing, patterns, WP-CLI friendly builds and no page-builder lock-in.', 'decent-core' ),
-						'points' => __( "Block patterns and theme.json variations included\nChild theme and demo content in every download\nTested against the current and previous major release", 'decent-core' ),
+						'count'  => __( '418 PRODUCTS', 'pixelomatic-core' ),
+						'title'  => __( 'Themes that survive a real content team', 'pixelomatic-core' ),
+						'body'   => __( 'Block-native themes built on current WordPress standards: full site editing, patterns, WP-CLI friendly builds and no page-builder lock-in.', 'pixelomatic-core' ),
+						'points' => __( "Block patterns and theme.json variations included\nChild theme and demo content in every download\nTested against the current and previous major release", 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -121,33 +121,33 @@ final class Showcase extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_rows', __( 'Rows', 'decent-core' ) );
+		$this->start_style_section( 'style_rows', __( 'Rows', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'row_count',
-			__( 'Count label', 'decent-core' ),
+			__( 'Count label', 'pixelomatic-core' ),
 			'{{WRAPPER}} .showcase__count',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'row_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .showcase__title' );
+		$this->register_text_style( 'row_title', __( 'Title', 'pixelomatic-core' ), '{{WRAPPER}} .showcase__title' );
 
-		$this->register_text_style( 'row_body', __( 'Body', 'decent-core' ), '{{WRAPPER}} .showcase__body' );
+		$this->register_text_style( 'row_body', __( 'Body', 'pixelomatic-core' ), '{{WRAPPER}} .showcase__body' );
 
 		$this->register_text_style(
 			'row_point',
-			__( 'Tick list item', 'decent-core' ),
+			__( 'Tick list item', 'pixelomatic-core' ),
 			'{{WRAPPER}} .showcase__points li',
 			array( 'spacing' => false )
 		);
 
 		$this->register_icon_style(
 			'row_tick',
-			__( 'Tick icon', 'decent-core' ),
+			__( 'Tick icon', 'pixelomatic-core' ),
 			'{{WRAPPER}} .showcase__points li svg',
 			array(
 				'svg_selector' => '{{WRAPPER}} .showcase__points li svg',
@@ -155,15 +155,15 @@ final class Showcase extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'points_gap', __( 'Tick list gap', 'decent-core' ), '{{WRAPPER}} .showcase__points', 32 );
+		$this->register_gap_style( 'points_gap', __( 'Tick list gap', 'pixelomatic-core' ), '{{WRAPPER}} .showcase__points', 32 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_layout', __( 'Layout', 'decent-core' ) );
+		$this->start_style_section( 'style_layout', __( 'Layout', 'pixelomatic-core' ) );
 
 		$this->register_gap_style(
 			'row_gap',
-			__( 'Text and image gap', 'decent-core' ),
+			__( 'Text and image gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .showcase',
 			96
 		);
@@ -171,7 +171,7 @@ final class Showcase extends Widget_Base {
 		$this->add_responsive_control(
 			'row_spacing',
 			array(
-				'label'      => __( 'Space between rows', 'decent-core' ),
+				'label'      => __( 'Space between rows', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -190,7 +190,7 @@ final class Showcase extends Widget_Base {
 		$this->add_responsive_control(
 			'image_radius',
 			array(
-				'label'      => __( 'Image radius', 'decent-core' ),
+				'label'      => __( 'Image radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -201,7 +201,7 @@ final class Showcase extends Widget_Base {
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array( 'shadow' => false )
 		);
@@ -259,8 +259,8 @@ final class Showcase extends Widget_Base {
 
 						<div>
 							<?php
-							if ( ! empty( $image['id'] ) && class_exists( '\DecentThemes\Frontend\Media' ) ) {
-								\DecentThemes\Frontend\Media::render(
+							if ( ! empty( $image['id'] ) && class_exists( '\Pixelomatic\Frontend\Media' ) ) {
+								\Pixelomatic\Frontend\Media::render(
 									(int) $image['id'],
 									array( 'frame' => 'lg' )
 								);

@@ -2,15 +2,15 @@
 /**
  * Promo Card widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -35,12 +35,12 @@ final class Promo_Card extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'icon',
 			array(
-				'label'   => __( 'Icon', 'decent-core' ),
+				'label'   => __( 'Icon', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'tag',
 				'options' => self::icon_options(),
@@ -50,9 +50,9 @@ final class Promo_Card extends Widget_Base {
 		$this->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Bundle and save 40%', 'decent-core' ),
+				'default'     => __( 'Bundle and save 40%', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -60,7 +60,7 @@ final class Promo_Card extends Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
 				'label_block' => true,
@@ -70,16 +70,16 @@ final class Promo_Card extends Widget_Base {
 		$this->add_control(
 			'button_label',
 			array(
-				'label'   => __( 'Button label', 'decent-core' ),
+				'label'   => __( 'Button label', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'See the bundle', 'decent-core' ),
+				'default' => __( 'See the bundle', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'button_url',
 			array(
-				'label'       => __( 'Button link', 'decent-core' ),
+				'label'       => __( 'Button link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 			)
@@ -88,23 +88,23 @@ final class Promo_Card extends Widget_Base {
 		$this->add_control(
 			'variant',
 			array(
-				'label'   => __( 'Variant', 'decent-core' ),
+				'label'   => __( 'Variant', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'light',
 				'options' => array(
-					'light' => __( 'Light', 'decent-core' ),
-					'dark'  => __( 'Dark', 'decent-core' ),
+					'light' => __( 'Light', 'pixelomatic-core' ),
+					'dark'  => __( 'Dark', 'pixelomatic-core' ),
 				),
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Card', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Card', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'promo',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .promo',
 			array( 'separator' => 'none' )
 		);
@@ -113,7 +113,7 @@ final class Promo_Card extends Widget_Base {
 
 		$this->register_icon_style(
 			'promo_icon',
-			__( 'Icon', 'decent-core' ),
+			__( 'Icon', 'pixelomatic-core' ),
 			'{{WRAPPER}} .promo > svg',
 			array(
 				'svg_selector' => '{{WRAPPER}} .promo > svg',
@@ -121,11 +121,11 @@ final class Promo_Card extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'promo_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .promo h3' );
+		$this->register_text_style( 'promo_title', __( 'Title', 'pixelomatic-core' ), '{{WRAPPER}} .promo h3' );
 
-		$this->register_text_style( 'promo_text', __( 'Text', 'decent-core' ), '{{WRAPPER}} .promo p' );
+		$this->register_text_style( 'promo_text', __( 'Text', 'pixelomatic-core' ), '{{WRAPPER}} .promo p' );
 
-		$this->register_button_style( 'promo_button', __( 'Button', 'decent-core' ), '{{WRAPPER}} .promo .btn' );
+		$this->register_button_style( 'promo_button', __( 'Button', 'pixelomatic-core' ), '{{WRAPPER}} .promo .btn' );
 
 		$this->end_controls_section();
 	}

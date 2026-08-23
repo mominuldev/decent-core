@@ -6,22 +6,22 @@
  * directory, with a fixed extension. No segment is ever caller-supplied, so
  * traversal is structurally impossible rather than merely guarded against.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Assets;
+namespace PixelomaticCore\Assets;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Reads and writes bundles under uploads/decent-core/.
+ * Reads and writes bundles under uploads/pixelomatic-core/.
  */
 final class Filesystem {
 
 	/**
 	 * Directory name inside uploads.
 	 */
-	private const DIR = 'decent-core';
+	private const DIR = 'pixelomatic-core';
 
 	/**
 	 * Cached writability result for this request.

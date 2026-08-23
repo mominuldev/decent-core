@@ -2,17 +2,17 @@
 /**
  * Category Grid widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -42,19 +42,19 @@ final class Category_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'Find the right stack, fast', 'decent-core' ),
-			__( 'Categories', 'decent-core' )
+			__( 'Find the right stack, fast', 'pixelomatic-core' ),
+			__( 'Categories', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'query', array( 'label' => __( 'Categories', 'decent-core' ) ) );
+		$this->start_controls_section( 'query', array( 'label' => __( 'Categories', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'count',
 			array(
-				'label'   => __( 'How many', 'decent-core' ),
+				'label'   => __( 'How many', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 8,
 				'min'     => 1,
@@ -65,12 +65,12 @@ final class Category_Grid extends Widget_Base {
 		$this->add_control(
 			'style',
 			array(
-				'label'   => __( 'Style', 'decent-core' ),
+				'label'   => __( 'Style', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'card',
 				'options' => array(
-					'card'  => __( 'Cards', 'decent-core' ),
-					'strip' => __( 'Compact strip', 'decent-core' ),
+					'card'  => __( 'Cards', 'pixelomatic-core' ),
+					'strip' => __( 'Compact strip', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -80,14 +80,14 @@ final class Category_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->register_grid_controls( 4 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
@@ -96,70 +96,70 @@ final class Category_Grid extends Widget_Base {
 		// mean half the panel silently does nothing.
 		$this->start_style_section(
 			'style_cards',
-			__( 'Cards', 'decent-core' ),
+			__( 'Cards', 'pixelomatic-core' ),
 			array( 'condition' => array( 'style' => 'card' ) )
 		);
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .category-card',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_icon_style( 'card_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .category-card__icon' );
+		$this->register_icon_style( 'card_icon', __( 'Icon', 'pixelomatic-core' ), '{{WRAPPER}} .category-card__icon' );
 
-		$this->register_text_style( 'card_title', __( 'Name', 'decent-core' ), '{{WRAPPER}} .category-card h3' );
+		$this->register_text_style( 'card_title', __( 'Name', 'pixelomatic-core' ), '{{WRAPPER}} .category-card h3' );
 
-		$this->register_text_style( 'card_text', __( 'Blurb', 'decent-core' ), '{{WRAPPER}} .category-card > p' );
+		$this->register_text_style( 'card_text', __( 'Blurb', 'pixelomatic-core' ), '{{WRAPPER}} .category-card > p' );
 
 		$this->register_text_style(
 			'card_meta',
-			__( 'Product count', 'decent-core' ),
+			__( 'Product count', 'pixelomatic-core' ),
 			'{{WRAPPER}} .category-card__foot .meta',
 			array( 'spacing' => false )
 		);
 
-		$this->register_link_style( 'card_link', __( 'Browse link', 'decent-core' ), '{{WRAPPER}} .category-card .link-arrow' );
+		$this->register_link_style( 'card_link', __( 'Browse link', 'pixelomatic-core' ), '{{WRAPPER}} .category-card .link-arrow' );
 
 		$this->end_controls_section();
 
 		$this->start_style_section(
 			'style_strip',
-			__( 'Compact strip', 'decent-core' ),
+			__( 'Compact strip', 'pixelomatic-core' ),
 			array( 'condition' => array( 'style' => 'strip' ) )
 		);
 
 		$this->register_box_style(
 			'strip',
-			__( 'Item', 'decent-core' ),
+			__( 'Item', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cat-strip__item a',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_icon_style( 'strip_icon', __( 'Icon', 'decent-core' ), '{{WRAPPER}} .cat-strip__icon' );
+		$this->register_icon_style( 'strip_icon', __( 'Icon', 'pixelomatic-core' ), '{{WRAPPER}} .cat-strip__icon' );
 
 		$this->register_text_style(
 			'strip_title',
-			__( 'Name', 'decent-core' ),
+			__( 'Name', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cat-strip__item h3',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'strip_meta',
-			__( 'Product count', 'decent-core' ),
+			__( 'Product count', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cat-strip__item .meta',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -205,11 +205,11 @@ final class Category_Grid extends Widget_Base {
 				<ul class="<?php echo $strip ? 'cat-strip' : 'category-grid'; ?> pix-grid">
 					<?php foreach ( $terms as $term ) : ?>
 						<?php
-						$accent = (string) get_term_meta( $term->term_id, '_decent_cat_accent', true );
+						$accent = (string) get_term_meta( $term->term_id, '_pixelomatic_cat_accent', true );
 						$accent = in_array( $accent, array( 'blue', 'blue-dark', 'green', 'yellow', 'red', 'gray' ), true ) ? $accent : 'blue';
-						$icon   = (string) get_term_meta( $term->term_id, '_decent_cat_icon', true );
+						$icon   = (string) get_term_meta( $term->term_id, '_pixelomatic_cat_icon', true );
 						$icon   = '' !== $icon ? $icon : 'window';
-						$blurb  = (string) get_term_meta( $term->term_id, '_decent_cat_blurb', true );
+						$blurb  = (string) get_term_meta( $term->term_id, '_pixelomatic_cat_blurb', true );
 						?>
 						<?php $link = (string) get_term_link( $term ); ?>
 
@@ -225,7 +225,7 @@ final class Category_Grid extends Widget_Base {
 										<?php
 										printf(
 											/* translators: %s: product count. */
-											esc_html( _n( '%s PRODUCT', '%s PRODUCTS', (int) $term->count, 'decent-core' ) ),
+											esc_html( _n( '%s PRODUCT', '%s PRODUCTS', (int) $term->count, 'pixelomatic-core' ) ),
 											esc_html( number_format_i18n( (int) $term->count ) )
 										);
 										?>
@@ -249,13 +249,13 @@ final class Category_Grid extends Widget_Base {
 										<?php
 										printf(
 											/* translators: %s: product count. */
-											esc_html( _n( '%s product', '%s products', (int) $term->count, 'decent-core' ) ),
+											esc_html( _n( '%s product', '%s products', (int) $term->count, 'pixelomatic-core' ) ),
 											esc_html( number_format_i18n( (int) $term->count ) )
 										);
 										?>
 									</span>
 									<a class="link-arrow" href="<?php echo esc_url( $link ); ?>">
-										<?php esc_html_e( 'Browse', 'decent-core' ); ?>
+										<?php esc_html_e( 'Browse', 'pixelomatic-core' ); ?>
 									</a>
 								</div>
 							</li>

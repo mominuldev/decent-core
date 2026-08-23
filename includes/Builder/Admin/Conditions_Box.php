@@ -2,17 +2,17 @@
 /**
  * Conditions metabox.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder\Admin;
+namespace PixelomaticCore\Builder\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Builder\Conditions\Manager;
-use DecentCore\Builder\Conditions\Specificity;
-use DecentCore\Builder\Post_Type;
-use DecentCore\Builder\Template_Type;
+use PixelomaticCore\Builder\Conditions\Manager;
+use PixelomaticCore\Builder\Conditions\Specificity;
+use PixelomaticCore\Builder\Post_Type;
+use PixelomaticCore\Builder\Template_Type;
 
 /**
  * Where a template applies, and what type it is.
@@ -22,7 +22,7 @@ final class Conditions_Box {
 	/**
 	 * Nonce action.
 	 */
-	private const NONCE = 'decent_core_conditions';
+	private const NONCE = 'pixelomatic_core_conditions';
 
 	/**
 	 * Attaches hooks.
@@ -43,8 +43,8 @@ final class Conditions_Box {
 	 */
 	public function add_box(): void {
 		add_meta_box(
-			'decent-core-conditions',
-			__( 'Type and display conditions', 'decent-core' ),
+			'pixelomatic-core-conditions',
+			__( 'Type and display conditions', 'pixelomatic-core' ),
 			array( $this, 'render' ),
 			Post_Type::NAME,
 			'side',
@@ -65,8 +65,8 @@ final class Conditions_Box {
 		$rules = Manager::rules_for( (int) $post->ID );
 		?>
 		<p>
-			<label for="decent-template-type"><strong><?php esc_html_e( 'Type', 'decent-core' ); ?></strong></label><br>
-			<select class="widefat" id="decent-template-type" name="decent_template_type">
+			<label for="pixelomatic-template-type"><strong><?php esc_html_e( 'Type', 'pixelomatic-core' ); ?></strong></label><br>
+			<select class="widefat" id="pixelomatic-template-type" name="pixelomatic_template_type">
 				<?php foreach ( Template_Type::all() as $value => $label ) : ?>
 					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $type, $value ); ?>>
 						<?php echo esc_html( $label ); ?>
@@ -76,9 +76,9 @@ final class Conditions_Box {
 		</p>
 
 		<p>
-			<strong><?php esc_html_e( 'Show on', 'decent-core' ); ?></strong><br>
+			<strong><?php esc_html_e( 'Show on', 'pixelomatic-core' ); ?></strong><br>
 			<span class="description">
-				<?php esc_html_e( 'A template with no rules applies nowhere, so a half-finished header cannot take over the site the moment it is published.', 'decent-core' ); ?>
+				<?php esc_html_e( 'A template with no rules applies nowhere, so a half-finished header cannot take over the site the moment it is published.', 'pixelomatic-core' ); ?>
 			</span>
 		</p>
 
@@ -89,7 +89,7 @@ final class Conditions_Box {
 				<li>
 					<label>
 						<input type="checkbox"
-							name="decent_conditions[]"
+							name="pixelomatic_conditions[]"
 							value="<?php echo esc_attr( $rule_type ); ?>"
 							<?php checked( in_array( $rule_type, $selected, true ) ); ?>>
 						<?php echo esc_html( self::label_for( $rule_type ) ); ?>
@@ -130,20 +130,20 @@ final class Conditions_Box {
 	 */
 	private static function label_for( string $type ): string {
 		$labels = array(
-			'entire_site'   => __( 'Entire site', 'decent-core' ),
-			'front_page'    => __( 'Front page', 'decent-core' ),
-			'blog'          => __( 'Blog index', 'decent-core' ),
-			'search'        => __( 'Search results', 'decent-core' ),
-			'not_found'     => __( '404 page', 'decent-core' ),
-			'archive'       => __( 'All archives', 'decent-core' ),
-			'post_type'     => __( 'All single posts and pages', 'decent-core' ),
-			'taxonomy'      => __( 'All taxonomy archives', 'decent-core' ),
-			'term'          => __( 'All term archives', 'decent-core' ),
-			'author'        => __( 'Author archives', 'decent-core' ),
-			'singular'      => __( 'All singular views', 'decent-core' ),
-			'edd_downloads' => __( 'Products and the catalogue', 'decent-core' ),
-			'edd_checkout'  => __( 'Checkout', 'decent-core' ),
-			'edd_account'   => __( 'Account pages', 'decent-core' ),
+			'entire_site'   => __( 'Entire site', 'pixelomatic-core' ),
+			'front_page'    => __( 'Front page', 'pixelomatic-core' ),
+			'blog'          => __( 'Blog index', 'pixelomatic-core' ),
+			'search'        => __( 'Search results', 'pixelomatic-core' ),
+			'not_found'     => __( '404 page', 'pixelomatic-core' ),
+			'archive'       => __( 'All archives', 'pixelomatic-core' ),
+			'post_type'     => __( 'All single posts and pages', 'pixelomatic-core' ),
+			'taxonomy'      => __( 'All taxonomy archives', 'pixelomatic-core' ),
+			'term'          => __( 'All term archives', 'pixelomatic-core' ),
+			'author'        => __( 'Author archives', 'pixelomatic-core' ),
+			'singular'      => __( 'All singular views', 'pixelomatic-core' ),
+			'edd_downloads' => __( 'Products and the catalogue', 'pixelomatic-core' ),
+			'edd_checkout'  => __( 'Checkout', 'pixelomatic-core' ),
+			'edd_account'   => __( 'Account pages', 'pixelomatic-core' ),
 		);
 
 		return $labels[ $type ] ?? $type;
@@ -176,14 +176,14 @@ final class Conditions_Box {
 			return;
 		}
 
-		$type = isset( $_POST['decent_template_type'] )
-			? Template_Type::sanitize( sanitize_key( wp_unslash( $_POST['decent_template_type'] ) ) )
+		$type = isset( $_POST['pixelomatic_template_type'] )
+			? Template_Type::sanitize( sanitize_key( wp_unslash( $_POST['pixelomatic_template_type'] ) ) )
 			: Template_Type::HEADER;
 
 		update_post_meta( $post_id, Template_Type::META, $type );
 
-		$posted = isset( $_POST['decent_conditions'] )
-			? array_map( 'sanitize_key', (array) wp_unslash( $_POST['decent_conditions'] ) )
+		$posted = isset( $_POST['pixelomatic_conditions'] )
+			? array_map( 'sanitize_key', (array) wp_unslash( $_POST['pixelomatic_conditions'] ) )
 			: array();
 
 		$rules = array();
@@ -212,8 +212,8 @@ final class Conditions_Box {
 			$out[ $key ] = $label;
 
 			if ( 'title' === $key ) {
-				$out['decent_type']       = __( 'Type', 'decent-core' );
-				$out['decent_conditions'] = __( 'Shown on', 'decent-core' );
+				$out['pixelomatic_type']       = __( 'Type', 'pixelomatic-core' );
+				$out['pixelomatic_conditions'] = __( 'Shown on', 'pixelomatic-core' );
 			}
 		}
 
@@ -230,19 +230,19 @@ final class Conditions_Box {
 	public function column( $column, $post_id ): void {
 		$post_id = (int) $post_id;
 
-		if ( 'decent_type' === $column ) {
+		if ( 'pixelomatic_type' === $column ) {
 			echo esc_html( Template_Type::all()[ Template_Type::of( $post_id ) ] ?? '' );
 			return;
 		}
 
-		if ( 'decent_conditions' !== $column ) {
+		if ( 'pixelomatic_conditions' !== $column ) {
 			return;
 		}
 
 		$rules = Manager::rules_for( $post_id );
 
 		if ( empty( $rules ) ) {
-			printf( '<em>%s</em>', esc_html__( 'Nowhere yet', 'decent-core' ) );
+			printf( '<em>%s</em>', esc_html__( 'Nowhere yet', 'pixelomatic-core' ) );
 			return;
 		}
 

@@ -2,10 +2,10 @@
 /**
  * Product badge dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Badge extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-badge';
+		return 'pixelomatic-download-badge';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Badge extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product badge', 'decent-core' );
+		return __( 'Product badge', 'pixelomatic-core' );
 	}
 
 	/**
@@ -39,10 +39,10 @@ final class Download_Badge extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		if ( ! class_exists( '\\DecentThemes\\Frontend\\Card' ) ) {
+		if ( ! class_exists( '\\Pixelomatic\\Frontend\\Card' ) ) {
 			return '';
 		}
 
-		return \DecentThemes\Frontend\Card::badge( $download_id );
+		return \Pixelomatic\Frontend\Card::badge( $download_id );
 	}
 }

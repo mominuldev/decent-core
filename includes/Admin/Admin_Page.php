@@ -15,17 +15,17 @@
  * control a user sees and the rule the server enforces come from the same
  * array in config/settings.php.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Admin;
+namespace PixelomaticCore\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Manager;
-use DecentCore\Elementor\Widget_Registry;
-use DecentCore\Settings\Schema;
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Elementor\Manager;
+use PixelomaticCore\Elementor\Widget_Registry;
+use PixelomaticCore\Settings\Schema;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Registers and boots the settings application.
@@ -35,7 +35,7 @@ final class Admin_Page {
 	/**
 	 * Menu slug.
 	 */
-	public const SLUG = 'decent-core';
+	public const SLUG = 'pixelomatic-core';
 
 	/**
 	 * Whether the build output is missing on this request.
@@ -69,8 +69,8 @@ final class Admin_Page {
 	 */
 	public function add_menu(): void {
 		add_menu_page(
-			__( 'Decent Core', 'decent-core' ),
-			__( 'Decent', 'decent-core' ),
+			__( 'Pixelomatic Core', 'pixelomatic-core' ),
+			__( 'Pixelomatic', 'pixelomatic-core' ),
 			'manage_options',
 			self::SLUG,
 			array( $this, 'render' ),
@@ -87,8 +87,8 @@ final class Admin_Page {
 		// whichever order the two submenus are added in.
 		add_submenu_page(
 			self::SLUG,
-			__( 'Decent Core', 'decent-core' ),
-			__( 'Settings', 'decent-core' ),
+			__( 'Pixelomatic Core', 'pixelomatic-core' ),
+			__( 'Settings', 'pixelomatic-core' ),
 			'manage_options',
 			self::SLUG,
 			array( $this, 'render' ),
@@ -116,30 +116,30 @@ final class Admin_Page {
 		// Built files, not sources. If they are missing the plugin was
 		// installed from a checkout without running the build, and saying so
 		// is far better than a blank screen.
-		if ( ! file_exists( DECENT_CORE_DIR . $script ) ) {
+		if ( ! file_exists( PIXELOMATIC_CORE_DIR . $script ) ) {
 			$this->build_missing = true;
 			add_action( 'admin_notices', array( $this, 'missing_build_notice' ) );
 			return;
 		}
 
 		wp_enqueue_style(
-			'decent-core-admin',
-			DECENT_CORE_URL . $style,
+			'pixelomatic-core-admin',
+			PIXELOMATIC_CORE_URL . $style,
 			array(),
-			(string) filemtime( DECENT_CORE_DIR . $style )
+			(string) filemtime( PIXELOMATIC_CORE_DIR . $style )
 		);
 
 		wp_enqueue_script(
-			'decent-core-admin',
-			DECENT_CORE_URL . $script,
+			'pixelomatic-core-admin',
+			PIXELOMATIC_CORE_URL . $script,
 			array(),
-			(string) filemtime( DECENT_CORE_DIR . $script ),
+			(string) filemtime( PIXELOMATIC_CORE_DIR . $script ),
 			true
 		);
 
 		wp_add_inline_script(
-			'decent-core-admin',
-			'window.decentCore = ' . wp_json_encode( $this->boot_data() ) . ';',
+			'pixelomatic-core-admin',
+			'window.pixelomaticCore = ' . wp_json_encode( $this->boot_data() ) . ';',
 			'before'
 		);
 	}
@@ -202,7 +202,7 @@ final class Admin_Page {
 	 */
 	public function missing_build_notice(): void {
 		echo '<div class="notice notice-error"><p>';
-		esc_html_e( 'Decent Core: the admin bundle is missing. Run "npm install && npm run build" in the plugin directory.', 'decent-core' );
+		esc_html_e( 'Pixelomatic Core: the admin bundle is missing. Run "npm install && npm run build" in the plugin directory.', 'pixelomatic-core' );
 		echo '</p></div>';
 	}
 
@@ -213,14 +213,14 @@ final class Admin_Page {
 	 */
 	private function boot_data(): array {
 		return array(
-			'restUrl'    => esc_url_raw( rest_url( 'decent/v1/settings' ) ),
-			'toolsUrl'   => esc_url_raw( rest_url( 'decent/v1/tools' ) ),
+			'restUrl'    => esc_url_raw( rest_url( 'pixelomatic/v1/settings' ) ),
+			'toolsUrl'   => esc_url_raw( rest_url( 'pixelomatic/v1/tools' ) ),
 			// Proves the request came from this session. The capability check
 			// itself happens server-side in Rest_Controller.
 			'nonce'      => wp_create_nonce( 'wp_rest' ),
 			// Also present in the system read-out, but under a translated key.
 			// The header badge needs it by a stable name.
-			'version'    => DECENT_CORE_VERSION,
+			'version'    => PIXELOMATIC_CORE_VERSION,
 			'tabs'       => Schema::tabs(),
 			'schema'     => $this->schema_for_js(),
 			'settings'   => $this->settings_for_js(),
@@ -287,8 +287,8 @@ final class Admin_Page {
 					$missing[] = 'Easy Digital Downloads';
 				}
 
-				if ( 'theme' === $dependency && ! function_exists( 'decent_icon' ) ) {
-					$missing[] = 'the Decent Themes theme';
+				if ( 'theme' === $dependency && ! function_exists( 'pixelomatic_icon' ) ) {
+					$missing[] = 'the Pixelomatic theme';
 				}
 			}
 
@@ -317,16 +317,16 @@ final class Admin_Page {
 		$uploads = wp_upload_dir();
 
 		return array(
-			__( 'Plugin', 'decent-core' )           => DECENT_CORE_VERSION,
-			__( 'PHP', 'decent-core' )              => PHP_VERSION,
-			__( 'WordPress', 'decent-core' )        => (string) get_bloginfo( 'version' ),
-			__( 'Elementor', 'decent-core' )        => defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : __( 'not active', 'decent-core' ),
-			__( 'EDD', 'decent-core' )              => defined( 'EDD_VERSION' ) ? EDD_VERSION : __( 'not active', 'decent-core' ),
-			__( 'Theme', 'decent-core' )            => (string) wp_get_theme()->get( 'Name' ),
-			__( 'Object cache', 'decent-core' )     => wp_using_ext_object_cache() ? __( 'persistent', 'decent-core' ) : __( 'none', 'decent-core' ),
-			__( 'Uploads writable', 'decent-core' ) => wp_is_writable( (string) ( $uploads['basedir'] ?? '' ) ) ? __( 'yes', 'decent-core' ) : __( 'no', 'decent-core' ),
-			__( 'Elementor kit', 'decent-core' )    => ( get_option( 'elementor_active_kit' ) ? (string) get_option( 'elementor_active_kit' ) : __( 'none', 'decent-core' ) ),
-			__( 'Widgets active', 'decent-core' )   => count( Widget_Registry::active() ) . ' / ' . count( Widget_Registry::map() ),
+			__( 'Plugin', 'pixelomatic-core' )           => PIXELOMATIC_CORE_VERSION,
+			__( 'PHP', 'pixelomatic-core' )              => PHP_VERSION,
+			__( 'WordPress', 'pixelomatic-core' )        => (string) get_bloginfo( 'version' ),
+			__( 'Elementor', 'pixelomatic-core' )        => defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : __( 'not active', 'pixelomatic-core' ),
+			__( 'EDD', 'pixelomatic-core' )              => defined( 'EDD_VERSION' ) ? EDD_VERSION : __( 'not active', 'pixelomatic-core' ),
+			__( 'Theme', 'pixelomatic-core' )            => (string) wp_get_theme()->get( 'Name' ),
+			__( 'Object cache', 'pixelomatic-core' )     => wp_using_ext_object_cache() ? __( 'persistent', 'pixelomatic-core' ) : __( 'none', 'pixelomatic-core' ),
+			__( 'Uploads writable', 'pixelomatic-core' ) => wp_is_writable( (string) ( $uploads['basedir'] ?? '' ) ) ? __( 'yes', 'pixelomatic-core' ) : __( 'no', 'pixelomatic-core' ),
+			__( 'Elementor kit', 'pixelomatic-core' )    => ( get_option( 'elementor_active_kit' ) ? (string) get_option( 'elementor_active_kit' ) : __( 'none', 'pixelomatic-core' ) ),
+			__( 'Widgets active', 'pixelomatic-core' )   => count( Widget_Registry::active() ) . ' / ' . count( Widget_Registry::map() ),
 		);
 	}
 
@@ -344,10 +344,10 @@ final class Admin_Page {
 		// reachable over REST or WP-CLI, and saying so beats a blank screen.
 		?>
 		<div class="wrap">
-			<div id="decent-core-app"></div>
+			<div id="pixelomatic-core-app"></div>
 			<noscript>
 				<div class="notice notice-warning">
-					<p><?php esc_html_e( 'This screen needs JavaScript. The same settings can be changed with WP-CLI or the decent/v1/settings REST route.', 'decent-core' ); ?></p>
+					<p><?php esc_html_e( 'This screen needs JavaScript. The same settings can be changed with WP-CLI or the pixelomatic/v1/settings REST route.', 'pixelomatic-core' ); ?></p>
 				</div>
 			</noscript>
 		</div>

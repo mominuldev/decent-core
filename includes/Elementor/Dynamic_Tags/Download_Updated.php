@@ -2,10 +2,10 @@
 /**
  * Product last updated dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Updated extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-updated';
+		return 'pixelomatic-download-updated';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Updated extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product last updated', 'decent-core' );
+		return __( 'Product last updated', 'pixelomatic-core' );
 	}
 
 	/**
@@ -39,11 +39,11 @@ final class Download_Updated extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		if ( ! class_exists( '\\DecentThemes\\Integrations\\EDD\\EDD' ) ) {
+		if ( ! class_exists( '\\Pixelomatic\\Integrations\\EDD\\EDD' ) ) {
 			return '';
 		}
 
-		$timestamp = \DecentThemes\Integrations\EDD\EDD::versions()->updated_at( $download_id );
+		$timestamp = \Pixelomatic\Integrations\EDD\EDD::versions()->updated_at( $download_id );
 
 		return $timestamp > 0 ? (string) wp_date( get_option( 'date_format' ), $timestamp ) : '';
 	}

@@ -1,4 +1,4 @@
-/* Decent Core — admin app styles.
+/* Pixelomatic Core — admin app styles.
    ==========================================================================
 
    Two constraints shape this file, and both come from living inside somebody
@@ -138,15 +138,15 @@
 
 /* A scoped reset, standing in for the preflight we deliberately skipped.
    Only inside our own root, so wp-admin is untouched. */
-#decent-core-app {
+#pixelomatic-core-app {
   font-family: var(--font-sans);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
 
-#decent-core-app *,
-#decent-core-app *::before,
-#decent-core-app *::after {
+#pixelomatic-core-app *,
+#pixelomatic-core-app *::before,
+#pixelomatic-core-app *::after {
   box-sizing: border-box;
 
   /* Tailwind's `border` utility only sets border-width; the style comes from
@@ -157,24 +157,24 @@
   border-color: var(--color-line);
 }
 
-#decent-core-app h1,
-#decent-core-app h2,
-#decent-core-app h3,
-#decent-core-app p,
-#decent-core-app ul,
-#decent-core-app li,
-#decent-core-app figure,
-#decent-core-app dl,
-#decent-core-app dd {
+#pixelomatic-core-app h1,
+#pixelomatic-core-app h2,
+#pixelomatic-core-app h3,
+#pixelomatic-core-app p,
+#pixelomatic-core-app ul,
+#pixelomatic-core-app li,
+#pixelomatic-core-app figure,
+#pixelomatic-core-app dl,
+#pixelomatic-core-app dd {
   margin: 0;
   padding: 0;
 }
 
-#decent-core-app ul {
+#pixelomatic-core-app ul {
   list-style: none;
 }
 
-#decent-core-app button {
+#pixelomatic-core-app button {
   font: inherit;
   color: inherit;
   cursor: pointer;
@@ -182,24 +182,24 @@
   border: none;
 }
 
-#decent-core-app input,
-#decent-core-app select {
+#pixelomatic-core-app input,
+#pixelomatic-core-app select {
   font: inherit;
   color: inherit;
 }
 
 /* wp-admin styles input[type=search] and select globally enough that the
    utility classes lose; the app's own controls opt out here. */
-#decent-core-app input[type="search"],
-#decent-core-app input[type="number"],
-#decent-core-app input[type="text"],
-#decent-core-app select {
+#pixelomatic-core-app input[type="search"],
+#pixelomatic-core-app input[type="number"],
+#pixelomatic-core-app input[type="text"],
+#pixelomatic-core-app select {
   min-height: 0;
   box-shadow: none;
   outline: none;
 }
 
-#decent-core-app input[type="search"]::-webkit-search-cancel-button {
+#pixelomatic-core-app input[type="search"]::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
@@ -215,44 +215,44 @@
 
    Scoped inside the app root, so the noscript fallback — a sibling of this
    element, not a descendant — still shows when scripting is off. */
-#decent-core-app .notice,
-#decent-core-app .updated,
-#decent-core-app .error,
-#decent-core-app .update-nag {
+#pixelomatic-core-app .notice,
+#pixelomatic-core-app .updated,
+#pixelomatic-core-app .error,
+#pixelomatic-core-app .update-nag {
   display: none !important;
 }
 
 /* WordPress puts a 20px margin on .wrap and a notice area above it; the app
    claims the full width of the content column instead. */
-#decent-core-app {
+#pixelomatic-core-app {
   margin: 20px 20px 0 0;
 }
 
 @media (max-width: 782px) {
-  #decent-core-app { margin-right: 12px; }
+  #pixelomatic-core-app { margin-right: 12px; }
 }
 
 /* The sticky save bar spans from the admin menu's right edge to the window's.
    The menu's width is not a constant — it folds at 960px and again on
    mobile — so it is tracked as a variable rather than hard-coded, which is
    what previously left the bar overlapping a collapsed menu. */
-#decent-core-app {
+#pixelomatic-core-app {
   --dc-menu-width: 160px;
 }
 
-body.folded #decent-core-app,
-body.auto-fold.folded #decent-core-app {
+body.folded #pixelomatic-core-app,
+body.auto-fold.folded #pixelomatic-core-app {
   --dc-menu-width: 36px;
 }
 
 @media (max-width: 960px) {
-  body.auto-fold #decent-core-app { --dc-menu-width: 36px; }
+  body.auto-fold #pixelomatic-core-app { --dc-menu-width: 36px; }
 }
 
 @media (max-width: 782px) {
-  #decent-core-app,
-  body.auto-fold #decent-core-app,
-  body.folded #decent-core-app { --dc-menu-width: 0px; }
+  #pixelomatic-core-app,
+  body.auto-fold #pixelomatic-core-app,
+  body.folded #pixelomatic-core-app { --dc-menu-width: 0px; }
 }
 
 /* Entrance: panels fade up as the tab changes, which makes the switch legible
@@ -271,9 +271,9 @@ body.auto-fold.folded #decent-core-app {
    note at the top of this file. */
 @layer motion {
   @media (prefers-reduced-motion: reduce) {
-    #decent-core-app *,
-    #decent-core-app *::before,
-    #decent-core-app *::after {
+    #pixelomatic-core-app *,
+    #pixelomatic-core-app *::before,
+    #pixelomatic-core-app *::after {
       transition: none !important;
       animation: none !important;
     }

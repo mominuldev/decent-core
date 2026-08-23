@@ -7,14 +7,14 @@
  * picking "Blue" from the global picker gets the same value the stylesheet
  * uses.
  *
- * The duplication is real and is the reason `wp decent-core tokens verify`
+ * The duplication is real and is the reason `wp pixelomatic-core tokens verify`
  * exists — it parses base.css and diffs it against this file, so drift is a
  * build failure rather than a slow visual rot.
  *
  * Only flat colours are listed. The palette's gradients are deliberately not
  * exposed to the picker: an editor must not be able to author a tenth one.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
 defined( 'ABSPATH' ) || exit;

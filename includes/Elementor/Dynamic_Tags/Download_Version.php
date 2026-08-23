@@ -2,10 +2,10 @@
 /**
  * Product version dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Version extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-version';
+		return 'pixelomatic-download-version';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Version extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product version', 'decent-core' );
+		return __( 'Product version', 'pixelomatic-core' );
 	}
 
 	/**
@@ -39,10 +39,10 @@ final class Download_Version extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		if ( ! class_exists( '\\DecentThemes\\Integrations\\EDD\\EDD' ) ) {
+		if ( ! class_exists( '\\Pixelomatic\\Integrations\\EDD\\EDD' ) ) {
 			return '';
 		}
 
-		return \DecentThemes\Integrations\EDD\EDD::versions()->version( $download_id );
+		return \Pixelomatic\Integrations\EDD\EDD::versions()->version( $download_id );
 	}
 }

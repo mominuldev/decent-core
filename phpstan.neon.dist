@@ -2,7 +2,7 @@ parameters:
 	level: 5
 	paths:
 		- includes
-		- decent-core.php
+		- pixelomatic-core.php
 	excludePaths:
 		- vendor
 	scanDirectories:
@@ -14,7 +14,7 @@ parameters:
 	scanFiles:
 		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
 		- tests/stubs/elementor.php
-		- tests/stubs/decent-theme.php
+		- tests/stubs/pixelomatic-theme.php
 	treatPhpDocTypesAsCertain: false
 	ignoreErrors:
 		# EDD is an optional runtime dependency. Widgets that call it declare

@@ -2,10 +2,10 @@
 /**
  * Section head controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ trait Has_Section_Head {
 		$this->add_control(
 			'eyebrow',
 			array(
-				'label'       => __( 'Eyebrow', 'decent-core' ),
+				'label'       => __( 'Eyebrow', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => $default_eyebrow,
 				'label_block' => true,
@@ -40,7 +40,7 @@ trait Has_Section_Head {
 		$this->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
 				'default'     => $default_title,
@@ -51,7 +51,7 @@ trait Has_Section_Head {
 		$this->add_control(
 			'title_tag',
 			array(
-				'label'   => __( 'Title tag', 'decent-core' ),
+				'label'   => __( 'Title tag', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h2',
 				'options' => array(
@@ -59,7 +59,7 @@ trait Has_Section_Head {
 					'h2' => 'H2',
 					'h3' => 'H3',
 					'h4' => 'H4',
-					'p'  => __( 'Paragraph', 'decent-core' ),
+					'p'  => __( 'Paragraph', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -67,7 +67,7 @@ trait Has_Section_Head {
 		$this->add_control(
 			'intro',
 			array(
-				'label'       => __( 'Intro', 'decent-core' ),
+				'label'       => __( 'Intro', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
 				'label_block' => true,
@@ -91,10 +91,10 @@ trait Has_Section_Head {
 		$this->add_control(
 			'head_link_label',
 			array(
-				'label'       => __( 'Trailing link', 'decent-core' ),
+				'label'       => __( 'Trailing link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => $default_label,
-				'description' => __( 'Sits at the end of the head. Needs a link to render.', 'decent-core' ),
+				'description' => __( 'Sits at the end of the head. Needs a link to render.', 'pixelomatic-core' ),
 				'label_block' => true,
 				'separator'   => 'before',
 			)
@@ -103,7 +103,7 @@ trait Has_Section_Head {
 		$this->add_control(
 			'head_link_url',
 			array(
-				'label'     => __( 'Trailing link URL', 'decent-core' ),
+				'label'     => __( 'Trailing link URL', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'head_link_label!' => '' ),
 			)

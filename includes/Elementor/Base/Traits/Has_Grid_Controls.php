@@ -2,10 +2,10 @@
 /**
  * Grid controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,7 +34,7 @@ trait Has_Grid_Controls {
 		$this->add_responsive_control(
 			'columns',
 			array(
-				'label'          => __( 'Columns', 'decent-core' ),
+				'label'          => __( 'Columns', 'pixelomatic-core' ),
 				'type'           => Controls_Manager::SELECT,
 				'default'        => (string) $default,
 				'tablet_default' => '2',
@@ -56,7 +56,7 @@ trait Has_Grid_Controls {
 		$this->add_responsive_control(
 			'gap',
 			array(
-				'label'          => __( 'Gap', 'decent-core' ),
+				'label'          => __( 'Gap', 'pixelomatic-core' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => array(
 					'size' => 24,

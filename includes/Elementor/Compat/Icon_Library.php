@@ -26,15 +26,15 @@
  *                     wp_kses allow-list — the same markup the theme would
  *                     have printed itself, and no icon font request.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Compat;
+namespace PixelomaticCore\Elementor\Compat;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Assets\Filesystem;
-use DecentThemes\Frontend\Icons;
+use PixelomaticCore\Assets\Filesystem;
+use Pixelomatic\Frontend\Icons;
 
 /**
  * Adds the theme's icon map to Elementor's icon picker.
@@ -46,20 +46,20 @@ final class Icon_Library {
 	 *
 	 * Stable: changing it would orphan every icon already picked.
 	 */
-	public const LIBRARY = 'decent-icons';
+	public const LIBRARY = 'pixelomatic-icons';
 
 	/**
 	 * Class prefix for a single icon.
 	 */
-	private const PREFIX = 'decent-icon-';
+	private const PREFIX = 'pixelomatic-icon-';
 
 	/**
 	 * Base class every icon in the set carries.
 	 *
 	 * Set explicitly because Elementor's fallback — the prefix with its first
-	 * hyphen removed — would produce `decenticon-` here.
+	 * hyphen removed — would produce `pixelomaticicon-` here.
 	 */
-	private const DISPLAY_PREFIX = 'decent-icon';
+	private const DISPLAY_PREFIX = 'pixelomatic-icon';
 
 	/**
 	 * Filesystem access for the generated stylesheet.
@@ -105,11 +105,11 @@ final class Icon_Library {
 
 		$tab = array(
 			'name'            => self::LIBRARY,
-			'label'           => __( 'Decent Icons', 'decent-core' ),
+			'label'           => __( 'Pixelomatic Icons', 'pixelomatic-core' ),
 			'prefix'          => self::PREFIX,
 			'displayPrefix'   => self::DISPLAY_PREFIX,
 			'labelIcon'       => 'eicon-elementor-square',
-			'ver'             => DECENT_CORE_VERSION,
+			'ver'             => PIXELOMATIC_CORE_VERSION,
 			'icons'           => $icons,
 			'native'          => false,
 			'render_callback' => array( __CLASS__, 'render' ),
@@ -120,7 +120,7 @@ final class Icon_Library {
 		// from its saved element data and enqueues the stylesheet of every one
 		// that declares a `url` — it never consults render_callback first. So
 		// a `url` here would put the picker's stylesheet on the front end,
-		// where its `.decent-icon` rule (a mask over a currentColor fill, for
+		// where its `.pixelomatic-icon` rule (a mask over a currentColor fill, for
 		// drawing an icon in a grid cell that has no SVG in it) would land on
 		// the real inline SVG this library renders and mask it out of
 		// existence. The editor needs the file; the front end must not see it.
@@ -160,7 +160,7 @@ final class Icon_Library {
 			return '';
 		}
 
-		// Only what the caller asked for. The `decent-icon` / `decent-icon-<slug>`
+		// Only what the caller asked for. The `pixelomatic-icon` / `pixelomatic-icon-<slug>`
 		// pair Elementor stores is a *picker* class pair: it draws an icon as a
 		// mask over a coloured box, for the grid cells and the panel thumbnail,
 		// which contain no SVG. Stamping it on a real inline SVG means the
@@ -194,7 +194,7 @@ final class Icon_Library {
 	 * Extracts the slug from a stored control value.
 	 *
 	 * Elementor stores the pair of classes it would have printed —
-	 * "decent-icon decent-icon-shield-check" — so the slug is whichever token
+	 * "pixelomatic-icon pixelomatic-icon-shield-check" — so the slug is whichever token
 	 * carries the per-icon prefix.
 	 *
 	 * @param string $value Stored value.

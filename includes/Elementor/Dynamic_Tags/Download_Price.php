@@ -2,10 +2,10 @@
 /**
  * Product price dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Download_Price extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-price';
+		return 'pixelomatic-download-price';
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Download_Price extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product price', 'decent-core' );
+		return __( 'Product price', 'pixelomatic-core' );
 	}
 
 	/**
@@ -43,8 +43,8 @@ final class Download_Price extends Base_Tag {
 			return '';
 		}
 
-		$min = (float) get_post_meta( $download_id, '_decent_price_min', true );
-		$max = (float) get_post_meta( $download_id, '_decent_price_max', true );
+		$min = (float) get_post_meta( $download_id, '_pixelomatic_price_min', true );
+		$max = (float) get_post_meta( $download_id, '_pixelomatic_price_max', true );
 
 		$low = (string) edd_currency_filter( edd_format_amount( $min ) );
 
@@ -54,7 +54,7 @@ final class Download_Price extends Base_Tag {
 
 		return sprintf(
 			/* translators: 1: lowest price, 2: highest price. */
-			__( '%1$s – %2$s', 'decent-core' ),
+			__( '%1$s – %2$s', 'pixelomatic-core' ),
 			$low,
 			(string) edd_currency_filter( edd_format_amount( $max ) )
 		);

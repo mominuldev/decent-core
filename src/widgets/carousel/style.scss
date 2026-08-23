@@ -46,6 +46,24 @@
   scroll-snap-align: start;
 }
 
+// A slide that wraps something rather than being it.
+//
+// A widget whose slide is its own component puts `swiper-slide` straight on
+// that component and needs none of this. A widget whose slides come from a
+// theme template cannot — the same product card renders in grids and lists
+// that are not sliders — so it wraps, and the wrapper has to hand the height
+// the track just stretched it to on to the card inside. Without this the
+// slides level and the cards inside them do not, which reads as ragged
+// bottoms on a row whose whole point is being a row.
+.pix-carousel__slide {
+  display: flex;
+}
+
+.pix-carousel__slide > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 // Swiper is driving. It sets the widths and the transform itself, so the flex
 // fallback is handed back and the box stops being a scroller.
 .pix-carousel--ready .pix-carousel__viewport {

@@ -1,0 +1,466 @@
+// Why Buy Here — the landing's trust band from the Pixelomatic redesign.
+//
+// .section, .section--dark, .container, .section__inner, .pix-section-heading,
+// .eyebrow, .section-title, .section-intro and .link-arrow all come from the
+// theme. What this file adds is the band's own surface treatment — the ground,
+// the two aurora glows and the diagonal beams, all of them theme tokens — and
+// the tile, which the theme has no component for: .benefit-card is a flat
+// panel with an icon over a title, and this is a four-column composition where
+// two tiles carry a list and two lead with a figure.
+//
+// Every rule is scoped to .elementor-widget-pixelomatic-why-buy. That is not
+// tidiness: the theme's stylesheet loads after the plugin's, so a bare
+// .section-title here would lose to the theme's own. The extra class is what
+// wins the tie, and there is no !important in the file.
+//
+// Breakpoints are the theme's fixed ladder — 1180 / 1024 / 900 / 768 / 560 —
+// written out as raw max-width queries because gulp compiles each widget
+// stylesheet on its own and the theme's bp() mixin is not in scope here.
+
+.elementor-widget-pixelomatic-why-buy {
+
+  /* ---------------------------------------------------------------- band */
+
+  .pix-why {
+    position: relative;
+    overflow: hidden;
+    background: var(--grad-ink-band);
+    border-top: 1px solid var(--ink-border);
+  }
+
+  // Two layers over the ground: the aurora pair, then the beams. Both are
+  // pointer-transparent and both sit under the content, which takes the only
+  // stacking value in the component.
+  .pix-why::before,
+  .pix-why::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .pix-why::before {
+    background-image: var(--glow-ink-a), var(--glow-ink-b);
+  }
+
+  // The beams run the full height of the band in the design and fade out
+  // before they reach the tiles, which is the mask rather than a second
+  // gradient: a beam that stopped at a hard edge would draw a line across the
+  // section that nothing in the design has.
+  .pix-why::after {
+    background-image: var(--pattern-beams);
+    -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 78%);
+    mask-image: linear-gradient(180deg, black 0%, transparent 78%);
+  }
+
+  // padding-block, never the shorthand: this class sits beside .container, and
+  // a shorthand would zero the container's inline gutter — invisible above
+  // 1248px, where the gutter comes from centring instead.
+  .pix-why__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(72px, 8vw, 112px);
+  }
+
+  /* ------------------------------------------------------------ head row */
+
+  .pix-section-heading {
+    align-items: center;
+    gap: 32px 40px;
+  }
+
+  .pix-section-heading > div {
+    max-width: 740px;
+  }
+
+  // The eyebrow is a pill on this band rather than the theme's bare label, and
+  // its dot is drawn rather than marked up — it carries no meaning a screen
+  // reader needs, so it has no business being an element.
+  .pix-why__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px 7px 12px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-pill);
+    background: var(--grad-tile-brand);
+    color: var(--blue-200);
+  }
+
+  .pix-why__eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    background: var(--blue-400);
+  }
+
+  // The design's trailing link is a bordered control, not the theme's inline
+  // arrow link. The theme's class stays on the element so the trait that
+  // renders it does not have to know about this band.
+  .pix-section-heading__aside {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 20px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    color: var(--white);
+    transition: background var(--ease), border-color var(--ease), color var(--ease);
+  }
+
+  @media (hover: hover) {
+    .pix-section-heading__aside:hover {
+      background: var(--ink-panel);
+      border-color: var(--border-strong);
+      color: var(--white);
+      text-decoration: none;
+    }
+  }
+
+  /* ---------------------------------------------------------------- grid */
+
+  // Four columns of 285 with a 20px gap is the design's 1200: a wide tile
+  // spans two of them, which is what makes the two rows read as 590 + 285 +
+  // 285 and 285 + 285 + 590 without either row being a layout of its own.
+  .pix-why__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin: 56px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pix-why__tile {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-xl);
+    background: var(--grad-tile-ink);
+  }
+
+  .pix-why__tile--accent {
+    background: var(--grad-tile-brand);
+  }
+
+  .pix-why__tile--wide {
+    grid-column: span 2;
+  }
+
+  // A tile that stacks pushes its body to the foot, so the figures and the
+  // titles of the tiles beside each other land on the same line whatever the
+  // copy above them does.
+  .pix-why__tile:not(.pix-why__tile--inline) {
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .pix-why__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ---------------------------------------------------------- tile parts */
+
+  .pix-why__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .pix-why__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  // The wide feature tile runs its icon beside the title: a 24px heading over
+  // half a row leaves a hole under a stacked icon.
+  .pix-why__lead {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .pix-why__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .pix-why__title--sm {
+    font-size: var(--text-h4);
+    line-height: var(--leading-h4);
+    letter-spacing: var(--tracking-h4);
+    font-weight: 600;
+  }
+
+  .pix-why__figure {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-display-l);
+    line-height: var(--leading-display-l);
+    letter-spacing: var(--tracking-display-l);
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  .pix-why__label {
+    margin: 0;
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    font-weight: 600;
+    color: var(--blue-200);
+  }
+
+  .pix-why__text {
+    margin: 0;
+    font-size: var(--text-body-sm);
+    line-height: var(--leading-body-sm);
+    color: var(--ink-400);
+  }
+
+  // The two wide tiles carry the section's argument rather than a caption, and
+  // the design sets them a step up the scale to say so.
+  .pix-why__tile--inline .pix-why__text {
+    margin-top: 14px;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--border-strong);
+  }
+
+  /* ------------------------------------------------------- release list */
+
+  // ink/500 is 3.94:1 on this ground and cannot carry 13px text, so every
+  // value the design draws in it renders here in ink/400 (7.4:1). The theme
+  // documents the same correction the other way round — ink/400 is a bar
+  // colour on white, not a text colour.
+  .pix-why__releases {
+    display: flex;
+    flex-direction: column;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-md);
+    background: var(--ink);
+  }
+
+  .pix-why__release {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 13px 16px;
+  }
+
+  .pix-why__release + .pix-why__release {
+    border-top: 1px solid var(--ink-border);
+  }
+
+  .pix-why__bullet {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    background: var(--muted);
+  }
+
+  .pix-why__release--live .pix-why__bullet {
+    background: var(--green);
+  }
+
+  .pix-why__version {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-sm);
+    line-height: var(--leading-mono-sm);
+    font-weight: 500;
+    color: var(--ink-400);
+  }
+
+  .pix-why__release--live .pix-why__version {
+    color: var(--blue-200);
+  }
+
+  .pix-why__note {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: var(--text-body-sm);
+    line-height: var(--leading-body-sm);
+    color: var(--ink-400);
+  }
+
+  .pix-why__release--live .pix-why__note {
+    color: var(--white);
+  }
+
+  .pix-why__when {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: var(--text-label-sm);
+    line-height: var(--leading-label-sm);
+    font-weight: 500;
+    color: var(--ink-400);
+  }
+
+  /* ----------------------------------------------------------- checklist */
+
+  .pix-why__checks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pix-why__check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+  }
+
+  .pix-why__tick {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-pill);
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .pix-why__check-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .pix-why__check-title,
+  .pix-why__check-note {
+    font-size: var(--text-label-sm);
+    line-height: var(--leading-label-sm);
+    font-weight: 500;
+  }
+
+  .pix-why__check-title {
+    color: var(--white);
+  }
+
+  .pix-why__check-note {
+    color: var(--ink-400);
+  }
+
+  /* --------------------------------------------------------------- chips */
+
+  .pix-why__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pix-why__chip {
+    padding: 6px 11px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--radius-xs);
+    background: var(--ink);
+    font-size: var(--text-label-sm);
+    line-height: var(--leading-label-sm);
+    font-weight: 500;
+    color: var(--border-strong);
+  }
+
+  /* --------------------------------------------------------- responsive */
+
+  @media (max-width: 1024px) {
+    .pix-why__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .pix-why__figure {
+      font-size: var(--text-h1);
+      line-height: var(--leading-h1);
+      letter-spacing: var(--tracking-h1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pix-why__grid {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 40px;
+    }
+
+    // Nothing spans two columns once there is only one, and a checklist two
+    // cells wide at 320px is two cells of three words.
+    .pix-why__tile--wide,
+    .pix-why__checks {
+      grid-column: auto;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pix-section-heading > div {
+      max-width: none;
+    }
+
+    // The theme pushes the trailing link to the right of the head row. Once
+    // the row has wrapped there is no row to be at the right of, and a button
+    // alone against the right margin reads as a mistake.
+    .pix-section-heading__aside {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pix-why__tile {
+      padding: 22px;
+    }
+
+    // The lead wraps rather than squeezing a 24px heading into what is left
+    // beside a 42px chip.
+    .pix-why__lead {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .pix-why__release {
+      padding: 12px 14px;
+    }
+
+    .pix-why__when {
+      margin-left: 19px;
+    }
+  }
+}

@@ -2,16 +2,16 @@
 /**
  * Related Products widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Product_Card_Style;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin as Elementor_Plugin;
 
@@ -43,36 +43,36 @@ final class Product_Related extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Related products', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Related products', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'decent-core' ),
+				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Product cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Product cards', 'pixelomatic-core' ) );
 		$this->register_product_card_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_layout', __( 'Layout', 'decent-core' ) );
+		$this->start_style_section( 'style_layout', __( 'Layout', 'pixelomatic-core' ) );
 
 		$this->add_responsive_control(
 			'columns',
 			array(
-				'label'     => __( 'Columns', 'decent-core' ),
+				'label'     => __( 'Columns', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					''  => __( 'Theme default', 'decent-core' ),
+					''  => __( 'Theme default', 'pixelomatic-core' ),
 					'1' => '1',
 					'2' => '2',
 					'3' => '3',
@@ -84,11 +84,11 @@ final class Product_Related extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'grid_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .product-grid', 56 );
+		$this->register_gap_style( 'grid_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .product-grid', 56 );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array( 'shadow' => false )
 		);

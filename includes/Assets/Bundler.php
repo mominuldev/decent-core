@@ -15,15 +15,15 @@
  * without being in the index — a shortcode, a template call — keeps its real
  * file and still works.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Assets;
+namespace PixelomaticCore\Assets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Widget_Registry;
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Elementor\Widget_Registry;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Builds and enqueues combined widget assets.
@@ -33,7 +33,7 @@ final class Bundler {
 	/**
 	 * Bundle handle prefix.
 	 */
-	private const HANDLE = 'decent-core-bundle';
+	private const HANDLE = 'pixelomatic-core-bundle';
 
 	/**
 	 * Filesystem access.
@@ -236,10 +236,10 @@ final class Bundler {
 
 		foreach ( $slugs as $slug ) {
 			foreach ( (array) ( $map[ $slug ][ '' . $key ] ?? array() ) as $asset ) {
-				$path = DECENT_CORE_DIR . 'assets/widgets/' . $asset . '/' . $file;
+				$path = PIXELOMATIC_CORE_DIR . 'assets/widgets/' . $asset . '/' . $file;
 
 				if ( file_exists( $path ) ) {
-					$found[ 'decent-core-' . $asset ] = $path;
+					$found[ 'pixelomatic-core-' . $asset ] = $path;
 				}
 			}
 		}
@@ -261,7 +261,7 @@ final class Bundler {
 	 * @return string
 	 */
 	private function hash( string $extension, array $handles ): string {
-		$parts = array( $extension, DECENT_CORE_VERSION, (string) Settings::enabled( 'assets_minify' ) );
+		$parts = array( $extension, PIXELOMATIC_CORE_VERSION, (string) Settings::enabled( 'assets_minify' ) );
 		$parts = array_merge( $parts, $handles );
 
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
@@ -295,7 +295,7 @@ final class Bundler {
 		 * @param string[] $slugs   Widget slugs.
 		 * @param int      $post_id Queried post ID, or 0.
 		 */
-		$slugs = (array) apply_filters( 'decent_core/assets/request_slugs', $slugs, $post_id );
+		$slugs = (array) apply_filters( 'pixelomatic_core/assets/request_slugs', $slugs, $post_id );
 
 		return array_values( array_unique( array_map( 'strval', $slugs ) ) );
 	}
@@ -332,6 +332,6 @@ final class Bundler {
 		 *
 		 * @param bool $bundle Whether to bundle.
 		 */
-		return (bool) apply_filters( 'decent_core/assets/should_bundle', true );
+		return (bool) apply_filters( 'pixelomatic_core/assets/should_bundle', true );
 	}
 }

@@ -2,15 +2,15 @@
 /**
  * Nav Menu widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -40,7 +40,7 @@ final class Nav_Menu extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Menu', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Menu', 'pixelomatic-core' ) ) );
 
 		$menus = $this->menu_options();
 
@@ -49,7 +49,7 @@ final class Nav_Menu extends Widget_Base {
 				'no_menus',
 				array(
 					'type'            => Controls_Manager::RAW_HTML,
-					'raw'             => esc_html__( 'No menus exist yet. Create one under Appearance → Menus.', 'decent-core' ),
+					'raw'             => esc_html__( 'No menus exist yet. Create one under Appearance → Menus.', 'pixelomatic-core' ),
 					'content_classes' => 'elementor-descriptor',
 				)
 			);
@@ -57,7 +57,7 @@ final class Nav_Menu extends Widget_Base {
 			$this->add_control(
 				'menu',
 				array(
-					'label'   => __( 'Menu', 'decent-core' ),
+					'label'   => __( 'Menu', 'pixelomatic-core' ),
 					'type'    => Controls_Manager::SELECT,
 					'default' => (string) array_key_first( $menus ),
 					'options' => $menus,
@@ -68,21 +68,21 @@ final class Nav_Menu extends Widget_Base {
 		$this->add_control(
 			'label',
 			array(
-				'label'       => __( 'Accessible name', 'decent-core' ),
+				'label'       => __( 'Accessible name', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Primary', 'decent-core' ),
-				'description' => __( 'Distinguishes this navigation landmark from others on the page.', 'decent-core' ),
+				'default'     => __( 'Primary', 'pixelomatic-core' ),
+				'description' => __( 'Distinguishes this navigation landmark from others on the page.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_links', __( 'Menu items', 'decent-core' ) );
+		$this->start_style_section( 'style_links', __( 'Menu items', 'pixelomatic-core' ) );
 
 		$this->register_link_style(
 			'link',
-			__( 'Link', 'decent-core' ),
+			__( 'Link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .main-nav a',
 			array( 'separator' => 'none' )
 		);
@@ -92,7 +92,7 @@ final class Nav_Menu extends Widget_Base {
 		$this->add_control(
 			'link_color_active',
 			array(
-				'label'     => __( 'Active colour', 'decent-core' ),
+				'label'     => __( 'Active colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .main-nav a[aria-current]' => 'color: {{VALUE}};',
@@ -103,7 +103,7 @@ final class Nav_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'link_padding',
 			array(
-				'label'      => __( 'Link padding', 'decent-core' ),
+				'label'      => __( 'Link padding', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
@@ -112,24 +112,24 @@ final class Nav_Menu extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'menu_gap', __( 'Gap between items', 'decent-core' ), '{{WRAPPER}} .main-nav > ul', 64 );
+		$this->register_gap_style( 'menu_gap', __( 'Gap between items', 'pixelomatic-core' ), '{{WRAPPER}} .main-nav > ul', 64 );
 
 		$this->add_responsive_control(
 			'menu_align',
 			array(
-				'label'     => __( 'Alignment', 'decent-core' ),
+				'label'     => __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -141,25 +141,25 @@ final class Nav_Menu extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_submenu', __( 'Submenu', 'decent-core' ) );
+		$this->start_style_section( 'style_submenu', __( 'Submenu', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'submenu',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .main-nav__sub',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_link_style(
 			'submenu_link',
-			__( 'Link', 'decent-core' ),
+			__( 'Link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .main-nav__sub a'
 		);
 
 		$this->add_control(
 			'submenu_link_background_hover',
 			array(
-				'label'     => __( 'Link hover background', 'decent-core' ),
+				'label'     => __( 'Link hover background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .main-nav__sub a:hover' => 'background-color: {{VALUE}};',
@@ -170,7 +170,7 @@ final class Nav_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'submenu_link_padding',
 			array(
-				'label'      => __( 'Link padding', 'decent-core' ),
+				'label'      => __( 'Link padding', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
@@ -214,15 +214,15 @@ final class Nav_Menu extends Widget_Base {
 			'menu'                 => $menu,
 			'container'            => 'nav',
 			'container_class'      => 'main-nav',
-			'container_aria_label' => $this->text( 'label', __( 'Primary', 'decent-core' ) ),
+			'container_aria_label' => $this->text( 'label', __( 'Primary', 'pixelomatic-core' ) ),
 			'menu_class'           => '',
 			'menu_id'              => '',
 			'depth'                => 2,
 			'fallback_cb'          => false,
 		);
 
-		if ( class_exists( '\DecentThemes\Frontend\Nav_Walker' ) ) {
-			$args['walker'] = new \DecentThemes\Frontend\Nav_Walker();
+		if ( class_exists( '\Pixelomatic\Frontend\Nav_Walker' ) ) {
+			$args['walker'] = new \Pixelomatic\Frontend\Nav_Walker();
 		}
 
 		wp_nav_menu( $args );

@@ -2,24 +2,24 @@
 /**
  * Plugin bootstrap.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore;
+namespace PixelomaticCore;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Admin\Admin_Page;
-use DecentCore\Assets\Bundler;
-use DecentCore\Builder\Builder;
-use DecentCore\Builder\Pro_Bridge;
-use DecentCore\Assets\Garbage_Collector;
-use DecentCore\Assets\Usage_Index;
-use DecentCore\Elementor\Manager;
-use DecentCore\Rest\Product_Grid_Controller;
-use DecentCore\Rest\Tools_Controller;
-use DecentCore\Settings\Rest_Controller;
-use DecentCore\Settings\Settings;
+use PixelomaticCore\Admin\Admin_Page;
+use PixelomaticCore\Assets\Bundler;
+use PixelomaticCore\Builder\Builder;
+use PixelomaticCore\Builder\Pro_Bridge;
+use PixelomaticCore\Assets\Garbage_Collector;
+use PixelomaticCore\Assets\Usage_Index;
+use PixelomaticCore\Elementor\Manager;
+use PixelomaticCore\Rest\Product_Grid_Controller;
+use PixelomaticCore\Rest\Tools_Controller;
+use PixelomaticCore\Settings\Rest_Controller;
+use PixelomaticCore\Settings\Settings;
 
 /**
  * Boots the plugin.
@@ -66,14 +66,14 @@ final class Plugin {
 	 * @return void
 	 */
 	public function run(): void {
-		load_plugin_textdomain( 'decent-core', false, dirname( plugin_basename( DECENT_CORE_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'pixelomatic-core', false, dirname( plugin_basename( PIXELOMATIC_CORE_FILE ) ) . '/languages' );
 
 		Cli\Commands::register();
 
 		// Widget toggles are ordinary schema fields; see extend_schema().
 		// Registered before anything reads the schema.
 		add_filter(
-			'decent_core/settings/schema',
+			'pixelomatic_core/settings/schema',
 			array( Elementor\Widget_Registry::class, 'extend_schema' )
 		);
 
@@ -118,7 +118,7 @@ final class Plugin {
 		 *
 		 * @param Plugin $plugin Plugin instance.
 		 */
-		do_action( 'decent_core/booted', $this );
+		do_action( 'pixelomatic_core/booted', $this );
 	}
 
 	/**

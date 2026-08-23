@@ -14,10 +14,10 @@
  * dedicated optimisation plugin; these bundles are ordinary files and work
  * fine with one.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Assets;
+namespace PixelomaticCore\Assets;
 
 defined( 'ABSPATH' ) || exit;
 

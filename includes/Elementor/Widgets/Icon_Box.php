@@ -23,15 +23,15 @@
  * the markup or the spacing changes when an editor flips the direction, and
  * the direction can differ per breakpoint.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -67,17 +67,17 @@ final class Icon_Box extends Widget_Base {
 	 * @return void
 	 */
 	private function register_content_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		// Elementor's own picker. Icon_Library adds the theme's set to it as a
-		// "Decent Icons" tab and renders a pick from that tab as the theme's
+		// "Pixelomatic Icons" tab and renders a pick from that tab as the theme's
 		// inline SVG, so the design's icons are the default and cost no
 		// request — while Font Awesome and an uploaded SVG stay available for
 		// the case the design does not cover.
 		$this->add_control(
 			'icon',
 			array(
-				'label'   => __( 'Icon', 'decent-core' ),
+				'label'   => __( 'Icon', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::ICONS,
 				'default' => self::design_icon( 'layout' ),
 			)
@@ -86,9 +86,9 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'WordPress Themes', 'decent-core' ),
+				'default'     => __( 'WordPress Themes', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -96,18 +96,18 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			array(
-				'label'       => __( 'Title tag', 'decent-core' ),
+				'label'       => __( 'Title tag', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'h3',
-				'description' => __( 'The box is usually one of several inside a section, so it sits a level below that section’s own heading.', 'decent-core' ),
+				'description' => __( 'The box is usually one of several inside a section, so it sits a level below that section’s own heading.', 'pixelomatic-core' ),
 				'options'     => array(
 					'h2'   => 'H2',
 					'h3'   => 'H3',
 					'h4'   => 'H4',
 					'h5'   => 'H5',
 					'h6'   => 'H6',
-					'p'    => __( 'Paragraph', 'decent-core' ),
-					'span' => __( 'Span', 'decent-core' ),
+					'p'    => __( 'Paragraph', 'pixelomatic-core' ),
+					'span' => __( 'Span', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -115,10 +115,10 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => __( '14 products · from $49', 'decent-core' ),
+				'default'     => __( '14 products · from $49', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -126,10 +126,10 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'link_label',
 			array(
-				'label'       => __( 'Link', 'decent-core' ),
+				'label'       => __( 'Link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Browse', 'decent-core' ),
-				'description' => __( 'Sits at the end of the box. Needs a URL to render.', 'decent-core' ),
+				'default'     => __( 'Browse', 'pixelomatic-core' ),
+				'description' => __( 'Sits at the end of the box. Needs a URL to render.', 'pixelomatic-core' ),
 				'label_block' => true,
 				'separator'   => 'before',
 			)
@@ -138,7 +138,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'link_url',
 			array(
-				'label'     => __( 'Link URL', 'decent-core' ),
+				'label'     => __( 'Link URL', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'link_label!' => '' ),
 			)
@@ -147,7 +147,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'link_icon',
 			array(
-				'label'     => __( 'Link icon', 'decent-core' ),
+				'label'     => __( 'Link icon', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::ICONS,
 				'default'   => self::design_icon( 'arrow-right' ),
 				'condition' => array( 'link_label!' => '' ),
@@ -168,21 +168,21 @@ final class Icon_Box extends Widget_Base {
 	 * @return void
 	 */
 	private function register_layout_controls(): void {
-		$this->start_style_section( 'layout', __( 'Layout', 'decent-core' ) );
+		$this->start_style_section( 'layout', __( 'Layout', 'pixelomatic-core' ) );
 
 		$this->add_responsive_control(
 			'icon_position',
 			array(
-				'label'     => __( 'Icon position', 'decent-core' ),
+				'label'     => __( 'Icon position', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'default'   => 'column',
 				'options'   => array(
 					'column' => array(
-						'title' => __( 'Top', 'decent-core' ),
+						'title' => __( 'Top', 'pixelomatic-core' ),
 						'icon'  => 'eicon-v-align-top',
 					),
 					'row'    => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-h-align-left',
 					),
 				),
@@ -199,19 +199,19 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'align',
 			array(
-				'label'     => __( 'Alignment', 'decent-core' ),
+				'label'     => __( 'Alignment', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'start'  => array(
-						'title' => __( 'Left', 'decent-core' ),
+						'title' => __( 'Left', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'end'    => array(
-						'title' => __( 'Right', 'decent-core' ),
+						'title' => __( 'Right', 'pixelomatic-core' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -226,20 +226,20 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'icon_align',
 			array(
-				'label'       => __( 'Icon alignment', 'decent-core' ),
+				'label'       => __( 'Icon alignment', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::CHOOSE,
-				'description' => __( 'Overrides the alignment above for the icon alone. Across the box with the icon on top, down it with the icon on the left.', 'decent-core' ),
+				'description' => __( 'Overrides the alignment above for the icon alone. Across the box with the icon on top, down it with the icon on the left.', 'pixelomatic-core' ),
 				'options'     => array(
 					'start'  => array(
-						'title' => __( 'Start', 'decent-core' ),
+						'title' => __( 'Start', 'pixelomatic-core' ),
 						'icon'  => 'eicon-align-start-h',
 					),
 					'center' => array(
-						'title' => __( 'Centre', 'decent-core' ),
+						'title' => __( 'Centre', 'pixelomatic-core' ),
 						'icon'  => 'eicon-align-center-h',
 					),
 					'end'    => array(
-						'title' => __( 'End', 'decent-core' ),
+						'title' => __( 'End', 'pixelomatic-core' ),
 						'icon'  => 'eicon-align-end-h',
 					),
 				),
@@ -251,21 +251,21 @@ final class Icon_Box extends Widget_Base {
 
 		$this->register_gap_style(
 			'gap',
-			__( 'Icon and content gap', 'decent-core' ),
+			__( 'Icon and content gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box',
 			80
 		);
 
 		$this->register_gap_style(
 			'content_gap',
-			__( 'Content and link gap', 'decent-core' ),
+			__( 'Content and link gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__content',
 			64
 		);
 
 		$this->register_gap_style(
 			'body_gap',
-			__( 'Title and text gap', 'decent-core' ),
+			__( 'Title and text gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__body',
 			40
 		);
@@ -273,10 +273,10 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'content_width',
 			array(
-				'label'       => __( 'Content width', 'decent-core' ),
+				'label'       => __( 'Content width', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SLIDER,
 				'size_units'  => array( '%', 'px' ),
-				'description' => __( 'Holds the copy to a shorter measure. Leave empty to fill the box.', 'decent-core' ),
+				'description' => __( 'Holds the copy to a shorter measure. Leave empty to fill the box.', 'pixelomatic-core' ),
 				'range'       => array(
 					'%'  => array(
 						'min'  => 20,
@@ -304,11 +304,11 @@ final class Icon_Box extends Widget_Base {
 	 * @return void
 	 */
 	private function register_style_controls(): void {
-		$this->start_style_section( 'style_box', __( 'Box', 'decent-core' ) );
+		$this->start_style_section( 'style_box', __( 'Box', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'box',
-			__( 'Box', 'decent-core' ),
+			__( 'Box', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box',
 			array(
 				'heading'   => false,
@@ -320,7 +320,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_control(
 			'box_border_color_hover',
 			array(
-				'label'     => __( 'Hover border colour', 'decent-core' ),
+				'label'     => __( 'Hover border colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'separator' => 'before',
 				'selectors' => array(
@@ -333,14 +333,14 @@ final class Icon_Box extends Widget_Base {
 
 		$this->start_style_section(
 			'style_icon',
-			__( 'Icon', 'decent-core' ),
+			__( 'Icon', 'pixelomatic-core' ),
 			array( 'condition' => array( 'icon[value]!' => '' ) )
 		);
 
 		$this->add_control(
 			'icon_color',
 			array(
-				'label'     => __( 'Icon colour', 'decent-core' ),
+				'label'     => __( 'Icon colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-icon-box__icon' => 'color: {{VALUE}};',
@@ -355,7 +355,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'icon_size',
 			array(
-				'label'      => __( 'Icon size', 'decent-core' ),
+				'label'      => __( 'Icon size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -377,7 +377,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'icon_tile',
 			array(
-				'label'      => __( 'Tile size', 'decent-core' ),
+				'label'      => __( 'Tile size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -395,7 +395,7 @@ final class Icon_Box extends Widget_Base {
 
 		$this->register_box_style(
 			'icon_tile',
-			__( 'Tile', 'decent-core' ),
+			__( 'Tile', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__icon',
 			array(
 				'heading' => false,
@@ -407,13 +407,13 @@ final class Icon_Box extends Widget_Base {
 
 		$this->start_style_section(
 			'style_title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			array( 'condition' => array( 'title!' => '' ) )
 		);
 
 		$this->register_text_style(
 			'title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__title',
 			array(
 				'heading'   => false,
@@ -426,13 +426,13 @@ final class Icon_Box extends Widget_Base {
 
 		$this->start_style_section(
 			'style_text',
-			__( 'Text', 'decent-core' ),
+			__( 'Text', 'pixelomatic-core' ),
 			array( 'condition' => array( 'text!' => '' ) )
 		);
 
 		$this->register_text_style(
 			'text',
-			__( 'Text', 'decent-core' ),
+			__( 'Text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__text',
 			array(
 				'heading'   => false,
@@ -445,13 +445,13 @@ final class Icon_Box extends Widget_Base {
 
 		$this->start_style_section(
 			'style_link',
-			__( 'Link', 'decent-core' ),
+			__( 'Link', 'pixelomatic-core' ),
 			array( 'condition' => array( 'link_label!' => '' ) )
 		);
 
 		$this->register_link_style(
 			'link',
-			__( 'Link', 'decent-core' ),
+			__( 'Link', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__link',
 			array(
 				'heading'   => false,
@@ -461,7 +461,7 @@ final class Icon_Box extends Widget_Base {
 
 		$this->register_gap_style(
 			'link_gap',
-			__( 'Label and icon gap', 'decent-core' ),
+			__( 'Label and icon gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-icon-box__link',
 			24
 		);
@@ -469,7 +469,7 @@ final class Icon_Box extends Widget_Base {
 		$this->add_responsive_control(
 			'link_icon_size',
 			array(
-				'label'      => __( 'Link icon size', 'decent-core' ),
+				'label'      => __( 'Link icon size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(

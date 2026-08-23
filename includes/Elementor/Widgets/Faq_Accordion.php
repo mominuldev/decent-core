@@ -2,16 +2,16 @@
 /**
  * FAQ Accordion widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -42,23 +42,23 @@ final class Faq_Accordion extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
 		$this->register_section_head_controls(
-			__( 'Licensing, updates and support', 'decent-core' ),
-			__( 'FAQ', 'decent-core' )
+			__( 'Licensing, updates and support', 'pixelomatic-core' ),
+			__( 'FAQ', 'pixelomatic-core' )
 		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Questions', 'decent-core' ) ) );
+		$this->start_controls_section( 'items', array( 'label' => __( 'Questions', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'question',
 			array(
-				'label'       => __( 'Question', 'decent-core' ),
+				'label'       => __( 'Question', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'What does the licence cover?', 'decent-core' ),
+				'default'     => __( 'What does the licence cover?', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -66,7 +66,7 @@ final class Faq_Accordion extends Widget_Base {
 		$repeater->add_control(
 			'answer',
 			array(
-				'label'       => __( 'Answer', 'decent-core' ),
+				'label'       => __( 'Answer', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
 				'label_block' => true,
@@ -81,12 +81,12 @@ final class Faq_Accordion extends Widget_Base {
 				'title_field' => '{{{ question }}}',
 				'default'     => array(
 					array(
-						'question' => __( 'What does a regular licence cover?', 'decent-core' ),
-						'answer'   => __( 'One end product that you do not charge users to access. Extended licences cover a paid end product and client resale.', 'decent-core' ),
+						'question' => __( 'What does a regular licence cover?', 'pixelomatic-core' ),
+						'answer'   => __( 'One end product that you do not charge users to access. Extended licences cover a paid end product and client resale.', 'pixelomatic-core' ),
 					),
 					array(
-						'question' => __( 'How long do updates last?', 'decent-core' ),
-						'answer'   => __( 'For the life of the product. Version history and changelogs are in your dashboard so you can review a release before pushing it.', 'decent-core' ),
+						'question' => __( 'How long do updates last?', 'pixelomatic-core' ),
+						'answer'   => __( 'For the life of the product. Version history and changelogs are in your dashboard so you can review a release before pushing it.', 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -94,39 +94,39 @@ final class Faq_Accordion extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_question', __( 'Questions', 'decent-core' ) );
+		$this->start_style_section( 'style_question', __( 'Questions', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'trigger',
-			__( 'Row', 'decent-core' ),
+			__( 'Row', 'pixelomatic-core' ),
 			'{{WRAPPER}} .accordion__trigger',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_link_style(
 			'trigger_text',
-			__( 'Question text', 'decent-core' ),
+			__( 'Question text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .accordion__trigger'
 		);
 
 		$this->register_text_style(
 			'trigger_mark',
-			__( 'Plus and minus mark', 'decent-core' ),
+			__( 'Plus and minus mark', 'pixelomatic-core' ),
 			'{{WRAPPER}} .accordion__mark',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_answer', __( 'Answers', 'decent-core' ) );
+		$this->start_style_section( 'style_answer', __( 'Answers', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'panel',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .accordion__panel',
 			array(
 				'separator' => 'none',
@@ -136,18 +136,18 @@ final class Faq_Accordion extends Widget_Base {
 
 		$this->register_text_style(
 			'panel_text',
-			__( 'Answer text', 'decent-core' ),
+			__( 'Answer text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .accordion__panel p',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,

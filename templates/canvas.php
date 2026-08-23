@@ -7,7 +7,7 @@
  * container — just the two hooks every stylesheet and script on the page is
  * registered against.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
 defined( 'ABSPATH' ) || exit;

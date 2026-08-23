@@ -2,15 +2,15 @@
 /**
  * CTA widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -35,15 +35,15 @@ final class Cta extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 2,
-				'default'     => __( 'Start with a product your team can ship this week', 'decent-core' ),
+				'default'     => __( 'Start with a product your team can ship this week', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -51,13 +51,13 @@ final class Cta extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			array(
-				'label'   => __( 'Title tag', 'decent-core' ),
+				'label'   => __( 'Title tag', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h2',
 				'options' => array(
 					'h2' => 'H2',
 					'h3' => 'H3',
-					'p'  => __( 'Paragraph', 'decent-core' ),
+					'p'  => __( 'Paragraph', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -65,7 +65,7 @@ final class Cta extends Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
 				'label_block' => true,
@@ -75,16 +75,16 @@ final class Cta extends Widget_Base {
 		$this->add_control(
 			'button_label',
 			array(
-				'label'   => __( 'Button label', 'decent-core' ),
+				'label'   => __( 'Button label', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Browse products', 'decent-core' ),
+				'default' => __( 'Browse products', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'button_url',
 			array(
-				'label'       => __( 'Button link', 'decent-core' ),
+				'label'       => __( 'Button link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 			)
@@ -93,7 +93,7 @@ final class Cta extends Widget_Base {
 		$this->add_control(
 			'note',
 			array(
-				'label'       => __( 'Small print', 'decent-core' ),
+				'label'       => __( 'Small print', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 			)
@@ -101,24 +101,24 @@ final class Cta extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_panel', __( 'Panel', 'decent-core' ) );
+		$this->start_style_section( 'style_panel', __( 'Panel', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'panel',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cta',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_gap_style( 'panel_gap', __( 'Copy and actions gap', 'decent-core' ), '{{WRAPPER}} .cta', 64 );
+		$this->register_gap_style( 'panel_gap', __( 'Copy and actions gap', 'pixelomatic-core' ), '{{WRAPPER}} .cta', 64 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+		$this->start_style_section( 'style_text', __( 'Text', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'cta_title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cta .section-title',
 			array(
 				'separator' => 'none',
@@ -128,7 +128,7 @@ final class Cta extends Widget_Base {
 
 		$this->register_text_style(
 			'cta_text',
-			__( 'Text', 'decent-core' ),
+			__( 'Text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cta .section-intro',
 			array(
 				'align'   => true,
@@ -138,7 +138,7 @@ final class Cta extends Widget_Base {
 
 		$this->register_text_style(
 			'cta_note',
-			__( 'Small print', 'decent-core' ),
+			__( 'Small print', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cta__note',
 			array(
 				'align'   => true,
@@ -148,22 +148,22 @@ final class Cta extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_button', __( 'Button', 'decent-core' ) );
+		$this->start_style_section( 'style_button', __( 'Button', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'cta_button',
-			__( 'Button', 'decent-core' ),
+			__( 'Button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .cta__actions .btn',
 			array( 'separator' => 'none' )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,

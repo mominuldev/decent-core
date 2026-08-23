@@ -60,7 +60,7 @@
 
   $(window).on('elementor/frontend/init', function () {
     elementorFrontend.hooks.addAction(
-      'frontend/element_ready/decent-login-form.default',
+      'frontend/element_ready/pixelomatic-login-form.default',
       function ($scope) {
         var card = $scope[0].querySelector('.pix-login');
 

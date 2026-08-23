@@ -1,6 +1,6 @@
 {
-    "name": "decentthemes/decent-core",
-    "description": "Decent Core \u2014 Elementor widgets, header/footer builder and EDD extensions. Development tooling only; vendor/ is never shipped.",
+    "name": "pixelomatic/pixelomatic-core",
+    "description": "Pixelomatic Core \u2014 Elementor widgets, header/footer builder and EDD extensions. Development tooling only; vendor/ is never shipped.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "require": {

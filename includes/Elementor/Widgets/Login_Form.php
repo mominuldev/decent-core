@@ -23,15 +23,15 @@
  * goes nowhere — the same rule Newsletter follows about a form with no
  * endpoint.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -71,14 +71,14 @@ final class Login_Form extends Widget_Base {
 	 * @return void
 	 */
 	private function register_content_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Content', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Sign in', 'decent-core' ),
+				'default'     => __( 'Sign in', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -89,7 +89,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			array(
-				'label'     => __( 'Title tag', 'decent-core' ),
+				'label'     => __( 'Title tag', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h2',
 				'options'   => array(
@@ -97,8 +97,8 @@ final class Login_Form extends Widget_Base {
 					'h2'   => 'H2',
 					'h3'   => 'H3',
 					'h4'   => 'H4',
-					'p'    => __( 'Paragraph', 'decent-core' ),
-					'span' => __( 'Span', 'decent-core' ),
+					'p'    => __( 'Paragraph', 'pixelomatic-core' ),
+					'span' => __( 'Span', 'pixelomatic-core' ),
 				),
 				'condition' => array( 'title!' => '' ),
 			)
@@ -107,10 +107,10 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'intro',
 			array(
-				'label'       => __( 'Intro', 'decent-core' ),
+				'label'       => __( 'Intro', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => __( 'Your downloads, licence keys and support tickets are all in here.', 'decent-core' ),
+				'default'     => __( 'Your downloads, licence keys and support tickets are all in here.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -118,9 +118,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'username_label',
 			array(
-				'label'       => __( 'Username field label', 'decent-core' ),
+				'label'       => __( 'Username field label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Email address', 'decent-core' ),
+				'default'     => __( 'Email address', 'pixelomatic-core' ),
 				'label_block' => true,
 				'separator'   => 'before',
 			)
@@ -129,7 +129,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'username_placeholder',
 			array(
-				'label'       => __( 'Username field placeholder', 'decent-core' ),
+				'label'       => __( 'Username field placeholder', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 			)
@@ -138,9 +138,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'password_label',
 			array(
-				'label'       => __( 'Password field label', 'decent-core' ),
+				'label'       => __( 'Password field label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Password', 'decent-core' ),
+				'default'     => __( 'Password', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -148,12 +148,12 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'reveal',
 			array(
-				'label'        => __( 'Show password toggle', 'decent-core' ),
+				'label'        => __( 'Show password toggle', 'pixelomatic-core' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
-				'description'  => __( 'Revealed by script. Without JavaScript the field is an ordinary password field rather than a button that does nothing.', 'decent-core' ),
-				'label_on'     => __( 'Show', 'decent-core' ),
-				'label_off'    => __( 'Hide', 'decent-core' ),
+				'description'  => __( 'Revealed by script. Without JavaScript the field is an ordinary password field rather than a button that does nothing.', 'pixelomatic-core' ),
+				'label_on'     => __( 'Show', 'pixelomatic-core' ),
+				'label_off'    => __( 'Hide', 'pixelomatic-core' ),
 				'return_value' => 'yes',
 			)
 		);
@@ -161,9 +161,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'reveal_label',
 			array(
-				'label'     => __( 'Reveal label', 'decent-core' ),
+				'label'     => __( 'Reveal label', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Show', 'decent-core' ),
+				'default'   => __( 'Show', 'pixelomatic-core' ),
 				'condition' => array( 'reveal' => 'yes' ),
 			)
 		);
@@ -171,9 +171,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'conceal_label',
 			array(
-				'label'     => __( 'Conceal label', 'decent-core' ),
+				'label'     => __( 'Conceal label', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Hide', 'decent-core' ),
+				'default'   => __( 'Hide', 'pixelomatic-core' ),
 				'condition' => array( 'reveal' => 'yes' ),
 			)
 		);
@@ -181,10 +181,10 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'lost_label',
 			array(
-				'label'       => __( 'Lost password link', 'decent-core' ),
+				'label'       => __( 'Lost password link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Forgot password?', 'decent-core' ),
-				'description' => __( 'Points at the store’s own password-reset screen. Leave empty to drop it.', 'decent-core' ),
+				'default'     => __( 'Forgot password?', 'pixelomatic-core' ),
+				'description' => __( 'Points at the store’s own password-reset screen. Leave empty to drop it.', 'pixelomatic-core' ),
 				'label_block' => true,
 				'separator'   => 'before',
 			)
@@ -193,9 +193,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'lost_url',
 			array(
-				'label'       => __( 'Lost password URL', 'decent-core' ),
+				'label'       => __( 'Lost password URL', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
-				'description' => __( 'Optional. Empty uses the store’s reset screen.', 'decent-core' ),
+				'description' => __( 'Optional. Empty uses the store’s reset screen.', 'pixelomatic-core' ),
 				'condition'   => array( 'lost_label!' => '' ),
 			)
 		);
@@ -203,7 +203,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'remember',
 			array(
-				'label'        => __( 'Keep signed in', 'decent-core' ),
+				'label'        => __( 'Keep signed in', 'pixelomatic-core' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'separator'    => 'before',
@@ -214,9 +214,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'remember_label',
 			array(
-				'label'       => __( 'Keep signed in label', 'decent-core' ),
+				'label'       => __( 'Keep signed in label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Keep me signed in on this device', 'decent-core' ),
+				'default'     => __( 'Keep me signed in on this device', 'pixelomatic-core' ),
 				'label_block' => true,
 				'condition'   => array( 'remember' => 'yes' ),
 			)
@@ -228,7 +228,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'remember_checked',
 			array(
-				'label'        => __( 'Ticked by default', 'decent-core' ),
+				'label'        => __( 'Ticked by default', 'pixelomatic-core' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'condition'    => array( 'remember' => 'yes' ),
 				'return_value' => 'yes',
@@ -238,9 +238,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'button_label',
 			array(
-				'label'     => __( 'Button label', 'decent-core' ),
+				'label'     => __( 'Button label', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Sign in', 'decent-core' ),
+				'default'   => __( 'Sign in', 'pixelomatic-core' ),
 				'separator' => 'before',
 			)
 		);
@@ -248,9 +248,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'redirect',
 			array(
-				'label'       => __( 'After signing in', 'decent-core' ),
+				'label'       => __( 'After signing in', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
-				'description' => __( 'Where a successful sign-in lands. Empty returns to this page.', 'decent-core' ),
+				'description' => __( 'Where a successful sign-in lands. Empty returns to this page.', 'pixelomatic-core' ),
 				'options'     => array( 'url' ),
 			)
 		);
@@ -258,9 +258,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'alt_text',
 			array(
-				'label'       => __( 'Footer text', 'decent-core' ),
+				'label'       => __( 'Footer text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'New here?', 'decent-core' ),
+				'default'     => __( 'New here?', 'pixelomatic-core' ),
 				'label_block' => true,
 				'separator'   => 'before',
 			)
@@ -269,9 +269,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'alt_label',
 			array(
-				'label'       => __( 'Footer link', 'decent-core' ),
+				'label'       => __( 'Footer link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Create an account', 'decent-core' ),
+				'default'     => __( 'Create an account', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -279,9 +279,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'alt_url',
 			array(
-				'label'       => __( 'Footer link URL', 'decent-core' ),
+				'label'       => __( 'Footer link URL', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::URL,
-				'description' => __( 'Optional. Empty uses the site’s registration screen, and drops the link where registration is closed.', 'decent-core' ),
+				'description' => __( 'Optional. Empty uses the site’s registration screen, and drops the link where registration is closed.', 'pixelomatic-core' ),
 				'condition'   => array( 'alt_label!' => '' ),
 			)
 		);
@@ -295,13 +295,13 @@ final class Login_Form extends Widget_Base {
 	 * @return void
 	 */
 	private function register_provider_controls(): void {
-		$this->start_controls_section( 'providers', array( 'label' => __( 'Social providers', 'decent-core' ) ) );
+		$this->start_controls_section( 'providers', array( 'label' => __( 'Social providers', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'providers_note',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'These are links. The plugin implements no OAuth of its own, so each row needs the sign-in URL your provider plugin hands out — a row without one renders nothing rather than a button that goes nowhere.', 'decent-core' ),
+				'raw'             => esc_html__( 'These are links. The plugin implements no OAuth of its own, so each row needs the sign-in URL your provider plugin hands out — a row without one renders nothing rather than a button that goes nowhere.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
@@ -311,9 +311,9 @@ final class Login_Form extends Widget_Base {
 		$repeater->add_control(
 			'label',
 			array(
-				'label'       => __( 'Label', 'decent-core' ),
+				'label'       => __( 'Label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Continue with GitHub', 'decent-core' ),
+				'default'     => __( 'Continue with GitHub', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -321,7 +321,7 @@ final class Login_Form extends Widget_Base {
 		$repeater->add_control(
 			'url',
 			array(
-				'label'   => __( 'Sign-in URL', 'decent-core' ),
+				'label'   => __( 'Sign-in URL', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::URL,
 				'options' => array( 'url', 'nofollow' ),
 			)
@@ -330,7 +330,7 @@ final class Login_Form extends Widget_Base {
 		$repeater->add_control(
 			'icon',
 			array(
-				'label' => __( 'Icon', 'decent-core' ),
+				'label' => __( 'Icon', 'pixelomatic-core' ),
 				'type'  => Controls_Manager::ICONS,
 			)
 		);
@@ -338,13 +338,13 @@ final class Login_Form extends Widget_Base {
 		$repeater->add_control(
 			'variant',
 			array(
-				'label'   => __( 'Style', 'decent-core' ),
+				'label'   => __( 'Style', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'dark',
 				'options' => array(
-					'dark'      => __( 'Dark', 'decent-core' ),
-					'secondary' => __( 'Outline', 'decent-core' ),
-					'primary'   => __( 'Primary', 'decent-core' ),
+					'dark'      => __( 'Dark', 'pixelomatic-core' ),
+					'secondary' => __( 'Outline', 'pixelomatic-core' ),
+					'primary'   => __( 'Primary', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -357,11 +357,11 @@ final class Login_Form extends Widget_Base {
 				'title_field' => '{{{ label }}}',
 				'default'     => array(
 					array(
-						'label'   => __( 'Continue with GitHub', 'decent-core' ),
+						'label'   => __( 'Continue with GitHub', 'pixelomatic-core' ),
 						'variant' => 'dark',
 					),
 					array(
-						'label'   => __( 'Continue with Google', 'decent-core' ),
+						'label'   => __( 'Continue with Google', 'pixelomatic-core' ),
 						'variant' => 'secondary',
 					),
 				),
@@ -371,10 +371,10 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'divider_label',
 			array(
-				'label'       => __( 'Divider label', 'decent-core' ),
+				'label'       => __( 'Divider label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'or use your email', 'decent-core' ),
-				'description' => __( 'Sits between the providers and the fields. Nothing renders when no provider has a URL.', 'decent-core' ),
+				'default'     => __( 'or use your email', 'pixelomatic-core' ),
+				'description' => __( 'Sits between the providers and the fields. Nothing renders when no provider has a URL.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -388,13 +388,13 @@ final class Login_Form extends Widget_Base {
 	 * @return void
 	 */
 	private function register_signed_in_controls(): void {
-		$this->start_controls_section( 'signed_in', array( 'label' => __( 'Already signed in', 'decent-core' ) ) );
+		$this->start_controls_section( 'signed_in', array( 'label' => __( 'Already signed in', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'signed_in_note',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'What a signed-in visitor sees in place of the form. The editor always shows the form, so this panel is the only way to check this state.', 'decent-core' ),
+				'raw'             => esc_html__( 'What a signed-in visitor sees in place of the form. The editor always shows the form, so this panel is the only way to check this state.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
@@ -402,12 +402,12 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'signed_in_text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				/* translators: %s: the signed-in visitor's display name. */
-				'default'     => __( 'You are signed in as %s.', 'decent-core' ),
+				'default'     => __( 'You are signed in as %s.', 'pixelomatic-core' ),
 				/* translators: %s is the literal token an editor types into the setting above, not a value substituted here. */
-				'description' => __( 'Put %s where the visitor’s name should appear.', 'decent-core' ),
+				'description' => __( 'Put %s where the visitor’s name should appear.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -415,9 +415,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'account_label',
 			array(
-				'label'       => __( 'Account button', 'decent-core' ),
+				'label'       => __( 'Account button', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Go to your account', 'decent-core' ),
+				'default'     => __( 'Go to your account', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -425,7 +425,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'account_url',
 			array(
-				'label'     => __( 'Account URL', 'decent-core' ),
+				'label'     => __( 'Account URL', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::URL,
 				'condition' => array( 'account_label!' => '' ),
 			)
@@ -434,9 +434,9 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'logout_label',
 			array(
-				'label'       => __( 'Sign out link', 'decent-core' ),
+				'label'       => __( 'Sign out link', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Sign out', 'decent-core' ),
+				'default'     => __( 'Sign out', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -450,7 +450,7 @@ final class Login_Form extends Widget_Base {
 	 * @return void
 	 */
 	private function register_style_controls(): void {
-		$this->start_style_section( 'style_card', __( 'Card', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Card', 'pixelomatic-core' ) );
 
 		// The design centres a 420px form in its column. Left empty the form
 		// fills whatever container it is dropped in, which is what a form in a
@@ -458,7 +458,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_responsive_control(
 			'card_width',
 			array(
-				'label'      => __( 'Width', 'decent-core' ),
+				'label'      => __( 'Width', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -477,11 +477,11 @@ final class Login_Form extends Widget_Base {
 			)
 		);
 
-		$this->register_alignment_flex_style( 'card_align', '{{WRAPPER}}', __( 'Card alignment', 'decent-core' ) );
+		$this->register_alignment_flex_style( 'card_align', '{{WRAPPER}}', __( 'Card alignment', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login',
 			array(
 				'heading' => false,
@@ -489,15 +489,15 @@ final class Login_Form extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'card_gap', __( 'Block gap', 'decent-core' ), '{{WRAPPER}} .pix-login', 64 );
+		$this->register_gap_style( 'card_gap', __( 'Block gap', 'pixelomatic-core' ), '{{WRAPPER}} .pix-login', 64 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Head', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__title',
 			array(
 				'spacing'   => false,
@@ -507,30 +507,30 @@ final class Login_Form extends Widget_Base {
 
 		$this->register_text_style(
 			'intro',
-			__( 'Intro', 'decent-core' ),
+			__( 'Intro', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__intro',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'head_gap', __( 'Title and intro gap', 'decent-core' ), '{{WRAPPER}} .pix-login__head', 40 );
+		$this->register_gap_style( 'head_gap', __( 'Title and intro gap', 'pixelomatic-core' ), '{{WRAPPER}} .pix-login__head', 40 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_providers', __( 'Social providers', 'decent-core' ) );
+		$this->start_style_section( 'style_providers', __( 'Social providers', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'provider',
-			__( 'Buttons', 'decent-core' ),
+			__( 'Buttons', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__provider',
 			array( 'heading' => false )
 		);
 
-		$this->register_gap_style( 'provider_gap', __( 'Gap between buttons', 'decent-core' ), '{{WRAPPER}} .pix-login__providers', 32 );
+		$this->register_gap_style( 'provider_gap', __( 'Gap between buttons', 'pixelomatic-core' ), '{{WRAPPER}} .pix-login__providers', 32 );
 
 		$this->add_responsive_control(
 			'provider_icon_size',
 			array(
-				'label'      => __( 'Icon size', 'decent-core' ),
+				'label'      => __( 'Icon size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -546,7 +546,7 @@ final class Login_Form extends Widget_Base {
 
 		$this->register_text_style(
 			'divider',
-			__( 'Divider label', 'decent-core' ),
+			__( 'Divider label', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__divider',
 			array( 'spacing' => false )
 		);
@@ -554,7 +554,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'divider_line_color',
 			array(
-				'label'     => __( 'Divider line colour', 'decent-core' ),
+				'label'     => __( 'Divider line colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-login__divider::before, {{WRAPPER}} .pix-login__divider::after' => 'background-color: {{VALUE}};',
@@ -564,11 +564,11 @@ final class Login_Form extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_fields', __( 'Fields', 'decent-core' ) );
+		$this->start_style_section( 'style_fields', __( 'Fields', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'label',
-			__( 'Labels', 'decent-core' ),
+			__( 'Labels', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__label',
 			array(
 				'spacing'   => false,
@@ -578,14 +578,14 @@ final class Login_Form extends Widget_Base {
 
 		$this->register_box_style(
 			'field',
-			__( 'Input', 'decent-core' ),
+			__( 'Input', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login .pix-login__input',
 			array( 'shadow' => false )
 		);
 
 		$this->register_text_style(
 			'field_text',
-			__( 'Input text', 'decent-core' ),
+			__( 'Input text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login .pix-login__input',
 			array(
 				'heading' => false,
@@ -596,7 +596,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			array(
-				'label'     => __( 'Placeholder colour', 'decent-core' ),
+				'label'     => __( 'Placeholder colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .pix-login .pix-login__input::placeholder' => 'color: {{VALUE}};',
@@ -604,11 +604,11 @@ final class Login_Form extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'fields_gap', __( 'Gap between fields', 'decent-core' ), '{{WRAPPER}} .pix-login__fields', 48 );
+		$this->register_gap_style( 'fields_gap', __( 'Gap between fields', 'pixelomatic-core' ), '{{WRAPPER}} .pix-login__fields', 48 );
 
 		$this->register_text_style(
 			'remember',
-			__( 'Keep signed in', 'decent-core' ),
+			__( 'Keep signed in', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__remember',
 			array( 'spacing' => false )
 		);
@@ -616,7 +616,7 @@ final class Login_Form extends Widget_Base {
 		$this->add_control(
 			'remember_accent',
 			array(
-				'label'     => __( 'Tick colour', 'decent-core' ),
+				'label'     => __( 'Tick colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .pix-login__checkbox' => 'accent-color: {{VALUE}};' ),
 			)
@@ -624,11 +624,11 @@ final class Login_Form extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_actions', __( 'Actions', 'decent-core' ) );
+		$this->start_style_section( 'style_actions', __( 'Actions', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'submit',
-			__( 'Submit button', 'decent-core' ),
+			__( 'Submit button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__submit',
 			array( 'heading' => false )
 		);
@@ -639,13 +639,13 @@ final class Login_Form extends Widget_Base {
 		// identical control groups would be four chances to drift.
 		$this->register_link_style(
 			'link',
-			__( 'Links', 'decent-core' ),
+			__( 'Links', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__link'
 		);
 
 		$this->register_text_style(
 			'alt',
-			__( 'Footer text', 'decent-core' ),
+			__( 'Footer text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-login__alt',
 			array( 'spacing' => false )
 		);
@@ -773,7 +773,7 @@ final class Login_Form extends Widget_Base {
 	 */
 	private function render_form(): void {
 		$edd      = $this->uses_edd();
-		$id       = 'decent-login-' . $this->get_id();
+		$id       = 'pixelomatic-login-' . $this->get_id();
 		$remember = 'yes' === $this->get_settings_for_display( 'remember' );
 		$reveal   = 'yes' === $this->get_settings_for_display( 'reveal' );
 		?>
@@ -789,7 +789,7 @@ final class Login_Form extends Widget_Base {
 				<div class="pix-login__field">
 					<div class="pix-login__label-row">
 						<label class="pix-login__label" for="<?php echo esc_attr( $id . '-user' ); ?>">
-							<?php echo esc_html( $this->text( 'username_label', __( 'Email address', 'decent-core' ) ) ); ?>
+							<?php echo esc_html( $this->text( 'username_label', __( 'Email address', 'pixelomatic-core' ) ) ); ?>
 						</label>
 					</div>
 
@@ -813,7 +813,7 @@ final class Login_Form extends Widget_Base {
 				<div class="pix-login__field">
 					<div class="pix-login__label-row">
 						<label class="pix-login__label" for="<?php echo esc_attr( $id . '-pass' ); ?>">
-							<?php echo esc_html( $this->text( 'password_label', __( 'Password', 'decent-core' ) ) ); ?>
+							<?php echo esc_html( $this->text( 'password_label', __( 'Password', 'pixelomatic-core' ) ) ); ?>
 						</label>
 						<?php $this->render_lost_link(); ?>
 					</div>
@@ -838,10 +838,10 @@ final class Login_Form extends Widget_Base {
 								aria-controls="<?php echo esc_attr( $id . '-pass' ); ?>"
 								aria-pressed="false"
 								data-reveal
-								data-show="<?php echo esc_attr( $this->text( 'reveal_label', __( 'Show', 'decent-core' ) ) ); ?>"
-								data-hide="<?php echo esc_attr( $this->text( 'conceal_label', __( 'Hide', 'decent-core' ) ) ); ?>"
+								data-show="<?php echo esc_attr( $this->text( 'reveal_label', __( 'Show', 'pixelomatic-core' ) ) ); ?>"
+								data-hide="<?php echo esc_attr( $this->text( 'conceal_label', __( 'Hide', 'pixelomatic-core' ) ) ); ?>"
 								hidden>
-								<?php echo esc_html( $this->text( 'reveal_label', __( 'Show', 'decent-core' ) ) ); ?>
+								<?php echo esc_html( $this->text( 'reveal_label', __( 'Show', 'pixelomatic-core' ) ) ); ?>
 							</button>
 						<?php endif; ?>
 					</div>
@@ -862,12 +862,12 @@ final class Login_Form extends Widget_Base {
 						name="rememberme"
 						value="forever"
 						<?php checked( 'yes', $this->get_settings_for_display( 'remember_checked' ) ); ?>>
-					<span><?php echo esc_html( $this->text( 'remember_label', __( 'Keep me signed in on this device', 'decent-core' ) ) ); ?></span>
+					<span><?php echo esc_html( $this->text( 'remember_label', __( 'Keep me signed in on this device', 'pixelomatic-core' ) ) ); ?></span>
 				</label>
 			<?php endif; ?>
 
 			<button class="btn btn--primary btn--lg btn--block pix-login__submit" type="submit">
-				<?php echo esc_html( $this->text( 'button_label', __( 'Sign in', 'decent-core' ) ) ); ?>
+				<?php echo esc_html( $this->text( 'button_label', __( 'Sign in', 'pixelomatic-core' ) ) ); ?>
 			</button>
 
 			<?php $this->render_hidden_fields( $edd ); ?>

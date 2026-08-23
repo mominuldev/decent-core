@@ -14,7 +14,7 @@
  *
  * Never loaded at runtime. See phpstan.neon.dist -> scanFiles.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
 namespace Elementor;
@@ -113,6 +113,16 @@ abstract class Widget_Base extends Element_Base {
 	 * @return void
 	 */
 	protected function add_control( $id, array $args = array(), array $options = array() ) {}
+
+	/**
+	 * Overwrites arguments on a control that is already registered.
+	 *
+	 * @param string              $id   Control id.
+	 * @param array<string,mixed> $args Control arguments to merge in.
+	 * @param array<string,mixed> $options Control options.
+	 * @return void
+	 */
+	protected function update_control( $id, array $args = array(), array $options = array() ) {}
 
 	/**
 	 * Adds a responsive control.

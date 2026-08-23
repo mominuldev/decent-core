@@ -2,15 +2,15 @@
 /**
  * Site Logo widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 
 /**
@@ -35,18 +35,18 @@ final class Site_Logo extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Logo', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Logo', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'source',
 			array(
-				'label'   => __( 'Source', 'decent-core' ),
+				'label'   => __( 'Source', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'site',
 				'options' => array(
-					'site'   => __( 'Site logo (Customizer)', 'decent-core' ),
-					'custom' => __( 'Custom image', 'decent-core' ),
-					'text'   => __( 'Text mark', 'decent-core' ),
+					'site'   => __( 'Site logo (Customizer)', 'pixelomatic-core' ),
+					'custom' => __( 'Custom image', 'pixelomatic-core' ),
+					'text'   => __( 'Text mark', 'pixelomatic-core' ),
 				),
 			)
 		);
@@ -54,7 +54,7 @@ final class Site_Logo extends Widget_Base {
 		$this->add_control(
 			'image',
 			array(
-				'label'     => __( 'Image', 'decent-core' ),
+				'label'     => __( 'Image', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::MEDIA,
 				'condition' => array( 'source' => 'custom' ),
 			)
@@ -62,12 +62,12 @@ final class Site_Logo extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_logo', __( 'Logo', 'decent-core' ) );
+		$this->start_style_section( 'style_logo', __( 'Logo', 'pixelomatic-core' ) );
 
 		$this->add_responsive_control(
 			'logo_width',
 			array(
-				'label'      => __( 'Image width', 'decent-core' ),
+				'label'      => __( 'Image width', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -87,7 +87,7 @@ final class Site_Logo extends Widget_Base {
 		$this->add_responsive_control(
 			'logo_radius',
 			array(
-				'label'      => __( 'Image radius', 'decent-core' ),
+				'label'      => __( 'Image radius', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -101,11 +101,11 @@ final class Site_Logo extends Widget_Base {
 
 		// The text mark is also the fallback when no image resolves, so these
 		// are offered whatever the source is set to.
-		$this->start_style_section( 'style_mark', __( 'Text mark', 'decent-core' ) );
+		$this->start_style_section( 'style_mark', __( 'Text mark', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'mark',
-			__( 'Initials tile', 'decent-core' ),
+			__( 'Initials tile', 'pixelomatic-core' ),
 			'{{WRAPPER}} .brand__mark',
 			array(
 				'separator' => 'none',
@@ -115,7 +115,7 @@ final class Site_Logo extends Widget_Base {
 
 		$this->register_text_style(
 			'mark_text',
-			__( 'Initials text', 'decent-core' ),
+			__( 'Initials text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .brand__mark',
 			array(
 				'heading' => false,
@@ -125,14 +125,14 @@ final class Site_Logo extends Widget_Base {
 
 		$this->register_text_style(
 			'brand_name',
-			__( 'Site name', 'decent-core' ),
+			__( 'Site name', 'pixelomatic-core' ),
 			'{{WRAPPER}} .brand__name',
 			array( 'spacing' => false )
 		);
 
-		$this->register_link_style( 'brand_link', __( 'Link', 'decent-core' ), '{{WRAPPER}} .brand' );
+		$this->register_link_style( 'brand_link', __( 'Link', 'pixelomatic-core' ), '{{WRAPPER}} .brand' );
 
-		$this->register_gap_style( 'brand_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .brand', 32 );
+		$this->register_gap_style( 'brand_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .brand', 32 );
 
 		$this->end_controls_section();
 	}

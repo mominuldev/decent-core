@@ -2,10 +2,10 @@
 /**
  * Condition keys and specificity.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder\Conditions;
+namespace PixelomaticCore\Builder\Conditions;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -2,10 +2,10 @@
 /**
  * Swiper slider controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -67,6 +67,7 @@ trait Has_Slider_Controls {
 				'navigation'            => 'yes',
 				'pagination'            => 'yes',
 				'pagination_type'       => 'scrollbar',
+				'show_count'            => 'yes',
 				'direction'             => 'ltr',
 			),
 			$defaults
@@ -75,17 +76,17 @@ trait Has_Slider_Controls {
 		$this->add_responsive_control(
 			'slides_to_show',
 			array(
-				'label'          => __( 'Slides to show', 'decent-core' ),
+				'label'          => __( 'Slides to show', 'pixelomatic-core' ),
 				'type'           => Controls_Manager::SELECT,
 				'default'        => (string) $defaults['slides_to_show'],
 				'tablet_default' => (string) $defaults['slides_to_show_tablet'],
 				'mobile_default' => (string) $defaults['slides_to_show_mobile'],
 				'options'        => array(
-					'auto' => __( 'Auto', 'decent-core' ),
+					'auto' => __( 'Auto', 'pixelomatic-core' ),
 					'1'    => '1',
-					'1.15' => __( '1 and a peek', 'decent-core' ),
+					'1.15' => __( '1 and a peek', 'pixelomatic-core' ),
 					'2'    => '2',
-					'2.15' => __( '2 and a peek', 'decent-core' ),
+					'2.15' => __( '2 and a peek', 'pixelomatic-core' ),
 					'3'    => '3',
 					'4'    => '4',
 					'5'    => '5',
@@ -95,14 +96,14 @@ trait Has_Slider_Controls {
 				// scrolls: the sliver of the next card is the affordance. A
 				// whole number on a phone produces a card that looks like the
 				// only card.
-				'description'    => __( '“And a peek” leaves part of the next slide showing, which is what tells a visitor the row scrolls.', 'decent-core' ),
+				'description'    => __( '“And a peek” leaves part of the next slide showing, which is what tells a visitor the row scrolls.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_responsive_control(
 			'space_between',
 			array(
-				'label'          => __( 'Gap', 'decent-core' ),
+				'label'          => __( 'Gap', 'pixelomatic-core' ),
 				'type'           => Controls_Manager::SLIDER,
 				'size_units'     => array( 'px' ),
 				'default'        => array(
@@ -126,20 +127,20 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'speed',
 			array(
-				'label'       => __( 'Animation speed', 'decent-core' ),
+				'label'       => __( 'Animation speed', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => (int) $defaults['speed'],
 				'min'         => 100,
 				'max'         => 3000,
 				'step'        => 50,
-				'description' => __( 'Milliseconds per slide transition.', 'decent-core' ),
+				'description' => __( 'Milliseconds per slide transition.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'loop',
 			array(
-				'label'   => __( 'Loop', 'decent-core' ),
+				'label'   => __( 'Loop', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => (string) $defaults['loop'],
 			)
@@ -148,7 +149,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'allow_touch_move',
 			array(
-				'label'   => __( 'Drag to scroll', 'decent-core' ),
+				'label'   => __( 'Drag to scroll', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => (string) $defaults['allow_touch_move'],
 			)
@@ -157,17 +158,17 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'mousewheel',
 			array(
-				'label'       => __( 'Mousewheel', 'decent-core' ),
+				'label'       => __( 'Mousewheel', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => (string) $defaults['mousewheel'],
-				'description' => __( 'Lets the wheel move the slider. Turn Loop off if you use it — the two fight over the edges.', 'decent-core' ),
+				'description' => __( 'Lets the wheel move the slider. Turn Loop off if you use it — the two fight over the edges.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'autoplay',
 			array(
-				'label'     => __( 'Autoplay', 'decent-core' ),
+				'label'     => __( 'Autoplay', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => (string) $defaults['autoplay'],
 				'separator' => 'before',
@@ -177,7 +178,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'autoplay_delay',
 			array(
-				'label'     => __( 'Seconds per slide', 'decent-core' ),
+				'label'     => __( 'Seconds per slide', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => (int) $defaults['autoplay_delay'],
 				'min'       => 1,
@@ -189,7 +190,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pause_on_mouse_enter',
 			array(
-				'label'     => __( 'Pause on hover', 'decent-core' ),
+				'label'     => __( 'Pause on hover', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => (string) $defaults['pause_on_mouse_enter'],
 				'condition' => array( 'autoplay' => 'yes' ),
@@ -199,10 +200,10 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'autoplay_interaction',
 			array(
-				'label'       => __( 'Stop after interaction', 'decent-core' ),
+				'label'       => __( 'Stop after interaction', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => (string) $defaults['autoplay_interaction'],
-				'description' => __( 'Leaves autoplay off for good once a visitor takes over.', 'decent-core' ),
+				'description' => __( 'Leaves autoplay off for good once a visitor takes over.', 'pixelomatic-core' ),
 				'condition'   => array( 'autoplay' => 'yes' ),
 			)
 		);
@@ -210,7 +211,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'enable_grid',
 			array(
-				'label'     => __( 'Multiple rows', 'decent-core' ),
+				'label'     => __( 'Multiple rows', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => (string) $defaults['enable_grid'],
 				'separator' => 'before',
@@ -220,7 +221,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'grid_rows',
 			array(
-				'label'     => __( 'Rows', 'decent-core' ),
+				'label'     => __( 'Rows', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => (int) $defaults['grid_rows'],
 				'min'       => 1,
@@ -232,7 +233,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'navigation',
 			array(
-				'label'     => __( 'Arrows', 'decent-core' ),
+				'label'     => __( 'Arrows', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => (string) $defaults['navigation'],
 				'separator' => 'before',
@@ -245,7 +246,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'navigation_previous_icon',
 			array(
-				'label'       => __( 'Previous icon', 'decent-core' ),
+				'label'       => __( 'Previous icon', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::ICONS,
 				'skin'        => 'inline',
 				'label_block' => false,
@@ -256,7 +257,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'navigation_next_icon',
 			array(
-				'label'       => __( 'Next icon', 'decent-core' ),
+				'label'       => __( 'Next icon', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::ICONS,
 				'skin'        => 'inline',
 				'label_block' => false,
@@ -267,7 +268,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pagination',
 			array(
-				'label'     => __( 'Pagination', 'decent-core' ),
+				'label'     => __( 'Pagination', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => (string) $defaults['pagination'],
 				'separator' => 'before',
@@ -277,14 +278,14 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pagination_type',
 			array(
-				'label'     => __( 'Pagination type', 'decent-core' ),
+				'label'     => __( 'Pagination type', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => (string) $defaults['pagination_type'],
 				'options'   => array(
-					'scrollbar'   => __( 'Drag rail', 'decent-core' ),
-					'bullets'     => __( 'Bullets', 'decent-core' ),
-					'fraction'    => __( 'Fraction', 'decent-core' ),
-					'progressbar' => __( 'Progress bar', 'decent-core' ),
+					'scrollbar'   => __( 'Drag rail', 'pixelomatic-core' ),
+					'bullets'     => __( 'Bullets', 'pixelomatic-core' ),
+					'fraction'    => __( 'Fraction', 'pixelomatic-core' ),
+					'progressbar' => __( 'Progress bar', 'pixelomatic-core' ),
 				),
 				'condition' => array( 'pagination' => 'yes' ),
 			)
@@ -293,10 +294,10 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'show_count',
 			array(
-				'label'       => __( 'Slide count', 'decent-core' ),
+				'label'       => __( 'Slide count', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => (string) $defaults['show_count'],
-				'description' => __( 'The “Showing 1–3 of 6” line beside the pagination.', 'decent-core' ),
+				'description' => __( 'The “Showing 1–3 of 6” line beside the pagination.', 'pixelomatic-core' ),
 				'condition'   => array( 'pagination' => 'yes' ),
 			)
 		);
@@ -304,14 +305,14 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'direction',
 			array(
-				'label'       => __( 'Direction', 'decent-core' ),
+				'label'       => __( 'Direction', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => (string) $defaults['direction'],
 				'options'     => array(
-					'ltr' => __( 'Left to right', 'decent-core' ),
-					'rtl' => __( 'Right to left', 'decent-core' ),
+					'ltr' => __( 'Left to right', 'pixelomatic-core' ),
+					'rtl' => __( 'Right to left', 'pixelomatic-core' ),
 				),
-				'description' => __( 'Which end the slider starts from. Independent of the site language.', 'decent-core' ),
+				'description' => __( 'Which end the slider starts from. Independent of the site language.', 'pixelomatic-core' ),
 				'separator'   => 'before',
 			)
 		);
@@ -332,7 +333,7 @@ trait Has_Slider_Controls {
 		$this->add_responsive_control(
 			'arrow_size',
 			array(
-				'label'      => __( 'Arrow button size', 'decent-core' ),
+				'label'      => __( 'Arrow button size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -352,7 +353,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'arrow_radius',
 			array(
-				'label'      => __( 'Arrow corner', 'decent-core' ),
+				'label'      => __( 'Arrow corner', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -375,12 +376,12 @@ trait Has_Slider_Controls {
 
 		$this->start_controls_tabs( 'arrow_states', array( 'condition' => array( 'navigation' => 'yes' ) ) );
 
-		$this->start_controls_tab( 'arrow_normal', array( 'label' => __( 'Normal', 'decent-core' ) ) );
+		$this->start_controls_tab( 'arrow_normal', array( 'label' => __( 'Normal', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'arrow_color',
 			array(
-				'label'     => __( 'Icon', 'decent-core' ),
+				'label'     => __( 'Icon', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $block . '__nav' => 'color: {{VALUE}};' ),
 			)
@@ -389,7 +390,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'arrow_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $block . '__nav' => 'background: {{VALUE}}; border-color: {{VALUE}};' ),
 			)
@@ -397,7 +398,7 @@ trait Has_Slider_Controls {
 
 		$this->end_controls_tab();
 
-		$this->start_controls_tab( 'arrow_hover', array( 'label' => __( 'Hover', 'decent-core' ) ) );
+		$this->start_controls_tab( 'arrow_hover', array( 'label' => __( 'Hover', 'pixelomatic-core' ) ) );
 
 		// :not() the disabled modifier, or the hover colour repaints a button
 		// that is telling the visitor there is nowhere left to go.
@@ -406,7 +407,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'arrow_hover_color',
 			array(
-				'label'     => __( 'Icon', 'decent-core' ),
+				'label'     => __( 'Icon', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'color: {{VALUE}};' ),
 			)
@@ -415,7 +416,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'arrow_hover_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $hover => 'background: {{VALUE}}; border-color: {{VALUE}};' ),
 			)
@@ -423,14 +424,14 @@ trait Has_Slider_Controls {
 
 		$this->end_controls_tab();
 
-		$this->start_controls_tab( 'arrow_disabled', array( 'label' => __( 'At the end', 'decent-core' ) ) );
+		$this->start_controls_tab( 'arrow_disabled', array( 'label' => __( 'At the end', 'pixelomatic-core' ) ) );
 
 		$disabled = $block . '__nav--disabled';
 
 		$this->add_control(
 			'arrow_disabled_color',
 			array(
-				'label'     => __( 'Icon', 'decent-core' ),
+				'label'     => __( 'Icon', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $disabled => 'color: {{VALUE}};' ),
 			)
@@ -439,7 +440,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'arrow_disabled_background',
 			array(
-				'label'     => __( 'Background', 'decent-core' ),
+				'label'     => __( 'Background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $disabled => 'background: {{VALUE}};' ),
 			)
@@ -451,7 +452,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pagination_heading',
 			array(
-				'label'     => __( 'Pagination', 'decent-core' ),
+				'label'     => __( 'Pagination', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => array( 'pagination' => 'yes' ),
@@ -463,7 +464,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pagination_color',
 			array(
-				'label'     => __( 'Indicator', 'decent-core' ),
+				'label'     => __( 'Indicator', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					$block . '__rail .swiper-scrollbar-drag'                  => 'background: {{VALUE}};',
@@ -477,7 +478,7 @@ trait Has_Slider_Controls {
 		$this->add_control(
 			'pagination_track_color',
 			array(
-				'label'     => __( 'Track', 'decent-core' ),
+				'label'     => __( 'Track', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					$block . '__rail'                    => 'background: {{VALUE}};',
@@ -490,7 +491,7 @@ trait Has_Slider_Controls {
 
 		$this->register_text_style(
 			'slider_count',
-			__( 'Count', 'decent-core' ),
+			__( 'Count', 'pixelomatic-core' ),
 			$block . '__count',
 			array( 'spacing' => false )
 		);
@@ -498,7 +499,7 @@ trait Has_Slider_Controls {
 		$this->add_responsive_control(
 			'controls_gap',
 			array(
-				'label'      => __( 'Space above the controls', 'decent-core' ),
+				'label'      => __( 'Space above the controls', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -780,16 +781,16 @@ trait Has_Slider_Controls {
 		$type       = (string) ( $settings['pagination_type'] ?? 'scrollbar' );
 		$count      = ( $args['count'] ?? true ) && 'yes' === ( $settings['show_count'] ?? 'yes' );
 
-		$prev = (string) ( $args['prev_label'] ?? __( 'Previous', 'decent-core' ) );
-		$next = (string) ( $args['next_label'] ?? __( 'Next', 'decent-core' ) );
+		$prev = (string) ( $args['prev_label'] ?? __( 'Previous', 'pixelomatic-core' ) );
+		$next = (string) ( $args['next_label'] ?? __( 'Next', 'pixelomatic-core' ) );
 
 		// Both forms of the count line. The script fills in the numbers and
 		// picks between them; it never composes a sentence of its own, so the
 		// strings stay here where they can be translated.
 		/* translators: 1: first slide shown, 2: last slide shown, 3: total slides. */
-		$count_long = __( 'Showing %1$s–%2$s of %3$s', 'decent-core' );
+		$count_long = __( 'Showing %1$s–%2$s of %3$s', 'pixelomatic-core' );
 		/* translators: 1: slide shown, 2: unused in this form, 3: total slides. */
-		$count_short = __( '%1$s of %3$s', 'decent-core' );
+		$count_short = __( '%1$s of %3$s', 'pixelomatic-core' );
 		?>
 				</div>
 			</div>

@@ -2,15 +2,15 @@
 /**
  * Product Hero widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin as Elementor_Plugin;
 
@@ -41,53 +41,53 @@ final class Product_Hero extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Product hero', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Product hero', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'decent-core' ),
+				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_text', __( 'Text', 'decent-core' ) );
+		$this->start_style_section( 'style_text', __( 'Text', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'hero_title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__title',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'hero_text', __( 'Excerpt', 'decent-core' ), '{{WRAPPER}} .product-hero__text' );
+		$this->register_text_style( 'hero_text', __( 'Excerpt', 'pixelomatic-core' ), '{{WRAPPER}} .product-hero__text' );
 
 		$this->register_text_style(
 			'hero_facts',
-			__( 'Facts list', 'decent-core' ),
+			__( 'Facts list', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__facts',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			'hero_stars',
-			__( 'Stars', 'decent-core' ),
+			__( 'Stars', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__facts .stars',
 			array( 'spacing' => false )
 		);
 
-		$this->register_link_style( 'hero_breadcrumb', __( 'Breadcrumb links', 'decent-core' ), '{{WRAPPER}} .breadcrumb a' );
+		$this->register_link_style( 'hero_breadcrumb', __( 'Breadcrumb links', 'pixelomatic-core' ), '{{WRAPPER}} .breadcrumb a' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_badges', __( 'Badges', 'decent-core' ) );
+		$this->start_style_section( 'style_badges', __( 'Badges', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'badge',
-			__( 'Badge', 'decent-core' ),
+			__( 'Badge', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__badges .badge',
 			array(
 				'separator' => 'none',
@@ -97,7 +97,7 @@ final class Product_Hero extends Widget_Base {
 
 		$this->register_text_style(
 			'badge_text',
-			__( 'Badge text', 'decent-core' ),
+			__( 'Badge text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__badges .badge',
 			array(
 				'heading' => false,
@@ -105,26 +105,26 @@ final class Product_Hero extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'badges_gap', __( 'Gap', 'decent-core' ), '{{WRAPPER}} .product-hero__badges', 32 );
+		$this->register_gap_style( 'badges_gap', __( 'Gap', 'pixelomatic-core' ), '{{WRAPPER}} .product-hero__badges', 32 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_icon', __( 'Product icon', 'decent-core' ) );
+		$this->start_style_section( 'style_icon', __( 'Product icon', 'pixelomatic-core' ) );
 
 		$this->register_icon_style(
 			'hero_icon',
-			__( 'Icon', 'decent-core' ),
+			__( 'Icon', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__icon',
 			array( 'separator' => 'none' )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .product-hero__inner',
 			array(
 				'heading' => false,
@@ -132,7 +132,7 @@ final class Product_Hero extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'row_gap', __( 'Column gap', 'decent-core' ), '{{WRAPPER}} .product-hero__row', 64 );
+		$this->register_gap_style( 'row_gap', __( 'Column gap', 'pixelomatic-core' ), '{{WRAPPER}} .product-hero__row', 64 );
 
 		$this->end_controls_section();
 	}

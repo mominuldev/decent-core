@@ -7,7 +7,7 @@
  * scrolled past the header, and which way it is going — so that is all this
  * adds: `--stuck` and `--hidden`.
  *
- * The renderer only prints data-decent-header on a header that has one of
+ * The renderer only prints data-pixelomatic-header on a header that has one of
  * those behaviours switched on, so on every other page this file finds nothing
  * and returns.
  */
@@ -20,16 +20,16 @@
 	var HIDDEN = 'site-header--hidden';
 
 	function init() {
-		var header = document.querySelector('[data-decent-header]');
+		var header = document.querySelector('[data-pixelomatic-header]');
 
-		if (!header || 'true' === header.getAttribute('data-decent-bound')) {
+		if (!header || 'true' === header.getAttribute('data-pixelomatic-bound')) {
 			return;
 		}
 
 		var config;
 
 		try {
-			config = JSON.parse(header.getAttribute('data-decent-header'));
+			config = JSON.parse(header.getAttribute('data-pixelomatic-header'));
 		} catch (error) {
 			return;
 		}
@@ -38,7 +38,7 @@
 			return;
 		}
 
-		header.setAttribute('data-decent-bound', 'true');
+		header.setAttribute('data-pixelomatic-bound', 'true');
 
 		var threshold = 0;
 		var lastY = window.pageYOffset;

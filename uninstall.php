@@ -10,53 +10,53 @@
  * and footers turns a five-minute diagnosis into a rebuild, and there is no
  * undo.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-$decent_core_settings = get_option( 'decent_core_settings', array() );
-$decent_core_purge    = is_array( $decent_core_settings ) && ! empty( $decent_core_settings['remove_data_on_uninstall'] );
+$pixelomatic_core_settings = get_option( 'pixelomatic_core_settings', array() );
+$pixelomatic_core_purge    = is_array( $pixelomatic_core_settings ) && ! empty( $pixelomatic_core_settings['remove_data_on_uninstall'] );
 
 // Options are always removed: they are configuration, and reinstalling
 // restores the defaults.
 foreach (
 	array(
-		'decent_core_settings',
-		'decent_core_version',
-		'decent_core_activated_at',
-		'decent_core_conditions_map',
-		'decent_core_kit_seeded',
-		'decent_core_breakpoints_synced',
-	) as $decent_core_option
+		'pixelomatic_core_settings',
+		'pixelomatic_core_version',
+		'pixelomatic_core_activated_at',
+		'pixelomatic_core_conditions_map',
+		'pixelomatic_core_kit_seeded',
+		'pixelomatic_core_breakpoints_synced',
+	) as $pixelomatic_core_option
 ) {
-	delete_option( $decent_core_option );
+	delete_option( $pixelomatic_core_option );
 }
 
-wp_clear_scheduled_hook( 'decent_core_sweep_assets' );
+wp_clear_scheduled_hook( 'pixelomatic_core_sweep_assets' );
 
 // Generated bundles are derived files; nothing is lost by removing them.
-$decent_core_uploads = wp_upload_dir();
-$decent_core_dir     = trailingslashit( (string) ( $decent_core_uploads['basedir'] ?? '' ) ) . 'decent-core';
+$pixelomatic_core_uploads = wp_upload_dir();
+$pixelomatic_core_dir     = trailingslashit( (string) ( $pixelomatic_core_uploads['basedir'] ?? '' ) ) . 'pixelomatic-core';
 
-if ( '' !== $decent_core_uploads['basedir'] && is_dir( $decent_core_dir ) ) {
-	foreach ( array( 'css', 'js' ) as $decent_core_ext ) {
-		$decent_core_files = glob( $decent_core_dir . '/' . $decent_core_ext . '/*' );
+if ( '' !== $pixelomatic_core_uploads['basedir'] && is_dir( $pixelomatic_core_dir ) ) {
+	foreach ( array( 'css', 'js' ) as $pixelomatic_core_ext ) {
+		$pixelomatic_core_files = glob( $pixelomatic_core_dir . '/' . $pixelomatic_core_ext . '/*' );
 
-		foreach ( is_array( $decent_core_files ) ? $decent_core_files : array() as $decent_core_file ) {
-			wp_delete_file( $decent_core_file );
+		foreach ( is_array( $pixelomatic_core_files ) ? $pixelomatic_core_files : array() as $pixelomatic_core_file ) {
+			wp_delete_file( $pixelomatic_core_file );
 		}
 	}
 }
 
 // Content only when explicitly asked for.
-if ( ! $decent_core_purge ) {
+if ( ! $pixelomatic_core_purge ) {
 	return;
 }
 
-$decent_core_templates = get_posts(
+$pixelomatic_core_templates = get_posts(
 	array(
-		'post_type'      => 'decent_template',
+		'post_type'      => 'pixelomatic_template',
 		'post_status'    => 'any',
 		'posts_per_page' => 500,
 		'fields'         => 'ids',
@@ -64,6 +64,6 @@ $decent_core_templates = get_posts(
 	)
 );
 
-foreach ( $decent_core_templates as $decent_core_template ) {
-	wp_delete_post( (int) $decent_core_template, true );
+foreach ( $pixelomatic_core_templates as $pixelomatic_core_template ) {
+	wp_delete_post( (int) $pixelomatic_core_template, true );
 }

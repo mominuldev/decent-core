@@ -2,10 +2,10 @@
 /**
  * Settings REST endpoint.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Settings;
+namespace PixelomaticCore\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,14 +14,14 @@ use WP_REST_Response;
 use WP_REST_Server;
 
 /**
- * GET and POST decent/v1/settings
+ * GET and POST pixelomatic/v1/settings
  */
 final class Rest_Controller {
 
 	/**
 	 * REST namespace.
 	 */
-	private const NAMESPACE = 'decent/v1';
+	private const NAMESPACE = 'pixelomatic/v1';
 
 	/**
 	 * Attaches hooks.

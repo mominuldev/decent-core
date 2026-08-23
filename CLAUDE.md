@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**An Elementor extension plugin** (`decent-core`) for an Easy Digital Downloads
+**An Elementor extension plugin** (`pixelomatic-core`) for an Easy Digital Downloads
 marketplace. It ships the widgets, dynamic tags and theme-builder support that
-the companion classic theme (`decentthemes`, a sibling directory) does not own.
+the companion classic theme (`pixelomatic`, a sibling directory) does not own.
 
 **The theme is the design system; this plugin is the editor surface.** The
 theme owns the components — `.product-card`, `.btn`, `.section`, `.container`,
@@ -29,7 +29,7 @@ composer lint      # phpcs only          composer lint:fix  # phpcbf
 composer analyse   # phpstan only
 npm run build      # gulp: widget scss/js -> assets/, admin app via esbuild
 npm run dev        # the same, watching
-wp i18n make-pot . languages/decent-core.pot --domain=decent-core \
+wp i18n make-pot . languages/pixelomatic-core.pot --domain=pixelomatic-core \
   --exclude=node_modules,vendor,tests,src,assets
 ```
 
@@ -87,12 +87,12 @@ Everything comes from `Has_Slider_Controls`; the widget supplies slides:
 use Has_Slider_Controls;   // needs Has_Style_Controls alongside it
 
 // Content tab
-$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'decent-core' ) ) );
+$this->start_controls_section( 'slider', array( 'label' => __( 'Slider', 'pixelomatic-core' ) ) );
 $this->register_slider_controls( array( 'slides_to_show' => '4' ) );  // your design's defaults
 $this->end_controls_section();
 
 // Style tab
-$this->start_style_section( 'style_nav', __( 'Slider controls', 'decent-core' ) );
+$this->start_style_section( 'style_nav', __( 'Slider controls', 'pixelomatic-core' ) );
 $this->register_slider_style_controls();
 $this->end_controls_section();
 
@@ -100,8 +100,8 @@ $this->end_controls_section();
 $this->render_slider_start();
 foreach ( $items as $item ) { /* echo one div.swiper-slide */ }
 $this->render_slider_end( array(
-    'prev_label' => __( 'Previous products', 'decent-core' ),
-    'next_label' => __( 'Next products', 'decent-core' ),
+    'prev_label' => __( 'Previous products', 'pixelomatic-core' ),
+    'next_label' => __( 'Next products', 'pixelomatic-core' ),
 ) );
 ```
 
@@ -131,7 +131,7 @@ three pagination types, the "Showing 1–3 of 6" line and the Swiper boot.
 
 ## Header and footer builder
 
-A `decent_template` post is a header, a footer or a block, built in Elementor
+A `pixelomatic_template` post is a header, a footer or a block, built in Elementor
 and assigned by condition. `includes/Builder/`, in the order a request meets it:
 
 | Class | Owns |
@@ -143,7 +143,7 @@ and assigned by condition. `includes/Builder/`, in the order a request meets it:
 | `Resolver` | which template this request gets — array lookups, never a query |
 | `Assets` | that template's CSS and JS, enqueued before `</head>` |
 | `Renderer` | the landmark and the content, into the theme's header/footer slots |
-| `Shortcode` | `[decent_template id="12"]`, the only way a block is placed |
+| `Shortcode` | `[pixelomatic_template id="12"]`, the only way a block is placed |
 | `Pro_Bridge` | stands down wherever Elementor Pro's Theme Builder owns the location |
 | `Admin\Conditions_Box`, `Admin\Templates_List` | the type, the rules, the list |
 
@@ -163,10 +163,10 @@ only `--stuck` and `--hidden`. The stylesheet doubles the class
 after the plugin's.
 
 **Sticking is CSS.** `src/builder/script.js` exists for the two states CSS
-cannot observe, and the renderer prints `data-decent-header` — and `Assets`
+cannot observe, and the renderer prints `data-pixelomatic-header` — and `Assets`
 enqueues the script — only when a header has one of them switched on.
 
-`Assets` also feeds `decent_core/assets/request_slugs`, so the widgets inside a
+`Assets` also feeds `pixelomatic_core/assets/request_slugs`, so the widgets inside a
 header join the page's bundle. Without that the menu and the logo are a request
 of their own on every page of the site.
 
@@ -180,7 +180,7 @@ of their own on every page of the site.
   ```js
   jQuery(window).on('elementor/frontend/init', function () {
     elementorFrontend.hooks.addAction(
-      'frontend/element_ready/decent-<slug>.default', function ($scope) { … });
+      'frontend/element_ready/pixelomatic-<slug>.default', function ($scope) { … });
   });
   ```
 
@@ -209,9 +209,9 @@ of their own on every page of the site.
   `pix-block__element--modifier`. No `is-` state classes — a state is a
   modifier.
 - **Theme-owned classes keep their names.** They are the theme's API. Check
-  ownership by grepping `themes/decentthemes/assets/css/style.css` before
+  ownership by grepping `themes/pixelomatic/assets/css/style.css` before
   renaming anything.
-- Widget stylesheets are scoped to `.elementor-widget-decent-<slug>`. Shared
+- Widget stylesheets are scoped to `.elementor-widget-pixelomatic-<slug>`. Shared
   ones (`carousel`) are not — the `pix-` prefix is what keeps them from
   colliding.
 - Always `var(--token)`; the theme's `assets/css/base.css` `:root` is where they

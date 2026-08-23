@@ -2,18 +2,18 @@
 /**
  * Header and footer builder.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Assets\Usage_Index;
-use DecentCore\Builder\Admin\Conditions_Box;
-use DecentCore\Builder\Admin\Templates_List;
-use DecentCore\Builder\Conditions\Manager;
-use DecentCore\Contracts\Module;
+use PixelomaticCore\Assets\Usage_Index;
+use PixelomaticCore\Builder\Admin\Conditions_Box;
+use PixelomaticCore\Builder\Admin\Templates_List;
+use PixelomaticCore\Builder\Conditions\Manager;
+use PixelomaticCore\Contracts\Module;
 
 /**
  * Boots the builder.

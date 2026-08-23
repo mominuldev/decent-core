@@ -2,15 +2,15 @@
 /**
  * Elementor support for builder templates.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder;
+namespace PixelomaticCore\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Makes decent_template a first-class Elementor document, and keeps it out of
+ * Makes pixelomatic_template a first-class Elementor document, and keeps it out of
  * everywhere a header has no business being.
  *
  * The canvas itself lives in Canvas: a template is edited, previewed and
@@ -44,7 +44,7 @@ final class Elementor_Support {
 	 */
 	public function allow_post_type( $types ): array {
 		$types                    = (array) $types;
-		$types[ Post_Type::NAME ] = __( 'Templates', 'decent-core' );
+		$types[ Post_Type::NAME ] = __( 'Templates', 'pixelomatic-core' );
 
 		return $types;
 	}

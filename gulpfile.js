@@ -72,7 +72,7 @@ function builderScripts() {
 /**
  * Bundles the React admin app. No @wordpress/* packages: React and ReactDOM
  * are bundled, and everything the app needs from WordPress arrives as data on
- * window.decentCore, printed by PHP.
+ * window.pixelomaticCore, printed by PHP.
  */
 function adminScripts() {
   return esbuild.build({

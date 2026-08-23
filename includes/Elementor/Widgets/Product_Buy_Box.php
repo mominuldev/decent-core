@@ -2,15 +2,15 @@
 /**
  * Product Buy Box widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin as Elementor_Plugin;
 
@@ -41,48 +41,48 @@ final class Product_Buy_Box extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Buy box', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Buy box', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'decent-core' ),
+				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Panel', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Panel', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .buy-card',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'price', __( 'Price', 'decent-core' ), '{{WRAPPER}} .buy-card__price .price-now' );
+		$this->register_text_style( 'price', __( 'Price', 'pixelomatic-core' ), '{{WRAPPER}} .buy-card__price .price-now' );
 
 		$this->register_text_style(
 			'price_note',
-			__( 'Price note', 'decent-core' ),
+			__( 'Price note', 'pixelomatic-core' ),
 			'{{WRAPPER}} .buy-card__price .price-note'
 		);
 
-		$this->register_text_style( 'terms', __( 'Terms line', 'decent-core' ), '{{WRAPPER}} .buy-card__terms' );
+		$this->register_text_style( 'terms', __( 'Terms line', 'pixelomatic-core' ), '{{WRAPPER}} .buy-card__terms' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_options', __( 'Licence options', 'decent-core' ) );
+		$this->start_style_section( 'style_options', __( 'Licence options', 'pixelomatic-core' ) );
 
 		// The licence radios are the theme's own .license-option, rendered into
 		// EDD's form through edd_purchase_link_top. EDD's form markup around
 		// them stays EDD's to change, so nothing here reaches into it.
 		$this->register_box_style(
 			'option',
-			__( 'Option row', 'decent-core' ),
+			__( 'Option row', 'pixelomatic-core' ),
 			'{{WRAPPER}} .license-option',
 			array(
 				'separator' => 'none',
@@ -90,42 +90,42 @@ final class Product_Buy_Box extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'option_name', __( 'Option name', 'decent-core' ), '{{WRAPPER}} .license-option__name' );
+		$this->register_text_style( 'option_name', __( 'Option name', 'pixelomatic-core' ), '{{WRAPPER}} .license-option__name' );
 
-		$this->register_text_style( 'option_price', __( 'Option price', 'decent-core' ), '{{WRAPPER}} .license-option__price' );
+		$this->register_text_style( 'option_price', __( 'Option price', 'pixelomatic-core' ), '{{WRAPPER}} .license-option__price' );
 
 		$this->register_text_style(
 			'option_desc',
-			__( 'Option description', 'decent-core' ),
+			__( 'Option description', 'pixelomatic-core' ),
 			'{{WRAPPER}} .license-option__desc',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_buttons', __( 'Buttons', 'decent-core' ) );
+		$this->start_style_section( 'style_buttons', __( 'Buttons', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'buy_button',
-			__( 'Purchase button', 'decent-core' ),
+			__( 'Purchase button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .buy-actions .btn--primary',
 			array( 'separator' => 'none' )
 		);
 
 		$this->register_button_style(
 			'demo_button',
-			__( 'Demo button', 'decent-core' ),
+			__( 'Demo button', 'pixelomatic-core' ),
 			'{{WRAPPER}} .buy-actions .btn--secondary'
 		);
 
 		$this->register_text_style(
 			'demo_note',
-			__( 'Demo note', 'decent-core' ),
+			__( 'Demo note', 'pixelomatic-core' ),
 			'{{WRAPPER}} .demo-note',
 			array( 'spacing' => false )
 		);
 
-		$this->register_gap_style( 'actions_gap', __( 'Gap between actions', 'decent-core' ), '{{WRAPPER}} .buy-actions', 40 );
+		$this->register_gap_style( 'actions_gap', __( 'Gap between actions', 'pixelomatic-core' ), '{{WRAPPER}} .buy-actions', 40 );
 
 		$this->end_controls_section();
 	}

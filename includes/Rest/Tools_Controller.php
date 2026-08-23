@@ -2,21 +2,21 @@
 /**
  * Maintenance endpoints.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Rest;
+namespace PixelomaticCore\Rest;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Assets\Filesystem;
-use DecentCore\Builder\Conditions\Manager as Conditions;
+use PixelomaticCore\Assets\Filesystem;
+use PixelomaticCore\Builder\Conditions\Manager as Conditions;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
 /**
- * POST decent/v1/tools/{action}
+ * POST pixelomatic/v1/tools/{action}
  *
  * Every one of these changes site state, so they are POST rather than GET —
  * a maintenance action behind a GET is one prefetch away from firing itself.
@@ -26,7 +26,7 @@ final class Tools_Controller {
 	/**
 	 * REST namespace.
 	 */
-	private const NAMESPACE = 'decent/v1';
+	private const NAMESPACE = 'pixelomatic/v1';
 
 	/**
 	 * Attaches hooks.
@@ -79,7 +79,7 @@ final class Tools_Controller {
 					array(
 						'message' => sprintf(
 							/* translators: %d: number of files. */
-							_n( '%d bundle removed. They rebuild on the next page view.', '%d bundles removed. They rebuild on the next page view.', $removed, 'decent-core' ),
+							_n( '%d bundle removed. They rebuild on the next page view.', '%d bundles removed. They rebuild on the next page view.', $removed, 'pixelomatic-core' ),
 							$removed
 						),
 					)
@@ -92,7 +92,7 @@ final class Tools_Controller {
 					array(
 						'message' => sprintf(
 							/* translators: %d: number of locations. */
-							_n( 'Conditions recompiled for %d location.', 'Conditions recompiled for %d locations.', count( $map ), 'decent-core' ),
+							_n( 'Conditions recompiled for %d location.', 'Conditions recompiled for %d locations.', count( $map ), 'pixelomatic-core' ),
 							count( $map )
 						),
 					)
@@ -113,7 +113,7 @@ final class Tools_Controller {
 				wp_cache_flush();
 
 				return new WP_REST_Response(
-					array( 'message' => __( 'Caches cleared.', 'decent-core' ) )
+					array( 'message' => __( 'Caches cleared.', 'pixelomatic-core' ) )
 				);
 		}
 	}

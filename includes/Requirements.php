@@ -6,10 +6,10 @@
  * them produce a fatal: a site owner who updates PHP or deactivates Elementor
  * must still be able to reach wp-admin to put it back.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore;
+namespace PixelomaticCore;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,19 +54,19 @@ final class Requirements {
 
 		if ( version_compare( PHP_VERSION, self::PHP, '<' ) ) {
 			/* translators: 1: required PHP version, 2: current PHP version. */
-			$this->failures[] = sprintf( __( 'PHP %1$s or later (running %2$s)', 'decent-core' ), self::PHP, PHP_VERSION );
+			$this->failures[] = sprintf( __( 'PHP %1$s or later (running %2$s)', 'pixelomatic-core' ), self::PHP, PHP_VERSION );
 		}
 
 		if ( version_compare( get_bloginfo( 'version' ), self::WP, '<' ) ) {
 			/* translators: %s: required WordPress version. */
-			$this->failures[] = sprintf( __( 'WordPress %s or later', 'decent-core' ), self::WP );
+			$this->failures[] = sprintf( __( 'WordPress %s or later', 'pixelomatic-core' ), self::WP );
 		}
 
 		if ( ! did_action( 'elementor/loaded' ) && ! defined( 'ELEMENTOR_VERSION' ) ) {
-			$this->failures[] = __( 'Elementor, active', 'decent-core' );
+			$this->failures[] = __( 'Elementor, active', 'pixelomatic-core' );
 		} elseif ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, self::ELEMENTOR, '<' ) ) {
 			/* translators: %s: required Elementor version. */
-			$this->failures[] = sprintf( __( 'Elementor %s or later', 'decent-core' ), self::ELEMENTOR );
+			$this->failures[] = sprintf( __( 'Elementor %s or later', 'pixelomatic-core' ), self::ELEMENTOR );
 		}
 
 		return empty( $this->failures );
@@ -97,9 +97,9 @@ final class Requirements {
 			'admin_notices',
 			static function () use ( $failures ): void {
 				echo '<div class="notice notice-warning"><p><strong>';
-				esc_html_e( 'Decent Core is inactive.', 'decent-core' );
+				esc_html_e( 'Pixelomatic Core is inactive.', 'pixelomatic-core' );
 				echo '</strong> ';
-				esc_html_e( 'It needs:', 'decent-core' );
+				esc_html_e( 'It needs:', 'pixelomatic-core' );
 				echo '</p><ul style="list-style:disc;margin-left:20px">';
 
 				foreach ( $failures as $item ) {

@@ -2,10 +2,10 @@
 /**
  * Product card style controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,7 +38,7 @@ trait Has_Product_Card_Style {
 
 		$this->register_box_style(
 			$prefix,
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			$card,
 			array( 'separator' => 'none' )
 		);
@@ -46,7 +46,7 @@ trait Has_Product_Card_Style {
 		$this->add_responsive_control(
 			$prefix . '_media_height',
 			array(
-				'label'      => __( 'Image height', 'decent-core' ),
+				'label'      => __( 'Image height', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -65,14 +65,14 @@ trait Has_Product_Card_Style {
 
 		$this->register_box_style(
 			$prefix . '_badge',
-			__( 'Badge', 'decent-core' ),
+			__( 'Badge', 'pixelomatic-core' ),
 			$card . ' .product-card__badge',
 			array( 'shadow' => false )
 		);
 
 		$this->register_text_style(
 			$prefix . '_badge_text',
-			__( 'Badge text', 'decent-core' ),
+			__( 'Badge text', 'pixelomatic-core' ),
 			$card . ' .product-card__badge',
 			array(
 				'heading' => false,
@@ -82,76 +82,76 @@ trait Has_Product_Card_Style {
 
 		$this->register_text_style(
 			$prefix . '_type',
-			__( 'Type line', 'decent-core' ),
+			__( 'Type line', 'pixelomatic-core' ),
 			$card . ' .product-card__type'
 		);
 
 		$this->register_icon_style(
 			$prefix . '_type_icon',
-			__( 'Type icon', 'decent-core' ),
+			__( 'Type icon', 'pixelomatic-core' ),
 			$card . ' .product-card__icon'
 		);
 
 		$this->register_text_style(
 			$prefix . '_title',
-			__( 'Title', 'decent-core' ),
+			__( 'Title', 'pixelomatic-core' ),
 			$card . ' .product-card__title'
 		);
 
 		$this->register_link_style(
 			$prefix . '_title_link',
-			__( 'Title link', 'decent-core' ),
+			__( 'Title link', 'pixelomatic-core' ),
 			$card . ' .product-card__title a'
 		);
 
 		$this->register_text_style(
 			$prefix . '_desc',
-			__( 'Description', 'decent-core' ),
+			__( 'Description', 'pixelomatic-core' ),
 			$card . ' .product-card__desc'
 		);
 
 		$this->register_text_style(
 			$prefix . '_rating',
-			__( 'Rating line', 'decent-core' ),
+			__( 'Rating line', 'pixelomatic-core' ),
 			$card . ' .rating-line'
 		);
 
 		$this->register_text_style(
 			$prefix . '_stars',
-			__( 'Stars', 'decent-core' ),
+			__( 'Stars', 'pixelomatic-core' ),
 			$card . ' .stars',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			$prefix . '_price',
-			__( 'Price', 'decent-core' ),
+			__( 'Price', 'pixelomatic-core' ),
 			$card . ' .price-now',
 			array( 'spacing' => false )
 		);
 
 		$this->register_text_style(
 			$prefix . '_price_note',
-			__( 'Price note', 'decent-core' ),
+			__( 'Price note', 'pixelomatic-core' ),
 			$card . ' .price-note',
 			array( 'spacing' => false )
 		);
 
 		$this->register_button_style(
 			$prefix . '_button',
-			__( 'Buy button', 'decent-core' ),
+			__( 'Buy button', 'pixelomatic-core' ),
 			$card . ' .btn--primary'
 		);
 
 		$this->register_button_style(
 			$prefix . '_button_alt',
-			__( 'Demo button', 'decent-core' ),
+			__( 'Demo button', 'pixelomatic-core' ),
 			$card . ' .btn--secondary'
 		);
 
 		$this->register_gap_style(
 			$prefix . '_actions_gap',
-			__( 'Button gap', 'decent-core' ),
+			__( 'Button gap', 'pixelomatic-core' ),
 			$card . ' .product-card__actions',
 			32
 		);

@@ -2,15 +2,15 @@
 /**
  * Product Tabs widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin as Elementor_Plugin;
 
@@ -41,24 +41,24 @@ final class Product_Tabs extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Product tabs', 'decent-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Product tabs', 'pixelomatic-core' ) ) );
 
 		$this->add_control(
 			'notice',
 			array(
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'decent-core' ),
+				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_tabs', __( 'Tabs', 'decent-core' ) );
+		$this->start_style_section( 'style_tabs', __( 'Tabs', 'pixelomatic-core' ) );
 
 		$this->register_button_style(
 			'tab',
-			__( 'Tab', 'decent-core' ),
+			__( 'Tab', 'pixelomatic-core' ),
 			'{{WRAPPER}} .detail-tabs button',
 			array( 'separator' => 'none' )
 		);
@@ -68,7 +68,7 @@ final class Product_Tabs extends Widget_Base {
 		$this->add_control(
 			'tab_color_active',
 			array(
-				'label'     => __( 'Selected tab colour', 'decent-core' ),
+				'label'     => __( 'Selected tab colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .detail-tabs button[aria-selected="true"]' => 'color: {{VALUE}};',
@@ -79,7 +79,7 @@ final class Product_Tabs extends Widget_Base {
 		$this->add_control(
 			'tab_background_active',
 			array(
-				'label'     => __( 'Selected tab background', 'decent-core' ),
+				'label'     => __( 'Selected tab background', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .detail-tabs button[aria-selected="true"]' => 'background-color: {{VALUE}};',
@@ -87,15 +87,15 @@ final class Product_Tabs extends Widget_Base {
 			)
 		);
 
-		$this->register_gap_style( 'tabs_gap', __( 'Gap between tabs', 'decent-core' ), '{{WRAPPER}} .detail-tabs', 40 );
+		$this->register_gap_style( 'tabs_gap', __( 'Gap between tabs', 'pixelomatic-core' ), '{{WRAPPER}} .detail-tabs', 40 );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_panels', __( 'Panels', 'decent-core' ) );
+		$this->start_style_section( 'style_panels', __( 'Panels', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'panel',
-			__( 'Panel', 'decent-core' ),
+			__( 'Panel', 'pixelomatic-core' ),
 			'{{WRAPPER}} .tab-panel',
 			array(
 				'separator' => 'none',
@@ -103,24 +103,24 @@ final class Product_Tabs extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'panel_text', __( 'Body text', 'decent-core' ), '{{WRAPPER}} .tab-panel .prose' );
+		$this->register_text_style( 'panel_text', __( 'Body text', 'pixelomatic-core' ), '{{WRAPPER}} .tab-panel .prose' );
 
 		$this->register_text_style(
 			'panel_heading',
-			__( 'Headings', 'decent-core' ),
+			__( 'Headings', 'pixelomatic-core' ),
 			'{{WRAPPER}} .tab-panel h2, {{WRAPPER}} .tab-panel h3',
 			array( 'spacing' => false )
 		);
 
-		$this->register_link_style( 'panel_link', __( 'Links', 'decent-core' ), '{{WRAPPER}} .tab-panel .prose a' );
+		$this->register_link_style( 'panel_link', __( 'Links', 'pixelomatic-core' ), '{{WRAPPER}} .tab-panel .prose a' );
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_changelog', __( 'Changelog', 'decent-core' ) );
+		$this->start_style_section( 'style_changelog', __( 'Changelog', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'changelog_entry',
-			__( 'Entry', 'decent-core' ),
+			__( 'Entry', 'pixelomatic-core' ),
 			'{{WRAPPER}} .changelog__entry',
 			array(
 				'separator' => 'none',
@@ -128,34 +128,34 @@ final class Product_Tabs extends Widget_Base {
 			)
 		);
 
-		$this->register_text_style( 'changelog_version', __( 'Version', 'decent-core' ), '{{WRAPPER}} .changelog__version' );
+		$this->register_text_style( 'changelog_version', __( 'Version', 'pixelomatic-core' ), '{{WRAPPER}} .changelog__version' );
 
-		$this->register_text_style( 'changelog_date', __( 'Date', 'decent-core' ), '{{WRAPPER}} .changelog__date' );
+		$this->register_text_style( 'changelog_date', __( 'Date', 'pixelomatic-core' ), '{{WRAPPER}} .changelog__date' );
 
 		$this->register_text_style(
 			'changelog_items',
-			__( 'Items', 'decent-core' ),
+			__( 'Items', 'pixelomatic-core' ),
 			'{{WRAPPER}} .changelog__items',
 			array( 'spacing' => false )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_reviews', __( 'Reviews', 'decent-core' ) );
+		$this->start_style_section( 'style_reviews', __( 'Reviews', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'review_score',
-			__( 'Average score', 'decent-core' ),
+			__( 'Average score', 'pixelomatic-core' ),
 			'{{WRAPPER}} .pix-rating-summary__score',
 			array( 'separator' => 'none' )
 		);
 
-		$this->register_text_style( 'review_stars', __( 'Stars', 'decent-core' ), '{{WRAPPER}} .stars' );
+		$this->register_text_style( 'review_stars', __( 'Stars', 'pixelomatic-core' ), '{{WRAPPER}} .stars' );
 
 		$this->add_control(
 			'review_bar_color',
 			array(
-				'label'     => __( 'Rating bar colour', 'decent-core' ),
+				'label'     => __( 'Rating bar colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .rating-bars__fill' => 'background-color: {{VALUE}};',
@@ -165,16 +165,16 @@ final class Product_Tabs extends Widget_Base {
 
 		$this->register_box_style(
 			'review_card',
-			__( 'Review', 'decent-core' ),
+			__( 'Review', 'pixelomatic-core' ),
 			'{{WRAPPER}} .detail-review',
 			array( 'shadow' => false )
 		);
 
-		$this->register_text_style( 'review_quote', __( 'Review text', 'decent-core' ), '{{WRAPPER}} .detail-review__quote' );
+		$this->register_text_style( 'review_quote', __( 'Review text', 'pixelomatic-core' ), '{{WRAPPER}} .detail-review__quote' );
 
 		$this->register_text_style(
 			'review_meta',
-			__( 'Review meta', 'decent-core' ),
+			__( 'Review meta', 'pixelomatic-core' ),
 			'{{WRAPPER}} .detail-review__meta, {{WRAPPER}} .detail-review__date',
 			array( 'spacing' => false )
 		);

@@ -2,10 +2,10 @@
 /**
  * Download query controls.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Base\Traits;
+namespace PixelomaticCore\Elementor\Base\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,12 +37,12 @@ trait Has_Query_Controls {
 	 */
 	public static function sort_options(): array {
 		return array(
-			'popular'    => __( 'Most popular', 'decent-core' ),
-			'new'        => __( 'Newest first', 'decent-core' ),
-			'price-asc'  => __( 'Price: low to high', 'decent-core' ),
-			'price-desc' => __( 'Price: high to low', 'decent-core' ),
-			'rating'     => __( 'Highest rated', 'decent-core' ),
-			'title'      => __( 'Name: A to Z', 'decent-core' ),
+			'popular'    => __( 'Most popular', 'pixelomatic-core' ),
+			'new'        => __( 'Newest first', 'pixelomatic-core' ),
+			'price-asc'  => __( 'Price: low to high', 'pixelomatic-core' ),
+			'price-desc' => __( 'Price: high to low', 'pixelomatic-core' ),
+			'rating'     => __( 'Highest rated', 'pixelomatic-core' ),
+			'title'      => __( 'Name: A to Z', 'pixelomatic-core' ),
 		);
 	}
 
@@ -61,7 +61,7 @@ trait Has_Query_Controls {
 		$this->add_control(
 			'category',
 			array(
-				'label'       => __( 'Category', 'decent-core' ),
+				'label'       => __( 'Category', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
@@ -72,7 +72,7 @@ trait Has_Query_Controls {
 		$this->add_control(
 			'orderby',
 			array(
-				'label'   => __( 'Order by', 'decent-core' ),
+				'label'   => __( 'Order by', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'popular',
 				'options' => self::sort_options(),
@@ -82,7 +82,7 @@ trait Has_Query_Controls {
 		$this->add_control(
 			'count',
 			array(
-				'label'   => __( 'Products', 'decent-core' ),
+				'label'   => __( 'Products', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => $default_count,
 				'min'     => 1,
@@ -97,7 +97,7 @@ trait Has_Query_Controls {
 		$this->add_control(
 			'tag',
 			array(
-				'label'       => __( 'Tag', 'decent-core' ),
+				'label'       => __( 'Tag', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
@@ -112,22 +112,22 @@ trait Has_Query_Controls {
 		$this->add_control(
 			'offset',
 			array(
-				'label'       => __( 'Skip', 'decent-core' ),
+				'label'       => __( 'Skip', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 0,
 				'min'         => 0,
 				'max'         => 100,
-				'description' => __( 'Products to skip before the first one shown. Lets a second grid continue where the first stopped.', 'decent-core' ),
+				'description' => __( 'Products to skip before the first one shown. Lets a second grid continue where the first stopped.', 'pixelomatic-core' ),
 			)
 		);
 
 		$this->add_control(
 			'exclude_current',
 			array(
-				'label'       => __( 'Hide the current product', 'decent-core' ),
+				'label'       => __( 'Hide the current product', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => '',
-				'description' => __( 'Only does anything on a single product template.', 'decent-core' ),
+				'description' => __( 'Only does anything on a single product template.', 'pixelomatic-core' ),
 			)
 		);
 	}
@@ -248,8 +248,8 @@ trait Has_Query_Controls {
 
 		// The theme owns the sort definitions; reusing them means a widget and
 		// the catalogue cannot disagree about what a sort key means.
-		if ( class_exists( '\DecentThemes\Integrations\EDD\Query' ) ) {
-			$modifiers = \DecentThemes\Integrations\EDD\Query::modifiers(
+		if ( class_exists( '\Pixelomatic\Integrations\EDD\Query' ) ) {
+			$modifiers = \Pixelomatic\Integrations\EDD\Query::modifiers(
 				array(
 					'sort'   => $orderby,
 					'band'   => '',

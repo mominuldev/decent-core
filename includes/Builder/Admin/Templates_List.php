@@ -2,15 +2,15 @@
 /**
  * Template list table.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Builder\Admin;
+namespace PixelomaticCore\Builder\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Builder\Post_Type;
-use DecentCore\Builder\Template_Type;
+use PixelomaticCore\Builder\Post_Type;
+use PixelomaticCore\Builder\Template_Type;
 use WP_Query;
 
 /**
@@ -26,7 +26,7 @@ final class Templates_List {
 	/**
 	 * Query argument carrying the selected type.
 	 */
-	public const QUERY_VAR = 'decent_type';
+	public const QUERY_VAR = 'pixelomatic_type';
 
 	/**
 	 * Attaches hooks.
@@ -68,7 +68,7 @@ final class Templates_List {
 				continue;
 			}
 
-			$views[ 'decent_' . $type ] = sprintf(
+			$views[ 'pixelomatic_' . $type ] = sprintf(
 				'<a href="%1$s"%2$s>%3$s <span class="count">(%4$d)</span></a>',
 				esc_url( add_query_arg( self::QUERY_VAR, $type, $base ) ),
 				$current === $type ? ' class="current" aria-current="page"' : '',

@@ -2,10 +2,10 @@
 /**
  * Product demo URL dynamic tag.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Dynamic_Tags;
+namespace PixelomaticCore\Elementor\Dynamic_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ final class Download_Demo_Url extends Base_Tag {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'decent-download-demo-url';
+		return 'pixelomatic-download-demo-url';
 	}
 
 	/**
@@ -38,7 +38,7 @@ final class Download_Demo_Url extends Base_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Product demo URL', 'decent-core' );
+		return __( 'Product demo URL', 'pixelomatic-core' );
 	}
 
 	/**
@@ -48,6 +48,6 @@ final class Download_Demo_Url extends Base_Tag {
 	 * @return string
 	 */
 	protected function value_for( int $download_id ): string {
-		return (string) get_post_meta( $download_id, '_decent_demo_url', true );
+		return (string) get_post_meta( $download_id, '_pixelomatic_demo_url', true );
 	}
 }

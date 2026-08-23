@@ -37,7 +37,7 @@ function categoryLabel(category) {
   }
 
   return category
-    .replace(/^decent-/, '')
+    .replace(/^pixelomatic-/, '')
     .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, (character) => character.toUpperCase());
 }

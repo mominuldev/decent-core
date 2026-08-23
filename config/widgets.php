@@ -16,7 +16,7 @@
  * without EDD would only be able to render an error, so it never reaches the
  * panel at all.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,9 +28,9 @@ return array(
 	// icon moved with the redesign: the search form is now one option inside
 	// the landing hero rather than the thing the widget is.
 	'hero-search'       => array(
-		'class'    => DecentCore\Elementor\Widgets\Hero_Search::class,
-		'title'    => __( 'Hero', 'decent-core' ),
-		'category' => 'decent-layout',
+		'class'    => PixelomaticCore\Elementor\Widgets\Hero_Search::class,
+		'title'    => __( 'Hero', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-layout',
 		'group'    => 'hero',
 		'icon'     => 'eicon-banner',
 		'keywords' => array( 'hero', 'banner', 'landing', 'cta', 'search' ),
@@ -41,9 +41,9 @@ return array(
 	),
 
 	'heading'           => array(
-		'class'    => DecentCore\Elementor\Widgets\Heading::class,
-		'title'    => __( 'Heading', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Heading::class,
+		'title'    => __( 'Heading', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'heading',
 		'icon'     => 'eicon-t-letter',
 		'keywords' => array( 'heading', 'title', 'section', 'eyebrow', 'intro' ),
@@ -57,9 +57,9 @@ return array(
 	// own grid container, so the columns behave like every other container on
 	// the page instead of like a control only this widget understands.
 	'icon-box'          => array(
-		'class'    => DecentCore\Elementor\Widgets\Icon_Box::class,
-		'title'    => __( 'Icon Box', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Icon_Box::class,
+		'title'    => __( 'Icon Box', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'feature',
 		'icon'     => 'eicon-icon-box',
 		'keywords' => array( 'icon', 'box', 'feature', 'service', 'card' ),
@@ -70,9 +70,9 @@ return array(
 	),
 
 	'category-grid'     => array(
-		'class'    => DecentCore\Elementor\Widgets\Category_Grid::class,
-		'title'    => __( 'Category Grid', 'decent-core' ),
-		'category' => 'decent-layout',
+		'class'    => PixelomaticCore\Elementor\Widgets\Category_Grid::class,
+		'title'    => __( 'Category Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-layout',
 		'group'    => 'category',
 		'icon'     => 'eicon-gallery-grid',
 		'keywords' => array( 'category', 'taxonomy', 'grid' ),
@@ -83,9 +83,9 @@ return array(
 	),
 
 	'feature-grid'      => array(
-		'class'    => DecentCore\Elementor\Widgets\Feature_Grid::class,
-		'title'    => __( 'Feature Grid', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Feature_Grid::class,
+		'title'    => __( 'Feature Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'feature',
 		'icon'     => 'eicon-info-box',
 		'keywords' => array( 'feature', 'icon', 'grid' ),
@@ -96,9 +96,9 @@ return array(
 	),
 
 	'benefit-grid'      => array(
-		'class'    => DecentCore\Elementor\Widgets\Benefit_Grid::class,
-		'title'    => __( 'Benefit Grid', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Benefit_Grid::class,
+		'title'    => __( 'Benefit Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'feature',
 		'icon'     => 'eicon-checkbox',
 		'keywords' => array( 'benefit', 'dark', 'grid' ),
@@ -108,10 +108,29 @@ return array(
 		'default'  => true,
 	),
 
+	// The landing's WHY BUY HERE band. Distinct from benefit-grid, which is a
+	// plain three-up of icon/title/text on the same dark ground: this one is
+	// the design's asymmetric six-tile composition, where two tiles lead with
+	// a figure, two carry a chip row, and the two wide ones carry a release
+	// list and a checklist. Both are kept — a section that only needs three
+	// promises should not have to delete four tiles to get there.
+	'why-buy'           => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Why_Buy::class,
+		'title'    => __( 'Why Buy Here', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-layout',
+		'group'    => 'trust',
+		'icon'     => 'eicon-checkbox',
+		'keywords' => array( 'why', 'trust', 'promise', 'benefit', 'guarantee', 'dark' ),
+		'styles'   => array( 'why-buy' ),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
+
 	'guarantee-grid'    => array(
-		'class'    => DecentCore\Elementor\Widgets\Guarantee_Grid::class,
-		'title'    => __( 'Guarantee Grid', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Guarantee_Grid::class,
+		'title'    => __( 'Guarantee Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'feature',
 		'icon'     => 'eicon-lock-user',
 		'keywords' => array( 'guarantee', 'trust', 'refund' ),
@@ -122,9 +141,9 @@ return array(
 	),
 
 	'stats-counter'     => array(
-		'class'    => DecentCore\Elementor\Widgets\Stats_Counter::class,
-		'title'    => __( 'Statistics Counter', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Stats_Counter::class,
+		'title'    => __( 'Statistics Counter', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'stats',
 		'icon'     => 'eicon-counter',
 		'keywords' => array( 'stats', 'counter', 'metrics' ),
@@ -135,9 +154,9 @@ return array(
 	),
 
 	'faq-accordion'     => array(
-		'class'    => DecentCore\Elementor\Widgets\Faq_Accordion::class,
-		'title'    => __( 'FAQ Accordion', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Faq_Accordion::class,
+		'title'    => __( 'FAQ Accordion', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'faq',
 		'icon'     => 'eicon-help-o',
 		'keywords' => array( 'faq', 'accordion', 'questions' ),
@@ -148,9 +167,9 @@ return array(
 	),
 
 	'cta'               => array(
-		'class'    => DecentCore\Elementor\Widgets\Cta::class,
-		'title'    => __( 'CTA', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Cta::class,
+		'title'    => __( 'CTA', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'cta',
 		'icon'     => 'eicon-call-to-action',
 		'keywords' => array( 'cta', 'banner', 'action' ),
@@ -161,9 +180,9 @@ return array(
 	),
 
 	'promo-card'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Promo_Card::class,
-		'title'    => __( 'Promo Card', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Promo_Card::class,
+		'title'    => __( 'Promo Card', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'cta',
 		'icon'     => 'eicon-price-table',
 		'keywords' => array( 'promo', 'bundle', 'offer' ),
@@ -174,9 +193,9 @@ return array(
 	),
 
 	'breadcrumb'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Breadcrumb::class,
-		'title'    => __( 'Breadcrumb', 'decent-core' ),
-		'category' => 'decent-layout',
+		'class'    => PixelomaticCore\Elementor\Widgets\Breadcrumb::class,
+		'title'    => __( 'Breadcrumb', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-layout',
 		'group'    => 'navigation',
 		'icon'     => 'eicon-yoast',
 		'keywords' => array( 'breadcrumb', 'trail', 'navigation' ),
@@ -187,9 +206,9 @@ return array(
 	),
 
 	'product-grid'      => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Grid::class,
-		'title'    => __( 'Product Grid', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Grid::class,
+		'title'    => __( 'Product Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'products',
 		'icon'     => 'eicon-products',
 		'keywords' => array( 'product', 'edd', 'download', 'shop' ),
@@ -200,9 +219,9 @@ return array(
 	),
 
 	'product-rank-list' => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Rank_List::class,
-		'title'    => __( 'Product Rank List', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Rank_List::class,
+		'title'    => __( 'Product Rank List', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'products',
 		'icon'     => 'eicon-bullet-list',
 		'keywords' => array( 'product', 'best seller', 'ranking' ),
@@ -213,9 +232,9 @@ return array(
 	),
 
 	'hero-split'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Hero_Split::class,
-		'title'    => __( 'Hero Split', 'decent-core' ),
-		'category' => 'decent-layout',
+		'class'    => PixelomaticCore\Elementor\Widgets\Hero_Split::class,
+		'title'    => __( 'Hero Split', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-layout',
 		'group'    => 'hero',
 		'icon'     => 'eicon-image-box',
 		'keywords' => array( 'hero', 'split', 'banner' ),
@@ -226,9 +245,9 @@ return array(
 	),
 
 	'trust-band'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Trust_Band::class,
-		'title'    => __( 'Trust Band', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Trust_Band::class,
+		'title'    => __( 'Trust Band', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'trust',
 		'icon'     => 'eicon-logo',
 		'keywords' => array( 'trust', 'clients', 'logos', 'metrics' ),
@@ -239,9 +258,9 @@ return array(
 	),
 
 	'showcase'          => array(
-		'class'    => DecentCore\Elementor\Widgets\Showcase::class,
-		'title'    => __( 'Showcase', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Showcase::class,
+		'title'    => __( 'Showcase', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'feature',
 		'icon'     => 'eicon-image-before-after',
 		'keywords' => array( 'showcase', 'zigzag', 'alternating' ),
@@ -252,9 +271,9 @@ return array(
 	),
 
 	'newsletter'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Newsletter::class,
-		'title'    => __( 'Newsletter', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Newsletter::class,
+		'title'    => __( 'Newsletter', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'form',
 		'icon'     => 'eicon-email-field',
 		'keywords' => array( 'newsletter', 'email', 'subscribe' ),
@@ -268,9 +287,9 @@ return array(
 	// active and to wp-login.php where it is not, so it has somewhere to send
 	// a sign-in either way.
 	'login-form'        => array(
-		'class'    => DecentCore\Elementor\Widgets\Login_Form::class,
-		'title'    => __( 'Login Form', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Login_Form::class,
+		'title'    => __( 'Login Form', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'form',
 		'icon'     => 'eicon-lock-user',
 		'keywords' => array( 'login', 'sign in', 'account', 'password', 'form' ),
@@ -281,9 +300,9 @@ return array(
 	),
 
 	'plugin-list'       => array(
-		'class'    => DecentCore\Elementor\Widgets\Plugin_List::class,
-		'title'    => __( 'Plugin List', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Plugin_List::class,
+		'title'    => __( 'Plugin List', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'products',
 		'icon'     => 'eicon-post-list',
 		'keywords' => array( 'plugin', 'product', 'list', 'edd' ),
@@ -294,9 +313,9 @@ return array(
 	),
 
 	'product-slider'    => array(
-		'class'       => DecentCore\Elementor\Widgets\Product_Slider::class,
-		'title'       => __( 'Product Slider', 'decent-core' ),
-		'category'    => 'decent-products',
+		'class'       => PixelomaticCore\Elementor\Widgets\Product_Slider::class,
+		'title'       => __( 'Product Slider', 'pixelomatic-core' ),
+		'category'    => 'pixelomatic-products',
 		'group'       => 'products',
 		'icon'        => 'eicon-slider-push',
 		'keywords'    => array( 'product', 'slider', 'carousel', 'edd' ),
@@ -311,9 +330,9 @@ return array(
 	),
 
 	'product-archive'   => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Archive::class,
-		'title'    => __( 'Product Archive', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Archive::class,
+		'title'    => __( 'Product Archive', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'products',
 		'icon'     => 'eicon-archive-posts',
 		'keywords' => array( 'catalogue', 'archive', 'shop', 'filter' ),
@@ -324,9 +343,9 @@ return array(
 	),
 
 	'product-hero'      => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Hero::class,
-		'title'    => __( 'Product Hero', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Hero::class,
+		'title'    => __( 'Product Hero', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'single',
 		'icon'     => 'eicon-product-info',
 		'keywords' => array( 'product', 'title', 'single' ),
@@ -337,9 +356,9 @@ return array(
 	),
 
 	'product-tabs'      => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Tabs::class,
-		'title'    => __( 'Product Tabs', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Tabs::class,
+		'title'    => __( 'Product Tabs', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'single',
 		'icon'     => 'eicon-tabs',
 		'keywords' => array( 'product', 'tabs', 'changelog', 'reviews' ),
@@ -350,9 +369,9 @@ return array(
 	),
 
 	'product-buy-box'   => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Buy_Box::class,
-		'title'    => __( 'Product Buy Box', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Buy_Box::class,
+		'title'    => __( 'Product Buy Box', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'single',
 		'icon'     => 'eicon-cart-medium',
 		'keywords' => array( 'product', 'buy', 'cart', 'price' ),
@@ -363,9 +382,9 @@ return array(
 	),
 
 	'product-related'   => array(
-		'class'    => DecentCore\Elementor\Widgets\Product_Related::class,
-		'title'    => __( 'Related Products', 'decent-core' ),
-		'category' => 'decent-products',
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Related::class,
+		'title'    => __( 'Related Products', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
 		'group'    => 'single',
 		'icon'     => 'eicon-posts-carousel',
 		'keywords' => array( 'product', 'related', 'cross-sell' ),
@@ -376,9 +395,9 @@ return array(
 	),
 
 	'blog-grid'         => array(
-		'class'    => DecentCore\Elementor\Widgets\Blog_Grid::class,
-		'title'    => __( 'Blog Grid', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Blog_Grid::class,
+		'title'    => __( 'Blog Grid', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'blog',
 		'icon'     => 'eicon-posts-grid',
 		'keywords' => array( 'blog', 'posts', 'articles' ),
@@ -389,9 +408,9 @@ return array(
 	),
 
 	'testimonial-grid'  => array(
-		'class'       => DecentCore\Elementor\Widgets\Testimonial_Grid::class,
-		'title'       => __( 'Testimonials', 'decent-core' ),
-		'category'    => 'decent-content',
+		'class'       => PixelomaticCore\Elementor\Widgets\Testimonial_Grid::class,
+		'title'       => __( 'Testimonials', 'pixelomatic-core' ),
+		'category'    => 'pixelomatic-content',
 		'group'       => 'social',
 		'icon'        => 'eicon-testimonial',
 		'keywords'    => array( 'testimonial', 'review', 'quote', 'slider', 'carousel' ),
@@ -408,9 +427,9 @@ return array(
 	),
 
 	'pricing-table'     => array(
-		'class'    => DecentCore\Elementor\Widgets\Pricing_Table::class,
-		'title'    => __( 'Pricing Table', 'decent-core' ),
-		'category' => 'decent-content',
+		'class'    => PixelomaticCore\Elementor\Widgets\Pricing_Table::class,
+		'title'    => __( 'Pricing Table', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
 		'group'    => 'pricing',
 		'icon'     => 'eicon-price-table',
 		'keywords' => array( 'pricing', 'plans', 'licence' ),
@@ -421,9 +440,9 @@ return array(
 	),
 
 	'site-logo'         => array(
-		'class'    => DecentCore\Elementor\Widgets\Site_Logo::class,
-		'title'    => __( 'Site Logo', 'decent-core' ),
-		'category' => 'decent-header',
+		'class'    => PixelomaticCore\Elementor\Widgets\Site_Logo::class,
+		'title'    => __( 'Site Logo', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-header',
 		'group'    => 'branding',
 		'icon'     => 'eicon-site-logo',
 		'keywords' => array( 'logo', 'brand', 'header' ),
@@ -434,9 +453,9 @@ return array(
 	),
 
 	'nav-menu'          => array(
-		'class'    => DecentCore\Elementor\Widgets\Nav_Menu::class,
-		'title'    => __( 'Nav Menu', 'decent-core' ),
-		'category' => 'decent-header',
+		'class'    => PixelomaticCore\Elementor\Widgets\Nav_Menu::class,
+		'title'    => __( 'Nav Menu', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-header',
 		'group'    => 'navigation',
 		'icon'     => 'eicon-nav-menu',
 		'keywords' => array( 'menu', 'navigation', 'header' ),
@@ -447,9 +466,9 @@ return array(
 	),
 
 	'copyright'         => array(
-		'class'    => DecentCore\Elementor\Widgets\Copyright::class,
-		'title'    => __( 'Copyright', 'decent-core' ),
-		'category' => 'decent-header',
+		'class'    => PixelomaticCore\Elementor\Widgets\Copyright::class,
+		'title'    => __( 'Copyright', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-header',
 		'group'    => 'footer',
 		'icon'     => 'eicon-copyright',
 		'keywords' => array( 'copyright', 'footer', 'year' ),

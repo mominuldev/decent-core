@@ -15,28 +15,28 @@
  * put on a chip and a sort key from a fixed list, both re-checked here against
  * the widget's own allow-list before a query is built.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Rest;
+namespace PixelomaticCore\Rest;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Widgets\Product_Grid;
+use PixelomaticCore\Elementor\Widgets\Product_Grid;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
 /**
- * GET decent/v1/product-grid
+ * GET pixelomatic/v1/product-grid
  */
 final class Product_Grid_Controller {
 
 	/**
 	 * REST namespace.
 	 */
-	private const NAMESPACE = 'decent/v1';
+	private const NAMESPACE = 'pixelomatic/v1';
 
 	/**
 	 * Attaches hooks.
@@ -129,8 +129,8 @@ final class Product_Grid_Controller {
 		// not a filter it has, whatever the request believes.
 		if ( $category > 0 && ! in_array( $category, $widget->chip_category_ids(), true ) ) {
 			return new WP_Error(
-				'decent_core_unknown_category',
-				__( 'That category is not one this grid filters by.', 'decent-core' ),
+				'pixelomatic_core_unknown_category',
+				__( 'That category is not one this grid filters by.', 'pixelomatic-core' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -160,12 +160,12 @@ final class Product_Grid_Controller {
 	 */
 	private function widget( int $post_id, string $widget_id ) {
 		$missing = new WP_Error(
-			'decent_core_widget_not_found',
-			__( 'That product grid is no longer on the page.', 'decent-core' ),
+			'pixelomatic_core_widget_not_found',
+			__( 'That product grid is no longer on the page.', 'pixelomatic-core' ),
 			array( 'status' => 404 )
 		);
 
-		if ( ! class_exists( '\Elementor\Plugin' ) || ! class_exists( '\DecentThemes\Frontend\Card' ) ) {
+		if ( ! class_exists( '\Elementor\Plugin' ) || ! class_exists( '\Pixelomatic\Frontend\Card' ) ) {
 			return $missing;
 		}
 
@@ -183,7 +183,7 @@ final class Product_Grid_Controller {
 
 		$element = \Elementor\Utils::find_element_recursive( $document->get_elements_data(), $widget_id );
 
-		if ( empty( $element ) || 'decent-product-grid' !== ( $element['widgetType'] ?? '' ) ) {
+		if ( empty( $element ) || 'pixelomatic-product-grid' !== ( $element['widgetType'] ?? '' ) ) {
 			return $missing;
 		}
 
@@ -230,7 +230,7 @@ final class Product_Grid_Controller {
 		 *
 		 * @param int $limit Requests per minute.
 		 */
-		$limit = (int) apply_filters( 'decent_core/rest/rate_limit', 60 );
+		$limit = (int) apply_filters( 'pixelomatic_core/rest/rate_limit', 60 );
 
 		if ( $limit < 1 ) {
 			return true;
@@ -244,13 +244,13 @@ final class Product_Grid_Controller {
 			return true;
 		}
 
-		$key   = 'decent_core_rl_' . substr( hash( 'sha256', $address . wp_salt() ), 0, 20 );
+		$key   = 'pixelomatic_core_rl_' . substr( hash( 'sha256', $address . wp_salt() ), 0, 20 );
 		$count = (int) get_transient( $key );
 
 		if ( $count >= $limit ) {
 			return new WP_Error(
-				'decent_core_rate_limited',
-				__( 'Too many requests. Try again in a moment.', 'decent-core' ),
+				'pixelomatic_core_rate_limited',
+				__( 'Too many requests. Try again in a moment.', 'pixelomatic-core' ),
 				array( 'status' => 429 )
 			);
 		}

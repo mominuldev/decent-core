@@ -2,10 +2,10 @@
 /**
  * Settings schema reader and validator.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Settings;
+namespace PixelomaticCore\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,12 +28,12 @@ final class Schema {
 	 */
 	public static function tabs(): array {
 		return array(
-			'general'     => __( 'General', 'decent-core' ),
-			'widgets'     => __( 'Widgets', 'decent-core' ),
-			'extensions'  => __( 'Extensions', 'decent-core' ),
-			'edd'         => __( 'Catalogue', 'decent-core' ),
-			'performance' => __( 'Performance', 'decent-core' ),
-			'tools'       => __( 'Tools', 'decent-core' ),
+			'general'     => __( 'General', 'pixelomatic-core' ),
+			'widgets'     => __( 'Widgets', 'pixelomatic-core' ),
+			'extensions'  => __( 'Extensions', 'pixelomatic-core' ),
+			'edd'         => __( 'Catalogue', 'pixelomatic-core' ),
+			'performance' => __( 'Performance', 'pixelomatic-core' ),
+			'tools'       => __( 'Tools', 'pixelomatic-core' ),
 		);
 	}
 
@@ -55,8 +55,8 @@ final class Schema {
 			 * @param array<string, array<string, mixed>> $fields Field definitions.
 			 */
 			self::$fields = apply_filters(
-				'decent_core/settings/schema',
-				require DECENT_CORE_DIR . 'config/settings.php'
+				'pixelomatic_core/settings/schema',
+				require PIXELOMATIC_CORE_DIR . 'config/settings.php'
 			);
 		}
 

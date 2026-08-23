@@ -6,7 +6,7 @@
 // literal as a fallback, which keeps the card inside the design system while
 // still rendering under a theme that does not ship the tokens.
 //
-// Deliberately NOT scoped to `.elementor-widget-decent-login-form`, for the
+// Deliberately NOT scoped to `.elementor-widget-pixelomatic-login-form`, for the
 // reason the icon box records: Elementor writes its Style-tab CSS as
 // `.elementor-element-<id> .pix-login__title` — two classes. Scoping these
 // rules to the widget wrapper would match that exactly and leave the winner to

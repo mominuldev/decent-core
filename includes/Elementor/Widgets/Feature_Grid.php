@@ -2,17 +2,17 @@
 /**
  * Feature Grid widget.
  *
- * @package DecentCore
+ * @package PixelomaticCore
  */
 
-namespace DecentCore\Elementor\Widgets;
+namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
-use DecentCore\Elementor\Base\Traits\Has_Grid_Controls;
-use DecentCore\Elementor\Base\Traits\Has_Section_Head;
-use DecentCore\Elementor\Base\Traits\Has_Style_Controls;
-use DecentCore\Elementor\Base\Widget_Base;
+use PixelomaticCore\Elementor\Base\Traits\Has_Grid_Controls;
+use PixelomaticCore\Elementor\Base\Traits\Has_Section_Head;
+use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 
@@ -40,11 +40,11 @@ final class Feature_Grid extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'decent-core' ) ) );
-		$this->register_section_head_controls( __( 'Built for the way you work', 'decent-core' ), __( 'Features', 'decent-core' ) );
+		$this->start_controls_section( 'head', array( 'label' => __( 'Section head', 'pixelomatic-core' ) ) );
+		$this->register_section_head_controls( __( 'Built for the way you work', 'pixelomatic-core' ), __( 'Features', 'pixelomatic-core' ) );
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'items', array( 'label' => __( 'Features', 'decent-core' ) ) );
+		$this->start_controls_section( 'items', array( 'label' => __( 'Features', 'pixelomatic-core' ) ) );
 
 		$repeater = new Repeater();
 
@@ -65,7 +65,7 @@ final class Feature_Grid extends Widget_Base {
 			)
 		);
 
-		// The picker. The design's set is the "Decent Icons" tab in it, so the
+		// The picker. The design's set is the "Pixelomatic Icons" tab in it, so the
 		// default is still a theme icon rendered as inline SVG; what an editor
 		// gains is Font Awesome and SVG upload for what the design does not
 		// cover. Clearing a row's icon here falls back to the legacy slug if
@@ -74,7 +74,7 @@ final class Feature_Grid extends Widget_Base {
 		$repeater->add_control(
 			'selected_icon',
 			array(
-				'label'   => __( 'Icon', 'decent-core' ),
+				'label'   => __( 'Icon', 'pixelomatic-core' ),
 				'type'    => Controls_Manager::ICONS,
 				'default' => self::design_icon( 'check' ),
 			)
@@ -83,9 +83,9 @@ final class Feature_Grid extends Widget_Base {
 		$repeater->add_control(
 			'title',
 			array(
-				'label'       => __( 'Title', 'decent-core' ),
+				'label'       => __( 'Title', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Feature', 'decent-core' ),
+				'default'     => __( 'Feature', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -93,7 +93,7 @@ final class Feature_Grid extends Widget_Base {
 		$repeater->add_control(
 			'text',
 			array(
-				'label'       => __( 'Text', 'decent-core' ),
+				'label'       => __( 'Text', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
 				'label_block' => true,
@@ -109,18 +109,18 @@ final class Feature_Grid extends Widget_Base {
 				'default'     => array(
 					array(
 						'selected_icon' => self::design_icon( 'shield-check' ),
-						'title'         => __( 'Reviewed in-house', 'decent-core' ),
-						'text'          => __( 'Every release is checked for code standards, accessibility and performance before it ships.', 'decent-core' ),
+						'title'         => __( 'Reviewed in-house', 'pixelomatic-core' ),
+						'text'          => __( 'Every release is checked for code standards, accessibility and performance before it ships.', 'pixelomatic-core' ),
 					),
 					array(
 						'selected_icon' => self::design_icon( 'refresh' ),
-						'title'         => __( 'Lifetime updates', 'decent-core' ),
-						'text'          => __( 'Version history and changelogs live in your dashboard, so you can review changes before pushing them.', 'decent-core' ),
+						'title'         => __( 'Lifetime updates', 'pixelomatic-core' ),
+						'text'          => __( 'Version history and changelogs live in your dashboard, so you can review changes before pushing them.', 'pixelomatic-core' ),
 					),
 					array(
 						'selected_icon' => self::design_icon( 'file-text' ),
-						'title'         => __( 'Documented', 'decent-core' ),
-						'text'          => __( 'Setup guides, hook references and a PDF walkthrough with every product.', 'decent-core' ),
+						'title'         => __( 'Documented', 'pixelomatic-core' ),
+						'text'          => __( 'Setup guides, hook references and a PDF walkthrough with every product.', 'pixelomatic-core' ),
 					),
 				),
 			)
@@ -131,51 +131,51 @@ final class Feature_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'decent-core' ),
+				'label' => __( 'Layout', 'pixelomatic-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->register_grid_controls( 3 );
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_head', __( 'Section head', 'decent-core' ) );
+		$this->start_style_section( 'style_head', __( 'Section head', 'pixelomatic-core' ) );
 		$this->register_section_head_style_controls();
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_card', __( 'Cards', 'decent-core' ) );
+		$this->start_style_section( 'style_card', __( 'Cards', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'card',
-			__( 'Card', 'decent-core' ),
+			__( 'Card', 'pixelomatic-core' ),
 			'{{WRAPPER}} .feature-card',
 			array( 'separator' => 'none' )
 		);
 
 		$this->style_icon_controls();
 
-		$this->register_text_style( 'card_title', __( 'Title', 'decent-core' ), '{{WRAPPER}} .feature-card h3' );
+		$this->register_text_style( 'card_title', __( 'Title', 'pixelomatic-core' ), '{{WRAPPER}} .feature-card h3' );
 
 		$this->register_text_style(
 			'card_text',
-			__( 'Text', 'decent-core' ),
+			__( 'Text', 'pixelomatic-core' ),
 			'{{WRAPPER}} .feature-card p',
 			array( 'spacing' => false )
 		);
 
 		$this->register_gap_style(
 			'card_gap',
-			__( 'Icon and text gap', 'decent-core' ),
+			__( 'Icon and text gap', 'pixelomatic-core' ),
 			'{{WRAPPER}} .feature-card',
 			40
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_band', __( 'Band', 'decent-core' ) );
+		$this->start_style_section( 'style_band', __( 'Band', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
 			'band',
-			__( 'Band', 'decent-core' ),
+			__( 'Band', 'pixelomatic-core' ),
 			'{{WRAPPER}} .section',
 			array(
 				'heading' => false,
@@ -218,12 +218,12 @@ final class Feature_Grid extends Widget_Base {
 	 * @return void
 	 */
 	private function style_icon_controls(): void {
-		$this->style_heading( 'card_icon', __( 'Icon', 'decent-core' ) );
+		$this->style_heading( 'card_icon', __( 'Icon', 'pixelomatic-core' ) );
 
 		$this->add_control(
 			'card_icon_color',
 			array(
-				'label'     => __( 'Icon colour', 'decent-core' ),
+				'label'     => __( 'Icon colour', 'pixelomatic-core' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .feature-card__icon' => 'color: {{VALUE}};',
@@ -240,7 +240,7 @@ final class Feature_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'card_icon_size',
 			array(
-				'label'      => __( 'Icon size', 'decent-core' ),
+				'label'      => __( 'Icon size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -259,7 +259,7 @@ final class Feature_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'card_icon_tile',
 			array(
-				'label'      => __( 'Tile size', 'decent-core' ),
+				'label'      => __( 'Tile size', 'pixelomatic-core' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -277,7 +277,7 @@ final class Feature_Grid extends Widget_Base {
 
 		$this->register_box_style(
 			'card_icon',
-			__( 'Tile', 'decent-core' ),
+			__( 'Tile', 'pixelomatic-core' ),
 			'{{WRAPPER}} .feature-card__icon',
 			array(
 				'heading' => false,
