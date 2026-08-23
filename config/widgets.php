@@ -264,6 +264,22 @@ return array(
 		'default'  => true,
 	),
 
+	// No 'requires'. The widget posts to EDD's login handler where EDD is
+	// active and to wp-login.php where it is not, so it has somewhere to send
+	// a sign-in either way.
+	'login-form'        => array(
+		'class'    => DecentCore\Elementor\Widgets\Login_Form::class,
+		'title'    => __( 'Login Form', 'decent-core' ),
+		'category' => 'decent-content',
+		'group'    => 'form',
+		'icon'     => 'eicon-lock-user',
+		'keywords' => array( 'login', 'sign in', 'account', 'password', 'form' ),
+		'styles'   => array( 'login-form' ),
+		'scripts'  => array( 'login-form' ),
+		'requires' => array(),
+		'default'  => true,
+	),
+
 	'plugin-list'       => array(
 		'class'    => DecentCore\Elementor\Widgets\Plugin_List::class,
 		'title'    => __( 'Plugin List', 'decent-core' ),
