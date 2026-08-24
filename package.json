@@ -8,6 +8,7 @@
     "build": "gulp build",
     "dev": "gulp watch",
     "package": "gulp package",
+    "zip": "gulp package",
     "lint:js": "eslint src assets/widgets --ext .js,.jsx"
   },
   "browserslist": [

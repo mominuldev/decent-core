@@ -65,7 +65,9 @@ The gates that run before anything is written:
   text — one left beside a PHP file publishes the source at a guessable URL,
   and `npm run dev` writes sourcemaps next to assets that do ship.
 
-`gulp verify` runs the gates on their own, without building or zipping.
+`npm run zip` is an alias for the same thing. `gulp verify` runs the gates on
+their own, without building or zipping; `gulp bundle` zips whatever is on disk
+now, without rebuilding or running the gates.
 
 PHPStan runs against hand-written stubs in `tests/stubs/` rather than a real
 Elementor. When you use an Elementor or theme API the stubs do not declare, add

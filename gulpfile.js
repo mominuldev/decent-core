@@ -352,6 +352,10 @@ exports.adminScripts = adminScripts;
 exports.adminStyles = adminStyles;
 exports.build = build;
 exports.verify = series(verifyVersion, verifyPackageSet);
+// `bundle` zips whatever is on disk now, without rebuilding. It carries
+// loadZip because a task that only works as part of a longer series is a task
+// that fails the first time someone runs it on its own.
+exports.bundle = series(loadZip, bundle, report);
 exports.package = series(cleanBuild, build, verifyVersion, verifyPackageSet, loadZip, bundle, report);
 exports.watch = series(build, watchFiles);
 exports.default = build;
