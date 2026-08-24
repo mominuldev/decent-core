@@ -67,8 +67,8 @@ trait Has_Style_Controls {
 	 * @return void
 	 */
 	protected function register_section_head_style_controls( string $selector = '{{WRAPPER}} .pix-section-heading' ): void {
-		$this->register_alignment_style( 'head_align', $selector );
-		$this->register_alignment_flex_style( 'text_align', $selector );
+		$this->register_alignment_head_style( 'head_align', $selector );
+		$this->register_alignment_flex_style( 'text_align', $selector, __( 'Block alignment', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
 			'head_eyebrow',
@@ -538,6 +538,52 @@ trait Has_Style_Controls {
 					),
 				),
 				'selectors' => array( $selector => 'text-align: {{VALUE}};' ),
+			)
+		);
+	}
+
+	/**
+	 * Registers the alignment control for a section head.
+	 *
+	 * A section head is a flex row: the text column and, when the widget has
+	 * one, the trailing link beside it. `text-align` alone centres the words
+	 * inside a column that is still sitting on the left, and `justify-content`
+	 * alone moves the column without touching the words in it — which is why
+	 * "centre" read as "nothing happened" whenever only one of the two was
+	 * set. One control writes both, through a dictionary because the two
+	 * properties do not share a vocabulary.
+	 *
+	 * @param string $id       Control id.
+	 * @param string $selector Selector the alignment applies to.
+	 * @param string $label    Optional label.
+	 * @return void
+	 */
+	protected function register_alignment_head_style( string $id, string $selector, string $label = '' ): void {
+		$this->add_responsive_control(
+			$id,
+			array(
+				'label'                => '' !== $label ? $label : __( 'Alignment', 'pixelomatic-core' ),
+				'type'                 => Controls_Manager::CHOOSE,
+				'options'              => array(
+					'left'   => array(
+						'title' => __( 'Left', 'pixelomatic-core' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Centre', 'pixelomatic-core' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'pixelomatic-core' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors_dictionary' => array(
+					'left'   => 'text-align: left; justify-content: flex-start;',
+					'center' => 'text-align: center; justify-content: center;',
+					'right'  => 'text-align: right; justify-content: flex-end;',
+				),
+				'selectors'            => array( $selector => '{{VALUE}}' ),
 			)
 		);
 	}

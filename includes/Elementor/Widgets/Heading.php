@@ -158,8 +158,10 @@ final class Heading extends Widget_Base {
 
 		// The eyebrow / title / intro group, shared with every other widget
 		// that opens on a section head, so the controls an editor learns here
-		// are the same ones everywhere else.
-		$this->register_alignment_flex_style( 'text_align', '{{WRAPPER}} .pix-section-heading' );
+		// are the same ones everywhere else. This widget IS a section head, so
+		// it needs the whole group and not just the alignment out of it —
+		// there is nothing else in the widget to style.
+		$this->register_section_head_style_controls();
 
 		$this->end_controls_section();
 

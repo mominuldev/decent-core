@@ -19,6 +19,19 @@
     margin-top: 0;
   }
 
+  // The text column is a flex item with an auto basis, so it shrinks to the
+  // width of its longest line. text-align then centres the words inside a box
+  // that is still sitting against the left edge, and .pix-section-heading__aside's
+  // margin-left: auto eats the free space before justify-content ever sees it
+  // — between them, "centre" looked like nothing had happened. Letting the
+  // column fill the row gives the alignment something to centre against, and
+  // costs nothing when it was already full width. The aside still lands on
+  // the right, on its own auto margin.
+  .pix-section-heading > div {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
   // The theme lifts .section-title and .section-intro onto a dark band but
   // never .eyebrow, so all three eyebrow tones land under 4.5:1 on --ink:
   // brand at 3.38, yellow at 3.24, muted at 3.93. Each one moves to the step
