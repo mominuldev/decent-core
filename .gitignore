@@ -20,4 +20,6 @@ phpstan.neon
 
 # Build output
 /dist/
+/build/
 *.zip
+assets/**/*.map

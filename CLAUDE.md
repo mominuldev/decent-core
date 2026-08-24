@@ -29,6 +29,7 @@ composer lint      # phpcs only          composer lint:fix  # phpcbf
 composer analyse   # phpstan only
 npm run build      # gulp: widget scss/js -> assets/, admin app via esbuild
 npm run dev        # the same, watching
+npm run package    # build, verify, zip -> build/pixelomatic-core-<version>.zip
 wp i18n make-pot . languages/pixelomatic-core.pot --domain=pixelomatic-core \
   --exclude=node_modules,vendor,tests,src,assets
 ```
@@ -36,6 +37,35 @@ wp i18n make-pot . languages/pixelomatic-core.pot --domain=pixelomatic-core \
 **`assets/` is build output and IS committed** — a plugin must run from a zip
 without anyone installing node. Never hand-edit `assets/widgets/*/style.css` or
 `script.js`; edit `src/widgets/<slug>/` and rebuild.
+
+`npm run package` is the release command. It cleans `build/`, runs a production
+build, runs the release gates and writes `build/pixelomatic-core-<version>.zip`
+with everything inside a single top-level `pixelomatic-core/` folder — the
+plugin basename is what the licence check, the update route and every
+`plugin_dir_url()` are keyed on.
+
+**The exclusion list is `.distignore` and nothing else.** `gulpfile.js` reads it
+and turns each line into a pair of negated globs, so there is no second copy to
+drift out of step with the first. Excluding something from the package means
+adding a line there — and note that `src/` holds asset sources only because the
+PHP lives in `includes/`; a package rule that excludes a directory holding PHP
+ships a plugin that fatals on `plugins_loaded`.
+
+The gates that run before anything is written:
+
+- The plugin header `Version:` and `PIXELOMATIC_CORE_VERSION` must agree — one
+  is what WordPress compares on update, the other is what every enqueued asset
+  is cache-busted with.
+- Every `src/widgets/<slug>/*.scss` and `*.js`, both builder pairs and both
+  admin bundles must have a compiled counterpart in `assets/`. A widget added
+  without a build otherwise registers fine and renders unstyled on someone
+  else's site.
+- No `*.bkp`, `*.bak`, `*.orig`, `*~` or `*.map` in the packaged set. The
+  webserver has no handler for those extensions, so it serves them as plain
+  text — one left beside a PHP file publishes the source at a guessable URL,
+  and `npm run dev` writes sourcemaps next to assets that do ship.
+
+`gulp verify` runs the gates on their own, without building or zipping.
 
 PHPStan runs against hand-written stubs in `tests/stubs/` rather than a real
 Elementor. When you use an Elementor or theme API the stubs do not declare, add

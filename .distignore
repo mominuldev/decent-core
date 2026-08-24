@@ -16,3 +16,7 @@ package-lock.json
 gulpfile.js
 phpcs.xml.dist
 phpstan.neon.dist
+CLAUDE.md
+.claude
+assets/**/*.map
+build
