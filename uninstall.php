@@ -58,6 +58,7 @@ $pixelomatic_core_templates = get_posts(
 	array(
 		'post_type'      => 'pixelomatic_template',
 		'post_status'    => 'any',
+		// phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- A purge deletes every template there is; the ceiling is a guard, not a page size.
 		'posts_per_page' => 500,
 		'fields'         => 'ids',
 		'no_found_rows'  => true,

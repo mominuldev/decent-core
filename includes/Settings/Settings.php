@@ -48,14 +48,14 @@ final class Settings {
 	/**
 	 * Returns one setting.
 	 *
-	 * @param string $key     Field key.
-	 * @param mixed  $default Returned when the key is not in the schema.
+	 * @param string $key      Field key.
+	 * @param mixed  $fallback Returned when the key is not in the schema.
 	 * @return mixed
 	 */
-	public static function get( string $key, $default = null ) {
+	public static function get( string $key, $fallback = null ) {
 		$values = self::all();
 
-		return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
+		return array_key_exists( $key, $values ) ? $values[ $key ] : $fallback;
 	}
 
 	/**

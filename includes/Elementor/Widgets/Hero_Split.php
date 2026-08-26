@@ -382,10 +382,10 @@ final class Hero_Split extends Widget_Base {
 	 *
 	 * @param string $label_key Label setting key.
 	 * @param string $url_key   URL setting key.
-	 * @param string $class     Button classes.
+	 * @param string $classes   Button classes.
 	 * @return void
 	 */
-	private function button( string $label_key, string $url_key, string $class ): void {
+	private function button( string $label_key, string $url_key, string $classes ): void {
 		$label = $this->text( $label_key );
 		$link  = (array) ( $this->get_settings_for_display( $url_key ) ?? array() );
 		$url   = (string) ( $link['url'] ?? '' );
@@ -396,7 +396,7 @@ final class Hero_Split extends Widget_Base {
 
 		printf(
 			'<a class="%1$s" href="%2$s"%3$s>%4$s</a>',
-			esc_attr( $class ),
+			esc_attr( $classes ),
 			esc_url( $url ),
 			! empty( $link['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '',
 			esc_html( $label )

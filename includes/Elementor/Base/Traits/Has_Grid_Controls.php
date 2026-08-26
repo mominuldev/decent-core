@@ -27,16 +27,16 @@ trait Has_Grid_Controls {
 	 * 900px tablet step, one at 560. An editor can override any breakpoint,
 	 * but out of the box a dropped widget already matches the mockup.
 	 *
-	 * @param int $default Desktop column count.
+	 * @param int $columns Desktop column count.
 	 * @return void
 	 */
-	protected function register_grid_controls( int $default = 3 ): void {
+	protected function register_grid_controls( int $columns = 3 ): void {
 		$this->add_responsive_control(
 			'columns',
 			array(
 				'label'          => __( 'Columns', 'pixelomatic-core' ),
 				'type'           => Controls_Manager::SELECT,
-				'default'        => (string) $default,
+				'default'        => (string) $columns,
 				'tablet_default' => '2',
 				'mobile_default' => '1',
 				'options'        => array(

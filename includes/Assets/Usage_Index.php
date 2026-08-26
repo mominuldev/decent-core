@@ -34,7 +34,7 @@ final class Usage_Index {
 	public function register(): void {
 		// Fires for every Elementor document type, including the kit and the
 		// builder templates added in M9.
-		add_action( 'elementor/document/after_save', array( $this, 'reindex_document' ), 10, 2 );
+		add_action( 'elementor/document/after_save', array( $this, 'reindex_document' ) );
 
 		// A revision restore or an import writes _elementor_data directly
 		// without going through the editor's save.
@@ -45,11 +45,10 @@ final class Usage_Index {
 	/**
 	 * Reindexes after an editor save.
 	 *
-	 * @param object               $document Elementor document.
-	 * @param array<string, mixed> $data     Saved data.
+	 * @param object $document Elementor document.
 	 * @return void
 	 */
-	public function reindex_document( $document, $data = array() ): void {
+	public function reindex_document( $document ): void {
 		if ( ! is_object( $document ) || ! method_exists( $document, 'get_main_id' ) ) {
 			return;
 		}

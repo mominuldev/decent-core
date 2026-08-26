@@ -151,6 +151,7 @@ final class Templates_List {
 			array(
 				'post_type'              => Post_Type::NAME,
 				'post_status'            => array( 'publish', 'future', 'draft', 'pending', 'private' ),
+				// phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Templates are hand-authored; the ceiling is a guard, not a page size, and the query asks for IDs only.
 				'posts_per_page'         => 200,
 				'fields'                 => 'ids',
 				'no_found_rows'          => true,

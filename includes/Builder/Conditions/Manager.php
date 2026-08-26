@@ -81,6 +81,7 @@ final class Manager {
 			array(
 				'post_type'              => Post_Type::NAME,
 				'post_status'            => 'publish',
+				// phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Every published template has to be compiled into the map; the ceiling is a guard, not a page size.
 				'posts_per_page'         => 200,
 				'no_found_rows'          => true,
 				'update_post_term_cache' => false,

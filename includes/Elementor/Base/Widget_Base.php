@@ -442,12 +442,12 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	/**
 	 * Renders a heading at a caller-chosen level, from an allow-list.
 	 *
-	 * @param string $text  Heading text.
-	 * @param string $tag   Requested tag.
-	 * @param string $class CSS class.
+	 * @param string $text    Heading text.
+	 * @param string $tag     Requested tag.
+	 * @param string $classes CSS classes.
 	 * @return void
 	 */
-	protected function render_heading( string $text, string $tag, string $class ): void {
+	protected function render_heading( string $text, string $tag, string $classes ): void {
 		if ( '' === $text ) {
 			return;
 		}
@@ -457,7 +457,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 		printf(
 			'<%1$s class="%2$s">%3$s</%1$s>',
 			esc_html( $tag ),
-			esc_attr( $class ),
+			esc_attr( $classes ),
 			esc_html( $text )
 		);
 	}
