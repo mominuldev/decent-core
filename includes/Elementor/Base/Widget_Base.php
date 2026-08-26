@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 use PixelomaticCore\Elementor\Compat\Icon_Library;
 use PixelomaticCore\Elementor\Widget_Registry;
+use Elementor\Controls_Manager;
 use Elementor\Widget_Base as Elementor_Widget_Base;
 
 /**
@@ -360,6 +361,82 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Class every notice this plugin prints carries, on the control wrapper.
+	 *
+	 * What the panel stylesheet targets. Elementor's own alerts keep their
+	 * accent rule — this restyles ours and nobody else's.
+	 */
+	public const NOTICE_CLASS = 'pixelomatic-notice';
+
+	/**
+	 * Adds a notice to the panel, as a styled alert.
+	 *
+	 * Elementor's own alert control rather than a paragraph of grey descriptor
+	 * text: a widget's notice is usually the one thing in the panel that has to
+	 * be read before anything is set, and four sentences set in the same
+	 * muted type as every control hint below them is four sentences nobody
+	 * reads. The heading carries the sentence that matters and the rest sits
+	 * under it.
+	 *
+	 * The control renders its heading and content through Underscore, so both
+	 * are escaped here and neither may contain a template delimiter.
+	 *
+	 * @param string   $id      Control id, unique within the widget. Prefixed here.
+	 * @param string   $heading First line, set in bold.
+	 * @param string[] $lines   Sentences under it. Empty ones are dropped.
+	 * @param string   $type    info, success, warning or danger.
+	 * @return void
+	 */
+	protected function register_notice( string $id, string $heading, array $lines = array(), string $type = 'info' ): void {
+		// Elementor builds a control's wrapper class out of its name, and it
+		// styles some names as though they were types: `.elementor-control-notice`
+		// is its own NOTICE control's box, a 1px border and 16px of padding.
+		// A control merely *called* `notice` inherits all of it. Prefixing the
+		// id keeps this plugin's notices clear of that collision and of the
+		// next one Elementor adds.
+		$id    = 'pixelomatic_' . $id;
+		$types = array( 'info', 'success', 'warning', 'danger' );
+
+		$lines = array_filter(
+			array_map( 'trim', $lines ),
+			static function ( string $line ): bool {
+				return '' !== $line;
+			}
+		);
+
+		// The alert control arrived in Elementor 3.19 and the plugin still
+		// supports 3.18. A notice is worth styling, not worth refusing to run
+		// over, so where the control does not exist the same words are printed
+		// as descriptor text.
+		if ( ! defined( 'Elementor\\Controls_Manager::ALERT' ) ) {
+			array_unshift( $lines, $heading );
+
+			$this->add_control(
+				$id,
+				array(
+					'type'            => Controls_Manager::RAW_HTML,
+					'raw'             => esc_html( implode( ' ', $lines ) ),
+					'classes'         => self::NOTICE_CLASS,
+					'content_classes' => 'elementor-descriptor',
+				)
+			);
+
+			return;
+		}
+
+		$this->add_control(
+			$id,
+			array(
+				'type'       => Controls_Manager::ALERT,
+				'alert_type' => in_array( $type, $types, true ) ? $type : 'info',
+				'heading'    => esc_html( $heading ),
+				'content'    => implode( '<br>', array_map( 'esc_html', $lines ) ),
+				'classes'    => self::NOTICE_CLASS,
+			)
+		);
 	}
 
 	/**

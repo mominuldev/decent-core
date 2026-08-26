@@ -297,13 +297,10 @@ final class Login_Form extends Widget_Base {
 	private function register_provider_controls(): void {
 		$this->start_controls_section( 'providers', array( 'label' => __( 'Social providers', 'pixelomatic-core' ) ) );
 
-		$this->add_control(
+		$this->register_notice(
 			'providers_note',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'These are links. The plugin implements no OAuth of its own, so each row needs the sign-in URL your provider plugin hands out — a row without one renders nothing rather than a button that goes nowhere.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
-			)
+			__( 'These are links, not sign-in itself.', 'pixelomatic-core' ),
+			array( __( 'The plugin implements no OAuth of its own, so each row needs the sign-in URL your provider plugin hands out. A row without one renders nothing, rather than a button that goes nowhere.', 'pixelomatic-core' ) )
 		);
 
 		$repeater = new Repeater();
@@ -390,13 +387,10 @@ final class Login_Form extends Widget_Base {
 	private function register_signed_in_controls(): void {
 		$this->start_controls_section( 'signed_in', array( 'label' => __( 'Already signed in', 'pixelomatic-core' ) ) );
 
-		$this->add_control(
+		$this->register_notice(
 			'signed_in_note',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'What a signed-in visitor sees in place of the form. The editor always shows the form, so this panel is the only way to check this state.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
-			)
+			__( 'What a signed-in visitor sees instead of the form.', 'pixelomatic-core' ),
+			array( __( 'The editor always shows the form, so this panel is the only way to check this state.', 'pixelomatic-core' ) )
 		);
 
 		$this->add_control(

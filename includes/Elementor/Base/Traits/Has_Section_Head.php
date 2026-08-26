@@ -22,11 +22,12 @@ trait Has_Section_Head {
 	/**
 	 * Registers the section head controls.
 	 *
-	 * @param string $default_title Default heading text.
+	 * @param string $default_title   Default heading text.
 	 * @param string $default_eyebrow Default eyebrow text.
+	 * @param string $default_intro   Default supporting paragraph.
 	 * @return void
 	 */
-	protected function register_section_head_controls( string $default_title = '', string $default_eyebrow = '' ): void {
+	protected function register_section_head_controls( string $default_title = '', string $default_eyebrow = '', string $default_intro = '' ): void {
 		$this->add_control(
 			'eyebrow',
 			array(
@@ -70,6 +71,7 @@ trait Has_Section_Head {
 				'label'       => __( 'Intro', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
+				'default'     => $default_intro,
 				'label_block' => true,
 			)
 		);

@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
 use PixelomaticCore\Contracts\Module;
 use PixelomaticCore\Elementor\Compat\Breakpoints;
 use PixelomaticCore\Elementor\Compat\Icon_Library;
+use PixelomaticCore\Elementor\Base\Widget_Base;
 use PixelomaticCore\Elementor\Compat\Kit_Seeder;
 use Elementor\Elements_Manager;
 use Elementor\Widgets_Manager;
@@ -42,6 +43,11 @@ final class Manager implements Module {
 		add_action( 'elementor/dynamic_tags/register', array( $this, 'register_tags' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'enqueue_editor_assets' ) );
 		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_editor_assets' ) );
+
+		// The panel, not the preview: this styles the controls an editor sees
+		// beside the canvas, which is the other of the two enqueue points and
+		// the one the widget stylesheets must never reach.
+		add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_panel_styles' ) );
 
 		( new Breakpoints() )->register();
 		( new Kit_Seeder() )->register();
@@ -230,5 +236,33 @@ final class Manager implements Module {
 				wp_enqueue_script( 'pixelomatic-core-' . $handle );
 			}
 		}
+	}
+
+	/**
+	 * Trims this plugin's panel notices down to a plain tinted box.
+	 *
+	 * Every widget notice this plugin prints is an alert control, and Elementor
+	 * draws those with a 3px accent rule down the leading edge — which is why
+	 * it also squares off the two corners behind it. Without the rule those
+	 * square corners read as a box that has been cut off, so the radius comes
+	 * back with it.
+	 *
+	 * Scoped to the class Widget_Base puts on its own notices. Elementor's
+	 * alerts — the position hint, the gradient notice, the Pro promotions —
+	 * are the editor's own furniture and keep the look the rest of the panel
+	 * gives them.
+	 *
+	 * Inline on Elementor's own handle rather than a stylesheet of our own: a
+	 * build artefact, a package rule and a release gate for three declarations
+	 * that only ever apply inside the editor panel is machinery with nothing to
+	 * hold.
+	 *
+	 * @return void
+	 */
+	public function enqueue_panel_styles(): void {
+		wp_add_inline_style(
+			'elementor-editor',
+			'.elementor-panel .' . Widget_Base::NOTICE_CLASS . ' .elementor-panel-alert{border-inline-start:0;border-start-start-radius:3px;border-end-start-radius:3px;}'
+		);
 	}
 }

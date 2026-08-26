@@ -13,7 +13,8 @@ use PixelomaticCore\Assets\Usage_Index;
 use PixelomaticCore\Elementor\Widget_Registry;
 
 /**
- * Loads what a resolved header or footer needs, in the head, before it renders.
+ * Loads what a resolved header, footer or body needs, in the head, before it
+ * renders.
  *
  * Timing is the whole point of this class. A builder header renders from
  * inside header.php, long after wp_head has printed — so anything it enqueues
@@ -232,6 +233,17 @@ final class Assets {
 			if ( $template_id ) {
 				$this->templates[ $type ] = $template_id;
 			}
+		}
+
+		// The body is asked of Body rather than of the resolver: it swaps the
+		// template at `template_include`, which is settled well before
+		// wp_enqueue_scripts, and a template that resolved but did not render
+		// — the post being edited in Elementor, say — must not enqueue
+		// anything here.
+		$body = Body::resolved();
+
+		if ( $body ) {
+			$this->templates[ Template_Type::SINGLE ] = $body;
 		}
 
 		return $this->templates;

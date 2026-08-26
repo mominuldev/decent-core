@@ -35,6 +35,15 @@ final class Template_Type {
 	public const BLOCK = 'block';
 
 	/**
+	 * Replaces the body of a singular view, between header and footer.
+	 *
+	 * The string is Elementor Pro's own name for the location, so a site that
+	 * later installs Pro hands the same location over without a mapping —
+	 * see Pro_Bridge.
+	 */
+	public const SINGLE = 'single';
+
+	/**
 	 * Returns every type with its label.
 	 *
 	 * @return array<string, string>
@@ -43,6 +52,7 @@ final class Template_Type {
 		return array(
 			self::HEADER => __( 'Header', 'pixelomatic-core' ),
 			self::FOOTER => __( 'Footer', 'pixelomatic-core' ),
+			self::SINGLE => __( 'Single', 'pixelomatic-core' ),
 			self::BLOCK  => __( 'Block', 'pixelomatic-core' ),
 		);
 	}

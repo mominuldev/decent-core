@@ -183,6 +183,7 @@ abstract class Widget_Base extends Element_Base {
 class Controls_Manager {
 	const TEXT        = 'text';
 	const TEXTAREA    = 'textarea';
+	const WYSIWYG     = 'wysiwyg';
 	const SELECT      = 'select';
 	const CHOOSE      = 'choose';
 	const COLOR       = 'color';
@@ -198,6 +199,7 @@ class Controls_Manager {
 	const MEDIA       = 'media';
 	const ICONS       = 'icons';
 	const RAW_HTML    = 'raw_html';
+	const ALERT       = 'alert';
 	const HEADING     = 'heading';
 	const DIVIDER     = 'divider';
 	const DIMENSIONS  = 'dimensions';

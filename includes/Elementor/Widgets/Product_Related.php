@@ -10,10 +10,10 @@ namespace PixelomaticCore\Elementor\Widgets;
 defined( 'ABSPATH' ) || exit;
 
 use PixelomaticCore\Elementor\Base\Traits\Has_Product_Card_Style;
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Context;
 use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
 use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Plugin as Elementor_Plugin;
 
 /**
  * Products sharing the current product's primary category.
@@ -26,6 +26,7 @@ use Elementor\Plugin as Elementor_Plugin;
 final class Product_Related extends Widget_Base {
 
 	use Has_Style_Controls;
+	use Has_Product_Context;
 	use Has_Product_Card_Style;
 
 	/**
@@ -45,12 +46,38 @@ final class Product_Related extends Widget_Base {
 	protected function register_controls(): void {
 		$this->start_controls_section( 'content', array( 'label' => __( 'Related products', 'pixelomatic-core' ) ) );
 
+		$this->register_product_notice(
+			__( 'The cards are products sharing this one\'s category, so they are never written here.', 'pixelomatic-core' )
+		);
+
 		$this->add_control(
-			'notice',
+			'eyebrow',
 			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
+				'label'       => __( 'Eyebrow', 'pixelomatic-core' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'More like this', 'pixelomatic-core' ),
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'title',
+			array(
+				'label'       => __( 'Title', 'pixelomatic-core' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Related products', 'pixelomatic-core' ),
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'count',
+			array(
+				'label'   => __( 'Products to show', 'pixelomatic-core' ),
+				'type'    => Controls_Manager::NUMBER,
+				'min'     => 1,
+				'max'     => 6,
+				'default' => 3,
 			)
 		);
 
@@ -102,57 +129,16 @@ final class Product_Related extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		$id = $this->resolve_download();
+		$settings = $this->get_settings_for_display();
 
-		if ( ! $id ) {
-			return;
-		}
-
-		// The template part reads the global post, so it is set for the render
-		// and restored straight after. Leaving it changed would corrupt every
-		// widget below this one on the page.
-		global $post;
-		$original = $post;
-
-		$post = get_post( $id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restored below.
-		setup_postdata( $post );
-
-		get_template_part( 'template-parts/product/related' );
-
-		$post = $original; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring.
-		wp_reset_postdata();
-	}
-
-	/**
-	 * Returns the download this widget should render.
-	 *
-	 * On a single-product view that is the queried product. In the editor
-	 * there is no queried product, so it falls back to the most recent one and
-	 * the canvas shows something real instead of an empty box.
-	 *
-	 * @return int Download ID, or 0.
-	 */
-	private function resolve_download(): int {
-		if ( is_singular( 'download' ) ) {
-			return (int) get_queried_object_id();
-		}
-
-		$editor = Elementor_Plugin::instance()->editor;
-
-		if ( ! $editor || ! $editor->is_edit_mode() ) {
-			return 0;
-		}
-
-		$preview = get_posts(
+		$this->render_product_part(
+			'related',
+			null,
 			array(
-				'post_type'      => 'download',
-				'post_status'    => 'publish',
-				'posts_per_page' => 1,
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
+				'eyebrow' => (string) ( $settings['eyebrow'] ?? '' ),
+				'title'   => (string) ( $settings['title'] ?? '' ),
+				'count'   => (int) ( $settings['count'] ?? 3 ),
 			)
 		);
-
-		return empty( $preview ) ? 0 : (int) $preview[0];
 	}
 }

@@ -102,7 +102,7 @@
   .pix-section-heading__aside {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     min-height: 46px;
     padding: 0 20px;
     border: 1px solid var(--ink-border);
@@ -170,13 +170,20 @@
 
   /* ---------------------------------------------------------- tile parts */
 
+  // A 20px glyph centred in a 42px chip. The size is written twice because the
+  // Icon control produces two different things: an SVG, which takes width and
+  // height and is what the panel's Icon size control writes to, and a Font
+  // Awesome glyph, which is a font character with neither — only a font-size.
   .pix-why__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-sizing: border-box;
     width: 42px;
     height: 42px;
+    font-size: 20px;
+    line-height: 1;
     border-radius: var(--radius-md);
     background: var(--blue);
     color: var(--white);
@@ -185,6 +192,20 @@
   .pix-why__icon svg {
     width: 20px;
     height: 20px;
+  }
+
+  .pix-why__icon i {
+    font-size: inherit;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  // Elementor paints a Font Awesome pick as an SVG with no fill, which lands
+  // black and ignores the colour above. Scoped to Elementor's own class: the
+  // theme's icons are stroked over fill="none", and a blanket fill would turn
+  // a line drawing into a solid shape.
+  .pix-why__icon .e-font-icon-svg {
+    fill: currentColor;
   }
 
   // The wide feature tile runs its icon beside the title: a 24px heading over
@@ -241,7 +262,6 @@
   // The two wide tiles carry the section's argument rather than a caption, and
   // the design sets them a step up the scale to say so.
   .pix-why__tile--inline .pix-why__text {
-    margin-top: 14px;
     font-size: var(--text-body);
     line-height: var(--leading-body);
     letter-spacing: var(--tracking-body);
@@ -277,9 +297,13 @@
     border-top: 1px solid var(--ink-border);
   }
 
+  // The design groups the bullet with its version and sets that pair 8 apart,
+  // while the row around it stays at 12. One flex row has one gap, so the 4 is
+  // taken back here rather than by wrapping two spans in a third element.
   .pix-why__bullet {
     width: 7px;
     height: 7px;
+    margin-right: -4px;
     flex-shrink: 0;
     border-radius: var(--radius-pill);
     background: var(--muted);
@@ -460,7 +484,7 @@
     }
 
     .pix-why__when {
-      margin-left: 19px;
+      margin-left: 15px;
     }
   }
 }

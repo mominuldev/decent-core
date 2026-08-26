@@ -127,7 +127,7 @@ final class Faq_Accordion extends Widget_Base {
 		$this->register_box_style(
 			'panel',
 			__( 'Panel', 'pixelomatic-core' ),
-			'{{WRAPPER}} .accordion__panel',
+			'{{WRAPPER}} .accordion__panel-inner',
 			array(
 				'separator' => 'none',
 				'shadow'    => false,
@@ -195,17 +195,21 @@ final class Faq_Accordion extends Widget_Base {
 							</button>
 						</h3>
 
+						<?php
+						// Not [hidden]: every answer stays readable with
+						// JavaScript off, and main.js collapses the inactive
+						// ones on load. The panel is the grid that animates and
+						// the inner element is what clips, so the theme's
+						// accordion opens the same way here as it does on the
+						// product page.
+						?>
 						<div class="accordion__panel"
 							id="<?php echo esc_attr( $panel_id ); ?>"
 							role="region"
-							aria-labelledby="<?php echo esc_attr( $trigger_id ); ?>"
-							<?php
-							// Not [hidden]: every answer stays readable with
-							// JavaScript off. main.js collapses them on load.
-							echo $open ? '' : 'data-accordion-closed';
-							?>
-							>
-							<p><?php echo esc_html( (string) ( $faq['answer'] ?? '' ) ); ?></p>
+							aria-labelledby="<?php echo esc_attr( $trigger_id ); ?>">
+							<div class="accordion__panel-inner">
+								<p><?php echo esc_html( (string) ( $faq['answer'] ?? '' ) ); ?></p>
+							</div>
 						</div>
 					<?php endforeach; ?>
 				</div>

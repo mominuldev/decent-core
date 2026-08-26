@@ -161,10 +161,11 @@ three pagination types, the "Showing 1–3 of 6" line and the Swiper boot.
   auto-height container and makes every slide hundreds of pixels tall. The
   shared stylesheet sets `height: auto` on the track. Leave it there.
 
-## Header and footer builder
+## Template builder
 
-A `pixelomatic_template` post is a header, a footer or a block, built in Elementor
-and assigned by condition. `includes/Builder/`, in the order a request meets it:
+A `pixelomatic_template` post is a header, a footer, a page body or a block,
+built in Elementor and assigned by condition. `includes/Builder/`, in the order
+a request meets it:
 
 | Class | Owns |
 | --- | --- |
@@ -175,6 +176,7 @@ and assigned by condition. `includes/Builder/`, in the order a request meets it:
 | `Resolver` | which template this request gets — array lookups, never a query |
 | `Assets` | that template's CSS and JS, enqueued before `</head>` |
 | `Renderer` | the landmark and the content, into the theme's header/footer slots |
+| `Body` | a singular view's body, by swapping `template_include` for `templates/single.php` |
 | `Shortcode` | `[pixelomatic_template id="12"]`, the only way a block is placed |
 | `Pro_Bridge` | stands down wherever Elementor Pro's Theme Builder owns the location |
 | `Admin\Conditions_Box`, `Admin\Templates_List` | the type, the rules, the list |
@@ -193,6 +195,63 @@ own block (`site-header--sticky`, `--overlay`, `--shadow`), and the script adds
 only `--stuck` and `--hidden`. The stylesheet doubles the class
 (`.site-header.site-header--builder`) because the theme's stylesheet loads
 after the plugin's.
+
+**A `single` template replaces the body, not the page.** The header and footer
+are replaced from inside the theme's own parts, because the theme asks for them
+there with a filter. A body has no such slot, so `Body` swaps `template_include`
+for `templates/single.php`, which opens the theme's header, renders the
+template's builder content in place of the loop and closes the theme's footer.
+That is what builds the product detail page in Elementor without Elementor Pro:
+one Single template assigned to "Products and the catalogue". The type string is
+Pro's own name for the location, so with Pro installed `Pro_Bridge` answers the
+resolve filter with 0 and Pro's `single` location wins untouched. The theme's
+static `single-download.php` is what renders until such a template is published,
+and what renders again the moment it is not.
+
+The body's assets are asked of `Body::resolved()` rather than of the resolver:
+`template_include` is settled long before `wp_enqueue_scripts`, and a template
+that resolved but did not render — the post being edited in Elementor, say —
+must not enqueue anything.
+
+**The product widgets are delegates that take arguments.** Every one of them
+renders a `template-parts/product/` file rather than markup of its own — that is
+what keeps the builder page and the theme's own product page from drifting — and
+each of those parts now accepts the copy and the items as `$args`. So the panel
+edits the page without the plugin owning a second copy of the markup:
+
+| Part | Takes |
+| --- | --- |
+| `hero` | per-block switches, and arguments for the figures, tags and list |
+| `section-features` | head, plus `items` (icon slug, title, text) |
+| `section-specifications` | head, plus `groups` (title, rows of label/value/mono) |
+| `section-support` | head, ticket link, plus `faqs` |
+| `section-overview` | eyebrow, plus `content` |
+| `section-changelog` | head and the trailing link — never the releases |
+| `section-reviews` | head and how many — never the scores |
+| `section-cta` | every string except the price |
+| `related` | head and how many |
+| `section-nav` | `items`, or the sections this product has |
+
+**The copy is the widget's; the records are the product's.** Features,
+specifications, support, the headline figures, the tag row and the "in the box"
+list are written in the panel and nowhere else — the meta fields that used to
+hold them, and the textareas that typed them, were removed from the theme. What
+a widget must never author is what the product records: the price, the licences,
+the rating, the gallery, the changelog, the reviews. Those have a source of
+truth, and a control that overrode them would let a page advertise a price
+nobody is charged.
+
+Two widgets still choose between the two, through
+`Has_Product_Context::register_source_control()`: **Product Overview**, whose
+alternative is the download's own post content, and **Product Section Nav**,
+whose alternative is `sections.php` — the index of what this download carries.
+`Product Sections` renders that index and so is product-fed by definition.
+
+**Product widgets carry the section their theme part does not.** Every
+`template-parts/product/section-*.php` prints its own `<section>`; `hero.php`
+does not, because `single-download.php` wraps it in the band that carries
+`id="buy"`. `Product_Hero` prints that same wrapper, or a builder page loses the
+hero's background and the closing CTA scrolls to nothing.
 
 **Sticking is CSS.** `src/builder/script.js` exists for the two states CSS
 cannot observe, and the renderer prints `data-pixelomatic-header` — and `Assets`

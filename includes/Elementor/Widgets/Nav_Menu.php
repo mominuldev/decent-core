@@ -45,13 +45,11 @@ final class Nav_Menu extends Widget_Base {
 		$menus = $this->menu_options();
 
 		if ( empty( $menus ) ) {
-			$this->add_control(
+			$this->register_notice(
 				'no_menus',
-				array(
-					'type'            => Controls_Manager::RAW_HTML,
-					'raw'             => esc_html__( 'No menus exist yet. Create one under Appearance → Menus.', 'pixelomatic-core' ),
-					'content_classes' => 'elementor-descriptor',
-				)
+				__( 'No menus exist yet.', 'pixelomatic-core' ),
+				array( __( 'Create one under Appearance → Menus, then reload the editor.', 'pixelomatic-core' ) ),
+				'warning'
 			);
 		} else {
 			$this->add_control(

@@ -62,13 +62,10 @@ final class Product_Archive extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->register_notice(
 			'notice',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
-			)
+			__( 'Renders the catalogue for this request.', 'pixelomatic-core' ),
+			array( __( 'It reads the main query, so filtering, sorting and pagination keep working through the URL. Place it on a product archive template.', 'pixelomatic-core' ) )
 		);
 
 		$this->end_controls_section();

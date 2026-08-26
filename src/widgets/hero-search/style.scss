@@ -1,16 +1,24 @@
 // Hero — the landing hero from the Pixelomatic redesign.
 //
 // .hero, .hero--search, .hero__inner, .hero__title, .hero__text, .badge,
-// .btn, .btn-row, .browser, .stars, .rating-line, .media-frame and .sr-only
-// all come from the theme, and the aurora/contour background behind the
-// headline is the theme's own .hero--search::before/::after pair. What this
-// file adds is the handful of pieces the theme has no component for — the
-// announcement pill, the play glyph, the avatar stack, the floating stack
-// chips and the three-part visual — plus the small number of theme values
-// this particular hero moves off (a heavier headline, a taller browser
-// frame). Every one of those overrides is scoped to
+// .btn, .btn-row, .browser, .stars, .rating-line, .built-for, .media-frame
+// and .sr-only all come from the theme. What this file adds is the handful of
+// pieces the theme has no component for — the announcement pill, the play
+// glyph, the avatar stack, the floating stack chips and the three-part visual
+// — plus the small number of theme values this particular hero moves off (a
+// heavier headline, a taller browser frame, and the hero's own decorative
+// ground). Every one of those overrides is scoped to
 // .elementor-widget-pixelomatic-hero-search, so the theme's own hero on the front
 // page is untouched.
+//
+// The ground is the one place the theme and the design genuinely disagree.
+// The theme's .hero--search draws a fading grid and a soft glow; the design
+// draws four blurred aurora blobs, a set of contour lines over them and an
+// ambient fade that washes both out before the product visual starts. The
+// theme's two pseudo-elements are repainted here rather than a third layer
+// being added, and the fade is expressed as a mask on each of them: the
+// ground under it is already white by that point, so masking the pattern out
+// and painting white over it come to the same picture with one fewer box.
 //
 // Breakpoints are the theme's fixed ladder — 1180 / 1024 / 900 / 768 / 560 —
 // written out as raw max-width queries because gulp compiles each widget
@@ -19,6 +27,75 @@
 .elementor-widget-pixelomatic-hero-search {
   --pixelomatic-chip: 66px;
   --pixelomatic-avatar: 34px;
+
+  // Both layers below are masked by this, which is the design's ambient fade
+  // read as coverage rather than as a white sheet. A mask is alpha only, so
+  // `black` here is a stand-in for "keep", not a colour.
+  --pixelomatic-hero-fade: linear-gradient(180deg, black 0%, black 6%, transparent 66%);
+
+  // The contour lines, drawn once at the size the design draws them and used
+  // as a mask, so the line colour stays a token in the rule below instead of
+  // being frozen into the data URI. The path opacities are the design's
+  // top-to-bottom fade and survive into the mask's alpha unchanged.
+  --pixelomatic-hero-contours: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-80 0 1600 780' fill='none'%3E%3Cg stroke='%23fff' stroke-width='1.15'%3E%3Cpath opacity='.62' d='M-80 96C190 50 380 148.9 640 102.9C900 56.9 1080 38.5 1520 119'/%3E%3Cpath opacity='.575' d='M-80 158C190 114.6 380 207.91 640 164.51C900 121.11 1080 103.75 1520 179.7'/%3E%3Cpath opacity='.53' d='M-80 220C190 179.2 380 266.92 640 226.12C900 185.32 1080 169 1520 240.4'/%3E%3Cpath opacity='.485' d='M-80 282C190 243.8 380 325.93 640 287.73C900 249.53 1080 234.25 1520 301.1'/%3E%3Cpath opacity='.44' d='M-80 344C190 308.4 380 384.94 640 349.34C900 313.74 1080 299.5 1520 361.8'/%3E%3Cpath opacity='.395' d='M-80 406C190 373 380 443.95 640 410.95C900 377.95 1080 364.75 1520 422.5'/%3E%3Cpath opacity='.35' d='M-80 468C190 437.6 380 502.96 640 472.56C900 442.16 1080 430 1520 483.2'/%3E%3Cpath opacity='.305' d='M-80 530C190 502.2 380 561.97 640 534.17C900 506.37 1080 495.25 1520 543.9'/%3E%3Cpath opacity='.26' d='M-80 592C190 566.8 380 620.98 640 595.78C900 570.58 1080 560.5 1520 604.6'/%3E%3Cpath opacity='.215' d='M-80 654C190 631.4 380 679.99 640 657.39C900 634.79 1080 625.75 1520 665.3'/%3E%3Cpath opacity='.17' d='M-80 716C190 696 380 739 640 719C900 699 1080 691 1520 726'/%3E%3C/g%3E%3C/svg%3E");
+
+  /* ------------------------------------------------------------- ground */
+
+  // Four blobs, painted front to back because CSS stacks the first background
+  // layer on top and Figma stacks the last one on top. Each radius is the
+  // drawn shape plus 1.6× the Gaussian's sigma — the distance at which a
+  // blurred edge has effectively reached zero — and the second stop of each
+  // gradient is the flat core inside that ramp. color-mix carries the design's
+  // per-blob opacity so every fill stays on the token ramp rather than
+  // becoming a hex; where it is unsupported the whole declaration drops and
+  // the hero keeps the theme's plain --grad-hero ground, which is the right
+  // thing for a layer that is decoration.
+  .hero--search::before {
+    background-image:
+      radial-gradient(26.3% 24.9% at 46.6% 36.7%,
+        color-mix(in srgb, var(--blue-100) 42%, transparent) 0%,
+        color-mix(in srgb, var(--blue-100) 42%, transparent) 24%,
+        transparent 100%),
+      radial-gradient(26% 26.5% at 15.6% 41.4%,
+        color-mix(in srgb, var(--blue-200) 30%, transparent) 0%,
+        color-mix(in srgb, var(--blue-200) 30%, transparent) 32%,
+        transparent 100%),
+      radial-gradient(32.6% 29.2% at 75.5% 26.5%,
+        color-mix(in srgb, var(--blue) 15%, transparent) 0%,
+        color-mix(in srgb, var(--blue) 15%, transparent) 42%,
+        transparent 100%),
+      radial-gradient(39% 29.2% at 41.2% 17.4%,
+        color-mix(in srgb, var(--blue) 20%, transparent) 0%,
+        color-mix(in srgb, var(--blue) 20%, transparent) 57%,
+        transparent 100%);
+
+    // The theme masks this one with --pattern-mask and composites two mask
+    // layers; both have to be put back to their defaults or the single mask
+    // below is composited against nothing.
+    -webkit-mask-image: var(--pixelomatic-hero-fade);
+    mask-image: var(--pixelomatic-hero-fade);
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+  }
+
+  // The contour lines: a flat brand tint punched through by the line art and
+  // intersected with the same fade. 112% of the hero's width is the 1600px
+  // the design draws at 1440, so the lines keep bleeding past both edges at
+  // every width instead of stopping short of them.
+  .hero--search::after {
+    background-image: none;
+    background-color: color-mix(in srgb, var(--blue-200) 80%, var(--blue));
+    -webkit-mask-image: var(--pixelomatic-hero-contours), var(--pixelomatic-hero-fade);
+    mask-image: var(--pixelomatic-hero-contours), var(--pixelomatic-hero-fade);
+    -webkit-mask-position: 50% 0, 0 0;
+    mask-position: 50% 0, 0 0;
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-size: 112% 780px, 100% 100%;
+    mask-size: 112% 780px, 100% 100%;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
 
   // The widget can be dropped into a narrow column, where the theme's centred
   // 720px search bar would overflow its container.
@@ -206,19 +283,16 @@
 
   /* --------------------------------------------------------- stack chips */
 
-  // One list, two presentations. On desktop it is a decorative layer pinned
-  // to the content box, with each chip placed by position; below 900px the
-  // whole thing collapses into the design's "built for" row and the tiles
-  // become plain logos. Rendering it once and letting CSS decide is what
-  // keeps the two from drifting apart.
+  // The design floats the chips at the hero's edges at every width — four of
+  // them on a phone rather than six — and adds a "built for" row under the
+  // social proof on small screens. They are two different things, not one
+  // thing in two presentations: the floating tiles are the named list, and
+  // the row is a second, decorative pass over the same logos that the markup
+  // hides from assistive technology.
   .pix-hero__stack {
     position: absolute;
     inset: 0;
     pointer-events: none;
-  }
-
-  .pix-hero__stack-label {
-    display: none;
   }
 
   .pix-hero__chips {
@@ -242,16 +316,17 @@
     box-shadow: var(--shadow-lift);
 
     // Three down the left, three down the right, at the offsets and angles
-    // the design gives them. Offsets are measured from the container's
-    // content box — which is where an absolute child of .container lands —
-    // so they hold as the container narrows; the hero clips whatever falls
-    // outside, which is what the design does too.
-    &:nth-child(1) { top: 112px; left: -25px; transform: rotate(8deg); }
-    &:nth-child(2) { top: 295px; left: -76px; transform: rotate(-6deg); }
-    &:nth-child(3) { top: 476px; left: 26px; transform: rotate(5deg); }
-    &:nth-child(4) { top: 122px; right: 8px; transform: rotate(-7deg); }
-    &:nth-child(5) { top: 302px; right: -51px; transform: rotate(6deg); }
-    &:nth-child(6) { top: 476px; right: 60px; transform: rotate(-9deg); }
+    // the design gives them. An absolute child of .container is laid out
+    // against the container's *padding* box, not its content box, so every
+    // offset here is measured from the container edge including its gutter —
+    // the design's x minus 96px at 1440, where the 1248px container starts.
+    // The hero clips whatever falls outside, which is what the design does.
+    &:nth-child(1) { top: 112px; left: 8px; transform: rotate(8deg); }
+    &:nth-child(2) { top: 295px; left: -52px; transform: rotate(-6deg); }
+    &:nth-child(3) { top: 476px; left: 56px; transform: rotate(5deg); }
+    &:nth-child(4) { top: 122px; right: 32px; transform: rotate(-7deg); }
+    &:nth-child(5) { top: 302px; right: -34px; transform: rotate(6deg); }
+    &:nth-child(6) { top: 476px; right: 84px; transform: rotate(-9deg); }
 
     // The design has six anchor points. A seventh chip has nowhere to float,
     // so it waits for the "built for" row rather than stacking on a sibling.
@@ -277,6 +352,38 @@
     color: var(--blue-700);
     font-family: var(--font-display);
     font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* ------------------------------------------------------ built-for row */
+
+  // The theme's .built-for supplies the row itself; below 900px it is turned
+  // back on and centred, which is where the design puts it.
+  .pix-hero__built {
+    display: none;
+  }
+
+  .pix-hero__built-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    // The floating tiles carry full-colour marks; the row reads as one quiet
+    // line of logos, the way the design draws it.
+    opacity: 0.75;
+  }
+
+  .pix-hero__built-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-xs);
+    background: var(--blue-50);
+    color: var(--blue-700);
+    font-family: var(--font-display);
+    font-size: 12px;
     font-weight: 600;
     line-height: 1;
   }
@@ -314,10 +421,12 @@
   // the aside repeats figures an editor has already written, the phone
   // repeats a screenshot, and both step aside on narrow screens rather than
   // being scaled into illegibility.
+  // Measured, like the chips, from the container's padding box: the design
+  // puts this card's left edge at x=34 and the 1248px container starts at 96.
   .pix-hero__aside {
     position: absolute;
     top: 96px;
-    left: -80px;
+    left: -62px;
     z-index: 2;
     width: 430px;
     padding: 20px;
@@ -408,8 +517,8 @@
 
   .pix-hero__phone {
     position: absolute;
-    top: 38px;
-    right: -34px;
+    top: 58px;
+    right: 10px;
     z-index: 2;
     width: 232px;
     padding: 6px;
@@ -457,26 +566,28 @@
     .pix-hero__chip-mark { width: 28px; height: 28px; font-size: 16px; }
 
     .pix-hero__aside { left: 0; width: 340px; }
-    .pix-hero__phone { right: 0; width: 200px; }
+    // Still hanging off the browser's right-hand edge rather than sitting on
+    // top of it; the hero clips what goes past the viewport.
+    .pix-hero__phone { right: -16px; width: 200px; }
     .pix-hero__phone-screen { height: 380px; }
   }
 
   /* --------------------------------------------------------- 1024 and in */
 
-  // Below the split point the browser frame needs the full width, so the two
-  // tilted layers come off rather than overlapping the screenshot.
+  // Below the split point there is no room for three layers side by side.
+  // The stat card is the one that goes: it is the widest of the three and the
+  // only one carrying real figures, so shrinking it any further would leave
+  // numbers no one can read. The phone stays — the design keeps it all the
+  // way down to 390.
   @media (max-width: 1024px) {
-    .pix-hero__aside,
-    .pix-hero__phone {
-      display: none;
-    }
+    .pix-hero__aside { display: none; }
 
     .pix-hero__visual { margin-top: 48px; }
 
-    // The container has run out of margin, so every chip comes fully inside
-    // the viewport. Half a chip hanging off the edge is the design's intent
-    // on a phone, where the row replaces them entirely one step down; on a
-    // tablet it just reads as a clipped tile.
+    // The container now fills the viewport, so `left: 0` is the viewport edge
+    // and the desktop offsets would hang a chip half off it. Half a chip over
+    // the edge is the design's intent on a phone; on a tablet, where the
+    // browser frame is already wide, it just reads as a clipped tile.
     .pix-hero__chip {
       &:nth-child(1) { left: 0; }
       &:nth-child(2) { left: 0; }
@@ -489,65 +600,69 @@
 
   /* ---------------------------------------------------------- 900 and in */
 
-  // The design's small-screen hero: the chips leave the edges and become the
-  // "built for" row under the social proof.
+  // The design's small-screen hero: four chips instead of six, hung off the
+  // two edges at the offsets it gives them, and the "built for" row turned on
+  // under the social proof. The pair that goes is the third down each side —
+  // the hero is far shorter here and there is no sixth anchor point left.
   @media (max-width: 900px) {
-    .pix-hero__stack {
-      position: static;
+    --pixelomatic-chip: 56px;
+
+    // The container is no longer capped here, so its padding box is the
+    // viewport and these are the design's own x values.
+    .pix-hero__chip {
+      border-radius: 17px;
+
+      &:nth-child(1) { top: 92px; left: -20px; right: auto; }
+      &:nth-child(2) { top: 256px; left: -20px; right: auto; }
+      &:nth-child(4) { top: 132px; left: auto; right: -16px; }
+      &:nth-child(5) { top: 280px; left: auto; right: -14px; }
+
+      &:nth-child(3),
+      &:nth-child(6) { display: none; }
+    }
+
+    .pix-hero__chip-logo { width: 26px; height: 26px; }
+    .pix-hero__chip-mark { width: 28px; height: 28px; font-size: 16px; }
+
+    .pix-hero__built {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
       justify-content: center;
       gap: 10px 16px;
       margin-top: 34px;
-      pointer-events: auto;
     }
 
-    .pix-hero__stack-label {
-      display: block;
-      margin: 0;
-      font-size: var(--text-overline);
-      font-weight: 600;
-      line-height: var(--leading-overline);
-      letter-spacing: var(--tracking-overline);
-      text-transform: uppercase;
-      color: var(--muted);
+    // The collage the design draws at 390: the browser frame anchored left at
+    // two thirds of the column and tilted, the phone over its right-hand end,
+    // both bleeding past the edges the hero clips. The design runs this one
+    // edge to edge while the copy above it keeps its gutter, so the visual
+    // takes the gutter back off rather than the section dropping it.
+    .pix-hero__visual {
+      margin-inline: calc(var(--gutter) * -1);
     }
 
-    .pix-hero__chips {
-      position: static;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
+    .pix-hero__preview {
+      max-width: 64%;
+      margin-inline: 0;
+      transform: rotate(4deg);
+      transform-origin: 0 100%;
+
+      .media-frame { height: clamp(190px, 66vw, 300px); }
     }
 
-    .pix-hero__chip {
-      position: static;
-      width: auto;
-      height: auto;
-      background: none;
-      border: 0;
-      box-shadow: none;
-      transform: none;
-
-      &:nth-child(n + 7) { display: flex; }
+    .pix-hero__phone {
+      top: 0;
+      right: 0;
+      width: 60%;
+      padding: 5px;
+      border-radius: 28px;
+      transform: rotate(-4deg);
     }
 
-    .pix-hero__chip-logo {
-      width: 20px;
-      height: 20px;
-      // The floating tiles carry full-colour marks; the row reads as one
-      // quiet line of logos, the way the design draws it.
-      opacity: 0.75;
-    }
+    .pix-hero__phone-notch { top: 11px; width: 32%; height: 15px; }
 
-    .pix-hero__chip-mark {
-      width: 22px;
-      height: 22px;
-      border-radius: var(--radius-xs);
-      font-size: 12px;
+    .pix-hero__phone-screen {
+      height: clamp(300px, 116vw, 460px);
+      border-radius: 23px;
     }
   }
 
@@ -564,7 +679,14 @@
 
     .hero__title { max-width: none; }
 
-    .hero__text { margin-top: 18px; }
+    // The chips are decoration but they are drawn over the copy, not under
+    // it. The design keeps the subcopy clear of them by running it 19px
+    // narrower than the column; this is that inset, sized to the sliver of a
+    // chip that shows past the edge.
+    .hero__text {
+      margin-top: 18px;
+      padding-inline: 24px;
+    }
 
     // Full-width stacked buttons, at the design's 10px gap. A button that
     // fills the column is the whole point on a phone; two side by side at
@@ -588,12 +710,21 @@
       text-wrap: balance;
     }
 
-    .pix-hero__visual { margin-top: 40px; }
+    // The design redraws the contours for a phone rather than squeezing the
+    // desktop set into a third of the width: fewer lines, closer together and
+    // waving harder. Rescaling the one mask is the same picture without a
+    // second copy of the art.
+    .hero--search::after {
+      -webkit-mask-size: 130% 600px, 100% 100%;
+      mask-size: 130% 600px, 100% 100%;
+    }
+
+    .pix-hero__visual { margin-top: 30px; }
 
     .pix-hero__preview {
       border-radius: var(--radius-lg);
 
-      .browser__bar { height: 38px; padding: 0 14px; }
+      .browser__bar { height: 34px; padding: 0 12px; }
     }
   }
 
@@ -618,9 +749,7 @@
 
     .pix-hero__announce-badge { margin-top: 1px; }
 
-    .pix-hero__stack { gap: 8px 12px; margin-top: 28px; }
-
-    .pix-hero__chips { gap: 12px; }
+    .pix-hero__built { gap: 8px 12px; margin-top: 28px; }
   }
 }
 

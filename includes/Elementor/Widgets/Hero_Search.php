@@ -3,9 +3,9 @@
  * Hero widget.
  *
  * The landing hero from the Pixelomatic redesign: an announcement pill, a
- * two-tone headline, a pair of calls to action, a social-proof row, a row of
- * stack chips that float at the edges on desktop and re-flow into a "built
- * for" row on small screens, and a browser-framed product visual.
+ * two-tone headline, a pair of calls to action, a social-proof row, a set of
+ * stack chips floating at the hero's edges, the "built for" row the design
+ * adds beneath them on small screens, and a browser-framed product visual.
  *
  * It keeps the `hero-search` slug, its config entry and every control id it
  * was first published under — the search form the widget used to lead with is
@@ -362,13 +362,10 @@ final class Hero_Search extends Widget_Base {
 			array( 'label' => __( 'Stack chips', 'pixelomatic-core' ) )
 		);
 
-		$this->add_control(
+		$this->register_notice(
 			'stack_notice',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Chips float at the edges of the hero on desktop and collapse into a “built for” row below 900px.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
-			)
+			__( 'Chips float at the edges of the hero.', 'pixelomatic-core' ),
+			array( __( 'Below 900px they collapse into a “built for” row under the search field.', 'pixelomatic-core' ) )
 		);
 
 		$stack = new Repeater();
@@ -416,9 +413,10 @@ final class Hero_Search extends Widget_Base {
 		$this->add_control(
 			'stack_label',
 			array(
-				'label'       => __( 'Small-screen label', 'pixelomatic-core' ),
+				'label'       => __( 'Stack label', 'pixelomatic-core' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => __( 'Built for', 'pixelomatic-core' ),
+				'description' => __( 'Names the floating chips for screen readers, and captions the row that joins them below 900px.', 'pixelomatic-core' ),
 				'label_block' => true,
 			)
 		);
@@ -1045,9 +1043,13 @@ final class Hero_Search extends Widget_Base {
 	/**
 	 * The stack chips.
 	 *
-	 * One list, two presentations: absolutely positioned at the hero's edges
-	 * on desktop, a centred "built for" row below 900px. Rendering it once and
-	 * letting CSS decide is what keeps the two in step.
+	 * Two things, not one thing twice. The floating tiles are the list: they
+	 * hang off the hero's edges at every width — six of them on a desktop and
+	 * four on a phone — and they carry the names. The "built for" row the
+	 * design adds below 900px is a second, purely visual pass over the same
+	 * logos, so it is hidden from assistive technology and left to the
+	 * stylesheet to reveal; reading the same six names twice is noise, and
+	 * dropping either one loses something the design has.
 	 *
 	 * @return void
 	 */
@@ -1059,21 +1061,14 @@ final class Hero_Search extends Widget_Base {
 		}
 
 		$label = $this->text( 'stack_label' );
-		$id    = 'pixelomatic-hero-stack-' . $this->get_id();
 
-		// The label is hidden on desktop, where the chips are decoration at
-		// the hero's edges, so the list is named by it only when there is one
-		// to name it with.
-		$labelled = '' !== $label ? sprintf( ' aria-labelledby="%s"', esc_attr( $id ) ) : '';
+		// The chips are decoration at the hero's edges, with nothing beside
+		// them to say what they are, so the list is named directly rather than
+		// pointed at a caption that is only drawn on small screens.
+		$labelled = '' !== $label ? sprintf( ' aria-label="%s"', esc_attr( $label ) ) : '';
 		?>
 		<div class="pix-hero__stack">
-			<?php if ( '' !== $label ) : ?>
-				<p class="pix-hero__stack-label" id="<?php echo esc_attr( $id ); ?>">
-					<?php echo esc_html( $label ); ?>
-				</p>
-			<?php endif; ?>
-
-			<ul class="pix-hero__chips"<?php echo $labelled; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built above from an escaped id. ?>>
+			<ul class="pix-hero__chips"<?php echo $labelled; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built above from an escaped label. ?>>
 				<?php foreach ( $stack as $item ) : ?>
 					<?php
 					$name     = (string) ( $item['label'] ?? '' );
@@ -1089,7 +1084,7 @@ final class Hero_Search extends Widget_Base {
 								false,
 								array(
 									'class'    => 'pix-hero__chip-logo',
-									'alt'      => $name,
+									'alt'      => '',
 									'loading'  => 'lazy',
 									'decoding' => 'async',
 								)
@@ -1105,6 +1100,40 @@ final class Hero_Search extends Widget_Base {
 					</li>
 				<?php endforeach; ?>
 			</ul>
+		</div>
+
+		<div class="built-for pix-hero__built" aria-hidden="true">
+			<?php if ( '' !== $label ) : ?>
+				<p class="built-for__label"><?php echo esc_html( $label ); ?></p>
+			<?php endif; ?>
+
+			<?php foreach ( $stack as $item ) : ?>
+				<?php
+				$name     = (string) ( $item['label'] ?? '' );
+				$image    = (array) ( $item['image'] ?? array() );
+				$image_id = (int) ( $image['id'] ?? 0 );
+
+				if ( $image_id > 0 ) {
+					echo wp_get_attachment_image(
+						$image_id,
+						'thumbnail',
+						false,
+						array(
+							'class'    => 'pix-hero__built-logo',
+							'alt'      => '',
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+						)
+					);
+					continue;
+				}
+
+				printf(
+					'<span class="pix-hero__built-mark">%s</span>',
+					esc_html( mb_substr( $name, 0, 1 ) )
+				);
+				?>
+			<?php endforeach; ?>
 		</div>
 		<?php
 	}

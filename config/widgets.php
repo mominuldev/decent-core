@@ -27,7 +27,7 @@ return array(
 	// Elementor name and on every page already built with it. The title and
 	// icon moved with the redesign: the search form is now one option inside
 	// the landing hero rather than the thing the widget is.
-	'hero-search'       => array(
+	'hero-search'            => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Hero_Search::class,
 		'title'    => __( 'Hero', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-layout',
@@ -40,7 +40,7 @@ return array(
 		'default'  => true,
 	),
 
-	'heading'           => array(
+	'heading'                => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Heading::class,
 		'title'    => __( 'Heading', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -56,7 +56,7 @@ return array(
 	// A single box, not a grid of them: the row is composed with Elementor's
 	// own grid container, so the columns behave like every other container on
 	// the page instead of like a control only this widget understands.
-	'icon-box'          => array(
+	'icon-box'               => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Icon_Box::class,
 		'title'    => __( 'Icon Box', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -69,7 +69,7 @@ return array(
 		'default'  => true,
 	),
 
-	'category-grid'     => array(
+	'category-grid'          => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Category_Grid::class,
 		'title'    => __( 'Category Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-layout',
@@ -82,7 +82,7 @@ return array(
 		'default'  => true,
 	),
 
-	'feature-grid'      => array(
+	'feature-grid'           => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Feature_Grid::class,
 		'title'    => __( 'Feature Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -95,7 +95,7 @@ return array(
 		'default'  => true,
 	),
 
-	'benefit-grid'      => array(
+	'benefit-grid'           => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Benefit_Grid::class,
 		'title'    => __( 'Benefit Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -114,7 +114,7 @@ return array(
 	// a figure, two carry a chip row, and the two wide ones carry a release
 	// list and a checklist. Both are kept — a section that only needs three
 	// promises should not have to delete four tiles to get there.
-	'why-buy'           => array(
+	'why-buy'                => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Why_Buy::class,
 		'title'    => __( 'Why Buy Here', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-layout',
@@ -127,7 +127,7 @@ return array(
 		'default'  => true,
 	),
 
-	'guarantee-grid'    => array(
+	'guarantee-grid'         => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Guarantee_Grid::class,
 		'title'    => __( 'Guarantee Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -140,7 +140,7 @@ return array(
 		'default'  => true,
 	),
 
-	'stats-counter'     => array(
+	'stats-counter'          => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Stats_Counter::class,
 		'title'    => __( 'Statistics Counter', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -153,7 +153,7 @@ return array(
 		'default'  => true,
 	),
 
-	'faq-accordion'     => array(
+	'faq-accordion'          => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Faq_Accordion::class,
 		'title'    => __( 'FAQ Accordion', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -166,7 +166,41 @@ return array(
 		'default'  => true,
 	),
 
-	'cta'               => array(
+	// A standalone accordion, independent of the theme's `.accordion`
+	// component — its own `pix-` markup, styles and script, for general
+	// content (not only Q&A) and with a smooth open/close transition the
+	// theme's own accordion does not have.
+	'accordion'              => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Accordion::class,
+		'title'    => __( 'Accordion', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
+		'group'    => 'accordion',
+		'icon'     => 'eicon-accordion',
+		'keywords' => array( 'accordion', 'toggle', 'collapse', 'expand', 'faq' ),
+		'styles'   => array( 'accordion' ),
+		'scripts'  => array( 'accordion' ),
+		'requires' => array(),
+		'default'  => true,
+	),
+
+	// A single `.btn` — the theme's own button, not a class of its own. `style`
+	// covers every modifier the stylesheet ships (`btn--primary` through
+	// `btn--danger`); this widget is a panel over that set, never a second
+	// button component.
+	'button'                 => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Button::class,
+		'title'    => __( 'Button', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
+		'group'    => 'cta',
+		'icon'     => 'eicon-button',
+		'keywords' => array( 'button', 'btn', 'cta', 'link', 'action' ),
+		'styles'   => array( 'button' ),
+		'scripts'  => array(),
+		'requires' => array(),
+		'default'  => true,
+	),
+
+	'cta'                    => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Cta::class,
 		'title'    => __( 'CTA', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -179,7 +213,7 @@ return array(
 		'default'  => true,
 	),
 
-	'promo-card'        => array(
+	'promo-card'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Promo_Card::class,
 		'title'    => __( 'Promo Card', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -192,7 +226,7 @@ return array(
 		'default'  => true,
 	),
 
-	'breadcrumb'        => array(
+	'breadcrumb'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Breadcrumb::class,
 		'title'    => __( 'Breadcrumb', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-layout',
@@ -205,7 +239,7 @@ return array(
 		'default'  => true,
 	),
 
-	'product-grid'      => array(
+	'product-grid'           => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Grid::class,
 		'title'    => __( 'Product Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -218,7 +252,7 @@ return array(
 		'default'  => true,
 	),
 
-	'product-rank-list' => array(
+	'product-rank-list'      => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Rank_List::class,
 		'title'    => __( 'Product Rank List', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -231,7 +265,7 @@ return array(
 		'default'  => true,
 	),
 
-	'hero-split'        => array(
+	'hero-split'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Hero_Split::class,
 		'title'    => __( 'Hero Split', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-layout',
@@ -244,7 +278,7 @@ return array(
 		'default'  => true,
 	),
 
-	'trust-band'        => array(
+	'trust-band'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Trust_Band::class,
 		'title'    => __( 'Trust Band', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -257,7 +291,7 @@ return array(
 		'default'  => true,
 	),
 
-	'showcase'          => array(
+	'showcase'               => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Showcase::class,
 		'title'    => __( 'Showcase', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -270,7 +304,7 @@ return array(
 		'default'  => true,
 	),
 
-	'newsletter'        => array(
+	'newsletter'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Newsletter::class,
 		'title'    => __( 'Newsletter', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -286,7 +320,7 @@ return array(
 	// No 'requires'. The widget posts to EDD's login handler where EDD is
 	// active and to wp-login.php where it is not, so it has somewhere to send
 	// a sign-in either way.
-	'login-form'        => array(
+	'login-form'             => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Login_Form::class,
 		'title'    => __( 'Login Form', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -299,7 +333,7 @@ return array(
 		'default'  => true,
 	),
 
-	'plugin-list'       => array(
+	'plugin-list'            => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Plugin_List::class,
 		'title'    => __( 'Plugin List', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -312,7 +346,7 @@ return array(
 		'default'  => true,
 	),
 
-	'product-slider'    => array(
+	'product-slider'         => array(
 		'class'       => PixelomaticCore\Elementor\Widgets\Product_Slider::class,
 		'title'       => __( 'Product Slider', 'pixelomatic-core' ),
 		'category'    => 'pixelomatic-products',
@@ -329,7 +363,7 @@ return array(
 		'default'     => true,
 	),
 
-	'product-archive'   => array(
+	'product-archive'        => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Archive::class,
 		'title'    => __( 'Product Archive', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -342,7 +376,7 @@ return array(
 		'default'  => true,
 	),
 
-	'product-hero'      => array(
+	'product-hero'           => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Hero::class,
 		'title'    => __( 'Product Hero', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -355,20 +389,133 @@ return array(
 		'default'  => true,
 	),
 
-	'product-tabs'      => array(
-		'class'    => PixelomaticCore\Elementor\Widgets\Product_Tabs::class,
-		'title'    => __( 'Product Tabs', 'pixelomatic-core' ),
+	// The bar under the hero. Anchor links to real sections, not a tablist:
+	// every section below is rendered, crawlable and reachable with
+	// JavaScript off.
+	'product-section-nav'    => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Section_Nav::class,
+		'title'    => __( 'Product Section Nav', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
 		'group'    => 'single',
-		'icon'     => 'eicon-tabs',
-		'keywords' => array( 'product', 'tabs', 'changelog', 'reviews' ),
+		'icon'     => 'eicon-nav-menu',
+		'keywords' => array( 'product', 'nav', 'anchor', 'sections', 'tabs' ),
 		'styles'   => array(),
 		'scripts'  => array(),
 		'requires' => array( 'edd', 'theme' ),
 		'default'  => true,
 	),
 
-	'product-buy-box'   => array(
+	// The slug is still `product-tabs`: it is the widget's identity on every
+	// page already built with it. What it renders is the theme's sections,
+	// which is what the tabs became.
+	'product-tabs'           => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Tabs::class,
+		'title'    => __( 'Product Sections', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-post-content',
+		'keywords' => array( 'product', 'sections', 'tabs', 'changelog', 'reviews' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	// The same sections one at a time, for a layout that wants something of
+	// its own between them. Each renders the theme part its section owns and
+	// nothing at all when the product has no content for it.
+	'product-overview'       => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Overview::class,
+		'title'    => __( 'Product Overview', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-document-file',
+		'keywords' => array( 'product', 'overview', 'description', 'content' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-features'       => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Features::class,
+		'title'    => __( 'Product Features', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-featured-image',
+		'keywords' => array( 'product', 'features', 'grid', 'single' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-specifications' => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Specifications::class,
+		'title'    => __( 'Product Specifications', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-table',
+		'keywords' => array( 'product', 'specifications', 'specs', 'technical' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-changelog'      => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Changelog::class,
+		'title'    => __( 'Product Changelog', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-time-line',
+		'keywords' => array( 'product', 'changelog', 'releases', 'versions' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-reviews'        => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Reviews::class,
+		'title'    => __( 'Product Reviews', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-review',
+		'keywords' => array( 'product', 'reviews', 'rating', 'stars' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-support'        => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Support::class,
+		'title'    => __( 'Product Support', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-help-o',
+		'keywords' => array( 'product', 'support', 'faq', 'questions' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-cta'            => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Product_Cta::class,
+		'title'    => __( 'Product CTA', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-products',
+		'group'    => 'single',
+		'icon'     => 'eicon-call-to-action',
+		'keywords' => array( 'product', 'cta', 'buy', 'demo' ),
+		'styles'   => array(),
+		'scripts'  => array(),
+		'requires' => array( 'edd', 'theme' ),
+		'default'  => true,
+	),
+
+	'product-buy-box'        => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Buy_Box::class,
 		'title'    => __( 'Product Buy Box', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -381,7 +528,7 @@ return array(
 		'default'  => true,
 	),
 
-	'product-related'   => array(
+	'product-related'        => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Product_Related::class,
 		'title'    => __( 'Related Products', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-products',
@@ -394,7 +541,7 @@ return array(
 		'default'  => true,
 	),
 
-	'blog-grid'         => array(
+	'blog-grid'              => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Blog_Grid::class,
 		'title'    => __( 'Blog Grid', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -407,7 +554,7 @@ return array(
 		'default'  => true,
 	),
 
-	'testimonial-grid'  => array(
+	'testimonial-grid'       => array(
 		'class'       => PixelomaticCore\Elementor\Widgets\Testimonial_Grid::class,
 		'title'       => __( 'Testimonials', 'pixelomatic-core' ),
 		'category'    => 'pixelomatic-content',
@@ -426,7 +573,7 @@ return array(
 		'default'     => true,
 	),
 
-	'pricing-table'     => array(
+	'pricing-table'          => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Pricing_Table::class,
 		'title'    => __( 'Pricing Table', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-content',
@@ -439,7 +586,7 @@ return array(
 		'default'  => true,
 	),
 
-	'site-logo'         => array(
+	'site-logo'              => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Site_Logo::class,
 		'title'    => __( 'Site Logo', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-header',
@@ -452,7 +599,7 @@ return array(
 		'default'  => true,
 	),
 
-	'nav-menu'          => array(
+	'nav-menu'               => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Nav_Menu::class,
 		'title'    => __( 'Nav Menu', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-header',
@@ -465,7 +612,7 @@ return array(
 		'default'  => true,
 	),
 
-	'copyright'         => array(
+	'copyright'              => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Copyright::class,
 		'title'    => __( 'Copyright', 'pixelomatic-core' ),
 		'category' => 'pixelomatic-header',

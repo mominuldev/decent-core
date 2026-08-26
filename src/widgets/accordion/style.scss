@@ -1,0 +1,103 @@
+// Accordion — a standalone panel list, independent of the theme's own
+// `.accordion` component (used by the FAQ Accordion widget). Every class
+// here is `pix-` prefixed and owned by this widget.
+//
+// The open/close animation is a CSS grid-rows tween rather than a max-height
+// hack: `.pix-accordion__panel` is a one-row grid whose track goes from `1fr`
+// to `0fr`, so the browser animates to the content's real height with no
+// JavaScript measurement and no snap at the end. `.pix-accordion__panel-inner`
+// clips the collapsing content. The transition itself is gated behind
+// `.pix-accordion.is-ready`, a class script.js adds only after it has applied
+// the initial open/closed state — so the very first paint never animates,
+// only a click does.
+//
+// Panels render fully open in the markup and script.js is what closes the
+// inactive ones, so every item's content stays readable with JavaScript off.
+//
+// Scoped to .elementor-widget-pixelomatic-accordion: the theme's stylesheet
+// loads after the plugin's, and the extra class is what wins the tie.
+
+.elementor-widget-pixelomatic-accordion {
+
+  .pix-accordion__item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pix-accordion__item:last-child {
+    border-bottom: none;
+  }
+
+  .pix-accordion__heading {
+    margin: 0;
+  }
+
+  .pix-accordion__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font: inherit;
+    color: var(--ink);
+    cursor: pointer;
+    transition: color var(--ease);
+  }
+
+  @media (hover: hover) {
+    .pix-accordion__trigger:hover .pix-accordion__title {
+      color: var(--blue-700);
+    }
+  }
+
+  .pix-accordion__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    transition: color var(--ease);
+  }
+
+  .pix-accordion__icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    color: var(--muted);
+    transition: transform var(--ease), color var(--ease);
+  }
+
+  .pix-accordion__icon svg {
+    display: block;
+  }
+
+  .pix-accordion__trigger[aria-expanded="true"] .pix-accordion__icon {
+    color: var(--blue);
+    transform: rotate(180deg);
+  }
+
+  .pix-accordion__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+  }
+
+  .is-ready .pix-accordion__panel {
+    transition: grid-template-rows var(--ease);
+  }
+
+  .pix-accordion__panel.is-closed {
+    grid-template-rows: 0fr;
+  }
+
+  .pix-accordion__panel-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .pix-accordion__body {
+    padding-bottom: 22px;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 72ch;
+  }
+}

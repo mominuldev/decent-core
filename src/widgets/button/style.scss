@@ -1,0 +1,37 @@
+// Button.
+//
+// The widget renders the theme's own `.btn` — every colour, size and state
+// here belongs to `themes/pixelomatic/assets/css/style.css`. The only thing
+// this stylesheet owns is the icon slot, which the theme's markup never had
+// a reason to define.
+
+// The glyph is drawn at 1em, same convention as Icon Box's link icon: one
+// size control moves the theme's inline SVG, an uploaded SVG and a Font
+// Awesome glyph alike.
+.pix-button__icon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pix-button__icon svg {
+  display: block;
+  height: 1em;
+  width: auto;
+}
+
+// Elementor paints a Font Awesome pick as an SVG with no fill, which lands
+// black and ignores the colour control. Scoped to its own class: the theme's
+// icons are stroked over fill="none", and a CSS fill would override that
+// attribute and turn a line drawing into a solid shape.
+.pix-button__icon .e-font-icon-svg {
+  fill: currentColor;
+}
+
+.pix-button__icon i {
+  font-size: inherit;
+  font-style: normal;
+  line-height: 1;
+}

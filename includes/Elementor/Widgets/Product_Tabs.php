@@ -1,6 +1,6 @@
 <?php
 /**
- * Product Tabs widget.
+ * Product Sections widget.
  *
  * @package PixelomaticCore
  */
@@ -9,22 +9,33 @@ namespace PixelomaticCore\Elementor\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
+use PixelomaticCore\Elementor\Base\Traits\Has_Product_Context;
 use PixelomaticCore\Elementor\Base\Traits\Has_Style_Controls;
 use PixelomaticCore\Elementor\Base\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Plugin as Elementor_Plugin;
 
 /**
- * Description, changelog and reviews for the current product.
+ * Every section the current product has, in page order.
  *
- * A delegate, deliberately. The theme owns template-parts/product/tabs.php
- * and the single-product template renders the same file, so placing this in a
- * builder layout cannot produce different markup from the template it
- * replaces. If the component changes, it changes in one place.
+ * A delegate, deliberately. The theme owns template-parts/product/ and its
+ * sections.php decides which sections a product has; this widget renders the
+ * same parts in the same order as the single-product template, so a builder
+ * layout cannot produce a different page body from the template it replaces.
+ *
+ * The slug is still `product-tabs` — it is the widget's identity on every page
+ * already built with it. The component behind it is not a tab strip any more:
+ * the theme replaced hidden tab panels with real sections and an anchor bar,
+ * because a tab panel is hidden content and a section is content with a
+ * shortcut to it. The title moved with that change; the slug cannot.
+ *
+ * Product Overview, Features, Specifications, Changelog, Reviews and Support
+ * render the same sections one at a time, for layouts that want something of
+ * their own between them.
  */
 final class Product_Tabs extends Widget_Base {
 
 	use Has_Style_Controls;
+	use Has_Product_Context;
 
 	/**
 	 * Widget slug.
@@ -41,78 +52,75 @@ final class Product_Tabs extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls(): void {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Product tabs', 'pixelomatic-core' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Product sections', 'pixelomatic-core' ) ) );
 
-		$this->add_control(
-			'notice',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Renders the current product. Place it on a single-product template; elsewhere it previews the most recent product in the editor and renders nothing on the front end.', 'pixelomatic-core' ),
-				'content_classes' => 'elementor-descriptor',
-			)
+		$this->register_product_notice(
+			__( 'Renders the sections the product itself carries — its overview, its changelog and its reviews — and skips the ones with nothing in them. Features, specifications and support are written in the panel, so place those widgets where you want them.', 'pixelomatic-core' )
 		);
 
 		$this->end_controls_section();
 
-		$this->start_style_section( 'style_tabs', __( 'Tabs', 'pixelomatic-core' ) );
-
-		$this->register_button_style(
-			'tab',
-			__( 'Tab', 'pixelomatic-core' ),
-			'{{WRAPPER}} .detail-tabs button',
-			array( 'separator' => 'none' )
-		);
-
-		// The selected tab is marked with aria-selected rather than a class, so
-		// the accessible state and the styled state cannot drift apart.
-		$this->add_control(
-			'tab_color_active',
-			array(
-				'label'     => __( 'Selected tab colour', 'pixelomatic-core' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .detail-tabs button[aria-selected="true"]' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'tab_background_active',
-			array(
-				'label'     => __( 'Selected tab background', 'pixelomatic-core' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .detail-tabs button[aria-selected="true"]' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->register_gap_style( 'tabs_gap', __( 'Gap between tabs', 'pixelomatic-core' ), '{{WRAPPER}} .detail-tabs', 40 );
-
-		$this->end_controls_section();
-
-		$this->start_style_section( 'style_panels', __( 'Panels', 'pixelomatic-core' ) );
+		$this->start_style_section( 'style_section', __( 'Sections', 'pixelomatic-core' ) );
 
 		$this->register_box_style(
-			'panel',
-			__( 'Panel', 'pixelomatic-core' ),
-			'{{WRAPPER}} .tab-panel',
+			'section',
+			__( 'Section', 'pixelomatic-core' ),
+			'{{WRAPPER}} .detail-section',
 			array(
 				'separator' => 'none',
 				'shadow'    => false,
 			)
 		);
 
-		$this->register_text_style( 'panel_text', __( 'Body text', 'pixelomatic-core' ), '{{WRAPPER}} .tab-panel .prose' );
+		$this->register_section_head_style_controls();
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_body', __( 'Overview', 'pixelomatic-core' ) );
 
 		$this->register_text_style(
-			'panel_heading',
+			'body',
+			__( 'Body text', 'pixelomatic-core' ),
+			'{{WRAPPER}} .prose',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style(
+			'body_heading',
 			__( 'Headings', 'pixelomatic-core' ),
-			'{{WRAPPER}} .tab-panel h2, {{WRAPPER}} .tab-panel h3',
+			'{{WRAPPER}} .prose h2, {{WRAPPER}} .prose h3',
 			array( 'spacing' => false )
 		);
 
-		$this->register_link_style( 'panel_link', __( 'Links', 'pixelomatic-core' ), '{{WRAPPER}} .tab-panel .prose a' );
+		$this->register_link_style( 'body_link', __( 'Links', 'pixelomatic-core' ), '{{WRAPPER}} .prose a' );
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_cards', __( 'Feature and spec cards', 'pixelomatic-core' ) );
+
+		$this->register_box_style(
+			'feature_card',
+			__( 'Feature card', 'pixelomatic-core' ),
+			'{{WRAPPER}} .feature-card',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'feature_title', __( 'Feature title', 'pixelomatic-core' ), '{{WRAPPER}} .feature-card__title' );
+
+		$this->register_box_style(
+			'spec_card',
+			__( 'Spec card', 'pixelomatic-core' ),
+			'{{WRAPPER}} .spec-card'
+		);
+
+		$this->register_text_style( 'spec_title', __( 'Spec group title', 'pixelomatic-core' ), '{{WRAPPER}} .spec-card__title' );
+
+		$this->register_text_style(
+			'spec_row',
+			__( 'Spec rows', 'pixelomatic-core' ),
+			'{{WRAPPER}} .spec-card__row dt, {{WRAPPER}} .spec-card__row dd',
+			array( 'spacing' => false )
+		);
 
 		$this->end_controls_section();
 
@@ -120,7 +128,7 @@ final class Product_Tabs extends Widget_Base {
 
 		$this->register_box_style(
 			'changelog_entry',
-			__( 'Entry', 'pixelomatic-core' ),
+			__( 'Release', 'pixelomatic-core' ),
 			'{{WRAPPER}} .changelog__entry',
 			array(
 				'separator' => 'none',
@@ -134,7 +142,7 @@ final class Product_Tabs extends Widget_Base {
 
 		$this->register_text_style(
 			'changelog_items',
-			__( 'Items', 'pixelomatic-core' ),
+			__( 'Entries', 'pixelomatic-core' ),
 			'{{WRAPPER}} .changelog__items',
 			array( 'spacing' => false )
 		);
@@ -146,7 +154,7 @@ final class Product_Tabs extends Widget_Base {
 		$this->register_text_style(
 			'review_score',
 			__( 'Average score', 'pixelomatic-core' ),
-			'{{WRAPPER}} .pix-rating-summary__score',
+			'{{WRAPPER}} .rating-summary__score',
 			array( 'separator' => 'none' )
 		);
 
@@ -175,9 +183,24 @@ final class Product_Tabs extends Widget_Base {
 		$this->register_text_style(
 			'review_meta',
 			__( 'Review meta', 'pixelomatic-core' ),
-			'{{WRAPPER}} .detail-review__meta, {{WRAPPER}} .detail-review__date',
+			'{{WRAPPER}} .detail-review__author, {{WRAPPER}} .detail-review__date',
 			array( 'spacing' => false )
 		);
+
+		$this->end_controls_section();
+
+		$this->start_style_section( 'style_faq', __( 'Support', 'pixelomatic-core' ) );
+
+		$this->register_text_style(
+			'faq_question',
+			__( 'Question', 'pixelomatic-core' ),
+			'{{WRAPPER}} .accordion__trigger',
+			array( 'separator' => 'none' )
+		);
+
+		$this->register_text_style( 'faq_answer', __( 'Answer', 'pixelomatic-core' ), '{{WRAPPER}} .accordion__panel-inner' );
+
+		$this->register_link_style( 'faq_link', __( 'Ticket link', 'pixelomatic-core' ), '{{WRAPPER}} .faq-layout__link' );
 
 		$this->end_controls_section();
 	}
@@ -188,57 +211,15 @@ final class Product_Tabs extends Widget_Base {
 	 * @return void
 	 */
 	protected function render(): void {
-		$id = $this->resolve_download();
-
-		if ( ! $id ) {
-			return;
-		}
-
-		// The template part reads the global post, so it is set for the render
-		// and restored straight after. Leaving it changed would corrupt every
-		// widget below this one on the page.
-		global $post;
-		$original = $post;
-
-		$post = get_post( $id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restored below.
-		setup_postdata( $post );
-
-		get_template_part( 'template-parts/product/tabs' );
-
-		$post = $original; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring.
-		wp_reset_postdata();
-	}
-
-	/**
-	 * Returns the download this widget should render.
-	 *
-	 * On a single-product view that is the queried product. In the editor
-	 * there is no queried product, so it falls back to the most recent one and
-	 * the canvas shows something real instead of an empty box.
-	 *
-	 * @return int Download ID, or 0.
-	 */
-	private function resolve_download(): int {
-		if ( is_singular( 'download' ) ) {
-			return (int) get_queried_object_id();
-		}
-
-		$editor = Elementor_Plugin::instance()->editor;
-
-		if ( ! $editor || ! $editor->is_edit_mode() ) {
-			return 0;
-		}
-
-		$preview = get_posts(
-			array(
-				'post_type'      => 'download',
-				'post_status'    => 'publish',
-				'posts_per_page' => 1,
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
-			)
+		$this->with_product(
+			function (): void {
+				foreach ( array_keys( $this->product_sections() ) as $key ) {
+					// One template part per section, named for its key.
+					// sections.php has already established that each one has
+					// content, so no part here has to re-check.
+					get_template_part( 'template-parts/product/section', (string) $key );
+				}
+			}
 		);
-
-		return empty( $preview ) ? 0 : (int) $preview[0];
 	}
 }

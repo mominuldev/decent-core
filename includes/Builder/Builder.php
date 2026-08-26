@@ -31,6 +31,7 @@ use PixelomaticCore\Contracts\Module;
  *   Resolver           which template this request gets, from that option.
  *   Assets             what that template needs, enqueued before the head closes.
  *   Renderer           the markup, into the theme's header and footer slots.
+ *   Body               a singular view's body, in place of the theme's template.
  */
 final class Builder implements Module {
 
@@ -59,6 +60,7 @@ final class Builder implements Module {
 		( new Display_Settings() )->register();
 		( new Assets( $resolver, new Usage_Index() ) )->register();
 		( new Renderer( $resolver ) )->register();
+		( new Body( $resolver ) )->register();
 		( new Shortcode() )->register();
 		( new Elementor_Support() )->register();
 
