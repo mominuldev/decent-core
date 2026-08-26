@@ -1,0 +1,522 @@
+// Navigation Menu — the menu, the burger and the off-canvas panel.
+//
+// The list itself is the theme's: `wp_nav_menu()` runs through the theme's
+// Nav_Walker, so `.main-nav`, `.main-nav__sub`, `.has-sub` and the chevron are
+// the header's own markup and every colour, radius and shadow below is a
+// token. What this file owns is the parts the theme has no component for —
+// `.pix-nav__burger`, `.pix-nav__panel` and its chrome — plus the behaviour
+// modifiers the panel's switches map to.
+//
+// Two decisions worth knowing before editing:
+//
+// 1. Above the collapse width `.pix-nav__panel` is `display: contents`. It
+//    draws no box at all, so a background, a padding or a width an editor set
+//    for the drawer cannot leak onto the desktop row, and the menu sits
+//    directly in the widget's flow. That is why there is one `wp_nav_menu()`
+//    call rather than one per presentation.
+//
+// 2. The drawer is one `.pix-nav--collapsed` block, not one per breakpoint.
+//    script.js matches the widget's `data-breakpoint` and adds that class —
+//    which is honest, because a drawer with no script is a menu behind a
+//    button nothing opens. Without JavaScript the menu stays a plain list and
+//    the per-breakpoint rules at the bottom stack it into a column.
+//
+// The theme hides `.main-nav` outright below 900px (its own header reveals it
+// through `.site-header__inner.is-open`, an ancestor no builder header has).
+// Every menu rule here therefore carries the widget class plus `.pix-nav`, so
+// it outranks that rule on specificity rather than on load order.
+
+$pix-nav-breakpoints: 1180, 1024, 900, 768, 560;
+
+// The drawer. Included by the collapsed modifier and by nothing else.
+@mixin pix-nav-drawer {
+
+  .pix-nav__burger {
+    display: inline-flex;
+  }
+
+  .pix-nav__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    // Above the theme's sticky header, which sits at 100.
+    z-index: 1000;
+    width: min(var(--pix-nav-panel-width), 100vw);
+    max-width: 100vw;
+    padding: var(--space-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-lift);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  // The drawer arrives when script.js adds `pix-nav--collapsed`, and going
+  // from no box at all to a parked one is a transform change the browser
+  // will happily animate — so every page load showed the panel sliding off
+  // to the side. The transition is held back a frame instead.
+  &.pix-nav--animated .pix-nav__panel {
+    transition: transform var(--ease);
+  }
+
+  &.pix-nav--animated .pix-nav__scrim {
+    transition: opacity var(--ease), visibility var(--ease);
+  }
+
+  &.pix-nav--from-right .pix-nav__panel {
+    right: 0;
+    transform: translateX(102%);
+  }
+
+  &.pix-nav--from-left .pix-nav__panel {
+    left: 0;
+    transform: translateX(-102%);
+  }
+
+  &.pix-nav--open .pix-nav__panel {
+    transform: none;
+  }
+
+  .pix-nav__scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: var(--pix-nav-scrim);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &.pix-nav--open .pix-nav__scrim {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .pix-nav__head,
+  .pix-nav__foot {
+    display: flex;
+  }
+
+  // The menu is a column in the drawer whichever way the row ran outside it.
+  .pix-nav__menu,
+  .pix-nav__menu > ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2xs);
+  }
+
+  // The submenu flattens into the list rather than floating over it, and it
+  // opens on the toggle script.js adds — never on hover, which on a
+  // touchscreen means the first tap opens a menu the second tap navigates
+  // away from. Four classes, so it outranks the theme's hover rule.
+  .pix-nav__menu .main-nav__sub {
+    display: none;
+    position: static;
+    // The item is a wrapping flex row — link, toggle, then the submenu on a
+    // line of its own.
+    width: 100%;
+    min-width: 0;
+    margin: var(--space-2xs) 0 var(--space-xs);
+    padding: 0 0 0 var(--space-md);
+    background: none;
+    border: none;
+    border-left: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  // The theme's hover bridge — the strip that lets the pointer cross the
+  // dropdown's 10px margin — is a desktop device, and the theme retires it in
+  // its own `max-width: 900px` block. This drawer can be collapsed at any of
+  // the five breakpoints, so at 1180 or 1024 that block has not fired yet and
+  // the bridge would be an invisible strip lying over the parent link.
+  .pix-nav__menu .main-nav__sub::before {
+    content: none;
+  }
+
+  .pix-nav__menu .pix-nav__item--open > .main-nav__sub {
+    display: flex;
+  }
+
+  .pix-nav__menu .has-sub {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  &.pix-nav--separator .pix-nav__menu > ul > li + li {
+    padding: var(--space-xs) 0 0;
+    border-left: none;
+    border-top: 1px solid var(--pix-nav-separator);
+  }
+}
+
+.elementor-widget-pixelomatic-navigation-menu {
+
+  .pix-nav {
+    --pix-nav-accent: var(--blue);
+    --pix-nav-separator: var(--border);
+    --pix-nav-panel-width: 360px;
+    --pix-nav-scrim: color-mix(in srgb, var(--ink) 55%, transparent);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  // Above the collapse width the panel is not a box — see the note at the top.
+  .pix-nav__panel {
+    display: contents;
+  }
+
+  .pix-nav__head,
+  .pix-nav__foot,
+  .pix-nav__burger,
+  .pix-nav__scrim {
+    display: none;
+  }
+
+  // Beats the theme's `.main-nav { display: none }` below 900px on
+  // specificity: three classes against one.
+  .pix-nav .pix-nav__menu {
+    display: flex;
+    flex-basis: auto;
+    width: auto;
+  }
+
+  .pix-nav--block .pix-nav__menu,
+  .pix-nav--block .pix-nav__menu > ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Menu items
+     ------------------------------------------------------------------ */
+
+  .pix-nav--separator .pix-nav__menu > ul > li + li {
+    padding-left: var(--space-md);
+    border-left: 1px solid var(--pix-nav-separator);
+  }
+
+  // Local scroll marks the section being read with aria-current="location";
+  // the theme already styles aria-current="page" for the current page, and
+  // both are one "you are here" as far as the panel's colour control knows.
+  .pix-nav__menu a[aria-current="location"] {
+    color: var(--color-link);
+    font-weight: 600;
+  }
+
+  /* Hover styles
+     ------------------------------------------------------------------ */
+
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a {
+    position: relative;
+  }
+
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--pix-nav-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--ease);
+  }
+
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a:hover,
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a:focus-visible {
+    text-decoration: none;
+  }
+
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a:hover::after,
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a:focus-visible::after,
+  .pix-nav--hover-underline .pix-nav__menu > ul > li > a[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  .pix-nav--hover-fill .pix-nav__menu > ul > li > a {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    transition: background-color var(--ease), color var(--ease);
+  }
+
+  .pix-nav--hover-fill .pix-nav__menu > ul > li > a:hover,
+  .pix-nav--hover-fill .pix-nav__menu > ul > li > a:focus-visible {
+    background: var(--pix-nav-accent);
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  // Genesis calls this "fade inactive": the row dims and the item under the
+  // pointer stays lit. The dimming is on the list, so it cannot fire from a
+  // gap between two items.
+  .pix-nav--hover-fade .pix-nav__menu > ul:hover > li > a {
+    opacity: 0.45;
+    transition: opacity var(--ease);
+  }
+
+  .pix-nav--hover-fade .pix-nav__menu > ul > li > a:hover,
+  .pix-nav--hover-fade .pix-nav__menu > ul > li > a:focus-visible {
+    opacity: 1;
+    text-decoration: none;
+  }
+
+  /* Dropdown
+     ------------------------------------------------------------------ */
+
+  // The theme opens the submenu by switching `display`, which cannot be
+  // animated. Here it is always laid out and visibility carries the state, so
+  // fade and slide have something to move.
+  .pix-nav__menu .main-nav__sub {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--ease), transform var(--ease), visibility var(--ease);
+  }
+
+  .pix-nav--sub-none .pix-nav__menu .main-nav__sub {
+    transition: none;
+  }
+
+  .pix-nav--sub-fade-up .pix-nav__menu .main-nav__sub {
+    transform: translateY(8px);
+  }
+
+  .pix-nav--sub-fade-down .pix-nav__menu .main-nav__sub {
+    transform: translateY(-8px);
+  }
+
+  .pix-nav--trigger-hover .pix-nav__menu .has-sub:hover > .main-nav__sub,
+  .pix-nav--trigger-hover .pix-nav__menu .has-sub:focus-within > .main-nav__sub,
+  .pix-nav__menu .has-sub.pix-nav__item--open > .main-nav__sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .pix-nav--sublink-border .pix-nav__menu .main-nav__sub a {
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    transition: border-color var(--ease), color var(--ease);
+  }
+
+  .pix-nav--sublink-border .pix-nav__menu .main-nav__sub a:hover {
+    background: none;
+    border-left-color: var(--pix-nav-accent);
+  }
+
+  .pix-nav--sublink-underline .pix-nav__menu .main-nav__sub a:hover {
+    background: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .pix-nav--sublink-indent .pix-nav__menu .main-nav__sub a {
+    transition: padding-left var(--ease), background-color var(--ease);
+  }
+
+  .pix-nav--sublink-indent .pix-nav__menu .main-nav__sub a:hover {
+    padding-left: var(--space-lg);
+  }
+
+  /* The submenu toggle, added by script.js
+     ------------------------------------------------------------------ */
+
+  .pix-nav__sub-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: var(--space-2xs);
+    background: none;
+    border: none;
+    color: inherit;
+    line-height: 0;
+    cursor: pointer;
+    transition: transform var(--ease);
+  }
+
+  .pix-nav__sub-toggle svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  .pix-nav__sub-toggle[aria-expanded="true"] {
+    transform: rotate(180deg);
+  }
+
+  // One glyph at a time. Where hovering opens the submenu the walker's own
+  // chevron is enough and the button would be a tab stop that repeats what
+  // `:focus-within` already does; everywhere the submenu has to be operated,
+  // the button is the control and the chevron beside it would read as a
+  // second one.
+  .pix-nav--collapsed .pix-nav__sub-toggle,
+  .pix-nav--trigger-click .pix-nav__sub-toggle {
+    display: inline-flex;
+  }
+
+  .pix-nav--collapsed .pix-nav__menu .has-sub > svg,
+  .pix-nav--trigger-click .pix-nav__menu .has-sub > svg {
+    display: none;
+  }
+
+  // Under a theme whose walker draws no chevron there is nothing to clone,
+  // so the caret is drawn here rather than by a widget shipping an SVG.
+  .pix-nav__sub-toggle:empty::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-top: -3px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+
+  /* Trigger, panel chrome and footer
+     ------------------------------------------------------------------ */
+
+  .pix-nav__burger {
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs);
+    background: none;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    line-height: 0;
+    cursor: pointer;
+    transition: color var(--ease), background-color var(--ease), border-color var(--ease);
+  }
+
+  .pix-nav__burger svg,
+  .pix-nav__close svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+
+  .pix-nav__head {
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pix-nav__logo {
+    display: block;
+    width: 140px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pix-nav__close {
+    margin-left: auto;
+    padding: var(--space-2xs);
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    line-height: 0;
+    cursor: pointer;
+    transition: color var(--ease);
+  }
+
+  .pix-nav__close:hover {
+    color: var(--ink);
+  }
+
+  // Pushed to the bottom of the drawer, so a short menu does not leave the
+  // call to action floating in the middle of it.
+  .pix-nav__foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+    margin-top: auto;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+  }
+
+  .pix-nav__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pix-nav__social a {
+    display: inline-flex;
+    color: var(--muted);
+    line-height: 0;
+    transition: color var(--ease);
+  }
+
+  .pix-nav__social a:hover {
+    color: var(--ink);
+  }
+
+  .pix-nav__social svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .pix-nav__cta {
+    justify-content: center;
+  }
+
+  /* Collapsed — the drawer
+     ------------------------------------------------------------------ */
+
+  .pix-nav--collapsed {
+    @include pix-nav-drawer;
+  }
+
+  /* Without JavaScript
+     ------------------------------------------------------------------
+     No script, no drawer: the menu is a plain list, and below its collapse
+     width it stacks rather than overflowing the header it sits in. */
+
+  .pix-nav--bp-always:not(.pix-nav--collapsed) .pix-nav__menu,
+  .pix-nav--bp-always:not(.pix-nav--collapsed) .pix-nav__menu > ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @each $bp in $pix-nav-breakpoints {
+    @media (max-width: #{$bp}px) {
+      .pix-nav--bp-#{$bp}:not(.pix-nav--collapsed) .pix-nav__menu,
+      .pix-nav--bp-#{$bp}:not(.pix-nav--collapsed) .pix-nav__menu > ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pix-nav__panel,
+    .pix-nav__scrim,
+    .pix-nav__menu .main-nav__sub,
+    .pix-nav__sub-toggle {
+      transition: none;
+    }
+  }
+}
+
+// The page behind an open drawer must not scroll. Unscoped because it lands
+// on <body>, which no widget class can reach — the `pix-` prefix is what
+// keeps it from colliding, same rule the shared carousel block follows.
+.pix-nav-locked {
+  overflow: hidden;
+}

@@ -599,6 +599,25 @@ return array(
 		'default'  => true,
 	),
 
+	// The navigation with a burger and an off-canvas panel of its own, for a
+	// header built in Elementor: the theme's mobile menu is revealed by
+	// `.site-header__inner.is-open`, an ancestor only its own static header
+	// has, so a plain Nav Menu in a builder header is gone on a phone. Ported
+	// from Genesis Core's `de-navigation-menu` — same feature list, through
+	// the theme's walker and the theme's tokens.
+	'navigation-menu'        => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Navigation_Menu::class,
+		'title'    => __( 'Navigation Menu', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-header',
+		'group'    => 'navigation',
+		'icon'     => 'eicon-menu-bar',
+		'keywords' => array( 'menu', 'navigation', 'header', 'mobile', 'burger', 'offcanvas' ),
+		'styles'   => array( 'navigation-menu' ),
+		'scripts'  => array( 'navigation-menu' ),
+		'requires' => array( 'theme' ),
+		'default'  => true,
+	),
+
 	'nav-menu'               => array(
 		'class'    => PixelomaticCore\Elementor\Widgets\Nav_Menu::class,
 		'title'    => __( 'Nav Menu', 'pixelomatic-core' ),

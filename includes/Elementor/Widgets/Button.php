@@ -253,31 +253,4 @@ final class Button extends Widget_Base {
 		</a>
 		<?php
 	}
-
-	/**
-	 * Builds the `target`/`rel` attribute string for the URL control's value.
-	 *
-	 * @param array<string, mixed> $link The URL control's value.
-	 * @return string
-	 */
-	private function link_attributes( array $link ): string {
-		$rel = array();
-
-		if ( ! empty( $link['is_external'] ) ) {
-			$rel[] = 'noopener';
-			$rel[] = 'noreferrer';
-		}
-
-		if ( ! empty( $link['nofollow'] ) ) {
-			$rel[] = 'nofollow';
-		}
-
-		$attributes = ! empty( $link['is_external'] ) ? ' target="_blank"' : '';
-
-		if ( array() !== $rel ) {
-			$attributes .= sprintf( ' rel="%s"', esc_attr( implode( ' ', $rel ) ) );
-		}
-
-		return $attributes;
-	}
 }

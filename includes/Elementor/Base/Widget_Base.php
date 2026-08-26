@@ -40,6 +40,15 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	}
 
 	/**
+	 * What every widget name this plugin registers begins with.
+	 *
+	 * A constant because it is read in two places that must agree: the name
+	 * itself, and the panel stylesheet's attribute selector, which is how the
+	 * editor picks this plugin's tiles out of everyone else's.
+	 */
+	public const NAME_PREFIX = 'pixelomatic-';
+
+	/**
 	 * Elementor widget name.
 	 *
 	 * Prefixed so it cannot collide with another plugin's widget, and stable —
@@ -48,7 +57,7 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'pixelomatic-' . static::slug();
+		return self::NAME_PREFIX . static::slug();
 	}
 
 	/**
@@ -460,5 +469,36 @@ abstract class Widget_Base extends Elementor_Widget_Base {
 			esc_attr( $classes ),
 			esc_html( $text )
 		);
+	}
+
+	/**
+	 * The target and rel an Elementor URL control asks for.
+	 *
+	 * Lives here rather than in each widget that renders a link: the pair of
+	 * switches under every URL control mean the same thing everywhere, and a
+	 * second copy is a second place for `noopener` to go missing.
+	 *
+	 * @param array<string, mixed> $link Elementor URL control value.
+	 * @return string Escaped attributes, ready to print.
+	 */
+	protected function link_attributes( array $link ): string {
+		$rel = array();
+
+		if ( ! empty( $link['is_external'] ) ) {
+			$rel[] = 'noopener';
+			$rel[] = 'noreferrer';
+		}
+
+		if ( ! empty( $link['nofollow'] ) ) {
+			$rel[] = 'nofollow';
+		}
+
+		$attributes = ! empty( $link['is_external'] ) ? ' target="_blank"' : '';
+
+		if ( array() !== $rel ) {
+			$attributes .= sprintf( ' rel="%s"', esc_attr( implode( ' ', $rel ) ) );
+		}
+
+		return $attributes;
 	}
 }

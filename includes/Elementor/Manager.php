@@ -239,6 +239,24 @@ final class Manager implements Module {
 	}
 
 	/**
+	 * This plugin's own styling for the editor panel.
+	 *
+	 * Two unrelated things, both of which are panel chrome and neither of
+	 * which is worth a stylesheet: the notice trim, and the mark that says a
+	 * tile in the widget list came from here.
+	 *
+	 * Inline on Elementor's own handle rather than a stylesheet of our own: a
+	 * build artefact, a package rule and a release gate for a handful of
+	 * declarations that only ever apply inside the editor panel is machinery
+	 * with nothing to hold.
+	 *
+	 * @return void
+	 */
+	public function enqueue_panel_styles(): void {
+		wp_add_inline_style( 'elementor-editor', self::notice_trim() . self::panel_watermark() );
+	}
+
+	/**
 	 * Trims this plugin's panel notices down to a plain tinted box.
 	 *
 	 * Every widget notice this plugin prints is an alert control, and Elementor
@@ -252,17 +270,43 @@ final class Manager implements Module {
 	 * are the editor's own furniture and keep the look the rest of the panel
 	 * gives them.
 	 *
-	 * Inline on Elementor's own handle rather than a stylesheet of our own: a
-	 * build artefact, a package rule and a release gate for three declarations
-	 * that only ever apply inside the editor panel is machinery with nothing to
-	 * hold.
-	 *
-	 * @return void
+	 * @return string
 	 */
-	public function enqueue_panel_styles(): void {
-		wp_add_inline_style(
-			'elementor-editor',
-			'.elementor-panel .' . Widget_Base::NOTICE_CLASS . ' .elementor-panel-alert{border-inline-start:0;border-start-start-radius:3px;border-end-start-radius:3px;}'
-		);
+	private static function notice_trim(): string {
+		return '.elementor-panel .' . Widget_Base::NOTICE_CLASS . ' .elementor-panel-alert{border-inline-start:0;border-start-start-radius:3px;border-end-start-radius:3px;}';
+	}
+
+	/**
+	 * Marks every tile in the widget list that belongs to this plugin.
+	 *
+	 * A panel that mixes Elementor's widgets, Pro's and ours gives no sign of
+	 * which is which until something breaks and nobody knows whose it is. The
+	 * mark is the answer to that, and it costs one rule because every widget
+	 * here is named from one prefix — so this is not a list that has to be
+	 * kept in step with `config/widgets.php`; adding a widget marks it.
+	 *
+	 * `data-library-element-type` is what Elementor's own tile template puts
+	 * the widget name in, and the tile is already `position: relative` for the
+	 * badge Elementor pins to atomic widgets. This sits where that badge sits
+	 * — 5px in from the top and the inline end, `inset-inline-end` so it moves
+	 * to the other corner in RTL — and in the editor's own muted text colour,
+	 * so it follows the light and dark themes without knowing they exist.
+	 * `pointer-events: none` keeps it out of the way of the drag.
+	 *
+	 * @return string
+	 */
+	private static function panel_watermark(): string {
+		return '.elementor-panel .elementor-element[data-library-element-type^="' . Widget_Base::NAME_PREFIX . '"]::after{'
+			. 'content:"PX";'
+			. 'position:absolute;'
+			. 'inset-block-start:5px;'
+			. 'inset-inline-end:5px;'
+			. 'color:var(--e-a-color-txt-muted);'
+			. 'font-size:9px;'
+			. 'font-weight:700;'
+			. 'letter-spacing:.06em;'
+			. 'line-height:1;'
+			. 'pointer-events:none;'
+			. '}';
 	}
 }
