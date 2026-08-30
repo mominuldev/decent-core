@@ -1,0 +1,139 @@
+// Table of Contents — the numbered contents rail beside a long document.
+//
+// Its own `pix-` block rather than the theme's `.article-toc`: that one is
+// part of the blog article layout, is built from the post content on the
+// server and has no number column. The two share a shape and nothing else.
+//
+// The rail is sticky here, as the theme's `.article-rail` is sticky, because
+// that is what the component is — a marker that follows the reader. The Style
+// tab's Position control is how an editor turns it off; like every other
+// style control it ships empty, so this is what applies until it is set.
+//
+// `[hidden]` is spelled out because `display: flex` on a class beats the user
+// agent's `[hidden] { display: none }`, and the headings source ships the rail
+// hidden until the script has something to put in it.
+//
+// Scoped to .elementor-widget-pixelomatic-table-of-contents: the theme's
+// stylesheet loads after the plugin's, and the extra class is what wins.
+
+.elementor-widget-pixelomatic-table-of-contents {
+
+  .pix-toc {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pix-toc[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .pix-toc {
+      position: static;
+    }
+  }
+
+  .pix-toc__label {
+    margin: 0;
+    font-size: var(--text-overline);
+    font-weight: 600;
+    line-height: var(--leading-overline);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pix-toc__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pix-toc__link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--ease);
+  }
+
+  // The bar the design draws to the left of every entry. A pseudo-element
+  // rather than a span: it carries no meaning, and the row is a flex
+  // container, so it lays out as the first item either way.
+  .pix-toc__link::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 2px;
+    height: 16px;
+    border-radius: 1px;
+    background: var(--border);
+    transition: background var(--ease);
+  }
+
+  // Held at --muted rather than inherited, so the number stays where the
+  // design puts it when the row beside it goes dark.
+  .pix-toc__number {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-sm);
+    font-weight: 500;
+    line-height: var(--leading-mono-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+
+  .pix-toc__text {
+    min-width: 0;
+    font-size: var(--text-label);
+    font-weight: 500;
+    line-height: var(--leading-label);
+    letter-spacing: var(--tracking-label);
+    overflow-wrap: break-word;
+  }
+
+  @media (hover: hover) {
+    .pix-toc__link:hover {
+      color: var(--ink);
+      text-decoration: none;
+    }
+  }
+
+  .pix-toc__link[aria-current] {
+    color: var(--ink);
+  }
+
+  .pix-toc__link[aria-current] .pix-toc__text {
+    font-weight: 600;
+  }
+
+  .pix-toc__link[aria-current]::before {
+    background: var(--blue);
+  }
+
+  // Sub-headings, when the list is built from more than one level. The indent
+  // is the bar's width plus the row gap, so a nested entry's bar lines up
+  // under the parent's number.
+  .pix-toc__item--h3 .pix-toc__link {
+    padding-left: 14px;
+  }
+
+  .pix-toc__item--h4 .pix-toc__link,
+  .pix-toc__item--h5 .pix-toc__link,
+  .pix-toc__item--h6 .pix-toc__link {
+    padding-left: 28px;
+  }
+
+  // Editor only — the widget prints it, and the script hides it the moment it
+  // has built a list. On the front end it is never rendered.
+  .pix-toc__empty {
+    margin: 0;
+    font-size: var(--text-label-sm);
+    line-height: var(--leading-label-sm);
+    color: var(--muted);
+  }
+}

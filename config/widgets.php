@@ -183,6 +183,24 @@ return array(
 		'default'  => true,
 	),
 
+	// A contents rail, not a second nav menu: the list is normally built in
+	// the browser from the headings already on the page, because an Elementor
+	// document keeps its headings in other widgets rather than in post_content
+	// and there is nothing on the server to read. The theme's `.article-toc`
+	// is the blog's own rail and stays the blog's.
+	'table-of-contents'      => array(
+		'class'    => PixelomaticCore\Elementor\Widgets\Table_Of_Contents::class,
+		'title'    => __( 'Table of Contents', 'pixelomatic-core' ),
+		'category' => 'pixelomatic-content',
+		'group'    => 'navigation',
+		'icon'     => 'eicon-editor-list-ol',
+		'keywords' => array( 'toc', 'table of contents', 'contents', 'anchor', 'jump', 'outline', 'rail' ),
+		'styles'   => array( 'table-of-contents' ),
+		'scripts'  => array( 'table-of-contents' ),
+		'requires' => array(),
+		'default'  => true,
+	),
+
 	// A single `.btn` — the theme's own button, not a class of its own. `style`
 	// covers every modifier the stylesheet ships (`btn--primary` through
 	// `btn--danger`); this widget is a panel over that set, never a second
